@@ -1,0 +1,1530 @@
+/*
+==========================================================
+AS DREAM TEAM
+Page specific styles
+----------------------------------------------------------
+Les composants (navbar, footer, boutons, cartes, etc.)
+sont définis dans components.css.
+
+Ce fichier ne contient que les styles propres aux pages.
+
+Accueil
+Présentation
+Formation
+Compétitions
+Actualités
+Galerie
+Contact
+...
+==========================================================
+*/
+
+
+
+/* =========================================================
+   GLOBAL VISUAL REFINEMENT
+========================================================= */
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    min-height: 100vh;
+    color: var(--sal-text-color);
+    background-color: var(--bs-body-bg);
+    font-size: 1.0625rem;
+    line-height: 1.75;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+}
+
+body,
+button,
+input,
+select,
+textarea {
+    font-family:
+        Inter,
+        "Segoe UI",
+        Roboto,
+        Helvetica,
+        Arial,
+        sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    color: var(--sal-heading-color);
+    line-height: 1.16;
+    letter-spacing: -0.025em;
+}
+
+p {
+    margin-bottom: 1.25rem;
+}
+
+.site-main {
+    overflow: hidden;
+}
+
+.sal-section {
+    padding-top: clamp(4.5rem, 8vw, 7.5rem);
+    padding-bottom: clamp(4.5rem, 8vw, 7.5rem);
+}
+
+.sal-title {
+    font-weight: 850;
+    letter-spacing: -0.04em;
+}
+
+.sal-kicker {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    color: var(--sal-primary);
+    font-size: 0.86rem;
+    font-weight: 850;
+    line-height: 1.4;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+}
+
+.sal-kicker::before {
+    content: "";
+    width: 34px;
+    height: 2px;
+    flex-shrink: 0;
+    background-color: var(--sal-gold);
+}
+
+.sal-muted {
+    color: var(--sal-muted-color);
+    font-size: 1.075rem;
+    line-height: 1.8;
+}
+
+.lead {
+    font-size: clamp(1.15rem, 1.6vw, 1.32rem);
+    line-height: 1.75;
+}
+
+
+/* =========================================================
+   NAVBAR REFINEMENT
+========================================================= */
+
+.site-header {
+    position: relative;
+    z-index: 1030;
+}
+
+.sal-navbar {
+    min-height: 88px;
+    padding-top: 0.8rem;
+    padding-bottom: 0.8rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    background-color: rgba(18, 23, 20, 0.94);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.13);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+}
+
+.sal-navbar .navbar-brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.8rem;
+    margin-right: 2rem;
+    color: #fff;
+    text-decoration: none;
+}
+
+.sal-logo {
+    width: 58px;
+    height: 58px;
+    flex-shrink: 0;
+    object-fit: contain;
+}
+
+.sal-navbar-brand-text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.15;
+}
+
+.sal-navbar-brand-name {
+    color: #fff;
+    font-size: 1.02rem;
+    font-weight: 850;
+    letter-spacing: -0.02em;
+}
+
+.sal-navbar-brand-tagline {
+    margin-top: 0.25rem;
+    color: var(--sal-gold);
+    font-size: 0.7rem;
+    font-weight: 750;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+}
+
+.sal-navbar .navbar-nav {
+    align-items: center;
+    gap: 0.2rem;
+}
+
+.sal-navbar .nav-link {
+    position: relative;
+    padding: 0.7rem 0.85rem !important;
+    color: rgba(255, 255, 255, 0.78);
+    font-size: 0.93rem;
+    font-weight: 700;
+    transition:
+        color 180ms ease,
+        transform 180ms ease;
+}
+
+.sal-navbar .nav-link::after {
+    content: "";
+    position: absolute;
+    right: 0.85rem;
+    bottom: 0.4rem;
+    left: 0.85rem;
+    height: 2px;
+    border-radius: 999px;
+    background-color: var(--sal-gold);
+    transform: scaleX(0);
+    transform-origin: center;
+    transition: transform 180ms ease;
+}
+
+.sal-navbar .nav-link:hover,
+.sal-navbar .nav-link:focus,
+.sal-navbar .nav-link.active {
+    color: #fff;
+}
+
+.sal-navbar .nav-link:hover::after,
+.sal-navbar .nav-link:focus::after,
+.sal-navbar .nav-link.active::after {
+    transform: scaleX(1);
+}
+
+.sal-navbar .navbar-toggler {
+    width: 46px;
+    height: 46px;
+    padding: 0;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    color: #fff;
+    box-shadow: none;
+}
+
+.sal-navbar .navbar-toggler:focus {
+    border-color: var(--sal-gold);
+    box-shadow: 0 0 0 0.2rem rgba(200, 161, 90, 0.15);
+}
+
+.sal-navbar-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    margin-left: 1rem;
+}
+
+.sal-navbar .btn {
+    white-space: nowrap;
+}
+
+
+/* =========================================================
+   BUTTON REFINEMENT
+========================================================= */
+
+.btn-sal-primary,
+.btn-sal-secondary,
+.btn-outline-sal {
+    min-height: 48px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    padding-right: 1.4rem;
+    padding-left: 1.4rem;
+    border-width: 1px;
+    font-size: 0.97rem;
+    font-weight: 800;
+    transition:
+        transform 180ms ease,
+        box-shadow 180ms ease,
+        color 180ms ease,
+        background-color 180ms ease,
+        border-color 180ms ease;
+}
+
+.btn-sal-primary:hover,
+.btn-sal-secondary:hover,
+.btn-outline-sal:hover {
+    transform: translateY(-2px);
+}
+
+.btn-sal-primary:hover,
+.btn-sal-secondary:hover {
+    box-shadow: 0 12px 28px rgba(17, 23, 19, 0.18);
+}
+
+
+/* =========================================================
+   FOOTER REFINEMENT
+========================================================= */
+
+.sal-footer {
+    position: relative;
+    overflow: hidden;
+    padding-top: clamp(4.5rem, 8vw, 7rem);
+    color: rgba(255, 255, 255, 0.76);
+    background:
+        radial-gradient(
+            circle at 90% 10%,
+            rgba(200, 161, 90, 0.12),
+            transparent 28%
+        ),
+        linear-gradient(
+            145deg,
+            #111612,
+            #18231d
+        );
+}
+
+.sal-footer::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: min(92%, 1320px);
+    height: 1px;
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(200, 161, 90, 0.8),
+            transparent
+        );
+    transform: translateX(-50%);
+}
+
+.sal-footer h2,
+.sal-footer h3,
+.sal-footer h4,
+.sal-footer h5,
+.sal-footer h6 {
+    color: #fff;
+}
+
+.sal-footer-title {
+    position: relative;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.8rem;
+    color: #fff;
+    font-size: 1.05rem;
+    font-weight: 850;
+}
+
+.sal-footer-title::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 42px;
+    height: 2px;
+    border-radius: 999px;
+    background-color: var(--sal-gold);
+}
+
+.sal-footer-brand {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.sal-footer-logo {
+    width: 72px;
+    height: 72px;
+    object-fit: contain;
+}
+
+.sal-footer-brand-name {
+    color: #fff;
+    font-size: 1.2rem;
+    font-weight: 850;
+    line-height: 1.25;
+}
+
+.sal-footer p,
+.sal-footer address {
+    color: rgba(255, 255, 255, 0.68);
+    font-size: 0.98rem;
+    line-height: 1.8;
+}
+
+.sal-footer address {
+    margin-bottom: 0;
+    font-style: normal;
+}
+
+.sal-footer a {
+    color: rgba(255, 255, 255, 0.72);
+    text-decoration: none;
+    transition:
+        color 180ms ease,
+        transform 180ms ease;
+}
+
+.sal-footer a:hover {
+    color: var(--sal-gold);
+}
+
+.sal-footer-links {
+    display: grid;
+    gap: 0.75rem;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+.sal-footer-links a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+}
+
+.sal-footer-links a::before {
+    content: "\F285";
+    font-family: "bootstrap-icons";
+    color: var(--sal-gold);
+    font-size: 0.75rem;
+    transition: transform 180ms ease;
+}
+
+.sal-footer-links a:hover::before {
+    transform: translateX(4px);
+}
+
+.sal-footer-contact-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.85rem;
+    margin-bottom: 1rem;
+}
+
+.sal-footer-contact-icon {
+    width: 38px;
+    height: 38px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    border: 1px solid rgba(200, 161, 90, 0.25);
+    border-radius: 50%;
+    color: var(--sal-gold);
+    background-color: rgba(200, 161, 90, 0.08);
+}
+
+.sal-footer-socials {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.65rem;
+    margin-top: 1.5rem;
+}
+
+.sal-footer-social {
+    width: 44px;
+    height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 50%;
+    color: #fff !important;
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.sal-footer-social:hover {
+    color: #171c18 !important;
+    border-color: var(--sal-gold);
+    background-color: var(--sal-gold);
+    transform: translateY(-3px);
+}
+
+.sal-footer-hours {
+    display: grid;
+    gap: 0.7rem;
+}
+
+.sal-footer-hours-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    padding-bottom: 0.7rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    font-size: 0.92rem;
+}
+
+.sal-footer-hours-row span:last-child {
+    color: rgba(255, 255, 255, 0.9);
+    font-weight: 750;
+    text-align: right;
+}
+
+.sal-footer-bottom {
+    margin-top: 4rem;
+    padding-top: 1.4rem;
+    padding-bottom: 1.4rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.sal-footer-bottom,
+.sal-footer-bottom p,
+.sal-footer-bottom a {
+    margin-bottom: 0;
+    color: rgba(255, 255, 255, 0.52);
+    font-size: 0.87rem;
+}
+
+
+/* =========================================================
+   SHARED RESPONSIVE REFINEMENT
+========================================================= */
+
+@media (max-width: 1199.98px) {
+    .sal-navbar .nav-link {
+        padding-right: 0.6rem !important;
+        padding-left: 0.6rem !important;
+        font-size: 0.88rem;
+    }
+
+    .sal-navbar-actions {
+        gap: 0.45rem;
+        margin-left: 0.5rem;
+    }
+
+    .sal-navbar-actions .btn {
+        padding-right: 1rem;
+        padding-left: 1rem;
+    }
+}
+
+@media (max-width: 991.98px) {
+    .sal-navbar {
+        min-height: 78px;
+    }
+
+    .sal-logo {
+        width: 52px;
+        height: 52px;
+    }
+
+    .sal-navbar .navbar-collapse {
+        margin-top: 1rem;
+        padding: 1rem;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 1rem;
+        background-color: rgba(12, 17, 14, 0.97);
+    }
+
+    .sal-navbar .navbar-nav {
+        align-items: stretch;
+    }
+
+    .sal-navbar .nav-link {
+        padding: 0.85rem 0.75rem !important;
+        font-size: 1rem;
+    }
+
+    .sal-navbar .nav-link::after {
+        right: auto;
+        bottom: 0.35rem;
+        left: 0.75rem;
+        width: 34px;
+    }
+
+    .sal-navbar-actions {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        margin-top: 1rem;
+        margin-left: 0;
+    }
+
+    .sal-footer {
+        padding-top: 4.5rem;
+    }
+}
+
+@media (max-width: 575.98px) {
+    body {
+        font-size: 1rem;
+    }
+
+    .sal-section {
+        padding-top: 4rem;
+        padding-bottom: 4rem;
+    }
+
+    .sal-navbar-brand-tagline {
+        display: none;
+    }
+
+    .sal-navbar-brand-name {
+        max-width: 170px;
+        font-size: 0.88rem;
+    }
+
+    .sal-navbar-actions {
+        grid-template-columns: 1fr;
+    }
+
+    .sal-footer-hours-row {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 0.2rem;
+    }
+
+    .sal-footer-hours-row span:last-child {
+        text-align: left;
+    }
+}
+
+
+
+
+
+/* =========================================================
+   HOME PAGE
+========================================================= */
+
+
+/* =========================
+   Hero
+========================= */
+
+.home-hero {
+    position: relative;
+    min-height: 100vh;
+    overflow: hidden;
+    background:
+        linear-gradient(
+            90deg,
+            rgba(15, 20, 16, 0.94) 0%,
+            rgba(15, 20, 16, 0.78) 45%,
+            rgba(15, 20, 16, 0.32) 100%
+        ),
+        url("../images/restaurant/restaurant-01.jpeg")
+        center / cover no-repeat;
+}
+
+.home-hero-overlay {
+    position: absolute;
+    inset: 0;
+    background:
+        radial-gradient(
+            circle at 75% 35%,
+            rgba(200, 161, 90, 0.12),
+            transparent 35%
+        ),
+        linear-gradient(
+            180deg,
+            rgba(0, 0, 0, 0.12),
+            rgba(0, 0, 0, 0.45)
+        );
+}
+
+.home-hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 780px;
+    padding-top: 4rem;
+}
+
+.home-hero .sal-kicker {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    color: var(--sal-gold);
+}
+
+.home-hero .sal-kicker::before {
+    content: "";
+    width: 42px;
+    height: 2px;
+    background: var(--sal-gold);
+}
+
+.home-hero-info {
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.home-hero-icon {
+    width: 38px;
+    height: 38px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    color: var(--sal-gold);
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(6px);
+}
+
+.home-hero-scroll {
+    position: absolute;
+    z-index: 3;
+    left: 50%;
+    bottom: 2rem;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    border-radius: 50%;
+    color: #fff;
+    text-decoration: none;
+    transform: translateX(-50%);
+    animation: home-scroll-bounce 2s infinite;
+}
+
+.home-hero-scroll:hover {
+    color: var(--sal-gold);
+    border-color: var(--sal-gold);
+}
+
+@keyframes home-scroll-bounce {
+    0%,
+    20%,
+    50%,
+    80%,
+    100% {
+        transform: translate(-50%, 0);
+    }
+
+    40% {
+        transform: translate(-50%, -8px);
+    }
+
+    60% {
+        transform: translate(-50%, -4px);
+    }
+}
+
+
+/* =========================
+   Section headings
+========================= */
+
+.home-section-heading {
+    max-width: 760px;
+}
+
+.home-gallery-description {
+    max-width: 440px;
+}
+
+
+/* =========================
+   About section
+========================= */
+
+.home-about-images {
+    position: relative;
+    min-height: 610px;
+    padding-right: 4rem;
+    padding-bottom: 3rem;
+}
+
+.home-about-main-image {
+    width: 100%;
+    height: 570px;
+    display: block;
+    object-fit: cover;
+    border-radius: var(--sal-radius-lg);
+    box-shadow: var(--sal-shadow-lg);
+}
+
+.home-about-secondary-image {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 46%;
+    height: 275px;
+    object-fit: cover;
+    border: 8px solid var(--bs-body-bg);
+    border-radius: var(--sal-radius);
+    box-shadow: var(--sal-shadow);
+}
+
+.home-about-feature {
+    height: 100%;
+    display: flex;
+    gap: 1rem;
+    padding: 1.25rem;
+    border: 1px solid var(--sal-border-color);
+    border-radius: var(--sal-radius);
+    background: var(--bs-body-bg);
+}
+
+.home-about-feature > i {
+    color: var(--sal-gold);
+    font-size: 1.6rem;
+    flex-shrink: 0;
+}
+
+
+/* =========================
+   Services
+========================= */
+
+.home-service-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    padding: 2rem;
+}
+
+.home-service-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 2rem;
+    width: 54px;
+    height: 4px;
+    border-radius: 0 0 1rem 1rem;
+    background: var(--sal-gold);
+}
+
+.home-service-icon {
+    width: 68px;
+    height: 68px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+    border-radius: 1.25rem;
+    color: var(--sal-primary);
+    background: var(--sal-green-soft);
+    font-size: 1.8rem;
+}
+
+[data-bs-theme="dark"] .home-service-icon {
+    color: var(--sal-gold);
+    background: rgba(200, 161, 90, 0.12);
+}
+
+.home-service-card p {
+    flex-grow: 1;
+}
+
+.home-card-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--sal-primary);
+    font-weight: 800;
+    text-decoration: none;
+}
+
+.home-card-link i {
+    transition: transform var(--sal-transition);
+}
+
+.home-card-link:hover {
+    color: var(--sal-primary-dark);
+}
+
+.home-card-link:hover i {
+    transform: translateX(5px);
+}
+
+
+/* =========================
+   Private lounge
+========================= */
+
+.home-private-section {
+    position: relative;
+    overflow: hidden;
+}
+
+.home-private-section::before {
+    content: "";
+    position: absolute;
+    top: 10%;
+    left: -160px;
+    width: 320px;
+    height: 320px;
+    border-radius: 50%;
+    background: rgba(35, 122, 82, 0.06);
+}
+
+.home-check-list {
+    display: grid;
+    gap: 1rem;
+    padding: 0;
+    margin: 2rem 0;
+    list-style: none;
+}
+
+.home-check-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.8rem;
+    font-weight: 700;
+}
+
+.home-check-list i {
+    margin-top: 0.15rem;
+    color: var(--sal-primary);
+}
+
+.home-private-image-wrapper {
+    position: relative;
+    padding: 0 0 2.5rem 2.5rem;
+}
+
+.home-private-image-wrapper::before {
+    content: "";
+    position: absolute;
+    inset: 2.5rem 2.5rem 0 0;
+    border: 2px solid var(--sal-gold);
+    border-radius: var(--sal-radius-lg);
+}
+
+.home-private-image {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    height: 580px;
+    display: block;
+    object-fit: cover;
+    border-radius: var(--sal-radius-lg);
+    box-shadow: var(--sal-shadow-lg);
+}
+
+.home-private-badge {
+    position: absolute;
+    z-index: 2;
+    left: 0;
+    bottom: 0;
+    min-width: 185px;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.25rem;
+    border-radius: var(--sal-radius);
+    color: #fff;
+    background:
+        linear-gradient(
+            135deg,
+            var(--sal-green-dark),
+            var(--sal-primary)
+        );
+    box-shadow: var(--sal-shadow);
+    font-weight: 800;
+}
+
+.home-private-badge i {
+    color: var(--sal-gold);
+    font-size: 1.8rem;
+}
+
+
+/* =========================
+   Gallery
+========================= */
+
+.home-gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-auto-rows: 245px;
+    gap: 1rem;
+}
+
+.home-gallery-item {
+    position: relative;
+    overflow: hidden;
+    display: block;
+    border-radius: var(--sal-radius);
+    box-shadow: var(--sal-shadow-sm);
+}
+
+.home-gallery-item img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    transition:
+        transform 0.6s ease,
+        filter 0.6s ease;
+}
+
+.home-gallery-large {
+    grid-column: span 2;
+    grid-row: span 2;
+}
+
+.home-gallery-wide {
+    grid-column: span 2;
+}
+
+.home-gallery-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    background: rgba(20, 81, 58, 0.35);
+    font-size: 1.6rem;
+    opacity: 0;
+    transition: opacity var(--sal-transition);
+}
+
+.home-gallery-item:hover img {
+    transform: scale(1.07);
+    filter: brightness(72%);
+}
+
+.home-gallery-item:hover .home-gallery-overlay {
+    opacity: 1;
+}
+
+
+/* =========================
+   Opening hours
+========================= */
+
+.home-hours {
+    overflow: hidden;
+    border: 1px solid var(--sal-border-color);
+    border-radius: var(--sal-radius);
+    background: var(--bs-body-bg);
+    box-shadow: var(--sal-shadow-sm);
+}
+
+.home-hours-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    padding: 1.15rem 1.4rem;
+    border-bottom: 1px solid var(--sal-border-color);
+}
+
+.home-hours-row:last-child {
+    border-bottom: 0;
+}
+
+.home-hours-row span {
+    color: var(--sal-muted-color);
+    font-weight: 700;
+}
+
+.home-hours-row strong {
+    color: var(--sal-heading-color);
+    text-align: right;
+}
+
+.home-hours-row:hover {
+    background: var(--sal-green-soft);
+}
+
+[data-bs-theme="dark"] .home-hours-row:hover {
+    background: rgba(35, 122, 82, 0.1);
+}
+
+
+/* =========================
+   Contact card
+========================= */
+
+.home-contact-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: clamp(2rem, 5vw, 4rem);
+    background:
+        linear-gradient(
+            145deg,
+            rgba(35, 122, 82, 0.07),
+            rgba(200, 161, 90, 0.1)
+        ),
+        var(--bs-body-bg);
+}
+
+.home-contact-icon {
+    width: 68px;
+    height: 68px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 2rem;
+    border-radius: 50%;
+    color: #fff;
+    background: var(--sal-primary);
+    box-shadow: var(--sal-shadow-sm);
+    font-size: 1.8rem;
+}
+
+.home-address {
+    color: var(--sal-muted-color);
+    font-size: 1.15rem;
+    font-style: normal;
+    line-height: 1.7;
+}
+
+.home-contact-link {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 1.2rem;
+    border: 1px solid var(--sal-border-color);
+    border-radius: var(--sal-radius-sm);
+    color: var(--sal-heading-color);
+    background: var(--bs-body-bg);
+    text-decoration: none;
+    transition:
+        transform var(--sal-transition),
+        border-color var(--sal-transition);
+}
+
+.home-contact-link:hover {
+    color: var(--sal-primary);
+    border-color: rgba(35, 122, 82, 0.4);
+    transform: translateX(5px);
+}
+
+.home-contact-link > i {
+    color: var(--sal-gold);
+    font-size: 1.4rem;
+}
+
+.home-contact-link span {
+    display: flex;
+    flex-direction: column;
+    font-weight: 800;
+}
+
+.home-contact-link small {
+    color: var(--sal-muted-color);
+    font-weight: 600;
+}
+
+
+/* =========================
+   Reservation CTA
+========================= */
+
+.home-reservation-cta {
+    position: relative;
+    overflow: hidden;
+    padding: clamp(3rem, 7vw, 6rem) 1.5rem;
+    border-radius: var(--sal-radius-lg);
+    background:
+        linear-gradient(
+            135deg,
+            rgba(17, 21, 18, 0.94),
+            rgba(20, 81, 58, 0.88)
+        ),
+        url("../images/restaurant/restaurant-06.jpeg")
+        center / cover no-repeat;
+    box-shadow: var(--sal-shadow-lg);
+}
+
+.home-reservation-cta::before {
+    content: "";
+    position: absolute;
+    top: -100px;
+    right: -100px;
+    width: 270px;
+    height: 270px;
+    border: 1px solid rgba(200, 161, 90, 0.28);
+    border-radius: 50%;
+}
+
+.home-reservation-cta > * {
+    position: relative;
+    z-index: 1;
+}
+
+.home-reservation-cta .sal-kicker {
+    color: var(--sal-gold);
+}
+
+.home-reservation-cta p {
+    max-width: 650px;
+}
+
+
+/* =========================
+   Responsive
+========================= */
+
+@media (max-width: 991.98px) {
+    .home-hero {
+        min-height: 900px;
+        background-position: 65% center;
+    }
+
+    .home-hero-overlay {
+        background:
+            linear-gradient(
+                90deg,
+                rgba(15, 20, 16, 0.94),
+                rgba(15, 20, 16, 0.68)
+            );
+    }
+
+    .home-about-images {
+        min-height: 560px;
+        padding-right: 3rem;
+    }
+
+    .home-about-main-image {
+        height: 510px;
+    }
+
+    .home-private-image {
+        height: 500px;
+    }
+
+    .home-gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 767.98px) {
+    .home-hero-content {
+        padding-top: 6rem;
+    }
+
+    .home-hero-info .d-flex {
+        align-items: flex-start;
+    }
+
+    .home-about-images {
+        min-height: auto;
+        padding: 0 0 4rem;
+    }
+
+    .home-about-main-image {
+        height: 460px;
+    }
+
+    .home-about-secondary-image {
+        right: 1rem;
+        width: 48%;
+        height: 210px;
+    }
+
+    .home-private-image-wrapper {
+        padding: 0 0 2rem 1.5rem;
+    }
+
+    .home-private-image-wrapper::before {
+        inset: 2rem 1.5rem 0 0;
+    }
+
+    .home-private-image {
+        height: 440px;
+    }
+
+    .home-private-badge {
+        min-width: auto;
+    }
+
+    .home-hours-row {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 0.3rem;
+    }
+
+    .home-hours-row strong {
+        text-align: left;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .home-hero {
+        min-height: 820px;
+    }
+
+    .home-hero .sal-hero-title {
+        font-size: clamp(2.25rem, 12vw, 3.3rem);
+    }
+
+    .home-hero .btn {
+        width: 100%;
+    }
+
+    .home-hero-scroll {
+        display: none;
+    }
+
+    .home-about-main-image {
+        height: 410px;
+    }
+
+    .home-about-secondary-image {
+        width: 55%;
+        height: 180px;
+        border-width: 5px;
+    }
+
+    .home-service-card {
+        padding: 1.5rem;
+    }
+
+    .home-private-image {
+        height: 380px;
+    }
+
+    .home-private-badge {
+        right: 1rem;
+        left: 0;
+        justify-content: center;
+    }
+
+    .home-gallery-grid {
+        grid-template-columns: 1fr;
+        grid-auto-rows: 280px;
+    }
+
+    .home-gallery-large,
+    .home-gallery-wide {
+        grid-column: auto;
+        grid-row: auto;
+    }
+
+    .home-contact-card {
+        padding: 2rem 1.25rem;
+    }
+
+    .home-reservation-cta .btn {
+        width: 100%;
+    }
+}
+
+
+/* =========================================================
+   HOME PAGE — IMAGE SIZE CORRECTIONS
+========================================================= */
+
+
+/* Hero: large, but not excessively tall */
+.home-hero {
+    min-height: 680px;
+    height: calc(100vh - 88px);
+    max-height: 820px;
+}
+
+
+/* About section: compact image composition */
+.home-about-images {
+    min-height: 470px;
+    max-width: 560px;
+    margin-right: auto;
+    margin-left: auto;
+    padding-right: 3rem;
+    padding-bottom: 2.5rem;
+}
+
+.home-about-main-image {
+    height: 430px;
+}
+
+.home-about-secondary-image {
+    width: 43%;
+    height: 190px;
+    border-width: 6px;
+}
+
+
+/* Private room: stop the image dominating the section */
+.home-private-image-wrapper {
+    max-width: 560px;
+    margin-right: auto;
+    margin-left: auto;
+    padding: 0 0 2rem 2rem;
+}
+
+.home-private-image-wrapper::before {
+    inset: 2rem 2rem 0 0;
+}
+
+.home-private-image {
+    height: 430px;
+}
+
+
+/* Gallery: slightly more compact */
+.home-gallery-grid {
+    grid-auto-rows: 210px;
+}
+
+
+/* Reduce excessive section height without making it cramped */
+.sal-section {
+    padding-top: clamp(3.75rem, 6vw, 5.5rem);
+    padding-bottom: clamp(3.75rem, 6vw, 5.5rem);
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 991.98px) {
+    .home-hero {
+        min-height: 640px;
+        height: auto;
+        max-height: none;
+        padding-top: 4rem;
+        padding-bottom: 4rem;
+    }
+
+    .home-about-images {
+        min-height: 440px;
+        max-width: 520px;
+        padding-right: 2.5rem;
+    }
+
+    .home-about-main-image {
+        height: 400px;
+    }
+
+    .home-about-secondary-image {
+        height: 175px;
+    }
+
+    .home-private-image-wrapper {
+        max-width: 520px;
+    }
+
+    .home-private-image {
+        height: 400px;
+    }
+
+    .home-gallery-grid {
+        grid-auto-rows: 200px;
+    }
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 767.98px) {
+    .home-hero {
+        min-height: auto;
+        padding-top: 5rem;
+        padding-bottom: 4rem;
+    }
+
+    .home-hero-content {
+        padding-top: 0;
+    }
+
+    .home-about-images {
+        min-height: 390px;
+        max-width: 480px;
+        padding-right: 2rem;
+        padding-bottom: 2rem;
+    }
+
+    .home-about-main-image {
+        height: 350px;
+    }
+
+    .home-about-secondary-image {
+        right: 0;
+        width: 44%;
+        height: 145px;
+    }
+
+    .home-private-image-wrapper {
+        max-width: 480px;
+        padding: 0 0 1.75rem 1.5rem;
+    }
+
+    .home-private-image-wrapper::before {
+        inset: 1.5rem 1.5rem 0 0;
+    }
+
+    .home-private-image {
+        height: 350px;
+    }
+
+    .home-gallery-grid {
+        grid-auto-rows: 190px;
+    }
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 575.98px) {
+    .home-hero {
+        min-height: auto;
+        padding-top: 4rem;
+        padding-bottom: 3.5rem;
+    }
+
+    .home-about-images {
+        min-height: 330px;
+        padding-right: 1.5rem;
+        padding-bottom: 1.5rem;
+    }
+
+    .home-about-main-image {
+        height: 295px;
+    }
+
+    .home-about-secondary-image {
+        width: 46%;
+        height: 120px;
+        border-width: 4px;
+    }
+
+    .home-private-image-wrapper {
+        padding: 0 0 1.5rem 1rem;
+    }
+
+    .home-private-image-wrapper::before {
+        inset: 1rem 1rem 0 0;
+    }
+
+    .home-private-image {
+        height: 300px;
+    }
+
+    .home-private-badge {
+        right: 0.5rem;
+        padding: 0.9rem 1rem;
+        font-size: 0.9rem;
+    }
+
+    .home-gallery-grid {
+        grid-auto-rows: 220px;
+    }
+}

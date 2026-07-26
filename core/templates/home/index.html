@@ -1,0 +1,755 @@
+{% extends "layouts/base.html" %}
+{% load static %}
+
+{% block title %}
+    Saveurs Africans Lounge | Restaurant africain à Voiron
+{% endblock title %}
+
+{% block meta_description %}
+    Découvrez Saveurs Africans Lounge à Voiron : cuisine africaine,
+    espace lounge, privatisation, événements, réservation et commande
+    pour livraison ou retrait.
+{% endblock meta_description %}
+
+{% block content %}
+
+    <!-- =========================
+         Hero
+    ========================== -->
+    <section class="home-hero">
+        <div class="home-hero-overlay"></div>
+
+        <div class="sal-shell position-relative">
+            <div class="row align-items-center min-vh-100 py-5">
+                <div class="col-lg-8 col-xl-7">
+
+                    <div
+                        class="home-hero-content"
+                        data-aos="fade-up"
+                    >
+                        <span class="sal-kicker">
+                            Restaurant africain · Lounge · Événements
+                        </span>
+
+                        <h1 class="sal-hero-title text-white mt-3 mb-4">
+                            Les saveurs de l’Afrique dans une ambiance
+                            chaleureuse et élégante.
+                        </h1>
+
+                        <p class="sal-hero-subtitle text-white-50 mb-4">
+                            Découvrez une cuisine africaine généreuse,
+                            profitez de notre espace lounge et partagez
+                            des moments inoubliables à Voiron.
+                        </p>
+
+                        <div class="d-flex flex-wrap gap-3">
+                            <a
+                                href="#reservation"
+                                class="btn btn-sal-secondary btn-lg rounded-pill px-4"
+                            >
+                                <i class="bi bi-calendar-check me-2"></i>
+                                Réserver une table
+                            </a>
+
+                            <a
+                                href="#"
+                                class="btn btn-outline-light btn-lg rounded-pill px-4"
+                            >
+                                <i class="bi bi-bag-check me-2"></i>
+                                Commander en ligne
+                            </a>
+                        </div>
+
+                        <div class="home-hero-info mt-5">
+                            <div class="d-flex flex-wrap gap-4">
+
+                                <div class="d-flex align-items-center gap-2">
+                                    <span class="home-hero-icon">
+                                        <i class="bi bi-geo-alt-fill"></i>
+                                    </span>
+
+                                    <span class="text-white">
+                                        10 Impasse Ruby, Voiron
+                                    </span>
+                                </div>
+
+                                <div class="d-flex align-items-center gap-2">
+                                    <span class="home-hero-icon">
+                                        <i class="bi bi-telephone-fill"></i>
+                                    </span>
+
+                                    <a
+                                        href="tel:+33616847569"
+                                        class="text-white text-decoration-none"
+                                    >
+                                        06 16 84 75 69
+                                    </a>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <a
+            href="#restaurant"
+            class="home-hero-scroll"
+            aria-label="Découvrir le restaurant"
+        >
+            <i class="bi bi-chevron-down"></i>
+        </a>
+    </section>
+
+
+    <!-- =========================
+         Restaurant introduction
+    ========================== -->
+    <section
+        id="restaurant"
+        class="sal-section"
+    >
+        <div class="sal-shell">
+            <div class="row align-items-center g-5">
+
+                <div
+                    class="col-lg-6"
+                    data-aos="fade-right"
+                >
+                    <div class="home-about-images">
+                        <img
+                            src="{% static 'images/restaurant/restaurant-01.jpeg' %}"
+                            alt="Salle du restaurant Saveurs Africans Lounge"
+                            class="home-about-main-image"
+                        >
+
+                        <img
+                            src="{% static 'images/restaurant/restaurant-05.jpeg' %}"
+                            alt="Espace lounge du restaurant"
+                            class="home-about-secondary-image"
+                        >
+                    </div>
+                </div>
+
+                <div
+                    class="col-lg-6"
+                    data-aos="fade-left"
+                >
+                    <span class="sal-kicker">
+                        Bienvenue chez nous
+                    </span>
+
+                    <h2 class="sal-title display-5 mt-3 mb-4">
+                        Bien plus qu’un restaurant
+                    </h2>
+
+                    <p class="lead">
+                        Saveurs Africans Lounge vous accueille dans un
+                        cadre moderne et convivial pour découvrir une
+                        cuisine africaine authentique et généreuse.
+                    </p>
+
+                    <p class="sal-muted">
+                        Repas en famille, déjeuner entre collègues,
+                        dîner en couple, anniversaire ou soirée privée :
+                        notre équipe vous reçoit dans une atmosphère
+                        chaleureuse pensée pour toutes les occasions.
+                    </p>
+
+                    <div class="row g-3 mt-4">
+
+                        <div class="col-sm-6">
+                            <div class="home-about-feature">
+                                <i class="bi bi-heart-fill"></i>
+
+                                <div>
+                                    <h3 class="h6 fw-black mb-1">
+                                        Cuisine généreuse
+                                    </h3>
+
+                                    <p class="small sal-muted mb-0">
+                                        Des recettes savoureuses préparées
+                                        avec soin.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <div class="home-about-feature">
+                                <i class="bi bi-stars"></i>
+
+                                <div>
+                                    <h3 class="h6 fw-black mb-1">
+                                        Ambiance unique
+                                    </h3>
+
+                                    <p class="small sal-muted mb-0">
+                                        Restaurant, lounge et espace
+                                        événementiel.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="mt-4">
+                        <a
+                            href="#gallery"
+                            class="btn btn-outline-sal rounded-pill px-4"
+                        >
+                            Découvrir notre espace
+                            <i class="bi bi-arrow-right ms-2"></i>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+
+    <!-- =========================
+         Services
+    ========================== -->
+    <section class="sal-section sal-soft-bg">
+        <div class="sal-shell">
+
+            <div
+                class="text-center mx-auto mb-5 home-section-heading"
+                data-aos="fade-up"
+            >
+                <span class="sal-kicker">
+                    Une expérience complète
+                </span>
+
+                <h2 class="sal-title display-5 mt-3">
+                    Profitez du restaurant comme vous le souhaitez
+                </h2>
+
+                <p class="sal-muted mb-0">
+                    Sur place, à emporter, en livraison ou pour célébrer
+                    un moment particulier.
+                </p>
+            </div>
+
+            <div class="row g-4">
+
+                <div
+                    class="col-md-6 col-xl-3"
+                    data-aos="fade-up"
+                >
+                    <article class="sal-card sal-card-hover home-service-card h-100">
+                        <span class="home-service-icon">
+                            <i class="bi bi-calendar2-check"></i>
+                        </span>
+
+                        <h3 class="h5 fw-black">
+                            Réservation
+                        </h3>
+
+                        <p class="sal-muted">
+                            Réservez facilement votre table pour un
+                            déjeuner, un dîner ou une occasion spéciale.
+                        </p>
+
+                        <a
+                            href="#reservation"
+                            class="home-card-link"
+                        >
+                            Réserver
+                            <i class="bi bi-arrow-right"></i>
+                        </a>
+                    </article>
+                </div>
+
+                <div
+                    class="col-md-6 col-xl-3"
+                    data-aos="fade-up"
+                    data-aos-delay="100"
+                >
+                    <article class="sal-card sal-card-hover home-service-card h-100">
+                        <span class="home-service-icon">
+                            <i class="bi bi-bag-heart"></i>
+                        </span>
+
+                        <h3 class="h5 fw-black">
+                            Commande en ligne
+                        </h3>
+
+                        <p class="sal-muted">
+                            Choisissez vos plats et commandez pour
+                            livraison ou retrait au restaurant.
+                        </p>
+
+                        <a
+                            href="#"
+                            class="home-card-link"
+                        >
+                            Commander
+                            <i class="bi bi-arrow-right"></i>
+                        </a>
+                    </article>
+                </div>
+
+                <div
+                    class="col-md-6 col-xl-3"
+                    data-aos="fade-up"
+                    data-aos-delay="200"
+                >
+                    <article class="sal-card sal-card-hover home-service-card h-100">
+                        <span class="home-service-icon">
+                            <i class="bi bi-music-note-beamed"></i>
+                        </span>
+
+                        <h3 class="h5 fw-black">
+                            Événements
+                        </h3>
+
+                        <p class="sal-muted">
+                            Soirées, animations, repas thématiques et
+                            rendez-vous festifs tout au long de l’année.
+                        </p>
+
+                        <a
+                            href="#"
+                            class="home-card-link"
+                        >
+                            Voir les événements
+                            <i class="bi bi-arrow-right"></i>
+                        </a>
+                    </article>
+                </div>
+
+                <div
+                    class="col-md-6 col-xl-3"
+                    data-aos="fade-up"
+                    data-aos-delay="300"
+                >
+                    <article class="sal-card sal-card-hover home-service-card h-100">
+                        <span class="home-service-icon">
+                            <i class="bi bi-people"></i>
+                        </span>
+
+                        <h3 class="h5 fw-black">
+                            Privatisation
+                        </h3>
+
+                        <p class="sal-muted">
+                            Organisez votre anniversaire, dîner privé ou
+                            événement professionnel dans notre espace.
+                        </p>
+
+                        <a
+                            href="#privatisation"
+                            class="home-card-link"
+                        >
+                            Découvrir
+                            <i class="bi bi-arrow-right"></i>
+                        </a>
+                    </article>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+
+    <!-- =========================
+         Private lounge
+    ========================== -->
+    <section
+        id="privatisation"
+        class="sal-section home-private-section"
+    >
+        <div class="sal-shell">
+            <div class="row align-items-center g-5">
+
+                <div
+                    class="col-lg-6 order-2 order-lg-1"
+                    data-aos="fade-right"
+                >
+                    <span class="sal-kicker">
+                        Votre moment, votre espace
+                    </span>
+
+                    <h2 class="sal-title display-5 mt-3 mb-4">
+                        Un espace lounge à privatiser
+                    </h2>
+
+                    <p class="lead">
+                        Célébrez vos événements dans un cadre confortable,
+                        chaleureux et entièrement adapté à vos envies.
+                    </p>
+
+                    <p class="sal-muted">
+                        Anniversaire, repas de groupe, réunion familiale,
+                        soirée privée ou événement professionnel : contactez
+                        notre équipe pour préparer une formule personnalisée.
+                    </p>
+
+                    <ul class="home-check-list">
+                        <li>
+                            <i class="bi bi-check-circle-fill"></i>
+                            Réservation pour les groupes
+                        </li>
+
+                        <li>
+                            <i class="bi bi-check-circle-fill"></i>
+                            Menus et prestations personnalisables
+                        </li>
+
+                        <li>
+                            <i class="bi bi-check-circle-fill"></i>
+                            Possibilité d’acompte pour confirmer la réservation
+                        </li>
+                    </ul>
+
+                    <a
+                        href="tel:+33616847569"
+                        class="btn btn-sal-primary rounded-pill px-4"
+                    >
+                        <i class="bi bi-telephone me-2"></i>
+                        Demander des informations
+                    </a>
+                </div>
+
+                <div
+                    class="col-lg-6 order-1 order-lg-2"
+                    data-aos="fade-left"
+                >
+                    <div class="home-private-image-wrapper">
+                        <img
+                            src="{% static 'images/restaurant/restaurant-04.jpeg' %}"
+                            alt="Espace lounge privé Saveurs Africans Lounge"
+                            class="home-private-image"
+                        >
+
+                        <div class="home-private-badge">
+                            <i class="bi bi-stars"></i>
+
+                            <span>
+                                Anniversaires<br>
+                                & événements
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+
+    <!-- =========================
+         Gallery
+    ========================== -->
+    <section
+        id="gallery"
+        class="sal-section sal-soft-bg"
+    >
+        <div class="sal-shell">
+
+            <div
+                class="d-flex flex-column flex-lg-row justify-content-between align-items-lg-end gap-3 mb-5"
+                data-aos="fade-up"
+            >
+                <div>
+                    <span class="sal-kicker">
+                        Notre univers
+                    </span>
+
+                    <h2 class="sal-title display-5 mt-3 mb-0">
+                        Découvrez le restaurant
+                    </h2>
+                </div>
+
+                <p class="sal-muted mb-0 home-gallery-description">
+                    Une décoration élégante, une ambiance chaleureuse et
+                    plusieurs espaces pour vous accueillir.
+                </p>
+            </div>
+
+            <div class="home-gallery-grid">
+
+                <a
+                    href="{% static 'images/restaurant/restaurant-01.jpeg' %}"
+                    class="home-gallery-item home-gallery-large"
+                    target="_blank"
+                    data-aos="zoom-in"
+                >
+                    <img
+                        src="{% static 'images/restaurant/restaurant-01.jpeg' %}"
+                        alt="Salle principale du restaurant"
+                    >
+
+                    <span class="home-gallery-overlay">
+                        <i class="bi bi-arrows-fullscreen"></i>
+                    </span>
+                </a>
+
+                <a
+                    href="{% static 'images/restaurant/restaurant-02.jpeg' %}"
+                    class="home-gallery-item"
+                    target="_blank"
+                    data-aos="zoom-in"
+                    data-aos-delay="100"
+                >
+                    <img
+                        src="{% static 'images/restaurant/restaurant-02.jpeg' %}"
+                        alt="Tables du restaurant"
+                    >
+
+                    <span class="home-gallery-overlay">
+                        <i class="bi bi-arrows-fullscreen"></i>
+                    </span>
+                </a>
+
+                <a
+                    href="{% static 'images/restaurant/restaurant-03.jpeg' %}"
+                    class="home-gallery-item"
+                    target="_blank"
+                    data-aos="zoom-in"
+                    data-aos-delay="150"
+                >
+                    <img
+                        src="{% static 'images/restaurant/restaurant-03.jpeg' %}"
+                        alt="Coin lounge du restaurant"
+                    >
+
+                    <span class="home-gallery-overlay">
+                        <i class="bi bi-arrows-fullscreen"></i>
+                    </span>
+                </a>
+
+                <a
+                    href="{% static 'images/restaurant/restaurant-05.jpeg' %}"
+                    class="home-gallery-item"
+                    target="_blank"
+                    data-aos="zoom-in"
+                    data-aos-delay="200"
+                >
+                    <img
+                        src="{% static 'images/restaurant/restaurant-05.jpeg' %}"
+                        alt="Salon et décoration intérieure"
+                    >
+
+                    <span class="home-gallery-overlay">
+                        <i class="bi bi-arrows-fullscreen"></i>
+                    </span>
+                </a>
+
+                <a
+                    href="{% static 'images/restaurant/restaurant-06.jpeg' %}"
+                    class="home-gallery-item home-gallery-wide"
+                    target="_blank"
+                    data-aos="zoom-in"
+                    data-aos-delay="250"
+                >
+                    <img
+                        src="{% static 'images/restaurant/restaurant-06.jpeg' %}"
+                        alt="Vue générale de Saveurs Africans Lounge"
+                    >
+
+                    <span class="home-gallery-overlay">
+                        <i class="bi bi-arrows-fullscreen"></i>
+                    </span>
+                </a>
+
+            </div>
+        </div>
+    </section>
+
+
+    <!-- =========================
+         Opening hours and contact
+    ========================== -->
+    <section
+        id="contact"
+        class="sal-section"
+    >
+        <div class="sal-shell">
+            <div class="row g-5">
+
+                <div
+                    class="col-lg-6"
+                    data-aos="fade-right"
+                >
+                    <span class="sal-kicker">
+                        Quand venir ?
+                    </span>
+
+                    <h2 class="sal-title display-5 mt-3 mb-4">
+                        Horaires d’ouverture
+                    </h2>
+
+                    <div class="home-hours">
+
+                        <div class="home-hours-row">
+                            <span>Lundi</span>
+                            <strong>Fermé</strong>
+                        </div>
+
+                        <div class="home-hours-row">
+                            <span>Mardi</span>
+                            <strong>12h–14h · 19h–22h</strong>
+                        </div>
+
+                        <div class="home-hours-row">
+                            <span>Mercredi</span>
+                            <strong>12h–14h · 19h–22h</strong>
+                        </div>
+
+                        <div class="home-hours-row">
+                            <span>Jeudi</span>
+                            <strong>12h–14h · 19h–22h</strong>
+                        </div>
+
+                        <div class="home-hours-row">
+                            <span>Vendredi</span>
+                            <strong>12h–14h · 19h–01h</strong>
+                        </div>
+
+                        <div class="home-hours-row">
+                            <span>Samedi</span>
+                            <strong>12h–14h · 19h–01h</strong>
+                        </div>
+
+                        <div class="home-hours-row">
+                            <span>Dimanche</span>
+                            <strong>Fermé</strong>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div
+                    class="col-lg-6"
+                    data-aos="fade-left"
+                >
+                    <div class="sal-card home-contact-card h-100">
+
+                        <span class="home-contact-icon">
+                            <i class="bi bi-geo-alt-fill"></i>
+                        </span>
+
+                        <span class="sal-kicker">
+                            Nous trouver
+                        </span>
+
+                        <h2 class="sal-title h1 mt-3 mb-4">
+                            Saveurs Africans Lounge
+                        </h2>
+
+                        <address class="home-address">
+                            10 Impasse Ruby<br>
+                            38500 Voiron
+                        </address>
+
+                        <div class="d-grid gap-3 mt-4">
+
+                            <a
+                                href="tel:+33616847569"
+                                class="home-contact-link"
+                            >
+                                <i class="bi bi-telephone-fill"></i>
+
+                                <span>
+                                    <small>Appelez-nous</small>
+                                    06 16 84 75 69
+                                </span>
+                            </a>
+
+                            <a
+                                href="https://www.google.com/maps/search/?api=1&query=10+Impasse+Ruby+38500+Voiron"
+                                class="home-contact-link"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                            >
+                                <i class="bi bi-signpost-2-fill"></i>
+
+                                <span>
+                                    <small>Itinéraire</small>
+                                    Ouvrir dans Google Maps
+                                </span>
+                            </a>
+
+                        </div>
+
+                        <div class="d-flex flex-wrap gap-2 mt-4">
+                            <a
+                                href="#reservation"
+                                class="btn btn-sal-secondary rounded-pill px-4"
+                            >
+                                Réserver une table
+                            </a>
+
+                            <a
+                                href="tel:+33616847569"
+                                class="btn btn-outline-sal rounded-pill px-4"
+                            >
+                                Appeler
+                            </a>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+
+    <!-- =========================
+         Final reservation CTA
+    ========================== -->
+    <section
+        id="reservation"
+        class="sal-section pt-0"
+    >
+        <div class="sal-shell">
+            <div
+                class="home-reservation-cta text-center"
+                data-aos="zoom-in"
+            >
+                <span class="sal-kicker">
+                    Une table vous attend
+                </span>
+
+                <h2 class="display-5 fw-black text-white mt-3 mb-3">
+                    Venez partager un moment savoureux avec nous
+                </h2>
+
+                <p class="text-white-50 mx-auto mb-4">
+                    Contactez-nous dès maintenant pour réserver votre table
+                    ou préparer votre prochain événement.
+                </p>
+
+                <div class="d-flex flex-wrap justify-content-center gap-3">
+                    <a
+                        href="tel:+33616847569"
+                        class="btn btn-sal-secondary btn-lg rounded-pill px-4"
+                    >
+                        <i class="bi bi-telephone-fill me-2"></i>
+                        06 16 84 75 69
+                    </a>
+
+                    <a
+                        href="#"
+                        class="btn btn-outline-light btn-lg rounded-pill px-4"
+                    >
+                        Formulaire de réservation
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock content %}
+
+
+{% block cta %}
+{% endblock cta %}

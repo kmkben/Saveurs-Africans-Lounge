@@ -1,0 +1,33 @@
+{% load static %}
+
+<div class="asdt-card asdt-card-hover h-100">
+    {% if program.image %}
+        <img src="{{ program.image.url }}"
+             alt="{{ program.title }}"
+             class="academy-card-img">
+    {% else %}
+        <img src="{% static 'images/defaults/default-program.jpg' %}"
+             alt="{{ program.title }}"
+             class="academy-card-img">
+    {% endif %}
+
+    <div class="p-4">
+        <span class="asdt-kicker">
+            {{ program.category.name }}
+        </span>
+
+        <h5 class="fw-black mt-2 mb-2">
+            {{ program.title }}
+        </h5>
+
+        <p class="asdt-muted">
+            {{ program.description|truncatewords:24 }}
+        </p>
+
+        {% if program.objectives %}
+            <p class="small fw-bold mb-0">
+                Objectif : {{ program.objectives|truncatewords:12 }}
+            </p>
+        {% endif %}
+    </div>
+</div>

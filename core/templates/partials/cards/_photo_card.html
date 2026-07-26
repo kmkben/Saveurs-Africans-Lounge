@@ -1,0 +1,26 @@
+{% load static %}
+
+<div class="photo-card">
+
+    <img
+        src="{{ photo.image.url }}"
+        alt="{{ photo.title }}"
+        loading="lazy">
+
+    {% if photo.title or photo.description %}
+
+    <div class="photo-card-overlay">
+
+        {% if photo.title %}
+            <h6>{{ photo.title }}</h6>
+        {% endif %}
+
+        {% if photo.description %}
+            <p>{{ photo.description }}</p>
+        {% endif %}
+
+    </div>
+
+    {% endif %}
+
+</div>

@@ -1,0 +1,23 @@
+{% load static %}
+
+<a href="{{ article.get_absolute_url }}" class="news-card asdt-card asdt-card-hover h-100 text-decoration-none">
+    {% if article.image %}
+        <img src="{{ article.image.url }}" alt="{{ article.title }}" class="news-card__image">
+    {% else %}
+        <img src="{% static 'images/defaults/default-news.jpg' %}" alt="{{ article.title }}" class="news-card__image">
+    {% endif %}
+
+    <div class="news-card__body">
+        <span class="asdt-kicker">
+            {{ article.published_at|date:"d F Y" }}
+        </span>
+
+        <h5 class="fw-black mt-2 mb-2">
+            {{ article.title }}
+        </h5>
+
+        <p class="asdt-muted mb-0">
+            {{ article.summary|truncatewords:22 }}
+        </p>
+    </div>
+</a>

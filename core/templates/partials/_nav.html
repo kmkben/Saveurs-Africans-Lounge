@@ -1,0 +1,117 @@
+{% load static %}
+
+<nav class="navbar navbar-expand-xl fixed-top sal-navbar">
+    <div class="container-fluid px-3 px-lg-4">
+
+        <!-- Brand -->
+        <a
+            class="navbar-brand d-flex align-items-center gap-2"
+            href="{% url 'core:home' %}"
+            aria-label="Accueil Saveurs Africans Lounge"
+        >
+            <img
+                src="{% static 'images/branding/logo-saveurs-africans-lounge.PNG' %}"
+                alt="Logo Saveurs Africans Lounge"
+                class="sal-logo"
+                width="58"
+                height="58"
+            >
+
+            <span class="sal-navbar-brand-text">
+                <span class="sal-navbar-brand-name">
+                    Saveurs Africans Lounge
+                </span>
+        
+                <span class="sal-navbar-brand-tagline">
+                    Restaurant africain · Voiron
+                </span>
+            </span>
+        </a>
+
+        <!-- Mobile toggler -->
+        <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#mainNavbar"
+            aria-controls="mainNavbar"
+            aria-expanded="false"
+            aria-label="Afficher le menu"
+        >
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Navigation -->
+        <div class="collapse navbar-collapse" id="mainNavbar">
+            <ul class="navbar-nav ms-xl-auto align-items-xl-center gap-xl-1">
+
+                <li class="nav-item">
+                    <a
+                        class="nav-link"
+                        href="#"
+                    >
+                        Accueil
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a
+                        class="nav-link"
+                        href="#"
+                    >
+                        La carte
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a
+                        class="nav-link"
+                        href="#"
+                    >
+                        Plats du jour
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a
+                        class="nav-link"
+                        href="#"
+                    >
+                        Événements
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a
+                        class="nav-link"
+                        href="#"
+                    >
+                        Galerie
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a
+                        class="nav-link"
+                        href="#"
+                    >
+                        Contact
+                    </a>
+                </li>
+
+            </ul>
+
+            <!-- Main actions -->
+            <div class="sal-navbar-actions">
+                <a href="#reservation" class="btn btn-outline-light rounded-pill">
+                    Réserver
+                </a>
+            
+                <a href="#" class="btn btn-sal-secondary rounded-pill">
+                    Commander
+                </a>
+            </div>
+        </div>
+
+    </div>
+</nav>

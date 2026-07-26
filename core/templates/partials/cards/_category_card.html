@@ -1,0 +1,29 @@
+{% load static %}
+
+<div class="asdt-card asdt-card-hover h-100">
+    {% if category.image %}
+        <img src="{{ category.image.url }}"
+             alt="{{ category.name }}"
+             class="academy-card-img">
+    {% else %}
+        <img src="{% static 'images/defaults/default-category.jpg' %}"
+             alt="{{ category.name }}"
+             class="academy-card-img">
+    {% endif %}
+
+    <div class="p-4">
+        <span class="asdt-kicker">
+            {{ category.min_age }} - {{ category.max_age }} ans
+        </span>
+
+        <h5 class="fw-black mt-2 mb-2">
+            {{ category.name }}
+        </h5>
+
+        {% if category.description %}
+            <p class="asdt-muted mb-0">
+                {{ category.description|truncatewords:22 }}
+            </p>
+        {% endif %}
+    </div>
+</div>

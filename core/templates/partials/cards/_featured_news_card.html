@@ -1,0 +1,27 @@
+{% load static %}
+
+<a href="{{ featured.get_absolute_url }}" class="featured-news-card text-decoration-none">
+    {% if featured.image %}
+        <img src="{{ featured.image.url }}" alt="{{ featured.title }}" class="featured-news-card__image">
+    {% else %}
+        <img src="{% static 'images/defaults/default-news.jpg' %}" alt="{{ featured.title }}" class="featured-news-card__image">
+    {% endif %}
+
+    <div class="featured-news-card__overlay"></div>
+
+    <div class="featured-news-card__content">
+        <span class="asdt-kicker">À la une • {{ featured.published_at|date:"d F Y" }}</span>
+
+        <h2 class="fw-black mt-3 mb-3">
+            {{ featured.title }}
+        </h2>
+
+        <p>
+            {{ featured.summary|truncatewords:28 }}
+        </p>
+
+        <span class="btn btn-asdt-accent fw-bold text-uppercase mt-3">
+            Lire l’article
+        </span>
+    </div>
+</a>

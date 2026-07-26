@@ -1,0 +1,64 @@
+:root {
+    /* Brand colors - Saveurs Africans Lounge identity */
+    --sal-green: #237a52;
+    --sal-green-dark: #14513a;
+    --sal-green-soft: #eaf4ee;
+
+    --sal-gold: #c8a15a;
+    --sal-gold-soft: #f7f0e3;
+
+    --sal-red: #a92f42;
+    --sal-red-dark: #7d1f30;
+
+    --sal-charcoal: #171a18;
+    --sal-charcoal-soft: #242925;
+
+    --sal-cream: #f8f4ec;
+    --sal-white: #ffffff;
+
+    --sal-gray: #6f756f;
+    --sal-light-gray: #e7e8e5;
+
+    /* Semantic aliases */
+    --sal-primary: var(--sal-green);
+    --sal-primary-dark: var(--sal-green-dark);
+    --sal-secondary: var(--sal-gold);
+    --sal-accent: var(--sal-red);
+
+    /* Backgrounds */
+    --sal-light: var(--sal-cream);
+    --sal-dark: var(--sal-charcoal);
+
+    /* Text */
+    --sal-heading-color: var(--sal-charcoal);
+    --sal-text-color: #343934;
+    --sal-muted-color: var(--sal-gray);
+
+    /* Borders */
+    --sal-border-color: rgba(23, 26, 24, 0.12);
+
+    /* Layout */
+    --sal-container: 1180px;
+    --sal-radius-sm: 0.5rem;
+    --sal-radius: 1.25rem;
+    --sal-radius-lg: 2rem;
+
+    /* Effects */
+    --sal-shadow-sm: 0 0.5rem 1rem rgba(20, 81, 58, 0.08);
+    --sal-shadow: 0 1rem 2.5rem rgba(20, 81, 58, 0.14);
+    --sal-shadow-lg: 0 1.5rem 4rem rgba(20, 81, 58, 0.22);
+
+    --sal-transition: 0.25s ease;
+}
+
+[data-bs-theme="dark"] {
+    --sal-light: #111512;
+    --sal-heading-color: #f8f4ec;
+    --sal-text-color: #e2e6e2;
+    --sal-muted-color: #aeb7b0;
+    --sal-border-color: rgba(255, 255, 255, 0.12);
+
+    --sal-shadow-sm: 0 0.5rem 1rem rgba(0, 0, 0, 0.25);
+    --sal-shadow: 0 1rem 2.5rem rgba(0, 0, 0, 0.35);
+    --sal-shadow-lg: 0 1.5rem 4rem rgba(0, 0, 0, 0.45);
+}

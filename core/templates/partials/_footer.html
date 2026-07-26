@@ -1,0 +1,238 @@
+{% load static %}
+
+<footer class="sal-footer">
+    <div class="sal-shell">
+        <div class="row g-5 py-5">
+
+            <!-- Restaurant identity -->
+            <div class="col-lg-4">
+                <div class="d-flex align-items-center gap-3 mb-4">
+                    <img
+                        src="{% static 'images/branding/logo-saveurs-africans-lounge.PNG' %}"
+                        alt="Logo Saveurs Africans Lounge"
+                        class="sal-logo"
+                        width="76"
+                        height="76"
+                    >
+
+                    <div>
+                        <h2 class="h5 fw-black mb-1">
+                            Saveurs Africans Lounge
+                        </h2>
+
+                        <p class="small mb-0 text-white-50">
+                            Restaurant africain, lounge et espace événementiel
+                            à Voiron.
+                        </p>
+                    </div>
+                </div>
+
+                <p class="text-white-50 mb-4">
+                    Découvrez une cuisine africaine généreuse dans une
+                    atmosphère chaleureuse, élégante et festive.
+                </p>
+
+                <!-- Social media -->
+                <div class="d-flex gap-2">
+                    <a
+                        href="#"
+                        class="sal-social-btn border border-light border-opacity-25"
+                        aria-label="Instagram"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        <i class="bi bi-instagram"></i>
+                    </a>
+
+                    <a
+                        href="#"
+                        class="sal-social-btn border border-light border-opacity-25"
+                        aria-label="Facebook"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        <i class="bi bi-facebook"></i>
+                    </a>
+
+                    <a
+                        href="#"
+                        class="sal-social-btn border border-light border-opacity-25"
+                        aria-label="TikTok"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        <i class="bi bi-tiktok"></i>
+                    </a>
+
+                    <a
+                        href="tel:+33616847569"
+                        class="sal-social-btn border border-light border-opacity-25"
+                        aria-label="Téléphoner au restaurant"
+                    >
+                        <i class="bi bi-telephone"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Useful links -->
+            <div class="col-6 col-lg-2">
+                <h3 class="h6 sal-footer-title mb-4">
+                    Découvrir
+                </h3>
+
+                <ul class="list-unstyled d-grid gap-2 mb-0">
+                    <li>
+                        <a href="{% url 'core:home' %}">
+                            Accueil
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="#">
+                            La carte
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="#">
+                            Plats du jour
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="#">
+                            Événements
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="#">
+                            Galerie
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Services -->
+            <div class="col-6 col-lg-2">
+                <h3 class="h6 sal-footer-title mb-4">
+                    Nos services
+                </h3>
+
+                <ul class="list-unstyled d-grid gap-2 mb-0">
+                    <li>
+                        <a href="#">
+                            Réserver une table
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="#">
+                            Commander en ligne
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="#">
+                            Livraison
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="#">
+                            Privatisation
+                        </a>
+                    </li>
+
+                    <li>
+                        <a href="#">
+                            Réserver un événement
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Contact and opening hours -->
+            <div class="col-lg-4">
+                <h3 class="h6 sal-footer-title mb-4">
+                    Nous trouver
+                </h3>
+
+                <ul class="list-unstyled d-grid gap-3 mb-4">
+                    <li class="d-flex gap-3">
+                        <i class="bi bi-geo-alt-fill text-warning"></i>
+
+                        <span>
+                            10 Impasse Ruby<br>
+                            38500 Voiron
+                        </span>
+                    </li>
+
+                    <li class="d-flex gap-3">
+                        <i class="bi bi-telephone-fill text-warning"></i>
+
+                        <a href="tel:+33616847569">
+                            06 16 84 75 69
+                        </a>
+                    </li>
+
+                    <li class="d-flex gap-3">
+                        <i class="bi bi-clock-fill text-warning"></i>
+
+                        <span>
+                            Mardi au jeudi : 12h–14h et 19h–22h<br>
+                            Vendredi et samedi : 12h–14h et 19h–01h<br>
+                            Lundi et dimanche : fermé
+                        </span>
+                    </li>
+                </ul>
+
+                <div class="d-flex flex-wrap gap-2">
+                    <a
+                        href="#"
+                        class="btn btn-sal-secondary rounded-pill px-4"
+                    >
+                        <i class="bi bi-calendar-check me-2"></i>
+                        Réserver
+                    </a>
+
+                    <a
+                        href="tel:+33616847569"
+                        class="btn btn-outline-light rounded-pill px-4"
+                    >
+                        Appeler
+                    </a>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Bottom footer -->
+        <div
+            class="
+                border-top
+                border-light
+                border-opacity-10
+                py-4
+                d-flex
+                flex-column
+                flex-md-row
+                justify-content-between
+                align-items-md-center
+                gap-2
+            "
+        >
+            <p class="small text-white-50 mb-0">
+                &copy; {% now "Y" %} Saveurs Africans Lounge.
+                Tous droits réservés.
+            </p>
+
+            <p class="small text-white-50 mb-0 sal-dev-signature">
+                Conçu avec soin par
+                <a href="#" class="fw-bold">
+                    KMK-Tech
+                </a>
+            </p>
+        </div>
+    </div>
+</footer>

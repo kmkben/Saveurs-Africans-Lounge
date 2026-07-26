@@ -1,0 +1,44 @@
+{% load static %}
+
+<a href="{{ album.get_absolute_url }}"
+   class="asdt-card asdt-card-hover h-100 text-decoration-none overflow-hidden">
+
+    {% if album.cover %}
+        <img src="{{ album.cover.url }}"
+             alt="{{ album.title }}"
+             class="album-cover">
+    {% else %}
+        <img src="{% static 'images/defaults/default-album.jpg' %}"
+             alt="{{ album.title }}"
+             class="album-cover">
+    {% endif %}
+
+    <div class="p-4">
+
+        <span class="asdt-kicker">
+
+            {{ album.created_at|date:"F Y" }}
+
+        </span>
+
+        <h4 class="fw-black mt-2 mb-2">
+
+            {{ album.title }}
+
+        </h4>
+
+        <p class="asdt-muted mb-3">
+
+            {{ album.description|truncatewords:20 }}
+
+        </p>
+
+        <small class="fw-bold">
+
+            {{ album.photos.count }} photo{{ album.photos.count|pluralize }}
+
+        </small>
+
+    </div>
+
+</a>
