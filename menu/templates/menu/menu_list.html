@@ -1,0 +1,347 @@
+{% extends "layouts/base.html" %}
+{% load static %}
+
+{% block title %}La carte | Saveurs Africans Lounge{% endblock %}
+
+{% block meta_description %}
+Découvrez la carte de Saveurs Africans Lounge : spécialités africaines,
+plats faits maison, boissons, desserts et plats du jour à Voiron.
+{% endblock %}
+
+{% block content %}
+
+<section class="menu-hero">
+    <div class="container">
+        <div class="menu-hero-content" data-aos="fade-up">
+            <span class="section-eyebrow">Saveurs authentiques</span>
+
+            <h1>Notre carte</h1>
+
+            <p>
+                Découvrez une cuisine africaine généreuse, préparée avec soin,
+                à partir de produits sélectionnés et de recettes pleines de caractère.
+            </p>
+        </div>
+    </div>
+</section>
+
+
+{% if today_specials %}
+<section class="menu-specials section-padding">
+    <div class="container">
+
+        <div class="section-heading text-center" data-aos="fade-up">
+            <span class="section-eyebrow">À découvrir aujourd’hui</span>
+            <h2>Les plats du jour</h2>
+            <p>
+                Une sélection proposée aujourd’hui par notre cuisine.
+            </p>
+        </div>
+
+        <div class="row g-4 justify-content-center">
+            {% for dish in today_specials %}
+                <div class="col-md-6 col-xl-4" data-aos="fade-up"
+                     data-aos-delay="{{ forloop.counter0 }}00">
+
+                    <article class="menu-special-card">
+
+                        <a href="{{ dish.get_absolute_url }}"
+                           class="menu-special-image">
+
+                            {% if dish.image %}
+                                <img
+                                    src="{{ dish.image.url }}"
+                                    alt="{{ dish.name }}"
+                                    loading="lazy"
+                                >
+                            {% else %}
+                                <div class="menu-image-placeholder">
+                                    <i class="fa-solid fa-utensils"></i>
+                                </div>
+                            {% endif %}
+
+                            <span class="menu-special-badge">
+                                Plat du jour
+                            </span>
+                        </a>
+
+                        <div class="menu-special-content">
+                            <div class="menu-dish-heading">
+                                <h3>
+                                    <a href="{{ dish.get_absolute_url }}">
+                                        {{ dish.name }}
+                                    </a>
+                                </h3>
+
+                                <span class="menu-dish-price">
+                                    {{ dish.price|floatformat:2 }} €
+                                </span>
+                            </div>
+
+                            {% if dish.short_description %}
+                                <p>{{ dish.short_description }}</p>
+                            {% endif %}
+
+                            {% if dish.allergens.all %}
+                                <div class="menu-allergens">
+                                    <span class="menu-allergens-label">
+                                        Allergènes :
+                                    </span>
+
+                                    {% for allergen in dish.allergens.all %}
+                                        <span class="menu-allergen">
+                                            {{ allergen.name }}
+                                        </span>
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+
+                            <div class="menu-dish-actions">
+                                <a href="{{ dish.get_absolute_url }}"
+                                   class="menu-detail-link">
+                                    Voir le plat
+                                    <i class="fa-solid fa-arrow-right"></i>
+                                </a>
+
+                                {% if dish.is_delivery_available %}
+                                    <span class="menu-delivery-status">
+                                        <i class="fa-solid fa-motorcycle"></i>
+                                        Livraison
+                                    </span>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                    </article>
+                </div>
+            {% endfor %}
+        </div>
+
+    </div>
+</section>
+{% endif %}
+
+
+<section class="menu-main section-padding">
+    <div class="container">
+
+        <div class="section-heading text-center" data-aos="fade-up">
+            <span class="section-eyebrow">Entrées, plats et douceurs</span>
+            <h2>Toutes nos spécialités</h2>
+            <p>
+                Parcourez notre carte selon vos envies.
+            </p>
+        </div>
+
+        {% if categories %}
+
+            <nav class="menu-category-navigation"
+                 aria-label="Navigation entre les catégories"
+                 data-aos="fade-up">
+
+                {% for category in categories %}
+                    {% if category.available_dishes %}
+                        <a href="#category-{{ category.slug }}">
+                            {{ category.name }}
+                        </a>
+                    {% endif %}
+                {% endfor %}
+
+            </nav>
+
+            <div class="menu-categories">
+                {% for category in categories %}
+
+                    {% if category.available_dishes %}
+                        <section
+                            id="category-{{ category.slug }}"
+                            class="menu-category"
+                            data-aos="fade-up"
+                        >
+
+                            <header class="menu-category-header">
+                                <div>
+                                    <span class="menu-category-number">
+                                        {{ forloop.counter|stringformat:"02d" }}
+                                    </span>
+
+                                    <h2>{{ category.name }}</h2>
+
+                                    {% if category.description %}
+                                        <p>{{ category.description }}</p>
+                                    {% endif %}
+                                </div>
+
+                                <span class="menu-category-count">
+                                    {{ category.available_dishes|length }}
+                                    plat{{ category.available_dishes|length|pluralize }}
+                                </span>
+                            </header>
+
+                            <div class="row g-4">
+                                {% for dish in category.available_dishes %}
+                                    <div class="col-md-6 col-xl-4">
+
+                                        <article class="menu-dish-card">
+
+                                            <a href="{{ dish.get_absolute_url }}"
+                                               class="menu-dish-image">
+
+                                                {% if dish.image %}
+                                                    <img
+                                                        src="{{ dish.image.url }}"
+                                                        alt="{{ dish.name }}"
+                                                        loading="lazy"
+                                                    >
+                                                {% else %}
+                                                    <div class="menu-image-placeholder">
+                                                        <i class="fa-solid fa-utensils"></i>
+                                                    </div>
+                                                {% endif %}
+
+                                                {% if dish.is_featured %}
+                                                    <span class="menu-featured-badge">
+                                                        Sélection
+                                                    </span>
+                                                {% endif %}
+                                            </a>
+
+                                            <div class="menu-dish-content">
+
+                                                <div class="menu-dish-heading">
+                                                    <h3>
+                                                        <a href="{{ dish.get_absolute_url }}">
+                                                            {{ dish.name }}
+                                                        </a>
+                                                    </h3>
+
+                                                    <span class="menu-dish-price">
+                                                        {{ dish.price|floatformat:2 }} €
+                                                    </span>
+                                                </div>
+
+                                                {% if dish.short_description %}
+                                                    <p class="menu-dish-description">
+                                                        {{ dish.short_description }}
+                                                    </p>
+                                                {% endif %}
+
+                                                {% if dish.allergens.all %}
+                                                    <div class="menu-allergens">
+                                                        <span class="menu-allergens-label">
+                                                            Allergènes :
+                                                        </span>
+
+                                                        {% for allergen in dish.allergens.all %}
+                                                            <span class="menu-allergen"
+                                                                  title="{{ allergen.description }}">
+                                                                {% if allergen.icon %}
+                                                                    <i class="{{ allergen.icon }}"></i>
+                                                                {% endif %}
+
+                                                                {{ allergen.name }}
+                                                            </span>
+                                                        {% endfor %}
+                                                    </div>
+                                                {% endif %}
+
+                                                <div class="menu-dish-actions">
+                                                    <a href="{{ dish.get_absolute_url }}"
+                                                       class="menu-detail-link">
+                                                        Voir le plat
+                                                        <i class="fa-solid fa-arrow-right"></i>
+                                                    </a>
+
+                                                    {% if dish.is_delivery_available %}
+                                                        <span class="menu-delivery-status"
+                                                              title="Disponible à la livraison">
+                                                            <i class="fa-solid fa-motorcycle"></i>
+                                                            Livraison
+                                                        </span>
+                                                    {% endif %}
+                                                </div>
+
+                                            </div>
+                                        </article>
+
+                                    </div>
+                                {% endfor %}
+                            </div>
+
+                        </section>
+                    {% endif %}
+
+                {% endfor %}
+            </div>
+
+        {% else %}
+
+            <div class="menu-empty-state">
+                <i class="fa-solid fa-bowl-food"></i>
+                <h2>La carte arrive bientôt</h2>
+                <p>
+                    Notre équipe prépare actuellement la sélection des plats.
+                </p>
+            </div>
+
+        {% endif %}
+
+    </div>
+</section>
+
+
+<section class="menu-allergen-notice">
+    <div class="container">
+        <div class="menu-allergen-notice-inner">
+
+            <div class="menu-allergen-notice-icon">
+                <i class="fa-solid fa-circle-exclamation"></i>
+            </div>
+
+            <div>
+                <h2>Une allergie ou une intolérance alimentaire&nbsp;?</h2>
+
+                <p>
+                    Les informations indiquées sur notre carte sont fournies à
+                    titre informatif. Prévenez notre équipe lors de votre commande
+                    afin que nous puissions vous renseigner et prendre les
+                    précautions nécessaires.
+                </p>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+<section class="menu-cta section-padding">
+    <div class="container">
+        <div class="menu-cta-inner" data-aos="zoom-in">
+
+            <span class="section-eyebrow">Une envie particulière ?</span>
+
+            <h2>Réservez votre table</h2>
+
+            <p>
+                Venez profiter d’un moment chaleureux dans l’ambiance élégante
+                de Saveurs Africans Lounge.
+            </p>
+
+            <div class="menu-cta-actions">
+                <a href="#"
+                   class="btn btn-primary-custom">
+                    Réserver une table
+                </a>
+
+                <a href="tel:+33616847569"
+                   class="btn btn-outline-custom">
+                    <i class="fa-solid fa-phone"></i>
+                    06 16 84 75 69
+                </a>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+{% endblock %}

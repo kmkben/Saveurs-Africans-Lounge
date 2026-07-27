@@ -1,0 +1,236 @@
+{% extends "layouts/base.html" %}
+{% load static %}
+
+{% block title %}
+{{ dish.name }} | Saveurs Africans Lounge
+{% endblock %}
+
+{% block meta_description %}
+{% if dish.short_description %}
+{{ dish.short_description }}
+{% else %}
+Découvrez {{ dish.name }} sur la carte de Saveurs Africans Lounge à Voiron.
+{% endif %}
+{% endblock %}
+
+{% block content %}
+
+<section class="dish-detail-hero">
+    <div class="container">
+
+        <a href="{% url 'menu:list' %}"
+           class="dish-back-link"
+           data-aos="fade-right">
+            <i class="fa-solid fa-arrow-left"></i>
+            Retour à la carte
+        </a>
+
+        <div class="row align-items-center g-5">
+
+            <div class="col-lg-6" data-aos="fade-right">
+                <div class="dish-detail-image">
+
+                    {% if dish.image %}
+                        <img
+                            src="{{ dish.image.url }}"
+                            alt="{{ dish.name }}"
+                        >
+                    {% else %}
+                        <div class="dish-detail-placeholder">
+                            <i class="fa-solid fa-utensils"></i>
+                        </div>
+                    {% endif %}
+
+                    {% if dish.is_today_special %}
+                        <span class="dish-detail-badge">
+                            Plat du jour
+                        </span>
+                    {% elif dish.is_featured %}
+                        <span class="dish-detail-badge">
+                            Sélection de la maison
+                        </span>
+                    {% endif %}
+
+                </div>
+            </div>
+
+            <div class="col-lg-6" data-aos="fade-left">
+
+                <div class="dish-detail-content">
+
+                    <span class="section-eyebrow">
+                        {{ dish.category.name }}
+                    </span>
+
+                    <h1>{{ dish.name }}</h1>
+
+                    <div class="dish-detail-price">
+                        {{ dish.price|floatformat:2 }} €
+                    </div>
+
+                    {% if dish.short_description %}
+                        <p class="dish-detail-intro">
+                            {{ dish.short_description }}
+                        </p>
+                    {% endif %}
+
+                    {% if dish.description %}
+                        <div class="dish-detail-description">
+                            {{ dish.description|linebreaks }}
+                        </div>
+                    {% endif %}
+
+                    <div class="dish-detail-statuses">
+
+                        <div class="dish-status-item">
+                            <span class="dish-status-icon">
+                                <i class="fa-solid fa-circle-check"></i>
+                            </span>
+
+                            <div>
+                                <strong>Disponible</strong>
+                                <span>Actuellement proposé à la carte</span>
+                            </div>
+                        </div>
+
+                        {% if dish.is_delivery_available %}
+                            <div class="dish-status-item">
+                                <span class="dish-status-icon">
+                                    <i class="fa-solid fa-motorcycle"></i>
+                                </span>
+
+                                <div>
+                                    <strong>Livraison disponible</strong>
+                                    <span>
+                                        Ce plat peut être commandé à domicile
+                                    </span>
+                                </div>
+                            </div>
+                        {% else %}
+                            <div class="dish-status-item dish-status-muted">
+                                <span class="dish-status-icon">
+                                    <i class="fa-solid fa-store"></i>
+                                </span>
+
+                                <div>
+                                    <strong>Sur place uniquement</strong>
+                                    <span>
+                                        Ce plat n’est pas proposé en livraison
+                                    </span>
+                                </div>
+                            </div>
+                        {% endif %}
+
+                    </div>
+
+                    {% if dish.allergens.all %}
+                        <div class="dish-detail-allergens">
+
+                            <h2>Allergènes présents</h2>
+
+                            <div class="dish-detail-allergen-list">
+                                {% for allergen in dish.allergens.all %}
+                                    <span
+                                        class="dish-detail-allergen"
+                                        {% if allergen.description %}
+                                            title="{{ allergen.description }}"
+                                        {% endif %}
+                                    >
+                                        {% if allergen.icon %}
+                                            <i class="{{ allergen.icon }}"></i>
+                                        {% else %}
+                                            <i class="fa-solid fa-circle-exclamation"></i>
+                                        {% endif %}
+
+                                        {{ allergen.name }}
+                                    </span>
+                                {% endfor %}
+                            </div>
+
+                        </div>
+                    {% else %}
+                        <div class="dish-detail-allergens">
+                            <h2>Allergènes</h2>
+
+                            <p class="dish-no-allergen">
+                                Aucun allergène n’est actuellement renseigné
+                                pour ce plat.
+                            </p>
+                        </div>
+                    {% endif %}
+
+                    <div class="dish-detail-actions">
+
+                        {% if dish.is_delivery_available %}
+                            <a href="#"
+                               class="btn btn-primary-custom">
+                                <i class="fa-solid fa-bag-shopping"></i>
+                                Commander ce plat
+                            </a>
+                        {% endif %}
+
+                        <a href="tel:+33616847569"
+                           class="btn btn-outline-custom">
+                            <i class="fa-solid fa-phone"></i>
+                            Nous appeler
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</section>
+
+
+<section class="dish-allergen-warning">
+    <div class="container">
+        <div class="dish-allergen-warning-inner">
+
+            <span class="dish-allergen-warning-icon">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+            </span>
+
+            <div>
+                <h2>Vous avez une allergie ou une intolérance&nbsp;?</h2>
+
+                <p>
+                    Prévenez impérativement notre équipe avant de commander.
+                    Malgré les précautions prises en cuisine, des traces croisées
+                    peuvent être présentes.
+                </p>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+<section class="dish-detail-cta section-padding">
+    <div class="container">
+        <div class="dish-detail-cta-inner" data-aos="fade-up">
+
+            <span class="section-eyebrow">
+                Découvrez davantage
+            </span>
+
+            <h2>Explorez toute notre carte</h2>
+
+            <p>
+                Entrées, spécialités africaines, desserts et boissons :
+                découvrez les autres saveurs proposées par notre cuisine.
+            </p>
+
+            <a href="{% url 'menu:list' %}"
+               class="btn btn-primary-custom">
+                Voir toute la carte
+            </a>
+
+        </div>
+    </div>
+</section>
+
+{% endblock %}
