@@ -70,6 +70,7 @@ INSTALLED_APPS = [
     'core',
     'menu',
     'reservations',
+    'events',
 ]
 
 MIDDLEWARE = [

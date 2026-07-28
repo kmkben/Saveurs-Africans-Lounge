@@ -1,0 +1,137 @@
+{% extends "layouts/base.html" %}
+
+{% block title %}
+{{ event.title }} | Saveurs Africans Lounge
+{% endblock %}
+
+{% block content %}
+
+<section class="event-detail">
+    <div class="container">
+
+        <a href="{% url 'events:list' %}"
+           class="dish-back-link">
+            <i class="fa-solid fa-arrow-left"></i>
+            Retour aux événements
+        </a>
+
+        <div class="row g-5 align-items-center">
+
+            <div class="col-lg-6">
+                <div class="event-detail-image">
+
+                    {% if event.image %}
+                        <img
+                            src="{{ event.image.url }}"
+                            alt="{{ event.title }}"
+                        >
+                    {% else %}
+                        <div class="event-detail-placeholder">
+                            <i class="fa-solid fa-calendar-days"></i>
+                        </div>
+                    {% endif %}
+
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="event-detail-content">
+
+                    {% if event.is_featured %}
+                        <span class="section-eyebrow">
+                            Événement à la une
+                        </span>
+                    {% else %}
+                        <span class="section-eyebrow">
+                            Prochain événement
+                        </span>
+                    {% endif %}
+
+                    <h1>{{ event.title }}</h1>
+
+                    {% if event.short_description %}
+                        <p class="event-detail-intro">
+                            {{ event.short_description }}
+                        </p>
+                    {% endif %}
+
+                    <div class="event-detail-info">
+
+                        <div>
+                            <i class="fa-solid fa-calendar-days"></i>
+
+                            <span>
+                                <strong>Date</strong>
+                                {{ event.start_at|date:"l d F Y" }}
+                            </span>
+                        </div>
+
+                        <div>
+                            <i class="fa-regular fa-clock"></i>
+
+                            <span>
+                                <strong>Heure</strong>
+                                {{ event.start_at|date:"H:i" }}
+                                {% if event.end_at %}
+                                    – {{ event.end_at|date:"H:i" }}
+                                {% endif %}
+                            </span>
+                        </div>
+
+                        {% if event.location %}
+                            <div>
+                                <i class="fa-solid fa-location-dot"></i>
+
+                                <span>
+                                    <strong>Lieu</strong>
+                                    {{ event.location }}
+                                </span>
+                            </div>
+                        {% endif %}
+
+                        <div>
+                            <i class="fa-solid fa-ticket"></i>
+
+                            <span>
+                                <strong>Tarif</strong>
+
+                                {% if event.is_free %}
+                                    Gratuit
+                                {% else %}
+                                    {{ event.price|floatformat:2 }} €
+                                {% endif %}
+                            </span>
+                        </div>
+
+                    </div>
+
+                    <div class="event-detail-description">
+                        {{ event.description|linebreaks }}
+                    </div>
+
+                    <div class="event-detail-actions">
+
+                        {% if event.reservation_required %}
+                            <a href="{% url 'reservations:create' %}"
+                               class="btn btn-primary-custom">
+                                Réserver une table
+                            </a>
+                        {% endif %}
+
+                        <a href="tel:+33616847569"
+                           class="btn btn-outline-custom">
+                            <i class="fa-solid fa-phone"></i>
+                            Nous appeler
+                        </a>
+
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+{% endblock %}

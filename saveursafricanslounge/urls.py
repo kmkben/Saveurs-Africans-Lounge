@@ -28,6 +28,8 @@ urlpatterns = [
     path('carte/', include('menu.urls')),
     
     path('reservations/', include('reservations.urls')),
+    
+    path('evenements/', include('events.urls')),
 ]
 
 if settings.DEBUG:
