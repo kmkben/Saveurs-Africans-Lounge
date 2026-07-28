@@ -26,6 +26,8 @@ urlpatterns = [
     path('', include('core.urls')),
     
     path('carte/', include('menu.urls')),
+    
+    path('reservations/', include('reservations.urls')),
 ]
 
 if settings.DEBUG:

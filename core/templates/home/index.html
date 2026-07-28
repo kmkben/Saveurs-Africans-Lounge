@@ -44,8 +44,8 @@
 
                         <div class="d-flex flex-wrap gap-3">
                             <a
-                                href="#reservation"
-                                class="btn btn-sal-secondary btn-lg rounded-pill px-4"
+                                href="{% url "reservations:create" %}"
+                                class="btn btn-outline-secondary btn-lg rounded-pill px-4"
                             >
                                 <i class="bi bi-calendar-check me-2"></i>
                                 Réserver une table
@@ -257,7 +257,7 @@
                         </p>
 
                         <a
-                            href="#reservation"
+                            href="{% url "reservations:create" %}"
                             class="home-card-link"
                         >
                             Réserver
@@ -681,7 +681,7 @@
 
                         <div class="d-flex flex-wrap gap-2 mt-4">
                             <a
-                                href="#reservation"
+                                href="{% url "reservations:create" %}"
                                 class="btn btn-sal-secondary rounded-pill px-4"
                             >
                                 Réserver une table
