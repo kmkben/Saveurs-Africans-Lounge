@@ -30,6 +30,8 @@ urlpatterns = [
     path('reservations/', include('reservations.urls')),
     
     path('evenements/', include('events.urls')),
+    
+    path('galerie/', include('gallery.urls')),
 ]
 
 if settings.DEBUG:

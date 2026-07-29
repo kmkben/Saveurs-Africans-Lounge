@@ -71,6 +71,7 @@ INSTALLED_APPS = [
     'menu',
     'reservations',
     'events',
+    'gallery',
 ]
 
 MIDDLEWARE = [

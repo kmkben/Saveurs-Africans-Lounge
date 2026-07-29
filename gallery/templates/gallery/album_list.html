@@ -1,0 +1,203 @@
+{% extends "layouts/base.html" %}
+{% load static %}
+
+{% block title %}
+Gallery | Saveurs Africans Lounge
+{% endblock %}
+
+{% block meta_description %}
+<!--Discover the dishes, atmosphere, events and special moments of Saveurs Africans Lounge.-->
+Decouvrez les Plats, les evenement et les moments speciaux de Saveurs Africans Lounge.
+{% endblock %}
+
+{% block content %}
+
+<section class="gallery-hero">
+    <div class="container">
+
+        <span class="section-eyebrow">
+            Saveurs Africans Lounge
+        </span>
+
+        <h1>Nos Galerie</h1>
+
+        <p>
+            Explorez nos plats, restaurant atmosphere,
+            evenements et les moments inoubliables.
+        </p>
+
+    </div>
+</section>
+
+
+<section class="gallery-main section-padding">
+    <div class="container">
+
+        <nav
+            class="gallery-filters"
+            aria-label="Gallery categories"
+        >
+            <a
+                href="{% url 'gallery:albums' %}"
+                class="gallery-filter {% if not selected_category %}active{% endif %}"
+            >
+                Tous les albums
+            </a>
+
+            {% for value, label in categories %}
+                <a
+                    href="{% url 'gallery:albums' %}?category={{ value }}"
+                    class="gallery-filter {% if selected_category == value %}active{% endif %}"
+                >
+                    {{ label }}
+                </a>
+            {% endfor %}
+        </nav>
+
+
+        {% if albums %}
+            <div class="gallery-album-grid">
+
+                {% for album in albums %}
+                    <article
+                        class="gallery-album-card {% if album.is_featured %}gallery-album-featured{% endif %}"
+                    >
+
+                        <a
+                            href="{{ album.get_absolute_url }}"
+                            class="gallery-album-image"
+                        >
+                            <img
+                                src="{{ album.cover_image.url }}"
+                                alt="{{ album.title }}"
+                                loading="lazy"
+                            >
+
+                            <span class="gallery-album-overlay">
+                                <span>
+                                    Voir album
+                                    <i class="fa-solid fa-arrow-right"></i>
+                                </span>
+                            </span>
+                        </a>
+
+                        {% if album.is_featured %}
+                            <span class="gallery-featured-badge">
+                                Featured
+                            </span>
+                        {% endif %}
+
+                        <div class="gallery-album-content">
+
+                            <span class="gallery-category">
+                                {{ album.get_category_display }}
+                            </span>
+
+                            <h2>
+                                <a href="{{ album.get_absolute_url }}">
+                                    {{ album.title }}
+                                </a>
+                            </h2>
+
+                            {% if album.description %}
+                                <p>
+                                    {{ album.description|truncatewords:22 }}
+                                </p>
+                            {% endif %}
+
+                            <div class="gallery-album-footer">
+
+                                <span>
+                                    <i class="fa-regular fa-images"></i>
+
+                                    {{ album.visible_images_count }}
+
+                                    {% if album.visible_images_count == 1 %}
+                                        photo
+                                    {% else %}
+                                        photos
+                                    {% endif %}
+                                </span>
+
+                                <a href="{{ album.get_absolute_url }}">
+                                    Explore
+                                    <i class="fa-solid fa-arrow-right"></i>
+                                </a>
+
+                            </div>
+
+                        </div>
+
+                    </article>
+                {% endfor %}
+
+            </div>
+
+        {% else %}
+            <div class="gallery-empty-state">
+
+                <i class="fa-regular fa-images"></i>
+
+                <h2>Aucun album disponible pour le moment </h2>
+
+                <p>
+                    les photos de notre restaurant seront bientot publiees ici .
+                </p>
+
+                {% if selected_category %}
+                    <a
+                        href="{% url 'gallery:albums' %}"
+                        class="btn btn-primary-custom"
+                    >
+                        Voir tous les albums
+                    </a>
+                {% endif %}
+
+            </div>
+        {% endif %}
+
+    </div>
+</section>
+
+
+<section class="gallery-cta section-padding">
+    <div class="container">
+
+        <div class="gallery-cta-inner">
+
+            <span class="section-eyebrow">
+                Experience it yourself
+            </span>
+
+            <h2>Your table is waiting</h2>
+
+            <p>
+                Discover our cuisine and enjoy the unique atmosphere
+                of Saveurs Africans Lounge.
+            </p>
+
+            <div class="gallery-cta-actions">
+
+                <a
+                    href="{% url 'reservations:create' %}"
+                    class="btn btn-primary-custom"
+                >
+                    <i class="fa-regular fa-calendar-check"></i>
+                    Book a table
+                </a>
+
+                <a
+                    href="{% url 'menu:list' %}"
+                    class="btn btn-outline-custom"
+                >
+                    View the menu
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+{% endblock %}
