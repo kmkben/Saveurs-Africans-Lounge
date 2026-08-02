@@ -6,7 +6,7 @@
         <!-- Brand -->
         <a
             class="navbar-brand d-flex align-items-center gap-2"
-            href="{% url 'core:home' %}"
+            href="{% url 'home' %}"
             aria-label="Accueil Saveurs Africans Lounge"
         >
             <img
@@ -19,7 +19,11 @@
 
             <span class="sal-navbar-brand-text">
                 <span class="sal-navbar-brand-name">
-                    Saveurs Africans Lounge
+                    {% if site_settings|upper %}
+                        {{ site_settings.restaurant_name }}
+                    {% else %}
+                        {{ default_site_name }}
+                    {% endif %}
                 </span>
         
                 <span class="sal-navbar-brand-tagline">
@@ -48,7 +52,7 @@
                 <li class="nav-item">
                     <a
                         class="nav-link"
-                        href="{% url 'core:home' %}"
+                        href="{% url 'home' %}"
                     >
                         Accueil
                     </a>
@@ -93,7 +97,7 @@
                 <li class="nav-item">
                     <a
                         class="nav-link"
-                        href="#"
+                        href="{% url 'contact:contact' %}"
                     >
                         Contact
                     </a>

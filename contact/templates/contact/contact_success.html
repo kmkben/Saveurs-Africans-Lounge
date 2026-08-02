@@ -1,0 +1,73 @@
+{% extends "layouts/base.html" %}
+{% load static %}
+
+{% block title %}
+    Message envoyé |
+    {% if site_settings %}
+        {{ site_settings.restaurant_name }}
+    {% else %}
+        {{ default_site_name }}
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+
+<section class="contact-success-page">
+    <div class="container">
+
+        <div class="contact-success-card text-center">
+
+            <div class="contact-success-icon">
+                <i class="fa-solid fa-check"></i>
+            </div>
+
+            <span class="contact-eyebrow">
+                Merci
+            </span>
+
+            <h1>Votre message a bien été envoyé</h1>
+
+            <p class="contact-success-text">
+                Merci de nous avoir contactés.
+                Notre équipe reviendra vers vous dans les meilleurs délais.
+            </p>
+
+            <div class="contact-success-actions">
+
+                <a
+                    href="{% url 'home' %}"
+                    class="contact-success-primary"
+                >
+                    <i class="fa-solid fa-house"></i>
+                    <span>Retour à l’accueil</span>
+                </a>
+
+                <a
+                    href="{% url 'contact:contact' %}"
+                    class="contact-success-secondary"
+                >
+                    <i class="fa-regular fa-envelope"></i>
+                    <span>Envoyer un autre message</span>
+                </a>
+
+            </div>
+
+            {% if site_settings and site_settings.phone %}
+                <div class="contact-success-help">
+                    <span>
+                        Besoin d’une réponse rapide ?
+                    </span>
+
+                    <a href="tel:{{ site_settings.phone }}">
+                        <i class="fa-solid fa-phone"></i>
+                        {{ site_settings.phone }}
+                    </a>
+                </div>
+            {% endif %}
+
+        </div>
+
+    </div>
+</section>
+
+{% endblock %}

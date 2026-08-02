@@ -67,11 +67,16 @@ INSTALLED_APPS = [
     
     'django.contrib.humanize',
     
+    'crispy_forms',
+    'crispy_bootstrap5',
+    'fontawesomefree',
+    
     'core',
     'menu',
     'reservations',
     'events',
     'gallery',
+    'contact',
 ]
 
 MIDDLEWARE = [
@@ -100,6 +105,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                
+                "core.context_processors.site_settings",
             ],
         },
     },
@@ -204,7 +211,7 @@ ADMIN_EMAIL = env("ADMIN_EMAIL", default=EMAIL_HOST_USER)
 # CONSTANTS SITE INFO
 # --------------------------------------------------
 
-SITE_NAME = "Saveurs Africans Lounge"
+SITE_NAME = "Saveurs Africans Lounge1"
 # SITE_TAGLINE = "Football • Formation • Ambition"
 DEVELOPER_NAME = "KMK-IoTech"
 DEVELOPER_URL = "https://kmk-iotech.com"

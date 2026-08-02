@@ -3692,3 +3692,896 @@ p {
         width: 100%;
     }
 }
+
+
+/* ==================================================
+   CONTACT PAGE
+================================================== */
+
+.contact-page {
+    padding: clamp(3.5rem, 7vw, 6rem) 0;
+    background: var(--sal-light);
+    color: var(--sal-text-color);
+}
+
+
+/* --------------------------------------------------
+   Header
+-------------------------------------------------- */
+
+.contact-header {
+    max-width: 760px;
+    margin: 0 auto 3.5rem;
+}
+
+.contact-eyebrow {
+    display: inline-block;
+    margin-bottom: 0.75rem;
+
+    color: var(--sal-secondary);
+
+    font-size: 0.82rem;
+    font-weight: 800;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+}
+
+.contact-header h1 {
+    margin-bottom: 1rem;
+
+    color: var(--sal-heading-color);
+
+    font-size: clamp(2.4rem, 5vw, 4rem);
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -0.035em;
+}
+
+.contact-header p {
+    max-width: 680px;
+    margin: 0 auto;
+
+    color: var(--sal-muted-color);
+
+    font-size: 1.05rem;
+    line-height: 1.8;
+}
+
+
+/* --------------------------------------------------
+   Cards
+-------------------------------------------------- */
+
+.contact-info-card,
+.contact-form-card {
+    height: 100%;
+    padding: clamp(1.75rem, 4vw, 2.75rem);
+
+    border: 1px solid var(--sal-border-color);
+    border-radius: var(--sal-radius);
+
+    background: var(--bs-body-bg);
+    color: var(--sal-text-color);
+
+    box-shadow: var(--sal-shadow);
+}
+
+.contact-info-header,
+.contact-form-header {
+    margin-bottom: 2.25rem;
+}
+
+.contact-info-header h2,
+.contact-form-header h2 {
+    margin-bottom: 0.75rem;
+
+    color: var(--sal-heading-color);
+
+    font-size: clamp(1.6rem, 3vw, 2rem);
+    font-weight: 800;
+}
+
+.contact-info-header p,
+.contact-form-header p {
+    margin: 0;
+
+    color: var(--sal-muted-color);
+
+    line-height: 1.7;
+}
+
+
+/* --------------------------------------------------
+   Contact information
+-------------------------------------------------- */
+
+.contact-info-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.75rem;
+}
+
+.contact-info-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+}
+
+.contact-info-icon {
+    display: inline-flex;
+    flex: 0 0 50px;
+    align-items: center;
+    justify-content: center;
+
+    width: 50px;
+    height: 50px;
+
+    border-radius: 50%;
+
+    background: var(--sal-green-soft);
+    color: var(--sal-primary);
+
+    font-size: 1.1rem;
+
+    transition:
+        transform var(--sal-transition),
+        background-color var(--sal-transition);
+}
+
+.contact-info-item:hover .contact-info-icon {
+    transform: translateY(-2px);
+}
+
+.contact-info-item h3 {
+    margin: 0 0 0.35rem;
+
+    color: var(--sal-heading-color);
+
+    font-size: 1rem;
+    font-weight: 700;
+}
+
+.contact-info-item p,
+.contact-info-item a {
+    margin: 0;
+
+    color: var(--sal-muted-color);
+
+    font-size: 0.96rem;
+    line-height: 1.65;
+    text-decoration: none;
+}
+
+.contact-info-item a {
+    transition: color var(--sal-transition);
+}
+
+.contact-info-item a:hover {
+    color: var(--sal-primary);
+}
+
+
+/* --------------------------------------------------
+   Social networks
+-------------------------------------------------- */
+
+.contact-socials {
+    margin-top: 2.5rem;
+    padding-top: 2rem;
+
+    border-top: 1px solid var(--sal-border-color);
+}
+
+.contact-socials h3 {
+    margin-bottom: 1rem;
+
+    color: var(--sal-heading-color);
+
+    font-size: 1rem;
+    font-weight: 700;
+}
+
+.contact-social-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+}
+
+.contact-social-links a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 44px;
+    height: 44px;
+
+    border: 1px solid var(--sal-border-color);
+    border-radius: 50%;
+
+    background: transparent;
+    color: var(--sal-text-color);
+
+    text-decoration: none;
+
+    transition:
+        transform var(--sal-transition),
+        background-color var(--sal-transition),
+        border-color var(--sal-transition),
+        color var(--sal-transition);
+}
+
+.contact-social-links a:hover {
+    transform: translateY(-3px);
+
+    border-color: var(--sal-primary);
+
+    background: var(--sal-primary);
+    color: var(--sal-white);
+}
+
+
+/* --------------------------------------------------
+   Form
+-------------------------------------------------- */
+
+.contact-form-card .form-label {
+    margin-bottom: 0.5rem;
+
+    color: var(--sal-heading-color);
+
+    font-size: 0.9rem;
+    font-weight: 700;
+}
+
+.contact-form-card .required {
+    color: var(--sal-accent);
+}
+
+.contact-form-card .form-control,
+.contact-form-card .form-select {
+    min-height: 52px;
+
+    padding: 0.8rem 1rem;
+
+    border: 1px solid var(--sal-border-color);
+    border-radius: var(--sal-radius-sm);
+
+    background-color: var(--bs-body-bg);
+    color: var(--bs-body-color);
+
+    box-shadow: none;
+
+    transition:
+        border-color var(--sal-transition),
+        box-shadow var(--sal-transition),
+        background-color var(--sal-transition);
+}
+
+.contact-form-card textarea.form-control {
+    min-height: 160px;
+    resize: vertical;
+}
+
+.contact-form-card .form-control::placeholder {
+    color: var(--sal-muted-color);
+    opacity: 0.75;
+}
+
+.contact-form-card .form-control:focus,
+.contact-form-card .form-select:focus {
+    border-color: var(--sal-primary);
+
+    background-color: var(--bs-body-bg);
+    color: var(--bs-body-color);
+
+    box-shadow:
+        0 0 0 0.2rem rgba(35, 122, 82, 0.15);
+}
+
+
+/* --------------------------------------------------
+   Help / errors
+-------------------------------------------------- */
+
+.form-help {
+    margin-top: 0.4rem;
+
+    color: var(--sal-muted-color);
+
+    font-size: 0.8rem;
+    line-height: 1.5;
+}
+
+.form-error {
+    margin-top: 0.4rem;
+
+    color: var(--sal-accent);
+
+    font-size: 0.84rem;
+    font-weight: 600;
+}
+
+
+/* --------------------------------------------------
+   Contact form footer
+-------------------------------------------------- */
+
+.contact-form-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+
+    margin-top: 2rem;
+}
+
+.contact-form-note {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.55rem;
+
+    max-width: 430px;
+    margin: 0;
+
+    color: var(--sal-muted-color);
+
+    font-size: 0.8rem;
+    line-height: 1.6;
+}
+
+.contact-form-note i {
+    margin-top: 0.2rem;
+
+    color: var(--sal-primary);
+}
+
+
+/* --------------------------------------------------
+   Submit button
+-------------------------------------------------- */
+
+.contact-submit-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.65rem;
+
+    min-height: 50px;
+    padding: 0.8rem 1.6rem;
+
+    border: 1px solid var(--sal-primary);
+    border-radius: 999px;
+
+    background: var(--sal-primary);
+    color: var(--sal-white);
+
+    font-weight: 700;
+
+    box-shadow: var(--sal-shadow-sm);
+
+    transition:
+        transform var(--sal-transition),
+        background-color var(--sal-transition),
+        border-color var(--sal-transition),
+        box-shadow var(--sal-transition);
+}
+
+.contact-submit-btn:hover {
+    transform: translateY(-2px);
+
+    border-color: var(--sal-primary-dark);
+
+    background: var(--sal-primary-dark);
+    color: var(--sal-white);
+
+    box-shadow: var(--sal-shadow);
+}
+
+
+/* ==================================================
+   CONTACT SUCCESS PAGE
+================================================== */
+
+.contact-success-page {
+    display: flex;
+    align-items: center;
+
+    min-height: 70vh;
+    padding: clamp(3.5rem, 7vw, 6rem) 0;
+
+    background: var(--sal-light);
+    color: var(--sal-text-color);
+}
+
+.contact-success-card {
+    max-width: 760px;
+    margin: 0 auto;
+
+    padding: clamp(2rem, 6vw, 4rem);
+
+    border: 1px solid var(--sal-border-color);
+    border-radius: var(--sal-radius-lg);
+
+    background: var(--bs-body-bg);
+    color: var(--sal-text-color);
+
+    box-shadow: var(--sal-shadow-lg);
+}
+
+
+/* --------------------------------------------------
+   Success icon
+-------------------------------------------------- */
+
+.contact-success-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 84px;
+    height: 84px;
+
+    margin: 0 auto 1.75rem;
+
+    border-radius: 50%;
+
+    background: var(--sal-green-soft);
+    color: var(--sal-primary);
+
+    font-size: 2rem;
+}
+
+.contact-success-card h1 {
+    margin-bottom: 1rem;
+
+    color: var(--sal-heading-color);
+
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    font-weight: 800;
+    line-height: 1.15;
+    letter-spacing: -0.035em;
+}
+
+.contact-success-text {
+    max-width: 580px;
+    margin: 0 auto;
+
+    color: var(--sal-muted-color);
+
+    font-size: 1.05rem;
+    line-height: 1.8;
+}
+
+
+/* --------------------------------------------------
+   Success actions
+-------------------------------------------------- */
+
+.contact-success-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+
+    margin-top: 2.5rem;
+}
+
+.contact-success-primary,
+.contact-success-secondary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+
+    min-height: 50px;
+    padding: 0.8rem 1.5rem;
+
+    border-radius: 999px;
+
+    font-weight: 700;
+    text-decoration: none;
+
+    transition:
+        transform var(--sal-transition),
+        background-color var(--sal-transition),
+        border-color var(--sal-transition),
+        color var(--sal-transition),
+        box-shadow var(--sal-transition);
+}
+
+.contact-success-primary {
+    border: 1px solid var(--sal-primary);
+
+    background: var(--sal-primary);
+    color: var(--sal-white);
+
+    box-shadow: var(--sal-shadow-sm);
+}
+
+.contact-success-primary:hover {
+    transform: translateY(-2px);
+
+    border-color: var(--sal-primary-dark);
+
+    background: var(--sal-primary-dark);
+    color: var(--sal-white);
+
+    box-shadow: var(--sal-shadow);
+}
+
+.contact-success-secondary {
+    border: 1px solid var(--sal-secondary);
+
+    background: transparent;
+    color: var(--sal-secondary);
+}
+
+.contact-success-secondary:hover {
+    transform: translateY(-2px);
+
+    background: var(--sal-secondary);
+    color: var(--sal-charcoal);
+}
+
+
+/* --------------------------------------------------
+   Quick contact
+-------------------------------------------------- */
+
+.contact-success-help {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 0.65rem;
+
+    margin-top: 2.5rem;
+    padding-top: 2rem;
+
+    border-top: 1px solid var(--sal-border-color);
+}
+
+.contact-success-help span {
+    color: var(--sal-muted-color);
+}
+
+.contact-success-help a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+
+    color: var(--sal-primary);
+
+    font-weight: 700;
+    text-decoration: none;
+
+    transition: color var(--sal-transition);
+}
+
+.contact-success-help a:hover {
+    color: var(--sal-primary-dark);
+}
+
+
+/* ==================================================
+   DARK MODE ADJUSTMENTS
+================================================== */
+
+[data-bs-theme="dark"] .contact-info-icon,
+[data-bs-theme="dark"] .contact-success-icon {
+    background: rgba(35, 122, 82, 0.2);
+    color: #6fc29a;
+}
+
+[data-bs-theme="dark"] .contact-info-item a:hover,
+[data-bs-theme="dark"] .contact-success-help a {
+    color: var(--sal-gold);
+}
+
+[data-bs-theme="dark"] .contact-success-help a:hover {
+    color: var(--sal-gold-soft);
+}
+
+[data-bs-theme="dark"] .contact-form-note i {
+    color: var(--sal-gold);
+}
+
+[data-bs-theme="dark"] .contact-form-card .form-control:focus,
+[data-bs-theme="dark"] .contact-form-card .form-select:focus {
+    border-color: var(--sal-gold);
+
+    box-shadow:
+        0 0 0 0.2rem rgba(200, 161, 90, 0.16);
+}
+
+
+/* ==================================================
+   RESPONSIVE
+================================================== */
+
+@media (max-width: 991.98px) {
+    .contact-header {
+        margin-bottom: 2.5rem;
+    }
+
+    .contact-info-card,
+    .contact-form-card {
+        padding: 2rem;
+    }
+}
+
+
+@media (max-width: 767.98px) {
+    .contact-info-card,
+    .contact-form-card,
+    .contact-success-card {
+        padding: 1.5rem;
+        border-radius: var(--sal-radius);
+    }
+
+    .contact-form-footer {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .contact-submit-btn {
+        width: 100%;
+    }
+
+    .contact-form-note {
+        max-width: none;
+    }
+
+    .contact-success-actions {
+        flex-direction: column;
+    }
+
+    .contact-success-primary,
+    .contact-success-secondary {
+        width: 100%;
+    }
+}
+
+
+@media (max-width: 575.98px) {
+    .contact-header h1 {
+        font-size: 2.25rem;
+    }
+
+    .contact-info-header h2,
+    .contact-form-header h2 {
+        font-size: 1.5rem;
+    }
+
+    .contact-info-icon {
+        flex-basis: 44px;
+
+        width: 44px;
+        height: 44px;
+    }
+
+    .contact-success-icon {
+        width: 72px;
+        height: 72px;
+
+        font-size: 1.7rem;
+    }
+}
+
+
+/* ==================================================
+   CONTACT SUCCESS PAGE
+================================================== */
+
+.contact-success-page {
+    display: flex;
+    align-items: center;
+
+    min-height: 70vh;
+    padding: clamp(3.5rem, 7vw, 6rem) 0;
+
+    background: var(--sal-light);
+    color: var(--sal-text-color);
+}
+
+.contact-success-card {
+    max-width: 760px;
+    margin: 0 auto;
+
+    padding: clamp(2rem, 6vw, 4rem);
+
+    border: 1px solid var(--sal-border-color);
+    border-radius: var(--sal-radius-lg);
+
+    background: var(--bs-body-bg);
+    color: var(--sal-text-color);
+
+    box-shadow: var(--sal-shadow-lg);
+}
+
+.contact-success-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 84px;
+    height: 84px;
+
+    margin: 0 auto 1.75rem;
+
+    border-radius: 50%;
+
+    background: var(--sal-green-soft);
+    color: var(--sal-primary);
+
+    font-size: 2rem;
+}
+
+.contact-success-card h1 {
+    margin-bottom: 1rem;
+
+    color: var(--sal-heading-color);
+
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    font-weight: 800;
+    line-height: 1.15;
+    letter-spacing: -0.035em;
+}
+
+.contact-success-text {
+    max-width: 580px;
+    margin: 0 auto;
+
+    color: var(--sal-muted-color);
+
+    font-size: 1.05rem;
+    line-height: 1.8;
+}
+
+.contact-success-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+
+    margin-top: 2.5rem;
+}
+
+.contact-success-primary,
+.contact-success-secondary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+
+    min-height: 50px;
+    padding: 0.8rem 1.5rem;
+
+    border-radius: 999px;
+
+    font-weight: 700;
+    text-decoration: none;
+
+    transition:
+        transform var(--sal-transition),
+        background-color var(--sal-transition),
+        border-color var(--sal-transition),
+        color var(--sal-transition),
+        box-shadow var(--sal-transition);
+}
+
+.contact-success-primary {
+    border: 1px solid var(--sal-primary);
+
+    background: var(--sal-primary);
+    color: var(--sal-white);
+
+    box-shadow: var(--sal-shadow-sm);
+}
+
+.contact-success-primary:hover {
+    transform: translateY(-2px);
+
+    border-color: var(--sal-primary-dark);
+
+    background: var(--sal-primary-dark);
+    color: var(--sal-white);
+
+    box-shadow: var(--sal-shadow);
+}
+
+.contact-success-secondary {
+    border: 1px solid var(--sal-secondary);
+
+    background: transparent;
+    color: var(--sal-secondary);
+}
+
+.contact-success-secondary:hover {
+    transform: translateY(-2px);
+
+    background: var(--sal-secondary);
+    color: var(--sal-charcoal);
+}
+
+.contact-success-help {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 0.65rem;
+
+    margin-top: 2.5rem;
+    padding-top: 2rem;
+
+    border-top: 1px solid var(--sal-border-color);
+}
+
+.contact-success-help span {
+    color: var(--sal-muted-color);
+}
+
+.contact-success-help a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+
+    color: var(--sal-primary);
+
+    font-weight: 700;
+    text-decoration: none;
+
+    transition: color var(--sal-transition);
+}
+
+.contact-success-help a:hover {
+    color: var(--sal-primary-dark);
+}
+
+
+/* --------------------------------------------------
+   Dark mode
+-------------------------------------------------- */
+
+[data-bs-theme="dark"] .contact-success-icon {
+    background: rgba(35, 122, 82, 0.2);
+    color: #6fc29a;
+}
+
+[data-bs-theme="dark"] .contact-success-help a {
+    color: var(--sal-gold);
+}
+
+[data-bs-theme="dark"] .contact-success-help a:hover {
+    color: var(--sal-gold-soft);
+}
+
+
+/* --------------------------------------------------
+   Responsive
+-------------------------------------------------- */
+
+@media (max-width: 767.98px) {
+    .contact-success-card {
+        padding: 1.5rem;
+        border-radius: var(--sal-radius);
+    }
+
+    .contact-success-actions {
+        flex-direction: column;
+    }
+
+    .contact-success-primary,
+    .contact-success-secondary {
+        width: 100%;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .contact-success-icon {
+        width: 72px;
+        height: 72px;
+
+        font-size: 1.7rem;
+    }
+}

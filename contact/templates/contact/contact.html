@@ -1,0 +1,362 @@
+{% extends "layouts/base.html" %}
+{% load static %}
+
+{% block title %}
+    Nous contacter | {{ site_settings.restaurant_name|default:"Saveurs Africans Lounge" }}
+{% endblock %}
+
+{% block content %}
+
+<section class="contact-page">
+    <div class="container">
+
+        <div class="contact-header text-center">
+            <span class="contact-eyebrow">Contact</span>
+
+            <h1>Nous contacter</h1>
+
+            <p>
+                Une question, une demande particulière ou un projet
+                d’événement ? Écrivez-nous, notre équipe vous répondra
+                dans les meilleurs délais.
+            </p>
+        </div>
+
+        <div class="row g-4 align-items-stretch">
+
+            <!-- Contact information -->
+            <div class="col-lg-5">
+                <div class="contact-info-card h-100 bg-tertiary-subtle bg-gradient shadow">
+
+                    <div class="contact-info-header">
+                        <span class="contact-eyebrow">
+                            Saveurs Africans Lounge
+                        </span>
+
+                        <h2>Restons en contact</h2>
+
+                        <p>
+                            Retrouvez ici toutes les informations utiles
+                            pour nous joindre ou venir nous rendre visite.
+                        </p>
+                    </div>
+
+                    <div class="contact-info-list">
+
+                        {% if site_settings.address %}
+                            <div class="contact-info-item">
+                                <div class="contact-info-icon">
+                                    <i class="fa-solid fa-location-dot"></i>
+                                </div>
+
+                                <div>
+                                    <h3>Adresse</h3>
+
+                                    {% if site_settings.google_maps_url %}
+                                        <a
+                                            href="{{ site_settings.google_maps_url }}"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                        >
+                                            {{ site_settings.address }}
+                                            {% if site_settings.postal_code or site_settings.city %}
+                                                <br>
+                                                {{ site_settings.postal_code }}
+                                                {{ site_settings.city }}
+                                            {% endif %}
+                                        </a>
+                                    {% else %}
+                                        <p>
+                                            {{ site_settings.address }}
+
+                                            {% if site_settings.postal_code or site_settings.city %}
+                                                <br>
+                                                {{ site_settings.postal_code }}
+                                                {{ site_settings.city }}
+                                            {% endif %}
+                                        </p>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        {% endif %}
+
+
+                        {% if site_settings.phone %}
+                            <div class="contact-info-item">
+                                <div class="contact-info-icon">
+                                    <i class="fa-solid fa-phone"></i>
+                                </div>
+
+                                <div>
+                                    <h3>Téléphone</h3>
+
+                                    <a href="tel:{{ site_settings.phone }}">
+                                        {{ site_settings.phone }}
+                                    </a>
+                                </div>
+                            </div>
+                        {% endif %}
+
+
+                        {% if site_settings.email %}
+                            <div class="contact-info-item">
+                                <div class="contact-info-icon">
+                                    <i class="fa-solid fa-envelope"></i>
+                                </div>
+
+                                <div>
+                                    <h3>E-mail</h3>
+
+                                    <a href="mailto:{{ site_settings.email }}">
+                                        {{ site_settings.email }}
+                                    </a>
+                                </div>
+                            </div>
+                        {% endif %}
+
+
+                        {% if site_settings.opening_hours %}
+                            <div class="contact-info-item">
+                                <div class="contact-info-icon">
+                                    <i class="fa-regular fa-clock"></i>
+                                </div>
+
+                                <div>
+                                    <h3>Horaires</h3>
+
+                                    <p>
+                                        {{ site_settings.opening_hours|linebreaksbr }}
+                                    </p>
+                                </div>
+                            </div>
+                        {% endif %}
+
+                    </div>
+
+
+                    {% if site_settings.facebook_url or site_settings.instagram_url or site_settings.tiktok_url %}
+                        <div class="contact-socials">
+
+                            <h3>Suivez-nous</h3>
+
+                            <div class="contact-social-links">
+
+                                {% if site_settings.facebook_url %}
+                                    <a
+                                        href="{{ site_settings.facebook_url }}"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        aria-label="Facebook"
+                                    >
+                                        <i class="fa-brands fa-facebook-f"></i>
+                                    </a>
+                                {% endif %}
+
+                                {% if site_settings.instagram_url %}
+                                    <a
+                                        href="{{ site_settings.instagram_url }}"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        aria-label="Instagram"
+                                    >
+                                        <i class="fa-brands fa-instagram"></i>
+                                    </a>
+                                {% endif %}
+
+                                {% if site_settings.tiktok_url %}
+                                    <a
+                                        href="{{ site_settings.tiktok_url }}"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        aria-label="TikTok"
+                                    >
+                                        <i class="fa-brands fa-tiktok"></i>
+                                    </a>
+                                {% endif %}
+
+                            </div>
+                        </div>
+                    {% endif %}
+
+                </div>
+            </div>
+
+
+            <!-- Contact form -->
+            <div class="col-lg-7">
+                <div class="contact-form-card h-100 bg-tertiary-subtle bg-gradient shadow">
+
+                    <div class="contact-form-header">
+                        <span class="contact-eyebrow">
+                            Écrivez-nous
+                        </span>
+
+                        <h2>Envoyez-nous un message</h2>
+
+                        <p>
+                            Remplissez le formulaire ci-dessous et nous
+                            reviendrons vers vous dès que possible.
+                        </p>
+                    </div>
+
+
+                    <form method="post" novalidate>
+                        {% csrf_token %}
+
+                        {% if form.non_field_errors %}
+                            <div class="alert alert-danger">
+                                {{ form.non_field_errors }}
+                            </div>
+                        {% endif %}
+
+
+                        <div class="row g-3">
+
+                            <div class="col-md-6">
+                                <label
+                                    for="{{ form.name.id_for_label }}"
+                                    class="form-label"
+                                >
+                                    {{ form.name.label }}
+                                    <span class="required">*</span>
+                                </label>
+
+                                {{ form.name }}
+
+                                {% for error in form.name.errors %}
+                                    <div class="form-error">
+                                        {{ error }}
+                                    </div>
+                                {% endfor %}
+                            </div>
+
+
+                            <div class="col-md-6">
+                                <label
+                                    for="{{ form.email.id_for_label }}"
+                                    class="form-label"
+                                >
+                                    {{ form.email.label }}
+                                    <span class="required">*</span>
+                                </label>
+
+                                {{ form.email }}
+
+                                {% for error in form.email.errors %}
+                                    <div class="form-error">
+                                        {{ error }}
+                                    </div>
+                                {% endfor %}
+                            </div>
+
+
+                            <div class="col-md-6">
+                                <label
+                                    for="{{ form.phone.id_for_label }}"
+                                    class="form-label"
+                                >
+                                    {{ form.phone.label }}
+                                </label>
+
+                                {{ form.phone }}
+
+                                {% for error in form.phone.errors %}
+                                    <div class="form-error">
+                                        {{ error }}
+                                    </div>
+                                {% endfor %}
+                            </div>
+
+
+                            <div class="col-md-6">
+                                <label
+                                    for="{{ form.subject.id_for_label }}"
+                                    class="form-label"
+                                >
+                                    {{ form.subject.label }}
+                                    <span class="required">*</span>
+                                </label>
+
+                                {{ form.subject }}
+
+                                {% for error in form.subject.errors %}
+                                    <div class="form-error">
+                                        {{ error }}
+                                    </div>
+                                {% endfor %}
+                            </div>
+
+
+                            <div class="col-12">
+                                <label
+                                    for="{{ form.subject_detail.id_for_label }}"
+                                    class="form-label"
+                                >
+                                    {{ form.subject_detail.label }}
+                                </label>
+
+                                {{ form.subject_detail }}
+
+                                {% if form.subject_detail.help_text %}
+                                    <div class="form-help">
+                                        {{ form.subject_detail.help_text }}
+                                    </div>
+                                {% endif %}
+
+                                {% for error in form.subject_detail.errors %}
+                                    <div class="form-error">
+                                        {{ error }}
+                                    </div>
+                                {% endfor %}
+                            </div>
+
+
+                            <div class="col-12">
+                                <label
+                                    for="{{ form.message.id_for_label }}"
+                                    class="form-label"
+                                >
+                                    {{ form.message.label }}
+                                    <span class="required">*</span>
+                                </label>
+
+                                {{ form.message }}
+
+                                {% for error in form.message.errors %}
+                                    <div class="form-error">
+                                        {{ error }}
+                                    </div>
+                                {% endfor %}
+                            </div>
+
+                        </div>
+
+
+                        <div class="contact-form-footer">
+
+                            <p class="contact-form-note">
+                                <i class="fa-solid fa-shield-halved"></i>
+                                Vos informations sont utilisées uniquement
+                                pour répondre à votre demande.
+                            </p>
+
+                            <button
+                                type="submit"
+                                class="btn contact-submit-btn"
+                            >
+                                <span>Envoyer le message</span>
+                                <i class="fa-solid fa-paper-plane"></i>
+                            </button>
+
+                        </div>
+
+                    </form>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+{% endblock %}
