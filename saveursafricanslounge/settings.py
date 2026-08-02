@@ -77,6 +77,7 @@ INSTALLED_APPS = [
     'events',
     'gallery',
     'contact',
+    'daily_specials'
 ]
 
 MIDDLEWARE = [

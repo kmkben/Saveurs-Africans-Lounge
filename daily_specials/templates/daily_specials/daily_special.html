@@ -1,0 +1,269 @@
+{% extends "layouts/base.html" %}
+{% load static %}
+
+{% block title %}
+    Plat du jour |
+    {% if site_settings %}
+        {{ site_settings.restaurant_name }}
+    {% else %}
+        {{ default_site_name }}
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+
+<section class="daily-special-page">
+
+    <div class="container">
+
+        <!-- Page heading -->
+        <div class="daily-special-heading text-center">
+
+            <span class="daily-special-eyebrow">
+                <i class="fa-solid fa-utensils"></i>
+                Aujourd’hui
+            </span>
+
+            <h1>Le plat du jour</h1>
+
+            <p>
+                Découvrez la suggestion du chef préparée spécialement
+                pour aujourd’hui.
+            </p>
+
+        </div>
+
+
+        {% if daily_special %}
+
+            <article class="daily-special-card">
+
+                <div class="row g-0 align-items-stretch">
+
+                    <!-- Image -->
+                    <div class="col-lg-6">
+
+                        <div class="daily-special-image-wrapper">
+
+                            {% if daily_special.display_image %}
+
+                                <img
+                                    src="{{ daily_special.display_image.url }}"
+                                    alt="{{ daily_special.dish.name }}"
+                                    class="daily-special-image"
+                                >
+
+                            {% else %}
+
+                                <div class="daily-special-image-placeholder">
+                                    <i class="fa-solid fa-utensils"></i>
+
+                                    <span>
+                                        {{ daily_special.dish.name }}
+                                    </span>
+                                </div>
+
+                            {% endif %}
+
+
+                            <div class="daily-special-badge">
+                                <i class="fa-solid fa-star"></i>
+                                Plat du jour
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Content -->
+                    <div class="col-lg-6">
+
+                        <div class="daily-special-content">
+
+                            <div class="daily-special-date">
+                                <i class="fa-regular fa-calendar"></i>
+
+                                {{ today|date:"l d F Y" }}
+                            </div>
+
+
+                            <h2>
+                                {{ daily_special.dish.name }}
+                            </h2>
+
+
+                            {% if daily_special.dish.short_description %}
+                                <p class="daily-special-description">
+                                    {{ daily_special.dish.short_description }}
+                                </p>
+                            {% elif daily_special.dish.description %}
+                                <p class="daily-special-description">
+                                    {{ daily_special.dish.description|truncatewords:35 }}
+                                </p>
+                            {% endif %}
+
+
+                            {% if daily_special.note %}
+
+                                <div class="daily-special-offer">
+
+                                    <div class="daily-special-offer-icon">
+                                        <i class="fa-solid fa-gift"></i>
+                                    </div>
+
+                                    <div>
+                                        <span>Offre du jour</span>
+
+                                        <p>
+                                            {{ daily_special.note }}
+                                        </p>
+                                    </div>
+
+                                </div>
+
+                            {% endif %}
+
+
+                            <!-- Price -->
+                            <div class="daily-special-price-wrapper">
+
+                                <div class="daily-special-price">
+
+                                    <span class="daily-special-price-label">
+                                        Prix
+                                    </span>
+
+                                    <strong>
+                                        {{ daily_special.price|floatformat:2 }} €
+                                    </strong>
+
+                                </div>
+
+
+                                {% if daily_special.special_price %}
+
+                                    <div class="daily-special-regular-price">
+                                        Prix habituel :
+                                        <span>
+                                            {{ daily_special.dish.price|floatformat:2 }} €
+                                        </span>
+                                    </div>
+
+                                {% endif %}
+
+                            </div>
+
+
+                            <!-- Actions -->
+                            <div class="daily-special-actions">
+
+                                {% if daily_special.dish.is_delivery_available %}
+
+                                    <a
+                                        href="#"
+                                        class="daily-special-primary-btn"
+                                    >
+                                        <i class="fa-solid fa-bag-shopping"></i>
+                                        Commander
+                                    </a>
+
+                                {% endif %}
+
+
+                                <a
+                                    href="{% url 'menu:list' %}"
+                                    class="daily-special-secondary-btn"
+                                >
+                                    <i class="fa-solid fa-book-open"></i>
+                                    Voir la carte
+                                </a>
+
+                            </div>
+
+
+                            {% if daily_special.dish.allergens.exists %}
+
+                                <div class="daily-special-allergens">
+
+                                    <span class="daily-special-allergens-title">
+                                        <i class="fa-solid fa-circle-exclamation"></i>
+                                        Allergènes
+                                    </span>
+
+                                    <div class="daily-special-allergen-list">
+
+                                        {% for allergen in daily_special.dish.allergens.all %}
+
+                                            <span>
+                                                {{ allergen.name }}
+                                            </span>
+
+                                        {% endfor %}
+
+                                    </div>
+
+                                </div>
+
+                            {% endif %}
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </article>
+
+
+            <!-- Small reassurance -->
+            <div class="daily-special-note text-center">
+
+                <i class="fa-regular fa-clock"></i>
+
+                Offre disponible aujourd’hui,
+                dans la limite des disponibilités.
+
+            </div>
+
+
+        {% else %}
+
+            <!-- Empty state -->
+            <div class="daily-special-empty text-center">
+
+                <div class="daily-special-empty-icon">
+                    <i class="fa-solid fa-kitchen-set"></i>
+                </div>
+
+                <span class="daily-special-eyebrow">
+                    À très bientôt
+                </span>
+
+                <h2>
+                    Le plat du jour n’est pas encore publié
+                </h2>
+
+                <p>
+                    Notre équipe prépare régulièrement de nouvelles
+                    suggestions. En attendant, découvrez tous les plats
+                    disponibles à la carte.
+                </p>
+
+                <a
+                    href="{% url 'menu:list' %}"
+                    class="daily-special-primary-btn"
+                >
+                    <i class="fa-solid fa-utensils"></i>
+                    Découvrir la carte
+                </a>
+
+            </div>
+
+        {% endif %}
+
+    </div>
+
+</section>
+
+{% endblock %}

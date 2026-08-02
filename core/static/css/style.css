@@ -4585,3 +4585,606 @@ p {
         font-size: 1.7rem;
     }
 }
+
+
+/* ==================================================
+   DAILY SPECIAL PAGE
+================================================== */
+
+.daily-special-page {
+    padding: clamp(3.5rem, 7vw, 6rem) 0;
+
+    background: var(--sal-light);
+    color: var(--sal-text-color);
+}
+
+
+/* --------------------------------------------------
+   Heading
+-------------------------------------------------- */
+
+.daily-special-heading {
+    max-width: 760px;
+    margin: 0 auto 3.5rem;
+}
+
+.daily-special-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    margin-bottom: 0.75rem;
+
+    color: var(--sal-secondary);
+
+    font-size: 0.82rem;
+    font-weight: 800;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+}
+
+.daily-special-heading h1 {
+    margin-bottom: 1rem;
+
+    color: var(--sal-heading-color);
+
+    font-size: clamp(2.4rem, 5vw, 4rem);
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -0.035em;
+}
+
+.daily-special-heading p {
+    max-width: 680px;
+    margin: 0 auto;
+
+    color: var(--sal-muted-color);
+
+    font-size: 1.05rem;
+    line-height: 1.8;
+}
+
+
+/* --------------------------------------------------
+   Main card
+-------------------------------------------------- */
+
+.daily-special-card {
+    overflow: hidden;
+
+    border: 1px solid var(--sal-border-color);
+    border-radius: var(--sal-radius-lg);
+
+    background: var(--bs-body-bg);
+
+    box-shadow: var(--sal-shadow-lg);
+}
+
+
+/* --------------------------------------------------
+   Image
+-------------------------------------------------- */
+
+.daily-special-image-wrapper {
+    position: relative;
+
+    height: 100%;
+    min-height: 520px;
+
+    overflow: hidden;
+}
+
+.daily-special-image {
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    transition: transform 0.6s ease;
+}
+
+.daily-special-card:hover .daily-special-image {
+    transform: scale(1.025);
+}
+
+.daily-special-image-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+
+    width: 100%;
+    height: 100%;
+    min-height: 520px;
+
+    background:
+        linear-gradient(
+            135deg,
+            var(--sal-green-soft),
+            var(--sal-gold-soft)
+        );
+
+    color: var(--sal-primary);
+
+    text-align: center;
+}
+
+.daily-special-image-placeholder i {
+    font-size: 4rem;
+}
+
+.daily-special-image-placeholder span {
+    padding-inline: 1rem;
+
+    font-size: 1.2rem;
+    font-weight: 700;
+}
+
+
+/* --------------------------------------------------
+   Badge
+-------------------------------------------------- */
+
+.daily-special-badge {
+    position: absolute;
+    top: 1.5rem;
+    left: 1.5rem;
+
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+
+    padding: 0.65rem 1rem;
+
+    border-radius: 999px;
+
+    background: var(--sal-secondary);
+    color: var(--sal-charcoal);
+
+    font-size: 0.85rem;
+    font-weight: 800;
+
+    box-shadow: var(--sal-shadow-sm);
+}
+
+
+/* --------------------------------------------------
+   Content
+-------------------------------------------------- */
+
+.daily-special-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    min-height: 100%;
+    padding: clamp(2rem, 5vw, 4rem);
+}
+
+.daily-special-date {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    margin-bottom: 1rem;
+
+    color: var(--sal-secondary);
+
+    font-size: 0.9rem;
+    font-weight: 700;
+}
+
+.daily-special-content h2 {
+    margin-bottom: 1rem;
+
+    color: var(--sal-heading-color);
+
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 800;
+    line-height: 1.15;
+}
+
+.daily-special-description {
+    margin-bottom: 1.75rem;
+
+    color: var(--sal-muted-color);
+
+    font-size: 1.02rem;
+    line-height: 1.8;
+}
+
+
+/* --------------------------------------------------
+   Offer box
+-------------------------------------------------- */
+
+.daily-special-offer {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+
+    margin-bottom: 2rem;
+    padding: 1.25rem;
+
+    border: 1px solid var(--sal-border-color);
+    border-radius: var(--sal-radius);
+
+    background: var(--sal-gold-soft);
+}
+
+.daily-special-offer-icon {
+    display: inline-flex;
+    flex: 0 0 46px;
+    align-items: center;
+    justify-content: center;
+
+    width: 46px;
+    height: 46px;
+
+    border-radius: 50%;
+
+    background: var(--sal-secondary);
+    color: var(--sal-charcoal);
+}
+
+.daily-special-offer span {
+    display: block;
+
+    margin-bottom: 0.25rem;
+
+    color: var(--sal-charcoal);
+
+    font-size: 0.82rem;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+}
+
+.daily-special-offer p {
+    margin: 0;
+
+    color: #4f4637;
+
+    line-height: 1.65;
+}
+
+
+/* --------------------------------------------------
+   Price
+-------------------------------------------------- */
+
+.daily-special-price-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 1rem;
+
+    margin-bottom: 2rem;
+    padding-bottom: 2rem;
+
+    border-bottom: 1px solid var(--sal-border-color);
+}
+
+.daily-special-price {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+}
+
+.daily-special-price-label {
+    color: var(--sal-muted-color);
+
+    font-size: 0.82rem;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.daily-special-price strong {
+    color: var(--sal-primary);
+
+    font-size: clamp(2rem, 4vw, 2.8rem);
+    line-height: 1;
+}
+
+.daily-special-regular-price {
+    color: var(--sal-muted-color);
+
+    font-size: 0.9rem;
+}
+
+.daily-special-regular-price span {
+    text-decoration: line-through;
+}
+
+
+/* --------------------------------------------------
+   Actions
+-------------------------------------------------- */
+
+.daily-special-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.daily-special-primary-btn,
+.daily-special-secondary-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+
+    min-height: 50px;
+    padding: 0.8rem 1.5rem;
+
+    border-radius: 999px;
+
+    font-weight: 700;
+    text-decoration: none;
+
+    transition:
+        transform var(--sal-transition),
+        background-color var(--sal-transition),
+        border-color var(--sal-transition),
+        color var(--sal-transition),
+        box-shadow var(--sal-transition);
+}
+
+.daily-special-primary-btn {
+    border: 1px solid var(--sal-primary);
+
+    background: var(--sal-primary);
+    color: var(--sal-white);
+
+    box-shadow: var(--sal-shadow-sm);
+}
+
+.daily-special-primary-btn:hover {
+    transform: translateY(-2px);
+
+    border-color: var(--sal-primary-dark);
+
+    background: var(--sal-primary-dark);
+    color: var(--sal-white);
+
+    box-shadow: var(--sal-shadow);
+}
+
+.daily-special-secondary-btn {
+    border: 1px solid var(--sal-secondary);
+
+    background: transparent;
+    color: var(--sal-secondary);
+}
+
+.daily-special-secondary-btn:hover {
+    transform: translateY(-2px);
+
+    background: var(--sal-secondary);
+    color: var(--sal-charcoal);
+}
+
+
+/* --------------------------------------------------
+   Allergens
+-------------------------------------------------- */
+
+.daily-special-allergens {
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+
+    border-top: 1px solid var(--sal-border-color);
+}
+
+.daily-special-allergens-title {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+
+    margin-bottom: 0.75rem;
+
+    color: var(--sal-heading-color);
+
+    font-size: 0.9rem;
+    font-weight: 700;
+}
+
+.daily-special-allergen-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.daily-special-allergen-list span {
+    padding: 0.4rem 0.7rem;
+
+    border: 1px solid var(--sal-border-color);
+    border-radius: 999px;
+
+    background: var(--bs-body-bg);
+    color: var(--sal-muted-color);
+
+    font-size: 0.78rem;
+    font-weight: 600;
+}
+
+
+/* --------------------------------------------------
+   Availability note
+-------------------------------------------------- */
+
+.daily-special-note {
+    margin-top: 1.5rem;
+
+    color: var(--sal-muted-color);
+
+    font-size: 0.9rem;
+}
+
+.daily-special-note i {
+    margin-right: 0.35rem;
+
+    color: var(--sal-secondary);
+}
+
+
+/* ==================================================
+   EMPTY STATE
+================================================== */
+
+.daily-special-empty {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: clamp(2rem, 6vw, 4rem);
+
+    border: 1px solid var(--sal-border-color);
+    border-radius: var(--sal-radius-lg);
+
+    background: var(--bs-body-bg);
+
+    box-shadow: var(--sal-shadow);
+}
+
+.daily-special-empty-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 84px;
+    height: 84px;
+
+    margin: 0 auto 1.5rem;
+
+    border-radius: 50%;
+
+    background: var(--sal-green-soft);
+    color: var(--sal-primary);
+
+    font-size: 2rem;
+}
+
+.daily-special-empty h2 {
+    margin-bottom: 1rem;
+
+    color: var(--sal-heading-color);
+
+    font-size: clamp(1.8rem, 4vw, 2.7rem);
+    font-weight: 800;
+}
+
+.daily-special-empty p {
+    max-width: 580px;
+    margin: 0 auto 2rem;
+
+    color: var(--sal-muted-color);
+
+    line-height: 1.8;
+}
+
+
+/* ==================================================
+   DARK MODE
+================================================== */
+
+[data-bs-theme="dark"] .daily-special-image-placeholder {
+    background:
+        linear-gradient(
+            135deg,
+            rgba(35, 122, 82, 0.18),
+            rgba(200, 161, 90, 0.12)
+        );
+
+    color: var(--sal-gold);
+}
+
+[data-bs-theme="dark"] .daily-special-offer {
+    background: rgba(200, 161, 90, 0.11);
+}
+
+[data-bs-theme="dark"] .daily-special-offer span {
+    color: var(--sal-gold);
+}
+
+[data-bs-theme="dark"] .daily-special-offer p {
+    color: var(--sal-text-color);
+}
+
+[data-bs-theme="dark"] .daily-special-price strong {
+    color: var(--sal-gold);
+}
+
+[data-bs-theme="dark"] .daily-special-empty-icon {
+    background: rgba(35, 122, 82, 0.2);
+    color: #6fc29a;
+}
+
+
+/* ==================================================
+   RESPONSIVE
+================================================== */
+
+@media (max-width: 991.98px) {
+    .daily-special-image-wrapper,
+    .daily-special-image-placeholder {
+        min-height: 420px;
+    }
+
+    .daily-special-content {
+        padding: 2rem;
+    }
+}
+
+@media (max-width: 767.98px) {
+    .daily-special-card,
+    .daily-special-empty {
+        border-radius: var(--sal-radius);
+    }
+
+    .daily-special-image-wrapper,
+    .daily-special-image-placeholder {
+        min-height: 340px;
+    }
+
+    .daily-special-badge {
+        top: 1rem;
+        left: 1rem;
+    }
+
+    .daily-special-price-wrapper {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .daily-special-actions {
+        flex-direction: column;
+    }
+
+    .daily-special-primary-btn,
+    .daily-special-secondary-btn {
+        width: 100%;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .daily-special-image-wrapper,
+    .daily-special-image-placeholder {
+        min-height: 280px;
+    }
+
+    .daily-special-content {
+        padding: 1.5rem;
+    }
+
+    .daily-special-offer {
+        padding: 1rem;
+    }
+
+    .daily-special-offer-icon {
+        flex-basis: 42px;
+
+        width: 42px;
+        height: 42px;
+    }
+}
