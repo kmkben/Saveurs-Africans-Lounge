@@ -115,6 +115,21 @@
                     Commander
                 </a>
             </div>
+
+            <a
+                href="{% url 'orders:cart' %}"
+                class="nav-link cart-nav-link"
+            >
+                <i class="fa-solid fa-basket-shopping"></i>
+
+                <span>Panier</span>
+
+                {% if cart|length %}
+                    <span class="cart-nav-count">
+                        {{ cart|length }}
+                    </span>
+                {% endif %}
+            </a>
         </div>
 
     </div>

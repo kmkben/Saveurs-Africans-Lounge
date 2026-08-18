@@ -97,18 +97,41 @@ plats faits maison, boissons, desserts et plats du jour à Voiron.
                             {% endif %}
 
                             <div class="menu-dish-actions">
+
                                 <a href="{{ dish.get_absolute_url }}"
                                    class="menu-detail-link">
                                     Voir le plat
                                     <i class="fa-solid fa-arrow-right"></i>
                                 </a>
-
+                            
                                 {% if dish.is_delivery_available %}
-                                    <span class="menu-delivery-status">
-                                        <i class="fa-solid fa-motorcycle"></i>
-                                        Livraison
-                                    </span>
+                            
+                                    <form
+                                        method="post"
+                                        action="{% url 'orders:cart_add' dish.pk %}"
+                                        class="menu-cart-form"
+                                    >
+                                        {% csrf_token %}
+                            
+                                        <input
+                                            type="hidden"
+                                            name="quantity"
+                                            value="1"
+                                        >
+                            
+                                        <button
+                                            type="submit"
+                                            class="menu-cart-btn"
+                                            title="Ajouter au panier"
+                                        >
+                                            <i class="fa-solid fa-basket-shopping"></i>
+                                            Ajouter
+                                        </button>
+                            
+                                    </form>
+                            
                                 {% endif %}
+                            
                             </div>
                         </div>
 
@@ -208,9 +231,9 @@ plats faits maison, boissons, desserts et plats du jour à Voiron.
 
                                             <div class="menu-dish-content">
 
-                                                <div class="menu-dish-heading">
+                                                <div class="menu-dish-heading text-dark">
                                                     <h3>
-                                                        <a href="{{ dish.get_absolute_url }}">
+                                                        <a href="{{ dish.get_absolute_url }}" class="text-dark">
                                                             {{ dish.name }}
                                                         </a>
                                                     </h3>
@@ -246,19 +269,41 @@ plats faits maison, boissons, desserts et plats du jour à Voiron.
                                                 {% endif %}
 
                                                 <div class="menu-dish-actions">
+
                                                     <a href="{{ dish.get_absolute_url }}"
                                                        class="menu-detail-link">
                                                         Voir le plat
                                                         <i class="fa-solid fa-arrow-right"></i>
                                                     </a>
-
+                                                
                                                     {% if dish.is_delivery_available %}
-                                                        <span class="menu-delivery-status"
-                                                              title="Disponible à la livraison">
-                                                            <i class="fa-solid fa-motorcycle"></i>
-                                                            Livraison
-                                                        </span>
+                                                
+                                                        <form
+                                                            method="post"
+                                                            action="{% url 'orders:cart_add' dish.pk %}"
+                                                            class="menu-cart-form"
+                                                        >
+                                                            {% csrf_token %}
+                                                
+                                                            <input
+                                                                type="hidden"
+                                                                name="quantity"
+                                                                value="1"
+                                                            >
+                                                
+                                                            <button
+                                                                type="submit"
+                                                                class="menu-cart-btn"
+                                                                title="Ajouter au panier"
+                                                            >
+                                                                <i class="fa-solid fa-basket-shopping"></i>
+                                                                Ajouter
+                                                            </button>
+                                                
+                                                        </form>
+                                                
                                                     {% endif %}
+                                                
                                                 </div>
 
                                             </div>

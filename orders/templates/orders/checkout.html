@@ -1,0 +1,519 @@
+{% extends "layouts/base.html" %}
+
+{% block title %}Finaliser ma commande{% endblock %}
+
+{% block content %}
+
+<section class="orders-page">
+    <div class="container">
+
+        <div class="orders-heading text-center">
+            <span class="orders-eyebrow">
+                Votre commande
+            </span>
+
+            <h1>Finaliser ma commande</h1>
+
+            <p>
+                Renseignez vos informations puis choisissez
+                votre mode de réception.
+            </p>
+        </div>
+
+        <div class="row g-4 align-items-start">
+
+            <!-- LEFT -->
+            <div class="col-lg-7">
+
+                <div class="checkout-card">
+
+                    <form
+                        method="post"
+                        id="checkout-form"
+                        novalidate
+                    >
+                        {% csrf_token %}
+
+                        {% if form.non_field_errors %}
+                            <div class="alert alert-danger">
+                                {% for error in form.non_field_errors %}
+                                    <div>{{ error }}</div>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+
+
+                        <!-- Customer -->
+                        <div class="checkout-section">
+
+                            <div class="checkout-section-heading">
+                                <span>01</span>
+
+                                <div>
+                                    <h2>Vos informations</h2>
+                                    <p>
+                                        Pour identifier votre commande
+                                        et vous contacter si nécessaire.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="row g-3">
+
+                                <div class="col-12">
+                                    <label
+                                        for="{{ form.customer_name.id_for_label }}"
+                                        class="form-label"
+                                    >
+                                        {{ form.customer_name.label }}
+                                    </label>
+
+                                    {{ form.customer_name }}
+
+                                    {% for error in form.customer_name.errors %}
+                                        <div class="form-error">
+                                            {{ error }}
+                                        </div>
+                                    {% endfor %}
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label
+                                        for="{{ form.email.id_for_label }}"
+                                        class="form-label"
+                                    >
+                                        {{ form.email.label }}
+                                    </label>
+
+                                    {{ form.email }}
+
+                                    {% for error in form.email.errors %}
+                                        <div class="form-error">
+                                            {{ error }}
+                                        </div>
+                                    {% endfor %}
+                                </div>
+
+                                <div class="col-md-6">
+                                    <label
+                                        for="{{ form.phone.id_for_label }}"
+                                        class="form-label"
+                                    >
+                                        {{ form.phone.label }}
+                                    </label>
+
+                                    {{ form.phone }}
+
+                                    {% for error in form.phone.errors %}
+                                        <div class="form-error">
+                                            {{ error }}
+                                        </div>
+                                    {% endfor %}
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- Order type -->
+                        <div class="checkout-section">
+
+                            <div class="checkout-section-heading">
+                                <span>02</span>
+
+                                <div>
+                                    <h2>Mode de réception</h2>
+                                    <p>
+                                        Choisissez comment récupérer
+                                        votre commande.
+                                    </p>
+                                </div>
+                            </div>
+
+                            {{ form.order_type }}
+
+                            {% for error in form.order_type.errors %}
+                                <div class="form-error">
+                                    {{ error }}
+                                </div>
+                            {% endfor %}
+
+                        </div>
+
+
+                        <!-- Delivery -->
+                        <div
+                            class="checkout-section"
+                            id="delivery-fields"
+                        >
+
+                            <div class="checkout-section-heading">
+                                <span>03</span>
+
+                                <div>
+                                    <h2>Adresse de livraison</h2>
+                                    <p>
+                                        Les frais seront calculés
+                                        automatiquement.
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div class="row g-3">
+
+                                <div class="col-12">
+                                    <label
+                                        for="{{ form.address.id_for_label }}"
+                                        class="form-label"
+                                    >
+                                        {{ form.address.label }}
+                                    </label>
+
+                                    {{ form.address }}
+                                </div>
+
+                                <div class="col-12">
+                                    <label
+                                        for="{{ form.address_complement.id_for_label }}"
+                                        class="form-label"
+                                    >
+                                        {{ form.address_complement.label }}
+                                    </label>
+
+                                    {{ form.address_complement }}
+                                </div>
+
+                                <div class="col-md-5">
+                                    <label
+                                        for="{{ form.postal_code.id_for_label }}"
+                                        class="form-label"
+                                    >
+                                        {{ form.postal_code.label }}
+                                    </label>
+
+                                    {{ form.postal_code }}
+                                </div>
+
+                                <div class="col-md-7">
+                                    <label
+                                        for="{{ form.city.id_for_label }}"
+                                        class="form-label"
+                                    >
+                                        {{ form.city.label }}
+                                    </label>
+
+                                    {{ form.city }}
+                                </div>
+
+                            </div>
+
+                            <div
+                                id="delivery-feedback"
+                                class="checkout-delivery-feedback"
+                            ></div>
+
+                        </div>
+
+
+                        <!-- Notes -->
+                        <div class="checkout-section">
+
+                            <div class="checkout-section-heading">
+                                <span>04</span>
+
+                                <div>
+                                    <h2>Instructions</h2>
+                                    <p>
+                                        Facultatif.
+                                    </p>
+                                </div>
+                            </div>
+
+                            {{ form.customer_note }}
+
+                        </div>
+
+
+                        <!-- Payment -->
+                        <div class="checkout-payment-info">
+
+                            <i class="fa-solid fa-lock"></i>
+
+                            <div>
+                                <strong>
+                                    Paiement en ligne sécurisé
+                                </strong>
+
+                                <span>
+                                    Carte bancaire, Apple Pay,
+                                    Google Pay et autres moyens
+                                    compatibles seront proposés
+                                    à l’étape suivante.
+                                </span>
+                            </div>
+
+                        </div>
+
+
+                        <button
+                            type="submit"
+                            class="checkout-submit-btn"
+                            id="checkout-submit"
+                        >
+                            Continuer vers le paiement
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+
+            <!-- RIGHT -->
+            <div class="col-lg-5">
+
+                <aside class="checkout-summary">
+
+                    <h2>Votre commande</h2>
+
+                    {% for item in cart %}
+                        <div class="checkout-summary-item">
+
+                            <span>
+                                {{ item.quantity }}
+                                ×
+                                {{ item.dish.name }}
+                            </span>
+
+                            <strong>
+                                {{ item.total_price|floatformat:2 }} €
+                            </strong>
+
+                        </div>
+                    {% endfor %}
+
+
+                    <div class="checkout-summary-pricing">
+
+                        <div>
+                            <span>Sous-total</span>
+
+                            <strong>
+                                {{ cart.subtotal|floatformat:2 }} €
+                            </strong>
+                        </div>
+
+                        <div id="delivery-row">
+                            <span>Livraison</span>
+
+                            <strong id="delivery-fee">
+                                —
+                            </strong>
+                        </div>
+
+                    </div>
+
+
+                    <div class="checkout-summary-total">
+
+                        <span>Total</span>
+
+                        <strong id="checkout-total">
+                            {{ cart.subtotal|floatformat:2 }} €
+                        </strong>
+
+                    </div>
+
+
+                    <div
+                        id="delivery-zone-display"
+                        class="checkout-zone-display"
+                    ></div>
+
+                </aside>
+
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+{% endblock %}
+
+
+{% block extra_js %}
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    const orderType = document.getElementById("id_order_type");
+    const deliveryFields = document.getElementById("delivery-fields");
+
+    const postalCode = document.getElementById("id_postal_code");
+    const city = document.getElementById("id_city");
+
+    const deliveryFee = document.getElementById("delivery-fee");
+    const checkoutTotal = document.getElementById("checkout-total");
+    const feedback = document.getElementById("delivery-feedback");
+    const zoneDisplay = document.getElementById("delivery-zone-display");
+
+    const subtotal = parseFloat(
+        "{{ cart.subtotal|stringformat:'f' }}"
+    );
+
+    let timer = null;
+
+
+    function formatPrice(value) {
+        return Number(value).toFixed(2) + " €";
+    }
+
+
+    function setPickupMode() {
+        deliveryFields.style.display = "none";
+
+        deliveryFee.textContent = "0.00 €";
+        checkoutTotal.textContent = formatPrice(subtotal);
+
+        feedback.textContent = "";
+        zoneDisplay.textContent = "";
+    }
+
+
+    function setDeliveryMode() {
+        deliveryFields.style.display = "block";
+
+        calculateDelivery();
+    }
+
+
+    function updateOrderType() {
+        if (orderType.value === "PICKUP") {
+            setPickupMode();
+        } else {
+            setDeliveryMode();
+        }
+    }
+
+
+    async function calculateDelivery() {
+
+        const postalValue = postalCode.value.trim();
+        const cityValue = city.value.trim();
+
+        if (!postalValue || !cityValue) {
+            deliveryFee.textContent = "À calculer";
+            checkoutTotal.textContent = formatPrice(subtotal);
+
+            feedback.textContent =
+                "Renseignez votre code postal et votre ville.";
+
+            feedback.classList.remove("success");
+            feedback.classList.add("error");
+
+            return;
+        }
+
+        feedback.textContent = "Calcul des frais de livraison...";
+
+        try {
+
+            const params = new URLSearchParams({
+                postal_code: postalValue,
+                city: cityValue
+            });
+
+            const response = await fetch(
+                "{% url 'orders:delivery_quote' %}?" + params.toString(),
+                {
+                    headers: {
+                        "X-Requested-With": "XMLHttpRequest"
+                    }
+                }
+            );
+
+            const data = await response.json();
+
+
+            if (!response.ok || !data.success) {
+
+                deliveryFee.textContent = "—";
+                checkoutTotal.textContent = formatPrice(subtotal);
+
+                feedback.textContent =
+                    data.message || "Zone de livraison indisponible.";
+
+                feedback.classList.remove("success");
+                feedback.classList.add("error");
+
+                zoneDisplay.textContent = "";
+
+                return;
+            }
+
+
+            deliveryFee.textContent =
+                formatPrice(data.delivery_fee);
+
+            checkoutTotal.textContent =
+                formatPrice(data.total);
+
+            feedback.textContent =
+                "Livraison disponible.";
+
+            feedback.classList.remove("error");
+            feedback.classList.add("success");
+
+            zoneDisplay.textContent =
+                "Zone : " + data.zone;
+
+        } catch (error) {
+
+            deliveryFee.textContent = "—";
+
+            feedback.textContent =
+                "Impossible de calculer les frais de livraison.";
+
+            feedback.classList.remove("success");
+            feedback.classList.add("error");
+
+        }
+    }
+
+
+    function scheduleCalculation() {
+        clearTimeout(timer);
+
+        timer = setTimeout(
+            calculateDelivery,
+            450
+        );
+    }
+
+
+    orderType.addEventListener(
+        "change",
+        updateOrderType
+    );
+
+    postalCode.addEventListener(
+        "input",
+        scheduleCalculation
+    );
+
+    city.addEventListener(
+        "input",
+        scheduleCalculation
+    );
+
+
+    updateOrderType();
+
+});
+</script>
+
+{% endblock %}

@@ -1,0 +1,43 @@
+{% extends "layouts/base.html" %}
+
+{% block title %}Commande confirmée{% endblock %}
+
+{% block content %}
+
+<section class="order-success-page">
+
+    <div class="container">
+
+        <div class="order-success-card text-center">
+
+            <div class="order-success-icon">
+                <i class="fa-solid fa-check"></i>
+            </div>
+
+            <span class="orders-eyebrow">
+                Merci
+            </span>
+
+            <h1>Votre commande a bien été enregistrée</h1>
+
+            <p>
+                Votre numéro de commande est
+                <strong>#{{ order_id }}</strong>.
+            </p>
+
+            <p>
+                Notre équipe va maintenant prendre en charge
+                votre commande.
+            </p>
+
+            <a href="{% url 'home' %}">
+                Retour à l’accueil
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

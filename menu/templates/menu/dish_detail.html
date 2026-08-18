@@ -162,19 +162,63 @@ Découvrez {{ dish.name }} sur la carte de Saveurs Africans Lounge à Voiron.
                     <div class="dish-detail-actions">
 
                         {% if dish.is_delivery_available %}
-                            <a href="#"
-                               class="btn btn-primary-custom">
-                                <i class="fa-solid fa-bag-shopping"></i>
-                                Commander ce plat
+                    
+                            <form
+                                method="post"
+                                action="{% url 'orders:cart_add' dish.pk %}"
+                                class="dish-detail-cart-form"
+                            >
+                                {% csrf_token %}
+                    
+                                <div class="dish-detail-cart-quantity">
+                    
+                                    <label for="quantity">
+                                        Quantité
+                                    </label>
+                    
+                                    <input
+                                        id="quantity"
+                                        type="number"
+                                        name="quantity"
+                                        value="1"
+                                        min="1"
+                                        max="20"
+                                        class="form-control"
+                                    >
+                    
+                                </div>
+                    
+                                <button
+                                    type="submit"
+                                    class="btn btn-primary-custom"
+                                >
+                                    <i class="fa-solid fa-basket-shopping"></i>
+                                    Ajouter au panier
+                                </button>
+                    
+                            </form>
+                    
+                        {% endif %}
+                    
+                    
+                        {% if site_settings and site_settings.phone %}
+                            <a
+                                href="tel:{{ site_settings.phone }}"
+                                class="btn btn-outline-custom"
+                            >
+                                <i class="fa-solid fa-phone"></i>
+                                Nous appeler
+                            </a>
+                        {% else %}
+                            <a
+                                href="tel:+33616847569"
+                                class="btn btn-outline-custom"
+                            >
+                                <i class="fa-solid fa-phone"></i>
+                                Nous appeler
                             </a>
                         {% endif %}
-
-                        <a href="tel:+33616847569"
-                           class="btn btn-outline-custom">
-                            <i class="fa-solid fa-phone"></i>
-                            Nous appeler
-                        </a>
-
+                    
                     </div>
 
                 </div>

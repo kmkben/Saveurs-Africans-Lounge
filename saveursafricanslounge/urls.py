@@ -36,6 +36,8 @@ urlpatterns = [
     path('contact/', include('contact.urls')),
     
     path("plat-du-jour/", include("daily_specials.urls")),
+    
+    path('commandes/', include('orders.urls')),
 ]
 
 if settings.DEBUG:

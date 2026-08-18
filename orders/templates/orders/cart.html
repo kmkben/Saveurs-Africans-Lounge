@@ -1,0 +1,154 @@
+{% extends "layouts/base.html" %}
+
+{% block title %}Mon panier{% endblock %}
+
+{% block content %}
+
+<section class="orders-page">
+    <div class="container">
+
+        <div class="orders-heading">
+            <span class="orders-eyebrow">
+                Votre commande
+            </span>
+
+            <h1>Mon panier</h1>
+        </div>
+
+        {% if cart|length %}
+
+            <div class="row g-4">
+
+                <div class="col-lg-8">
+
+                    <div class="cart-items">
+
+                        {% for item in cart %}
+
+                            <article class="cart-item">
+
+                                {% if item.dish.image %}
+                                    <img
+                                        src="{{ item.dish.image.url }}"
+                                        alt="{{ item.dish.name }}"
+                                        class="cart-item-image"
+                                    >
+                                {% endif %}
+
+                                <div class="cart-item-content">
+
+                                    <h2>
+                                        {{ item.dish.name }}
+                                    </h2>
+
+                                    <div class="cart-item-price">
+                                        {{ item.price|floatformat:2 }} €
+                                    </div>
+
+                                    <div class="cart-item-actions">
+
+                                        <form
+                                            method="post"
+                                            action="{% url 'orders:cart_update' item.dish.pk %}"
+                                        >
+                                            {% csrf_token %}
+
+                                            <input
+                                                type="number"
+                                                name="quantity"
+                                                value="{{ item.quantity }}"
+                                                min="1"
+                                                max="20"
+                                                class="form-control"
+                                            >
+
+                                            <button
+                                                type="submit"
+                                                class="btn"
+                                            >
+                                                Mettre à jour
+                                            </button>
+                                        </form>
+
+                                        <form
+                                            method="post"
+                                            action="{% url 'orders:cart_remove' item.dish.pk %}"
+                                        >
+                                            {% csrf_token %}
+
+                                            <button
+                                                type="submit"
+                                                class="btn"
+                                            >
+                                                Supprimer
+                                            </button>
+                                        </form>
+
+                                    </div>
+
+                                </div>
+
+                                <strong class="cart-item-total">
+                                    {{ item.total_price|floatformat:2 }} €
+                                </strong>
+
+                            </article>
+
+                        {% endfor %}
+
+                    </div>
+
+                </div>
+
+
+                <div class="col-lg-4">
+
+                    <aside class="cart-summary">
+
+                        <h2>Récapitulatif</h2>
+
+                        <div class="cart-summary-row">
+                            <span>Sous-total</span>
+
+                            <strong>
+                                {{ cart.subtotal|floatformat:2 }} €
+                            </strong>
+                        </div>
+
+                        <a
+                            href="{% url 'orders:checkout' %}"
+                            class="cart-checkout-btn"
+                        >
+                            Passer la commande
+                        </a>
+
+                    </aside>
+
+                </div>
+
+            </div>
+
+        {% else %}
+
+            <div class="cart-empty text-center">
+
+                <i class="fa-solid fa-basket-shopping"></i>
+
+                <h2>Votre panier est vide</h2>
+
+                <p>
+                    Découvrez notre carte et ajoutez vos plats préférés.
+                </p>
+
+                <a href="{% url 'menu:list' %}">
+                    Voir la carte
+                </a>
+
+            </div>
+
+        {% endif %}
+
+    </div>
+</section>
+
+{% endblock %}

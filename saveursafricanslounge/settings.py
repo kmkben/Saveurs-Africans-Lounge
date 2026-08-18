@@ -77,7 +77,8 @@ INSTALLED_APPS = [
     'events',
     'gallery',
     'contact',
-    'daily_specials'
+    'daily_specials',
+    'orders',
 ]
 
 MIDDLEWARE = [
@@ -107,7 +108,8 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 
-                "core.context_processors.site_settings",
+                'core.context_processors.site_settings',
+                'orders.context_processors.cart',
             ],
         },
     },
