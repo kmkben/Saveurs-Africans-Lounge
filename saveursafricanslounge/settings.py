@@ -79,6 +79,7 @@ INSTALLED_APPS = [
     'contact',
     'daily_specials',
     'orders',
+    'payments',
 ]
 
 MIDDLEWARE = [
@@ -207,6 +208,16 @@ ADMIN_EMAIL = env("ADMIN_EMAIL", default=EMAIL_HOST_USER)
 # EMAIL_HOST_USER = env("EMAIL_HOST_USER")
 # EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD")
 # DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+
+
+
+STRIPE_PUBLIC_KEY = env("STRIPE_PUBLIC_KEY")
+STRIPE_SECRET_KEY = env("STRIPE_SECRET_KEY")
+STRIPE_WEBHOOK_SECRET = env(
+    "STRIPE_WEBHOOK_SECRET",
+    default="",
+)
 
 
 

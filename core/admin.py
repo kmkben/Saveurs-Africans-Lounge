@@ -46,6 +46,18 @@ class SiteSettingsAdmin(admin.ModelAdmin):
                 )
             },
         ),
+        (
+            "Réservations",
+            {
+                "fields": (
+                    "reservation_deposit_amount",
+                ),
+                "description": (
+                    "Ce montant sera demandé pour toute "
+                    "réservation effectuée sur le site."
+                ),
+            },
+        ),
     )
 
     def has_add_permission(self, request):

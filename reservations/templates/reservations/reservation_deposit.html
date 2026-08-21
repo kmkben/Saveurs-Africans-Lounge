@@ -1,0 +1,129 @@
+{% extends "layouts/base.html" %}
+
+{% block title %}
+Acompte de réservation | Saveurs Africans Lounge
+{% endblock %}
+
+{% block content %}
+
+<section class="reservation-deposit-page section-padding">
+
+    <div class="container">
+
+        <div class="reservation-deposit-card">
+
+            <div class="reservation-deposit-icon">
+                <i class="fa-solid fa-lock"></i>
+            </div>
+
+
+            <span class="section-eyebrow">
+                Réservation sécurisée
+            </span>
+
+
+            <h1>
+                Finalisez votre réservation
+            </h1>
+
+
+            <p class="reservation-deposit-intro">
+                Réglez l’acompte afin de garantir votre table.
+            </p>
+
+
+            <div class="reservation-deposit-summary">
+
+                <div>
+                    <span>Nom</span>
+
+                    <strong>
+                        {{ reservation.full_name }}
+                    </strong>
+                </div>
+
+
+                <div>
+                    <span>Date</span>
+
+                    <strong>
+                        {{ reservation.reservation_date|date:"d/m/Y" }}
+                    </strong>
+                </div>
+
+
+                <div>
+                    <span>Heure</span>
+
+                    <strong>
+                        {{ reservation.reservation_time|time:"H:i" }}
+                    </strong>
+                </div>
+
+
+                <div>
+                    <span>Nombre de personnes</span>
+
+                    <strong>
+                        {{ reservation.number_of_guests }}
+                    </strong>
+                </div>
+
+            </div>
+
+
+            <div class="reservation-deposit-amount">
+
+                <span>
+                    Acompte à régler
+                </span>
+
+                <strong>
+                    {{ reservation.deposit_amount|floatformat:2 }} €
+                </strong>
+
+            </div>
+
+
+            <div class="reservation-deposit-payment-info">
+
+                <i class="fa-solid fa-shield-halved"></i>
+
+                <div>
+                    <strong>
+                        Paiement en ligne sécurisé
+                    </strong>
+
+                    <span>
+                        Carte bancaire, Apple Pay, Google Pay
+                        et les autres moyens compatibles seront
+                        proposés lors du paiement.
+                    </span>
+                </div>
+
+            </div>
+
+
+            <a
+                href="#"
+                class="btn btn-primary reservation-deposit-btn"
+            >
+                <i class="fa-solid fa-credit-card"></i>
+
+                Payer
+                {{ reservation.deposit_amount|floatformat:2 }} €
+            </a>
+
+
+            <p class="reservation-deposit-note">
+                Votre réservation sera prise en compte après
+                validation du paiement de l’acompte.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

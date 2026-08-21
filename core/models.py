@@ -1,3 +1,6 @@
+from decimal import Decimal
+
+from django.core.validators import MinValueValidator
 from django.db import models
 
 
@@ -66,9 +69,18 @@ class SiteSettings(models.Model):
     opening_hours = models.TextField(
         blank=True,
         verbose_name="Horaires d’ouverture",
+    )
+
+    reservation_deposit_amount = models.DecimalField(
+        max_digits=8,
+        decimal_places=2,
+        default=Decimal("15.00"),
+        validators=[
+            MinValueValidator(Decimal("0.01")),
+        ],
+        verbose_name="Acompte de réservation",
         help_text=(
-            "Exemple : Mardi - Dimanche : 11h30 - 14h30 "
-            "et 18h30 - 23h00"
+            "Montant demandé pour toute réservation de table."
         ),
     )
 

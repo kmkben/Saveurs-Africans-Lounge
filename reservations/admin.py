@@ -10,15 +10,25 @@ class ReservationAdmin(admin.ModelAdmin):
         "reservation_time",
         "full_name",
         "number_of_guests",
-        "phone",
         "status",
-        "requires_deposit",
+        "deposit_amount",
+        "deposit_status",
+    )
+
+    list_display_links = (
+        "reservation_date",
+        "full_name",
+    )
+
+    list_editable = (
+        "status",
+        "deposit_status",
     )
 
     list_filter = (
         "status",
+        "deposit_status",
         "reservation_date",
-        "requires_deposit",
     )
 
     search_fields = (
@@ -26,6 +36,7 @@ class ReservationAdmin(admin.ModelAdmin):
         "last_name",
         "email",
         "phone",
+        "deposit_reference",
     )
 
     ordering = (
@@ -34,6 +45,9 @@ class ReservationAdmin(admin.ModelAdmin):
     )
 
     readonly_fields = (
+        "deposit_amount",
+        "deposit_reference",
+        "deposit_paid_at",
         "created_at",
         "updated_at",
     )
@@ -47,7 +61,7 @@ class ReservationAdmin(admin.ModelAdmin):
                     "last_name",
                     "email",
                     "phone",
-                )
+                ),
             },
         ),
         (
@@ -59,20 +73,22 @@ class ReservationAdmin(admin.ModelAdmin):
                     "number_of_guests",
                     "special_request",
                     "status",
-                )
+                ),
             },
         ),
         (
             "Acompte",
             {
                 "fields": (
-                    "requires_deposit",
                     "deposit_amount",
-                )
+                    "deposit_status",
+                    "deposit_reference",
+                    "deposit_paid_at",
+                ),
             },
         ),
         (
-            "Dates",
+            "Informations système",
             {
                 "classes": ("collapse",),
                 "fields": (

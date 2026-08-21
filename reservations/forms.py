@@ -1,13 +1,27 @@
 from datetime import date
 
 from django import forms
+from phonenumber_field.formfields import PhoneNumberField
 
 from .models import Reservation
 
 
 class ReservationForm(forms.ModelForm):
+    phone = PhoneNumberField(
+        region="FR",
+        label="Téléphone",
+        widget=forms.TextInput(
+            attrs={
+                "class": "form-control",
+                "autocomplete": "tel",
+                "placeholder": "06 00 00 00 00",
+            }
+        ),
+    )
+
     class Meta:
         model = Reservation
+
         fields = (
             "first_name",
             "last_name",
@@ -23,51 +37,54 @@ class ReservationForm(forms.ModelForm):
             "first_name": forms.TextInput(
                 attrs={
                     "class": "form-control",
+                    "autocomplete": "given-name",
                     "placeholder": "Votre prénom",
                 }
             ),
+
             "last_name": forms.TextInput(
                 attrs={
                     "class": "form-control",
+                    "autocomplete": "family-name",
                     "placeholder": "Votre nom",
                 }
             ),
+
             "email": forms.EmailInput(
                 attrs={
                     "class": "form-control",
-                    "placeholder": "vous@exemple.fr",
+                    "autocomplete": "email",
+                    "placeholder": "vous@email.com",
                 }
             ),
-            "phone": forms.TextInput(
-                attrs={
-                    "class": "form-control",
-                    "placeholder": "06 00 00 00 00",
-                }
-            ),
+
             "reservation_date": forms.DateInput(
                 attrs={
                     "class": "form-control",
                     "type": "date",
                 }
             ),
+
             "reservation_time": forms.TimeInput(
                 attrs={
                     "class": "form-control",
                     "type": "time",
                 }
             ),
+
             "number_of_guests": forms.NumberInput(
                 attrs={
                     "class": "form-control",
                     "min": 1,
                 }
             ),
+
             "special_request": forms.Textarea(
                 attrs={
                     "class": "form-control",
                     "rows": 4,
                     "placeholder": (
-                        "Anniversaire, chaise bébé, allergie, "
+                        "Anniversaire, allergie, chaise bébé, "
                         "demande particulière..."
                     ),
                 }
@@ -80,11 +97,6 @@ class ReservationForm(forms.ModelForm):
         if reservation_date < date.today():
             raise forms.ValidationError(
                 "La date de réservation ne peut pas être dans le passé."
-            )
-
-        if reservation_date.weekday() in (0, 6):
-            raise forms.ValidationError(
-                "Le restaurant est fermé le lundi et le dimanche."
             )
 
         return reservation_date

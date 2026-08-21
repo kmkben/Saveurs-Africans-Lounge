@@ -5872,3 +5872,609 @@ p {
         flex: 1;
     }
 }
+
+
+/* ==================================================
+   RESERVATION PAGE
+================================================== */
+
+.reservation-page {
+    background: var(--sal-light);
+    color: var(--sal-text-color);
+}
+
+.reservation-intro {
+    position: sticky;
+    top: 7.5rem;
+}
+
+.reservation-intro h1 {
+    margin: 0.75rem 0 1rem;
+
+    color: var(--sal-heading-color);
+
+    font-size: clamp(2.3rem, 5vw, 4rem);
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -0.035em;
+}
+
+.reservation-intro > p {
+    margin-bottom: 2rem;
+
+    color: var(--sal-muted-color);
+
+    font-size: 1.05rem;
+    line-height: 1.8;
+}
+
+
+/* --------------------------------------------------
+   Restaurant information
+-------------------------------------------------- */
+
+.reservation-info {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+}
+
+.reservation-info > div {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.9rem;
+
+    color: var(--sal-muted-color);
+
+    line-height: 1.65;
+}
+
+.reservation-info i {
+    flex: 0 0 40px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 40px;
+    height: 40px;
+
+    border-radius: 50%;
+
+    background: var(--sal-green-soft);
+    color: var(--sal-primary);
+}
+
+.reservation-info a {
+    color: inherit;
+    text-decoration: none;
+
+    transition: color var(--sal-transition);
+}
+
+.reservation-info a:hover {
+    color: var(--sal-primary);
+}
+
+
+/* --------------------------------------------------
+   Deposit information
+-------------------------------------------------- */
+
+.reservation-deposit-info {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+
+    margin-top: 2rem;
+    padding: 1.25rem;
+
+    border: 1px solid var(--sal-border-color);
+    border-radius: var(--sal-radius);
+
+    background: var(--sal-gold-soft);
+}
+
+.reservation-deposit-info-icon {
+    flex: 0 0 46px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 46px;
+    height: 46px;
+
+    border-radius: 50%;
+
+    background: var(--sal-secondary);
+    color: var(--sal-charcoal);
+}
+
+.reservation-deposit-info strong {
+    color: var(--sal-charcoal);
+}
+
+.reservation-deposit-info p {
+    margin: 0.35rem 0 0;
+
+    color: #554a3a;
+
+    line-height: 1.65;
+}
+
+
+/* --------------------------------------------------
+   Reservation form
+-------------------------------------------------- */
+
+.reservation-form {
+    padding: clamp(1.75rem, 4vw, 2.75rem);
+
+    border: 1px solid var(--sal-border-color);
+    border-radius: var(--sal-radius-lg);
+
+    background: var(--bs-body-bg);
+
+    box-shadow: var(--sal-shadow);
+}
+
+.reservation-form .form-label {
+    margin-bottom: 0.5rem;
+
+    color: var(--sal-heading-color);
+
+    font-size: 0.9rem;
+    font-weight: 700;
+}
+
+.reservation-form .form-control,
+.reservation-form .form-select {
+    min-height: 50px;
+
+    border: 1px solid var(--sal-border-color);
+    border-radius: var(--sal-radius-sm);
+
+    background: var(--bs-body-bg);
+    color: var(--bs-body-color);
+
+    box-shadow: none;
+}
+
+.reservation-form textarea.form-control {
+    min-height: 140px;
+    resize: vertical;
+}
+
+.reservation-form .form-control:focus,
+.reservation-form .form-select:focus {
+    border-color: var(--sal-primary);
+
+    box-shadow:
+        0 0 0 0.2rem rgba(35, 122, 82, 0.15);
+}
+
+.reservation-payment-notice {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.9rem;
+
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+
+    border-top: 1px solid var(--sal-border-color);
+}
+
+.reservation-payment-notice > i {
+    margin-top: 0.15rem;
+
+    color: var(--sal-primary);
+}
+
+.reservation-payment-notice div {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+}
+
+.reservation-payment-notice strong {
+    color: var(--sal-heading-color);
+}
+
+.reservation-payment-notice span {
+    color: var(--sal-muted-color);
+
+    font-size: 0.88rem;
+    line-height: 1.55;
+}
+
+
+/* ==================================================
+   RESERVATION DEPOSIT PAGE
+================================================== */
+
+.reservation-deposit-page {
+    background: var(--sal-light);
+    color: var(--sal-text-color);
+}
+
+.reservation-deposit-card {
+    max-width: 780px;
+    margin: 0 auto;
+
+    padding: clamp(2rem, 6vw, 4rem);
+
+    border: 1px solid var(--sal-border-color);
+    border-radius: var(--sal-radius-lg);
+
+    background: var(--bs-body-bg);
+
+    box-shadow: var(--sal-shadow-lg);
+
+    text-align: center;
+}
+
+.reservation-deposit-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 82px;
+    height: 82px;
+
+    margin-bottom: 1.5rem;
+
+    border-radius: 50%;
+
+    background: var(--sal-green-soft);
+    color: var(--sal-primary);
+
+    font-size: 1.8rem;
+}
+
+.reservation-deposit-card h1 {
+    margin: 0.75rem 0 1rem;
+
+    color: var(--sal-heading-color);
+
+    font-size: clamp(2rem, 5vw, 3.3rem);
+    font-weight: 800;
+    line-height: 1.1;
+}
+
+.reservation-deposit-intro {
+    max-width: 580px;
+    margin: 0 auto 2.2rem;
+
+    color: var(--sal-muted-color);
+
+    font-size: 1.02rem;
+    line-height: 1.75;
+}
+
+
+/* --------------------------------------------------
+   Reservation summary
+-------------------------------------------------- */
+
+.reservation-deposit-summary {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+
+    margin-bottom: 2rem;
+}
+
+.reservation-deposit-summary > div {
+    padding: 1.2rem;
+
+    border: 1px solid var(--sal-border-color);
+    border-radius: var(--sal-radius);
+
+    background: var(--sal-light);
+
+    text-align: left;
+}
+
+.reservation-deposit-summary span {
+    display: block;
+
+    margin-bottom: 0.25rem;
+
+    color: var(--sal-muted-color);
+
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.reservation-deposit-summary strong {
+    color: var(--sal-heading-color);
+
+    font-size: 1rem;
+}
+
+
+/* --------------------------------------------------
+   Deposit amount
+-------------------------------------------------- */
+
+.reservation-deposit-amount {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+
+    margin-bottom: 1.5rem;
+    padding: 1.4rem 1.5rem;
+
+    border: 1px solid rgba(200, 161, 90, 0.35);
+    border-radius: var(--sal-radius);
+
+    background: var(--sal-gold-soft);
+
+    text-align: left;
+}
+
+.reservation-deposit-amount span {
+    color: #5d513f;
+
+    font-weight: 700;
+}
+
+.reservation-deposit-amount strong {
+    color: var(--sal-primary);
+
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
+}
+
+
+/* --------------------------------------------------
+   Payment information
+-------------------------------------------------- */
+
+.reservation-deposit-payment-info {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+
+    margin-bottom: 2rem;
+    padding: 1.2rem;
+
+    border: 1px solid var(--sal-border-color);
+    border-radius: var(--sal-radius);
+
+    background: var(--sal-light);
+
+    text-align: left;
+}
+
+.reservation-deposit-payment-info > i {
+    margin-top: 0.2rem;
+
+    color: var(--sal-primary);
+
+    font-size: 1.2rem;
+}
+
+.reservation-deposit-payment-info div {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.reservation-deposit-payment-info strong {
+    color: var(--sal-heading-color);
+}
+
+.reservation-deposit-payment-info span {
+    color: var(--sal-muted-color);
+
+    font-size: 0.88rem;
+    line-height: 1.55;
+}
+
+
+/* --------------------------------------------------
+   Deposit button
+-------------------------------------------------- */
+
+.reservation-deposit-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+
+    min-height: 52px;
+    padding-inline: 1.7rem;
+
+    border-radius: 999px;
+
+    font-weight: 800;
+}
+
+.reservation-deposit-note {
+    max-width: 560px;
+    margin: 1.2rem auto 0;
+
+    color: var(--sal-muted-color);
+
+    font-size: 0.82rem;
+    line-height: 1.55;
+}
+
+
+/* ==================================================
+   RESERVATION SUCCESS
+================================================== */
+
+.reservation-success {
+    background: var(--sal-light);
+}
+
+.reservation-success-inner {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: clamp(2rem, 6vw, 4rem);
+
+    border: 1px solid var(--sal-border-color);
+    border-radius: var(--sal-radius-lg);
+
+    background: var(--bs-body-bg);
+
+    box-shadow: var(--sal-shadow-lg);
+
+    text-align: center;
+}
+
+.reservation-success-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 82px;
+    height: 82px;
+
+    margin-bottom: 1.5rem;
+
+    border-radius: 50%;
+
+    background: var(--sal-green-soft);
+    color: var(--sal-primary);
+
+    font-size: 1.8rem;
+}
+
+.reservation-success-inner h1 {
+    color: var(--sal-heading-color);
+
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    font-weight: 800;
+}
+
+.reservation-success-inner > p {
+    max-width: 600px;
+    margin: 1rem auto;
+
+    color: var(--sal-muted-color);
+
+    line-height: 1.75;
+}
+
+.reservation-success-summary {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
+
+    margin: 2rem 0;
+}
+
+.reservation-success-summary > div {
+    padding: 1rem;
+
+    border: 1px solid var(--sal-border-color);
+    border-radius: var(--sal-radius);
+
+    background: var(--sal-light);
+}
+
+.reservation-success-summary span {
+    display: block;
+
+    color: var(--sal-muted-color);
+
+    font-size: 0.78rem;
+    text-transform: uppercase;
+}
+
+.reservation-success-summary strong {
+    color: var(--sal-heading-color);
+}
+
+.reservation-success-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+
+    margin-top: 2rem;
+}
+
+
+/* ==================================================
+   DARK MODE
+================================================== */
+
+[data-bs-theme="dark"] .reservation-info i,
+[data-bs-theme="dark"] .reservation-deposit-icon,
+[data-bs-theme="dark"] .reservation-success-icon {
+    background: rgba(35, 122, 82, 0.2);
+    color: #6fc29a;
+}
+
+[data-bs-theme="dark"] .reservation-deposit-info,
+[data-bs-theme="dark"] .reservation-deposit-amount {
+    background: rgba(200, 161, 90, 0.11);
+}
+
+[data-bs-theme="dark"] .reservation-deposit-info strong,
+[data-bs-theme="dark"] .reservation-deposit-amount span {
+    color: var(--sal-gold);
+}
+
+[data-bs-theme="dark"] .reservation-deposit-info p {
+    color: var(--sal-text-color);
+}
+
+[data-bs-theme="dark"] .reservation-deposit-amount strong {
+    color: var(--sal-gold);
+}
+
+[data-bs-theme="dark"] .reservation-form .form-control:focus,
+[data-bs-theme="dark"] .reservation-form .form-select:focus {
+    border-color: var(--sal-gold);
+
+    box-shadow:
+        0 0 0 0.2rem rgba(200, 161, 90, 0.15);
+}
+
+
+/* ==================================================
+   RESPONSIVE
+================================================== */
+
+@media (max-width: 991.98px) {
+    .reservation-intro {
+        position: static;
+    }
+}
+
+@media (max-width: 767.98px) {
+    .reservation-form,
+    .reservation-deposit-card,
+    .reservation-success-inner {
+        padding: 1.5rem;
+        border-radius: var(--sal-radius);
+    }
+
+    .reservation-deposit-summary {
+        grid-template-columns: 1fr;
+    }
+
+    .reservation-success-summary {
+        grid-template-columns: 1fr;
+    }
+
+    .reservation-deposit-amount {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .reservation-success-actions {
+        flex-direction: column;
+    }
+
+    .reservation-success-actions .btn {
+        width: 100%;
+    }
+}

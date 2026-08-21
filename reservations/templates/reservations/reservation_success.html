@@ -1,44 +1,106 @@
 {% extends "layouts/base.html" %}
 
 {% block title %}
-Demande envoyée | Saveurs Africans Lounge
+Réservation enregistrée | Saveurs Africans Lounge
 {% endblock %}
 
 {% block content %}
 
 <section class="reservation-success section-padding">
+
     <div class="container">
 
         <div class="reservation-success-inner">
+
             <div class="reservation-success-icon">
                 <i class="fa-solid fa-check"></i>
             </div>
 
+
             <span class="section-eyebrow">
-                Demande enregistrée
+                Réservation enregistrée
             </span>
 
-            <h1>Merci pour votre réservation</h1>
 
-            <p>
-                Votre demande a bien été envoyée. Notre équipe vous contactera
-                afin de confirmer la disponibilité de votre table.
-            </p>
+            <h1>
+                Merci pour votre réservation
+            </h1>
+
+
+            {% if reservation %}
+
+                <p>
+                    Votre demande de réservation a bien été enregistrée
+                    et votre acompte de
+
+                    <strong>
+                        {{ reservation.deposit_amount|floatformat:2 }} €
+                    </strong>
+
+                    a bien été reçu.
+                </p>
+
+
+                <div class="reservation-success-summary">
+
+                    <div>
+                        <span>Date</span>
+
+                        <strong>
+                            {{ reservation.reservation_date|date:"d/m/Y" }}
+                        </strong>
+                    </div>
+
+                    <div>
+                        <span>Heure</span>
+
+                        <strong>
+                            {{ reservation.reservation_time|time:"H:i" }}
+                        </strong>
+                    </div>
+
+                    <div>
+                        <span>Personnes</span>
+
+                        <strong>
+                            {{ reservation.number_of_guests }}
+                        </strong>
+                    </div>
+
+                </div>
+
+
+                <p>
+                    Notre équipe vous contactera si nécessaire
+                    concernant votre réservation.
+                </p>
+
+            {% endif %}
+
 
             <div class="reservation-success-actions">
-                <a href="{% url 'menu:list' %}"
-                   class="btn btn-primary">
+
+                <a
+                    href="{% url 'menu:list' %}"
+                    class="btn btn-primary"
+                >
                     Voir la carte
                 </a>
 
-                <a href="{% url 'core:home' %}"
-                   class="btn btn-outline-secondary">
+
+                <a
+                    href="{% url 'home' %}"
+                    class="btn btn-outline-secondary"
+                >
                     Retour à l’accueil
                 </a>
+
             </div>
+
         </div>
 
     </div>
+
 </section>
 
 {% endblock %}
