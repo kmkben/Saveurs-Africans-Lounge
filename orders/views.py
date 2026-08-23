@@ -12,7 +12,7 @@ from menu.models import Dish
 
 from .cart import Cart
 from .forms import CartAddDishForm, CheckoutForm
-from .models import OrderItem, DeliveryZone
+from .models import OrderItem, DeliveryZone, Order
 
 
 def cart_detail(request):
@@ -139,12 +139,10 @@ def checkout(request):
                     quantity=item["quantity"],
                 )
 
-            cart.clear()
-
-            request.session["last_order_id"] = order.pk
+            request.session["pending_order_id"] = order.pk
 
             return redirect(
-                "orders:success",
+                "orders:payment",
                 order_id=order.pk,
             )
 
@@ -249,4 +247,32 @@ def delivery_quote(request):
             "subtotal": f"{subtotal:.2f}",
             "total": f"{total:.2f}",
         }
+    )
+    
+    
+    
+#from django.shortcuts import get_object_or_404
+
+
+def order_payment_page(request, order_id):
+    order = get_object_or_404(
+        Order,
+        pk=order_id,
+    )
+
+    if request.session.get("pending_order_id") != order.pk:
+        return redirect("orders:cart")
+
+    if order.payment_status == Order.PaymentStatus.PAID:
+        return redirect(
+            "orders:success",
+            order_id=order.pk,
+        )
+
+    return render(
+        request,
+        "orders/payment.html",
+        {
+            "order": order,
+        },
     )

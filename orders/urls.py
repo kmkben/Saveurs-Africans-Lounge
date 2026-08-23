@@ -43,4 +43,10 @@ urlpatterns = [
         views.delivery_quote,
         name="delivery_quote",
     ),
+    
+    path(
+        "commande/<int:order_id>/paiement/",
+        views.order_payment_page,
+        name="payment",
+    ),
 ]

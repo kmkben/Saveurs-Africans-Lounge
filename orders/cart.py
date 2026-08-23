@@ -59,17 +59,28 @@ class Cart:
             pk__in=dish_ids,
         )
 
-        cart = self.cart.copy()
+        dishes_map = {
+            str(dish.pk): dish
+            for dish in dishes
+        }
 
-        for dish in dishes:
-            cart[str(dish.pk)]["dish"] = dish
+        for dish_id, stored_item in self.cart.items():
+            dish = dishes_map.get(dish_id)
 
-        for item in cart.values():
-            item["price"] = Decimal(item["price"])
+            if dish is None:
+                continue
 
+            # IMPORTANT:
+            # copy the individual item so we never mutate
+            # the dictionary stored inside the Django session.
+            item = stored_item.copy()
+
+            price = Decimal(item["price"])
+
+            item["dish"] = dish
+            item["price"] = price
             item["total_price"] = (
-                item["price"]
-                * item["quantity"]
+                price * item["quantity"]
             )
 
             yield item

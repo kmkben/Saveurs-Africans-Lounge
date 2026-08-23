@@ -212,12 +212,54 @@ ADMIN_EMAIL = env("ADMIN_EMAIL", default=EMAIL_HOST_USER)
 
 
 
-STRIPE_PUBLIC_KEY = env("STRIPE_PUBLIC_KEY")
-STRIPE_SECRET_KEY = env("STRIPE_SECRET_KEY")
+# STRIPE_PUBLIC_KEY = env("STRIPE_PUBLIC_KEY")
+# STRIPE_SECRET_KEY = env("STRIPE_SECRET_KEY")
+# STRIPE_WEBHOOK_SECRET = env(
+#     "STRIPE_WEBHOOK_SECRET",
+#     default="",
+# )
+
+STRIPE_PUBLIC_KEY = env(
+    "STRIPE_PUBLIC_KEY",
+    default="",
+)
+
+STRIPE_SECRET_KEY = env(
+    "STRIPE_SECRET_KEY",
+    default="",
+)
+
 STRIPE_WEBHOOK_SECRET = env(
     "STRIPE_WEBHOOK_SECRET",
     default="",
 )
+
+STRIPE_LIVE_MODE = env.bool(
+    "STRIPE_LIVE_MODE",
+    default=False,
+)
+
+
+if STRIPE_LIVE_MODE:
+    if not STRIPE_PUBLIC_KEY.startswith("pk_live_"):
+        raise ValueError(
+            "STRIPE_LIVE_MODE=True but STRIPE_PUBLIC_KEY is not a live key."
+        )
+
+    if not STRIPE_SECRET_KEY.startswith("sk_live_"):
+        raise ValueError(
+            "STRIPE_LIVE_MODE=True but STRIPE_SECRET_KEY is not a live key."
+        )
+else:
+    if STRIPE_PUBLIC_KEY and not STRIPE_PUBLIC_KEY.startswith("pk_test_"):
+        raise ValueError(
+            "STRIPE_LIVE_MODE=False but STRIPE_PUBLIC_KEY is not a test key."
+        )
+
+    if STRIPE_SECRET_KEY and not STRIPE_SECRET_KEY.startswith("sk_test_"):
+        raise ValueError(
+            "STRIPE_LIVE_MODE=False but STRIPE_SECRET_KEY is not a test key."
+        )
 
 
 

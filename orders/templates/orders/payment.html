@@ -1,0 +1,144 @@
+{% extends "layouts/base.html" %}
+
+{% block title %}
+Finaliser ma commande | Saveurs Africans Lounge
+{% endblock %}
+
+{% block content %}
+
+<section class="order-payment-page section-padding">
+
+    <div class="container">
+
+        <div class="order-payment-card">
+
+            <div class="order-payment-icon">
+                <i class="fa-solid fa-lock"></i>
+            </div>
+
+            <span class="section-eyebrow">
+                Paiement sécurisé
+            </span>
+
+            <h1>Finalisez votre commande</h1>
+
+            <p class="order-payment-intro">
+                Vérifiez votre commande puis procédez au paiement en ligne.
+            </p>
+
+
+            <div class="order-payment-reference">
+                Commande
+                <strong>#{{ order.pk }}</strong>
+            </div>
+
+
+            <div class="order-payment-items">
+
+                {% for item in order.items.all %}
+
+                    <div class="order-payment-item">
+
+                        <div>
+                            <strong>
+                                {{ item.quantity }} × {{ item.dish_name }}
+                            </strong>
+
+                            <span>
+                                {{ item.unit_price|floatformat:2 }} €
+                                l’unité
+                            </span>
+                        </div>
+
+                        <strong class="order-payment-item-total">
+                            {{ item.total_price|floatformat:2 }} €
+                        </strong>
+
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+
+            <div class="order-payment-pricing">
+
+                <div>
+                    <span>Sous-total</span>
+
+                    <strong>
+                        {{ order.subtotal|floatformat:2 }} €
+                    </strong>
+                </div>
+
+                <div>
+                    <span>
+                        {% if order.order_type == "DELIVERY" %}
+                            Livraison
+                        {% else %}
+                            Retrait sur place
+                        {% endif %}
+                    </span>
+
+                    <strong>
+                        {{ order.delivery_fee|floatformat:2 }} €
+                    </strong>
+                </div>
+
+                <div class="order-payment-grand-total">
+                    <span>Total à payer</span>
+
+                    <strong>
+                        {{ order.total|floatformat:2 }} €
+                    </strong>
+                </div>
+
+            </div>
+
+
+            <div class="order-payment-security">
+
+                <i class="fa-solid fa-shield-halved"></i>
+
+                <div>
+                    <strong>Paiement en ligne sécurisé</strong>
+
+                    <span>
+                        Vous serez redirigé vers notre espace de paiement
+                        sécurisé pour finaliser votre commande.
+                    </span>
+                </div>
+
+            </div>
+
+
+            <form
+                method="post"
+                action="{% url 'payments:order' order.pk %}"
+            >
+                {% csrf_token %}
+
+                <button
+                    type="submit"
+                    class="btn btn-primary order-payment-btn"
+                >
+                    <i class="fa-solid fa-credit-card"></i>
+
+                    Payer
+                    {{ order.total|floatformat:2 }} €
+                </button>
+            </form>
+
+
+            <p class="order-payment-note">
+                Votre commande sera transmise au restaurant après
+                confirmation du paiement.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

@@ -104,15 +104,22 @@ Acompte de réservation | Saveurs Africans Lounge
             </div>
 
 
-            <a
-                href="#"
-                class="btn btn-primary reservation-deposit-btn"
+            <form
+                method="post"
+                action="{% url 'payments:reservation' reservation.pk %}"
             >
-                <i class="fa-solid fa-credit-card"></i>
+                {% csrf_token %}
 
-                Payer
-                {{ reservation.deposit_amount|floatformat:2 }} €
-            </a>
+                <button
+                    type="submit"
+                    class="btn btn-primary reservation-deposit-btn"
+                >
+                    <i class="fa-solid fa-credit-card"></i>
+
+                    Payer
+                    {{ reservation.deposit_amount|floatformat:2 }} €
+                </button>
+            </form>
 
 
             <p class="reservation-deposit-note">
