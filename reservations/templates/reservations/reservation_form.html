@@ -1,7 +1,7 @@
 {% extends "layouts/base.html" %}
 
 {% block title %}
-Réserver une table | Saveurs Africans Lounge
+Réserver | Saveurs Africans Lounge
 {% endblock %}
 
 {% block content %}
@@ -19,14 +19,13 @@ Réserver une table | Saveurs Africans Lounge
                         Saveurs Africans Lounge
                     </span>
 
-                    <h1>Réservez votre table</h1>
+                    <h1>Réservez votre moment</h1>
 
                     <p>
-                        Choisissez votre date, votre heure et le nombre
-                        de personnes. Un acompte est demandé afin de
-                        garantir votre réservation.
+                        Réservez une table ou notre salle privée
+                        pour profiter d’un moment chaleureux dans
+                        notre restaurant.
                     </p>
-
 
                     <div class="reservation-info">
 
@@ -44,7 +43,6 @@ Réserver une table | Saveurs Africans Lounge
                                 </div>
                             {% endif %}
 
-
                             {% if site_settings.phone %}
                                 <div>
                                     <i class="fa-solid fa-phone"></i>
@@ -54,7 +52,6 @@ Réserver une table | Saveurs Africans Lounge
                                     </a>
                                 </div>
                             {% endif %}
-
 
                             {% if site_settings.opening_hours %}
                                 <div>
@@ -70,7 +67,6 @@ Réserver une table | Saveurs Africans Lounge
 
                     </div>
 
-
                     <div class="reservation-deposit-info">
 
                         <div class="reservation-deposit-info-icon">
@@ -84,6 +80,7 @@ Réserver une table | Saveurs Africans Lounge
 
                             <p>
                                 Un acompte de
+
                                 <strong>
                                     {% if site_settings %}
                                         {{ site_settings.reservation_deposit_amount|floatformat:2 }} €
@@ -91,6 +88,7 @@ Réserver une table | Saveurs Africans Lounge
                                         15,00 €
                                     {% endif %}
                                 </strong>
+
                                 est demandé pour toute réservation.
                             </p>
                         </div>
@@ -107,6 +105,7 @@ Réserver une table | Saveurs Africans Lounge
                 <form
                     method="post"
                     class="reservation-form shadow"
+                    id="reservation-form"
                     novalidate
                 >
 
@@ -119,36 +118,208 @@ Réserver une table | Saveurs Africans Lounge
                     {% endif %}
 
 
-                    <div class="row g-4">
+                    <!-- CUSTOMER -->
+                    <div class="reservation-form-section">
 
-                        {% for field in form %}
+                        <h2>Vos informations</h2>
 
-                            <div class="
-                                {% if field.name == 'special_request' %}
-                                    col-12
-                                {% else %}
-                                    col-md-6
+                        <div class="row g-4">
+
+                            {% for field in form %}
+
+                                {% if field.name == "first_name" or field.name == "last_name" or field.name == "email" or field.name == "phone" %}
+
+                                    <div class="col-md-6">
+
+                                        <label
+                                            for="{{ field.id_for_label }}"
+                                            class="form-label"
+                                        >
+                                            {{ field.label }}
+                                        </label>
+
+                                        {{ field }}
+
+                                        {% if field.errors %}
+                                            <div class="form-error">
+                                                {{ field.errors|striptags }}
+                                            </div>
+                                        {% endif %}
+
+                                    </div>
+
                                 {% endif %}
-                            ">
 
+                            {% endfor %}
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- RESERVATION -->
+                    <div class="reservation-form-section">
+
+                        <h2>Votre réservation</h2>
+
+                        <div class="row g-4">
+
+                            <div class="col-md-6">
                                 <label
-                                    for="{{ field.id_for_label }}"
+                                    for="{{ form.reservation_type.id_for_label }}"
                                     class="form-label"
                                 >
-                                    {{ field.label }}
+                                    {{ form.reservation_type.label }}
                                 </label>
 
-                                {{ field }}
+                                {{ form.reservation_type }}
 
-                                {% if field.errors %}
+                                {% if form.reservation_type.errors %}
                                     <div class="form-error">
-                                        {{ field.errors|striptags }}
+                                        {{ form.reservation_type.errors|striptags }}
+                                    </div>
+                                {% endif %}
+                            </div>
+
+
+                            <div class="col-md-6">
+                                <label
+                                    for="{{ form.event_type.id_for_label }}"
+                                    class="form-label"
+                                >
+                                    {{ form.event_type.label }}
+                                </label>
+
+                                {{ form.event_type }}
+
+                                {% if form.event_type.errors %}
+                                    <div class="form-error">
+                                        {{ form.event_type.errors|striptags }}
+                                    </div>
+                                {% endif %}
+                            </div>
+
+
+                            <div
+                                class="col-12"
+                                id="event-detail-wrapper"
+                            >
+                                <label
+                                    for="{{ form.event_detail.id_for_label }}"
+                                    class="form-label"
+                                >
+                                    {{ form.event_detail.label }}
+                                </label>
+
+                                {{ form.event_detail }}
+
+                                {% if form.event_detail.help_text %}
+                                    <div class="form-help">
+                                        {{ form.event_detail.help_text }}
                                     </div>
                                 {% endif %}
 
+                                {% if form.event_detail.errors %}
+                                    <div class="form-error">
+                                        {{ form.event_detail.errors|striptags }}
+                                    </div>
+                                {% endif %}
                             </div>
 
-                        {% endfor %}
+
+                            <div class="col-md-6">
+                                <label
+                                    for="{{ form.reservation_date.id_for_label }}"
+                                    class="form-label"
+                                >
+                                    {{ form.reservation_date.label }}
+                                </label>
+
+                                {{ form.reservation_date }}
+
+                                {% if form.reservation_date.errors %}
+                                    <div class="form-error">
+                                        {{ form.reservation_date.errors|striptags }}
+                                    </div>
+                                {% endif %}
+                            </div>
+
+
+                            <div class="col-md-6">
+                                <label
+                                    for="{{ form.number_of_guests.id_for_label }}"
+                                    class="form-label"
+                                >
+                                    {{ form.number_of_guests.label }}
+                                </label>
+
+                                {{ form.number_of_guests }}
+
+                                {% if form.number_of_guests.errors %}
+                                    <div class="form-error">
+                                        {{ form.number_of_guests.errors|striptags }}
+                                    </div>
+                                {% endif %}
+                            </div>
+
+
+                            <div class="col-md-6">
+                                <label
+                                    for="{{ form.reservation_time.id_for_label }}"
+                                    class="form-label"
+                                >
+                                    {{ form.reservation_time.label }}
+                                </label>
+
+                                {{ form.reservation_time }}
+
+                                {% if form.reservation_time.errors %}
+                                    <div class="form-error">
+                                        {{ form.reservation_time.errors|striptags }}
+                                    </div>
+                                {% endif %}
+                            </div>
+
+
+                            <div
+                                class="col-md-6"
+                                id="end-time-wrapper"
+                            >
+                                <label
+                                    for="{{ form.end_time.id_for_label }}"
+                                    class="form-label"
+                                >
+                                    {{ form.end_time.label }}
+                                </label>
+
+                                {{ form.end_time }}
+
+                                {% if form.end_time.errors %}
+                                    <div class="form-error">
+                                        {{ form.end_time.errors|striptags }}
+                                    </div>
+                                {% endif %}
+                            </div>
+
+
+                            <div class="col-12">
+                                <label
+                                    for="{{ form.special_request.id_for_label }}"
+                                    class="form-label"
+                                >
+                                    {{ form.special_request.label }}
+                                </label>
+
+                                {{ form.special_request }}
+
+                                {% if form.special_request.errors %}
+                                    <div class="form-error">
+                                        {{ form.special_request.errors|striptags }}
+                                    </div>
+                                {% endif %}
+                            </div>
+
+                        </div>
 
                     </div>
 
@@ -164,8 +335,7 @@ Réserver une table | Saveurs Africans Lounge
 
                             <span>
                                 Après validation de vos informations,
-                                vous serez redirigé vers le paiement
-                                sécurisé de l’acompte.
+                                vous pourrez régler l’acompte en ligne.
                             </span>
                         </div>
 
@@ -189,5 +359,66 @@ Réserver une table | Saveurs Africans Lounge
 
     </div>
 </section>
+
+{% endblock %}
+
+
+{% block extra_js %}
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    const reservationType =
+        document.getElementById("id_reservation_type");
+
+    const eventType =
+        document.getElementById("id_event_type");
+
+    const eventDetail =
+        document.getElementById("event-detail-wrapper");
+
+    const endTime =
+        document.getElementById("end-time-wrapper");
+
+
+    function updateReservationFields() {
+
+        const hasEvent =
+            eventType.value !== "NONE";
+
+        const isPrivateRoom =
+            reservationType.value === "PRIVATE_ROOM";
+
+
+        eventDetail.style.display =
+            hasEvent ? "block" : "none";
+
+
+        /*
+         * End time is particularly useful for
+         * private room / event reservations.
+         */
+        endTime.style.display =
+            (isPrivateRoom || hasEvent)
+                ? "block"
+                : "none";
+    }
+
+
+    reservationType.addEventListener(
+        "change",
+        updateReservationFields
+    );
+
+    eventType.addEventListener(
+        "change",
+        updateReservationFields
+    );
+
+
+    updateReservationFields();
+
+});
+</script>
 
 {% endblock %}

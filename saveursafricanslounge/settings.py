@@ -80,6 +80,7 @@ INSTALLED_APPS = [
     'daily_specials',
     'orders',
     'payments',
+    'notifications',
 ]
 
 MIDDLEWARE = [
@@ -208,6 +209,51 @@ ADMIN_EMAIL = env("ADMIN_EMAIL", default=EMAIL_HOST_USER)
 # EMAIL_HOST_USER = env("EMAIL_HOST_USER")
 # EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD")
 # DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+
+# --------------------------------------------------
+# BREVO / NOTIFICATIONS
+# --------------------------------------------------
+
+BREVO_API_KEY = env(
+    "BREVO_API_KEY",
+    default="",
+)
+
+BREVO_EMAIL_ENABLED = env.bool(
+    "BREVO_EMAIL_ENABLED",
+    default=True,
+)
+
+BREVO_SENDER_NAME = env(
+    "BREVO_SENDER_NAME",
+    default="Saveurs Africans Lounge",
+)
+
+BREVO_SENDER_EMAIL = env(
+    "BREVO_SENDER_EMAIL",
+    default="",
+)
+
+OWNER_NOTIFICATION_EMAIL = env(
+    "OWNER_NOTIFICATION_EMAIL",
+    default="",
+)
+
+OWNER_NOTIFICATION_PHONE = env(
+    "OWNER_NOTIFICATION_PHONE",
+    default="",
+)
+
+BREVO_SMS_ENABLED = env.bool(
+    "BREVO_SMS_ENABLED",
+    default=False,
+)
+
+BREVO_SMS_SENDER = env(
+    "BREVO_SMS_SENDER",
+    default="SaveursAL",
+)
 
 
 

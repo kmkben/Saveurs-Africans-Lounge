@@ -1,7 +1,11 @@
 from decimal import Decimal
 
 from django.shortcuts import redirect
-from django.views.generic import CreateView, DetailView, TemplateView
+from django.views.generic import (
+    CreateView,
+    DetailView,
+    TemplateView,
+)
 
 from core.models import SiteSettings
 
@@ -12,7 +16,9 @@ from .models import Reservation
 class ReservationCreateView(CreateView):
     model = Reservation
     form_class = ReservationForm
-    template_name = "reservations/reservation_form.html"
+    template_name = (
+        "reservations/reservation_form.html"
+    )
 
     def form_valid(self, form):
         reservation = form.save(commit=False)
@@ -20,7 +26,9 @@ class ReservationCreateView(CreateView):
         site_settings = SiteSettings.objects.first()
 
         if site_settings:
-            deposit_amount = site_settings.reservation_deposit_amount
+            deposit_amount = (
+                site_settings.reservation_deposit_amount
+            )
         else:
             deposit_amount = Decimal("15.00")
 
@@ -32,7 +40,9 @@ class ReservationCreateView(CreateView):
 
         self.object = reservation
 
-        self.request.session["last_reservation_id"] = reservation.pk
+        self.request.session[
+            "last_reservation_id"
+        ] = reservation.pk
 
         return redirect(
             "reservations:deposit",
@@ -42,17 +52,28 @@ class ReservationCreateView(CreateView):
 
 class ReservationDepositView(DetailView):
     model = Reservation
-    template_name = "reservations/reservation_deposit.html"
+    template_name = (
+        "reservations/reservation_deposit.html"
+    )
     context_object_name = "reservation"
 
-    def dispatch(self, request, *args, **kwargs):
+    def dispatch(
+        self,
+        request,
+        *args,
+        **kwargs,
+    ):
         reservation = self.get_object()
 
         if (
-            request.session.get("last_reservation_id")
+            request.session.get(
+                "last_reservation_id"
+            )
             != reservation.pk
         ):
-            return redirect("reservations:create")
+            return redirect(
+                "reservations:create"
+            )
 
         if reservation.deposit_is_paid:
             return redirect(
@@ -67,15 +88,24 @@ class ReservationDepositView(DetailView):
 
 
 class ReservationSuccessView(TemplateView):
-    template_name = "reservations/reservation_success.html"
+    template_name = (
+        "reservations/reservation_success.html"
+    )
 
-    def dispatch(self, request, *args, **kwargs):
+    def dispatch(
+        self,
+        request,
+        *args,
+        **kwargs,
+    ):
         reservation_id = request.session.get(
             "last_reservation_id"
         )
 
         if not reservation_id:
-            return redirect("reservations:create")
+            return redirect(
+                "reservations:create"
+            )
 
         reservation = (
             Reservation.objects
@@ -84,10 +114,10 @@ class ReservationSuccessView(TemplateView):
         )
 
         if not reservation:
-            return redirect("reservations:create")
+            return redirect(
+                "reservations:create"
+            )
 
-        # Once real online payment is connected,
-        # customers must not reach success before payment.
         if not reservation.deposit_is_paid:
             return redirect(
                 "reservations:deposit",
@@ -100,8 +130,13 @@ class ReservationSuccessView(TemplateView):
             **kwargs,
         )
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
+    def get_context_data(
+        self,
+        **kwargs,
+    ):
+        context = super().get_context_data(
+            **kwargs
+        )
 
         reservation_id = self.request.session.get(
             "last_reservation_id"

@@ -6480,6 +6480,62 @@ p {
 }
 
 
+/* ==================================================
+   RESERVATION FORM SECTIONS
+================================================== */
+
+.reservation-form-section + .reservation-form-section {
+    margin-top: 2.5rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--sal-border-color);
+}
+
+.reservation-form-section h2 {
+    margin-bottom: 1.5rem;
+
+    color: var(--sal-heading-color);
+
+    font-size: 1.15rem;
+    font-weight: 800;
+}
+
+
+/* --------------------------------------------------
+   Deposit request summary
+-------------------------------------------------- */
+
+.reservation-deposit-request {
+    margin-bottom: 1.5rem;
+    padding: 1.25rem;
+
+    border: 1px solid var(--sal-border-color);
+    border-radius: var(--sal-radius);
+
+    background: var(--sal-light);
+
+    text-align: left;
+}
+
+.reservation-deposit-request span {
+    display: block;
+    margin-bottom: 0.5rem;
+
+    color: var(--sal-muted-color);
+
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+.reservation-deposit-request p {
+    margin: 0;
+
+    color: var(--sal-text-color);
+
+    line-height: 1.65;
+}
+
+
 
 
 /* ==================================================

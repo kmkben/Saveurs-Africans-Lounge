@@ -18,7 +18,7 @@ Réservation enregistrée | Saveurs Africans Lounge
 
 
             <span class="section-eyebrow">
-                Réservation enregistrée
+                Paiement confirmé
             </span>
 
 
@@ -30,7 +30,7 @@ Réservation enregistrée | Saveurs Africans Lounge
             {% if reservation %}
 
                 <p>
-                    Votre demande de réservation a bien été enregistrée
+                    Votre réservation a bien été enregistrée
                     et votre acompte de
 
                     <strong>
@@ -44,12 +44,33 @@ Réservation enregistrée | Saveurs Africans Lounge
                 <div class="reservation-success-summary">
 
                     <div>
+                        <span>Type</span>
+
+                        <strong>
+                            {{ reservation.get_reservation_type_display }}
+                        </strong>
+                    </div>
+
+
+                    {% if reservation.has_event %}
+                        <div>
+                            <span>Occasion</span>
+
+                            <strong>
+                                {{ reservation.get_event_type_display }}
+                            </strong>
+                        </div>
+                    {% endif %}
+
+
+                    <div>
                         <span>Date</span>
 
                         <strong>
                             {{ reservation.reservation_date|date:"d/m/Y" }}
                         </strong>
                     </div>
+
 
                     <div>
                         <span>Heure</span>
@@ -58,6 +79,18 @@ Réservation enregistrée | Saveurs Africans Lounge
                             {{ reservation.reservation_time|time:"H:i" }}
                         </strong>
                     </div>
+
+
+                    {% if reservation.end_time %}
+                        <div>
+                            <span>Fin souhaitée</span>
+
+                            <strong>
+                                {{ reservation.end_time|time:"H:i" }}
+                            </strong>
+                        </div>
+                    {% endif %}
+
 
                     <div>
                         <span>Personnes</span>
@@ -70,10 +103,23 @@ Réservation enregistrée | Saveurs Africans Lounge
                 </div>
 
 
-                <p>
-                    Notre équipe vous contactera si nécessaire
-                    concernant votre réservation.
-                </p>
+                {% if reservation.is_private_room %}
+
+                    <p>
+                        Votre demande concerne la
+                        <strong>salle privée</strong>.
+                        Notre équipe pourra vous contacter afin de
+                        confirmer les modalités de la privatisation.
+                    </p>
+
+                {% else %}
+
+                    <p>
+                        Notre équipe vous contactera si nécessaire
+                        concernant votre réservation.
+                    </p>
+
+                {% endif %}
 
             {% endif %}
 

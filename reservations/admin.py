@@ -9,6 +9,8 @@ class ReservationAdmin(admin.ModelAdmin):
         "reservation_date",
         "reservation_time",
         "full_name",
+        "reservation_type",
+        "event_type",
         "number_of_guests",
         "status",
         "deposit_amount",
@@ -26,6 +28,8 @@ class ReservationAdmin(admin.ModelAdmin):
     )
 
     list_filter = (
+        "reservation_type",
+        "event_type",
         "status",
         "deposit_status",
         "reservation_date",
@@ -36,6 +40,8 @@ class ReservationAdmin(admin.ModelAdmin):
         "last_name",
         "email",
         "phone",
+        "event_detail",
+        "special_request",
         "deposit_reference",
     )
 
@@ -68,11 +74,22 @@ class ReservationAdmin(admin.ModelAdmin):
             "Réservation",
             {
                 "fields": (
+                    "reservation_type",
                     "reservation_date",
                     "reservation_time",
+                    "end_time",
                     "number_of_guests",
-                    "special_request",
                     "status",
+                ),
+            },
+        ),
+        (
+            "Événement",
+            {
+                "fields": (
+                    "event_type",
+                    "event_detail",
+                    "special_request",
                 ),
             },
         ),

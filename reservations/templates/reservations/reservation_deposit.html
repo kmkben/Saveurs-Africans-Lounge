@@ -22,13 +22,12 @@ Acompte de réservation | Saveurs Africans Lounge
             </span>
 
 
-            <h1>
-                Finalisez votre réservation
-            </h1>
+            <h1>Finalisez votre réservation</h1>
 
 
             <p class="reservation-deposit-intro">
-                Réglez l’acompte afin de garantir votre table.
+                Vérifiez les informations ci-dessous puis
+                réglez l’acompte afin de garantir votre réservation.
             </p>
 
 
@@ -44,10 +43,49 @@ Acompte de réservation | Saveurs Africans Lounge
 
 
                 <div>
+                    <span>Type</span>
+
+                    <strong>
+                        {{ reservation.get_reservation_type_display }}
+                    </strong>
+                </div>
+
+
+                {% if reservation.has_event %}
+                    <div>
+                        <span>Occasion</span>
+
+                        <strong>
+                            {{ reservation.get_event_type_display }}
+                        </strong>
+                    </div>
+                {% endif %}
+
+
+                {% if reservation.event_detail %}
+                    <div>
+                        <span>Événement</span>
+
+                        <strong>
+                            {{ reservation.event_detail }}
+                        </strong>
+                    </div>
+                {% endif %}
+
+
+                <div>
                     <span>Date</span>
 
                     <strong>
                         {{ reservation.reservation_date|date:"d/m/Y" }}
+                    </strong>
+                </div>
+
+                <div>
+                    <span>Nombre de personnes</span>
+
+                    <strong>
+                        {{ reservation.number_of_guests }}
                     </strong>
                 </div>
 
@@ -61,15 +99,37 @@ Acompte de réservation | Saveurs Africans Lounge
                 </div>
 
 
-                <div>
-                    <span>Nombre de personnes</span>
+                {% if reservation.end_time %}
+                    <div>
+                        <span>Fin souhaitée</span>
 
-                    <strong>
-                        {{ reservation.number_of_guests }}
-                    </strong>
-                </div>
+                        <strong>
+                            {{ reservation.end_time|time:"H:i" }}
+                        </strong>
+                    </div>
+                {% endif %}
+
+
+                
 
             </div>
+
+
+            {% if reservation.special_request %}
+
+                <div class="reservation-deposit-request">
+
+                    <span>
+                        Demande particulière
+                    </span>
+
+                    <p>
+                        {{ reservation.special_request|linebreaksbr }}
+                    </p>
+
+                </div>
+
+            {% endif %}
 
 
             <div class="reservation-deposit-amount">
@@ -95,9 +155,8 @@ Acompte de réservation | Saveurs Africans Lounge
                     </strong>
 
                     <span>
-                        Carte bancaire, Apple Pay, Google Pay
-                        et les autres moyens compatibles seront
-                        proposés lors du paiement.
+                        Vous serez redirigé vers notre plateforme
+                        de paiement sécurisé.
                     </span>
                 </div>
 

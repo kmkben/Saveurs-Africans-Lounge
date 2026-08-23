@@ -17,6 +17,18 @@ class Reservation(models.Model):
         FAILED = "FAILED", "Échoué"
         REFUNDED = "REFUNDED", "Remboursé"
 
+    class ReservationType(models.TextChoices):
+        TABLE = "TABLE", "Table classique"
+        PRIVATE_ROOM = "PRIVATE_ROOM", "Salle privée"
+
+    class EventType(models.TextChoices):
+        NONE = "NONE", "Aucun événement particulier"
+        BIRTHDAY = "BIRTHDAY", "Anniversaire"
+        WEDDING = "WEDDING", "Mariage"
+        FAMILY = "FAMILY", "Événement familial"
+        BUSINESS = "BUSINESS", "Événement professionnel"
+        OTHER = "OTHER", "Autre"
+
     # --------------------------------------------------
     # Customer
     # --------------------------------------------------
@@ -44,12 +56,42 @@ class Reservation(models.Model):
     # Reservation
     # --------------------------------------------------
 
+    reservation_type = models.CharField(
+        max_length=20,
+        choices=ReservationType.choices,
+        default=ReservationType.TABLE,
+        verbose_name="Type de réservation",
+    )
+
+    event_type = models.CharField(
+        max_length=20,
+        choices=EventType.choices,
+        default=EventType.NONE,
+        verbose_name="Occasion",
+    )
+
+    event_detail = models.CharField(
+        max_length=150,
+        blank=True,
+        verbose_name="Précision sur l’événement",
+        help_text=(
+            "Exemple : anniversaire de mariage, baptême, "
+            "soirée d’entreprise..."
+        ),
+    )
+
     reservation_date = models.DateField(
         verbose_name="Date",
     )
 
     reservation_time = models.TimeField(
-        verbose_name="Heure",
+        verbose_name="Heure de début",
+    )
+
+    end_time = models.TimeField(
+        blank=True,
+        null=True,
+        verbose_name="Heure de fin souhaitée",
     )
 
     number_of_guests = models.PositiveIntegerField(
@@ -126,6 +168,7 @@ class Reservation(models.Model):
     def __str__(self):
         return (
             f"{self.full_name} — "
+            f"{self.get_reservation_type_display()} — "
             f"{self.reservation_date} "
             f"à {self.reservation_time}"
         )
@@ -136,15 +179,29 @@ class Reservation(models.Model):
 
     @property
     def deposit_is_paid(self):
-        return self.deposit_status == self.DepositStatus.PAID
+        return (
+            self.deposit_status
+            == self.DepositStatus.PAID
+        )
+
+    @property
+    def has_event(self):
+        return self.event_type != self.EventType.NONE
+
+    @property
+    def is_private_room(self):
+        return (
+            self.reservation_type
+            == self.ReservationType.PRIVATE_ROOM
+        )
 
     def configure_deposit(self, amount):
         """
         Every reservation requires a deposit.
 
-        The amount comes from SiteSettings and is copied
-        into the reservation so historical reservations
-        retain their original amount.
+        The current amount is copied from SiteSettings
+        when the reservation is created so historical
+        reservations keep their original amount.
         """
         self.deposit_amount = amount
         self.deposit_status = self.DepositStatus.PENDING

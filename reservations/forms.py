@@ -27,8 +27,12 @@ class ReservationForm(forms.ModelForm):
             "last_name",
             "email",
             "phone",
+            "reservation_type",
+            "event_type",
+            "event_detail",
             "reservation_date",
             "reservation_time",
+            "end_time",
             "number_of_guests",
             "special_request",
         )
@@ -58,6 +62,28 @@ class ReservationForm(forms.ModelForm):
                 }
             ),
 
+            "reservation_type": forms.Select(
+                attrs={
+                    "class": "form-select",
+                }
+            ),
+
+            "event_type": forms.Select(
+                attrs={
+                    "class": "form-select",
+                }
+            ),
+
+            "event_detail": forms.TextInput(
+                attrs={
+                    "class": "form-control",
+                    "placeholder": (
+                        "Ex. : anniversaire de mariage, "
+                        "soirée d’entreprise..."
+                    ),
+                }
+            ),
+
             "reservation_date": forms.DateInput(
                 attrs={
                     "class": "form-control",
@@ -66,6 +92,13 @@ class ReservationForm(forms.ModelForm):
             ),
 
             "reservation_time": forms.TimeInput(
+                attrs={
+                    "class": "form-control",
+                    "type": "time",
+                }
+            ),
+
+            "end_time": forms.TimeInput(
                 attrs={
                     "class": "form-control",
                     "type": "time",
@@ -84,8 +117,8 @@ class ReservationForm(forms.ModelForm):
                     "class": "form-control",
                     "rows": 4,
                     "placeholder": (
-                        "Anniversaire, allergie, chaise bébé, "
-                        "demande particulière..."
+                        "Décoration, allergies, chaise bébé, "
+                        "configuration particulière..."
                     ),
                 }
             ),
@@ -100,3 +133,41 @@ class ReservationForm(forms.ModelForm):
             )
 
         return reservation_date
+
+    def clean(self):
+        cleaned_data = super().clean()
+
+        event_type = cleaned_data.get("event_type")
+        event_detail = cleaned_data.get("event_detail")
+
+        reservation_time = cleaned_data.get(
+            "reservation_time"
+        )
+        end_time = cleaned_data.get("end_time")
+
+        if (
+            event_type == Reservation.EventType.OTHER
+            and not event_detail
+        ):
+            self.add_error(
+                "event_detail",
+                (
+                    "Veuillez préciser le type "
+                    "d’événement."
+                ),
+            )
+
+        if (
+            reservation_time
+            and end_time
+            and end_time <= reservation_time
+        ):
+            self.add_error(
+                "end_time",
+                (
+                    "L’heure de fin doit être "
+                    "postérieure à l’heure de début."
+                ),
+            )
+
+        return cleaned_data
