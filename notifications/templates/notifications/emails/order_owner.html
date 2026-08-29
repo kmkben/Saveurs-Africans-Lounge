@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="fr">
+<body style="font-family:Arial,sans-serif;color:#343934;">
+
+<h1>
+    🔔 Nouvelle commande payée #{{ order.pk }}
+</h1>
+
+<p>
+    <strong>Client :</strong>
+    {{ order.customer_name }}
+</p>
+
+<p>
+    <strong>Téléphone :</strong>
+    {{ order.phone }}
+</p>
+
+{% if order.email %}
+<p>
+    <strong>Email :</strong>
+    {{ order.email }}
+</p>
+{% endif %}
+
+<p>
+    <strong>Mode :</strong>
+    {{ order.get_order_type_display }}
+</p>
+
+
+{% if order.order_type == "DELIVERY" %}
+
+<h2>Adresse de livraison</h2>
+
+<p>
+    {{ order.address }}<br>
+
+    {% if order.address_complement %}
+        {{ order.address_complement }}<br>
+    {% endif %}
+
+    {{ order.postal_code }}
+    {{ order.city }}
+</p>
+
+{% endif %}
+
+
+<h2>Commande</h2>
+
+{% for item in order.items.all %}
+
+<p>
+    <strong>
+        {{ item.quantity }} × {{ item.dish_name }}
+    </strong>
+
+    — {{ item.total_price|floatformat:2 }} €
+</p>
+
+{% endfor %}
+
+
+{% if order.customer_note %}
+<h2>Instructions</h2>
+
+<p>
+    {{ order.customer_note|linebreaksbr }}
+</p>
+{% endif %}
+
+
+<hr>
+
+<p>
+    Sous-total :
+    {{ order.subtotal|floatformat:2 }} €
+</p>
+
+<p>
+    Livraison :
+    {{ order.delivery_fee|floatformat:2 }} €
+</p>
+
+<p style="font-size:20px;">
+    <strong>
+        Total payé :
+        {{ order.total|floatformat:2 }} €
+    </strong>
+</p>
+
+<p>
+    La commande est payée et peut être préparée.
+</p>
+
+</body>
+</html>

@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="fr">
+<body style="margin:0;background:#f8f4ec;font-family:Arial,sans-serif;color:#343934;">
+
+<div style="max-width:680px;margin:auto;padding:32px 20px;">
+
+    <div style="
+        background:#ffffff;
+        border-radius:18px;
+        padding:32px;
+    ">
+
+        <h1 style="color:#237a52;margin-top:0;">
+            Commande confirmée
+        </h1>
+
+        <p>
+            Bonjour {{ order.customer_name }},
+        </p>
+
+        <p>
+            Votre commande
+            <strong>#{{ order.pk }}</strong>
+            a bien été enregistrée et votre paiement a été confirmé.
+        </p>
+
+        <h2 style="margin-top:30px;">
+            Votre commande
+        </h2>
+
+        {% for item in order.items.all %}
+            <div style="
+                display:flex;
+                justify-content:space-between;
+                border-bottom:1px solid #e7e8e5;
+                padding:10px 0;
+            ">
+                <span>
+                    {{ item.quantity }} × {{ item.dish_name }}
+                </span>
+
+                <strong>
+                    {{ item.total_price|floatformat:2 }} €
+                </strong>
+            </div>
+        {% endfor %}
+
+        <div style="margin-top:20px;">
+
+            <p>
+                Sous-total :
+                <strong>
+                    {{ order.subtotal|floatformat:2 }} €
+                </strong>
+            </p>
+
+            {% if order.order_type == "DELIVERY" %}
+                <p>
+                    Livraison :
+                    <strong>
+                        {{ order.delivery_fee|floatformat:2 }} €
+                    </strong>
+                </p>
+            {% endif %}
+
+            <p style="font-size:20px;color:#237a52;">
+                Total :
+                <strong>
+                    {{ order.total|floatformat:2 }} €
+                </strong>
+            </p>
+
+        </div>
+
+        {% if order.order_type == "DELIVERY" %}
+            <h2>Livraison</h2>
+
+            <p>
+                {{ order.address }}<br>
+
+                {% if order.address_complement %}
+                    {{ order.address_complement }}<br>
+                {% endif %}
+
+                {{ order.postal_code }}
+                {{ order.city }}
+            </p>
+        {% else %}
+            <h2>Retrait sur place</h2>
+
+            <p>
+                Votre commande sera disponible au restaurant.
+            </p>
+        {% endif %}
+
+        <p style="margin-top:30px;">
+            Merci pour votre confiance ❤️
+        </p>
+
+        <p>
+            <strong>Saveurs Africans Lounge</strong>
+        </p>
+
+    </div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="fr">
+<body style="margin:0;background:#f8f4ec;font-family:Arial,sans-serif;color:#343934;">
+
+<div style="max-width:680px;margin:auto;padding:32px 20px;">
+
+    <div style="
+        background:#ffffff;
+        border-radius:18px;
+        padding:32px;
+    ">
+
+        <h1 style="color:#237a52;margin-top:0;">
+            Réservation enregistrée
+        </h1>
+
+        <p>
+            Bonjour {{ reservation.full_name }},
+        </p>
+
+        <p>
+            Votre réservation a bien été enregistrée
+            et votre acompte de
+            <strong>
+                {{ reservation.deposit_amount|floatformat:2 }} €
+            </strong>
+            a été reçu.
+        </p>
+
+
+        <h2>Détails</h2>
+
+        <p>
+            <strong>Type :</strong>
+            {{ reservation.get_reservation_type_display }}
+        </p>
+
+        {% if reservation.has_event %}
+            <p>
+                <strong>Occasion :</strong>
+                {{ reservation.get_event_type_display }}
+            </p>
+        {% endif %}
+
+        {% if reservation.event_detail %}
+            <p>
+                <strong>Précision :</strong>
+                {{ reservation.event_detail }}
+            </p>
+        {% endif %}
+
+        <p>
+            <strong>Date :</strong>
+            {{ reservation.reservation_date|date:"d/m/Y" }}
+        </p>
+
+        <p>
+            <strong>Heure :</strong>
+            {{ reservation.reservation_time|time:"H:i" }}
+        </p>
+
+        {% if reservation.end_time %}
+            <p>
+                <strong>Fin souhaitée :</strong>
+                {{ reservation.end_time|time:"H:i" }}
+            </p>
+        {% endif %}
+
+        <p>
+            <strong>Nombre de personnes :</strong>
+            {{ reservation.number_of_guests }}
+        </p>
+
+
+        <p style="margin-top:30px;">
+            Merci et à bientôt chez
+            <strong>Saveurs Africans Lounge</strong>.
+        </p>
+
+    </div>
+
+</div>
+
+</body>
+</html>

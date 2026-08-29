@@ -16,16 +16,13 @@ Réservation enregistrée | Saveurs Africans Lounge
                 <i class="fa-solid fa-check"></i>
             </div>
 
-
             <span class="section-eyebrow">
                 Paiement confirmé
             </span>
 
-
             <h1>
                 Merci pour votre réservation
             </h1>
-
 
             {% if reservation %}
 
@@ -121,6 +118,53 @@ Réservation enregistrée | Saveurs Africans Lounge
 
                 {% endif %}
 
+
+                {% if reservation.email and reservation.email_notifications_sent %}
+
+                    <div class="confirmation-email-notice">
+
+                        <i class="fa-solid fa-envelope-circle-check"></i>
+
+                        <div>
+                            <strong>
+                                Un e-mail de confirmation a été envoyé à
+                                {{ reservation.email }}.
+                            </strong>
+
+                            <span>
+                                Si vous ne le voyez pas dans votre boîte de réception,
+                                pensez à vérifier vos courriers indésirables
+                                ou votre dossier spam.
+                            </span>
+                        </div>
+
+                    </div>
+
+                {% endif %}
+
+
+                {% if reservation.phone and reservation.sms_notifications_sent %}
+
+                    <div class="confirmation-sms-notice">
+
+                        <i class="fa-solid fa-comment-sms"></i>
+
+                        <div>
+                            <strong>
+                                Un SMS de confirmation a été envoyé au
+                                {{ reservation.phone }}.
+                            </strong>
+
+                            <span>
+                                Il contient les principales informations
+                                concernant votre réservation.
+                            </span>
+                        </div>
+
+                    </div>
+
+                {% endif %}
+
             {% endif %}
 
 
@@ -132,7 +176,6 @@ Réservation enregistrée | Saveurs Africans Lounge
                 >
                     Voir la carte
                 </a>
-
 
                 <a
                     href="{% url 'home' %}"

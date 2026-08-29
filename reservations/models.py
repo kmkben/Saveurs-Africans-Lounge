@@ -142,6 +142,21 @@ class Reservation(models.Model):
         null=True,
         verbose_name="Acompte payé le",
     )
+    
+    # notifications_sent = models.BooleanField(
+    #     default=False,
+    #     verbose_name="Notifications envoyées",
+    # )
+    
+    email_notifications_sent = models.BooleanField(
+        default=False,
+        verbose_name="Notifications e-mail envoyées",
+    )
+
+    sms_notifications_sent = models.BooleanField(
+        default=False,
+        verbose_name="Notifications SMS envoyées",
+    )
 
     # --------------------------------------------------
     # Dates

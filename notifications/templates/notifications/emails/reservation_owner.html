@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="fr">
+<body style="font-family:Arial,sans-serif;color:#343934;">
+
+<h1>
+    📅 Nouvelle réservation payée #{{ reservation.pk }}
+</h1>
+
+<p>
+    <strong>Client :</strong>
+    {{ reservation.full_name }}
+</p>
+
+<p>
+    <strong>Téléphone :</strong>
+    {{ reservation.phone }}
+</p>
+
+<p>
+    <strong>Email :</strong>
+    {{ reservation.email }}
+</p>
+
+
+<h2>Réservation</h2>
+
+<p>
+    <strong>Type :</strong>
+    {{ reservation.get_reservation_type_display }}
+</p>
+
+{% if reservation.has_event %}
+<p>
+    <strong>Occasion :</strong>
+    {{ reservation.get_event_type_display }}
+</p>
+{% endif %}
+
+{% if reservation.event_detail %}
+<p>
+    <strong>Précision :</strong>
+    {{ reservation.event_detail }}
+</p>
+{% endif %}
+
+<p>
+    <strong>Date :</strong>
+    {{ reservation.reservation_date|date:"d/m/Y" }}
+</p>
+
+<p>
+    <strong>Début :</strong>
+    {{ reservation.reservation_time|time:"H:i" }}
+</p>
+
+{% if reservation.end_time %}
+<p>
+    <strong>Fin souhaitée :</strong>
+    {{ reservation.end_time|time:"H:i" }}
+</p>
+{% endif %}
+
+<p>
+    <strong>Nombre de personnes :</strong>
+    {{ reservation.number_of_guests }}
+</p>
+
+
+{% if reservation.special_request %}
+<h2>Demande particulière</h2>
+
+<p>
+    {{ reservation.special_request|linebreaksbr }}
+</p>
+{% endif %}
+
+
+<hr>
+
+<p>
+    <strong>Acompte payé :</strong>
+    {{ reservation.deposit_amount|floatformat:2 }} €
+</p>
+
+<p>
+    La réservation peut maintenant être traitée.
+</p>
+
+</body>
+</html>

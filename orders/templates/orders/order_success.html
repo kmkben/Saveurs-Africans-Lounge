@@ -20,64 +20,152 @@ Commande confirmée | Saveurs Africans Lounge
                 Paiement confirmé
             </span>
 
-            <h1>Votre commande est confirmée</h1>
+            <h1>
+                Votre commande est confirmée
+            </h1>
 
-            <p class="order-success-intro">
-                Merci pour votre commande.
-                Votre paiement a bien été reçu et notre équipe
-                peut maintenant préparer votre commande.
-            </p>
+            {% if order %}
 
-
-            <div class="order-success-reference">
-                Numéro de commande
-
-                <strong>
-                    #{{ order_id }}
-                </strong>
-            </div>
+                <p class="order-success-intro">
+                    Merci pour votre commande.
+                    Votre paiement a bien été reçu et notre équipe
+                    peut maintenant préparer votre commande.
+                </p>
 
 
-            <div class="order-success-info">
+                <div class="order-success-reference">
 
-                <div>
-                    <i class="fa-solid fa-utensils"></i>
+                    <span>
+                        Numéro de commande
+                    </span>
 
-                    <div>
-                        <strong>Commande enregistrée</strong>
+                    <strong>
+                        #{{ order.pk }}
+                    </strong>
 
-                        <span>
-                            Notre équipe a reçu votre commande.
-                        </span>
-                    </div>
                 </div>
 
-                <div>
-                    <i class="fa-solid fa-credit-card"></i>
+
+                <div class="order-success-info">
 
                     <div>
-                        <strong>Paiement validé</strong>
+                        <i class="fa-solid fa-utensils"></i>
 
-                        <span>
-                            Votre paiement en ligne a été confirmé.
-                        </span>
+                        <div>
+                            <strong>
+                                Commande enregistrée
+                            </strong>
+
+                            <span>
+                                Notre équipe a bien reçu votre commande.
+                            </span>
+                        </div>
                     </div>
-                </div>
 
-                <div>
-                    <i class="fa-solid fa-bell-concierge"></i>
 
                     <div>
-                        <strong>Préparation</strong>
+                        <i class="fa-solid fa-credit-card"></i>
 
-                        <span>
-                            Votre commande sera préparée dans les
-                            meilleurs délais.
-                        </span>
+                        <div>
+                            <strong>
+                                Paiement validé
+                            </strong>
+
+                            <span>
+                                Votre paiement en ligne a été confirmé.
+                            </span>
+                        </div>
                     </div>
+
+
+                    <div>
+                        <i class="fa-solid fa-bell-concierge"></i>
+
+                        <div>
+                            <strong>
+                                Préparation
+                            </strong>
+
+                            <span>
+                                Votre commande sera préparée dans les
+                                meilleurs délais.
+                            </span>
+                        </div>
+                    </div>
+
                 </div>
 
-            </div>
+
+                {% if order.order_type == "DELIVERY" %}
+
+                    <p>
+                        Votre commande sera livrée à l’adresse indiquée
+                        lors de votre commande.
+                    </p>
+
+                {% else %}
+
+                    <p>
+                        Votre commande sera disponible pour retrait
+                        directement au restaurant.
+                    </p>
+
+                {% endif %}
+
+
+                {% if order.email and order.email_notifications_sent %}
+
+                    <div class="confirmation-email-notice">
+
+                        <i class="fa-solid fa-envelope-circle-check"></i>
+
+                        <div>
+                            <strong>
+                                Un e-mail de confirmation a été envoyé à
+                                {{ order.email }}.
+                            </strong>
+
+                            <span>
+                                Si vous ne le voyez pas dans votre boîte de réception,
+                                pensez à vérifier vos courriers indésirables
+                                ou votre dossier spam.
+                            </span>
+                        </div>
+
+                    </div>
+
+                {% endif %}
+
+                {% if order.phone and order.sms_notifications_sent %}
+
+                    <div class="confirmation-sms-notice">
+
+                        <i class="fa-solid fa-comment-sms"></i>
+
+                        <div>
+                            <strong>
+                                Un SMS de confirmation a été envoyé au
+                                {{ order.phone }}.
+                            </strong>
+
+                            <span>
+                                Il contient les principales informations
+                                concernant votre commande.
+                            </span>
+                        </div>
+
+                    </div>
+
+                {% endif %}
+
+            {% else %}
+
+                <p class="order-success-intro">
+                    Votre commande a bien été enregistrée
+                    et votre paiement a été confirmé.
+                </p>
+
+            {% endif %}
 
 
             <div class="order-success-actions">

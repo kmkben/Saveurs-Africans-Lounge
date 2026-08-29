@@ -162,14 +162,19 @@ def checkout(request):
 
 
 def order_success(request, order_id):
-    if request.session.get("last_order_id") != order_id:
+    order = get_object_or_404(
+        Order,
+        pk=order_id,
+    )
+    
+    if request.session.get("last_order_id") != order.pk:
         return redirect("orders:cart")
 
     return render(
         request,
         "orders/order_success.html",
         {
-            "order_id": order_id,
+            "order": order,
         },
     )
     

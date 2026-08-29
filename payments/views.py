@@ -17,6 +17,10 @@ from .services import (
     create_reservation_checkout_session,
 )
 
+from notifications.services import (
+    send_order_paid_notifications,
+    send_reservation_paid_notifications,
+)
 
 stripe.api_key = settings.STRIPE_SECRET_KEY
 
@@ -108,6 +112,8 @@ def order_success(request, pk):
                     "paid_at",
                 ]
             )
+            
+            send_order_paid_notifications(order)
 
             Cart(request).clear()
 
@@ -251,6 +257,8 @@ def reservation_success(request, pk):
                     "deposit_paid_at",
                 ]
             )
+            
+            send_reservation_paid_notifications(reservation)
 
     if not reservation.deposit_is_paid:
         messages.warning(
@@ -389,6 +397,8 @@ def _mark_order_paid(session):
             "paid_at",
         ]
     )
+    
+    send_order_paid_notifications(order)
 
 
 def _mark_reservation_paid(session):
@@ -429,3 +439,5 @@ def _mark_reservation_paid(session):
             "deposit_paid_at",
         ]
     )
+    
+    send_reservation_paid_notifications(reservation)
