@@ -40,6 +40,8 @@ urlpatterns = [
     path('commandes/', include('orders.urls')),
     
     path("paiement/", include("payments.urls")),
+    
+    path('gestion/', include('management.urls')),
 ]
 
 if settings.DEBUG:

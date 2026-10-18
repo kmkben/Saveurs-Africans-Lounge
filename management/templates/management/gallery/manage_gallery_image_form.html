@@ -1,0 +1,246 @@
+{% extends "management/manage_base.html" %}
+
+
+{% block title %}
+{% if gallery_image %}Modifier la photo{% else %}Ajouter une photo{% endif %} | Gestion
+{% endblock %}
+
+
+{% block management_page_title %}
+{% if gallery_image %}Modifier la photo{% else %}Ajouter une photo{% endif %}
+{% endblock %}
+
+
+{% block management_content %}
+
+<section class="management-page management-form-page">
+
+    <!-- ==================================================
+         PAGE HEADER
+    ================================================== -->
+
+    <div class="management-page-header">
+
+        <a
+            href="{% url 'management:gallery_album_detail' album.pk %}"
+            class="management-back-link"
+        >
+            <i class="fa-solid fa-arrow-left"></i>
+
+            Retour à {{ album.title }}
+        </a>
+
+
+        <h2>
+
+            {% if gallery_image %}
+                Modifier la photo
+            {% else %}
+                Nouvelle photo
+            {% endif %}
+
+        </h2>
+
+
+        <p>
+            Album :
+            <strong>{{ album.title }}</strong>
+        </p>
+
+    </div>
+
+
+    <!-- ==================================================
+         FORM
+    ================================================== -->
+
+    <form
+        method="post"
+        enctype="multipart/form-data"
+        class="management-form"
+    >
+
+        {% csrf_token %}
+
+
+        <section class="management-form-card">
+
+            <div class="management-form-card-header">
+
+                <span class="management-section-kicker">
+                    Photo
+                </span>
+
+                <h3>
+                    Informations
+                </h3>
+
+            </div>
+
+
+            {% if gallery_image and gallery_image.image %}
+
+                <div class="management-image-preview-large">
+
+                    <img
+                        src="{{ gallery_image.image.url }}"
+                        alt="{{ gallery_image.title|default:album.title }}"
+                    >
+
+                </div>
+
+            {% endif %}
+
+
+            <div class="management-form-grid">
+
+                <div class="management-field management-field-full">
+
+                    <label for="{{ form.image.id_for_label }}">
+                        Image
+                    </label>
+
+                    {{ form.image }}
+
+                    {% for error in form.image.errors %}
+                        <div class="management-field-error">
+                            {{ error }}
+                        </div>
+                    {% endfor %}
+
+                </div>
+
+
+                <div class="management-field management-field-full">
+
+                    <label for="{{ form.title.id_for_label }}">
+                        Titre
+                    </label>
+
+                    {{ form.title }}
+
+                    {% for error in form.title.errors %}
+                        <div class="management-field-error">
+                            {{ error }}
+                        </div>
+                    {% endfor %}
+
+                </div>
+
+
+                <div class="management-field management-field-full">
+
+                    <label for="{{ form.caption.id_for_label }}">
+                        Légende
+                    </label>
+
+                    {{ form.caption }}
+
+                    {% for error in form.caption.errors %}
+                        <div class="management-field-error">
+                            {{ error }}
+                        </div>
+                    {% endfor %}
+
+                </div>
+
+
+                <div class="management-field">
+
+                    <label for="{{ form.display_order.id_for_label }}">
+                        Ordre d’affichage
+                    </label>
+
+                    {{ form.display_order }}
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ==================================================
+             PUBLICATION
+        ================================================== -->
+
+        <section class="management-form-card">
+
+            <div class="management-form-card-header">
+
+                <span class="management-section-kicker">
+                    Publication
+                </span>
+
+                <h3>
+                    Visibilité
+                </h3>
+
+            </div>
+
+
+            <label class="management-switch-card">
+
+                {{ form.is_published }}
+
+                <span>
+
+                    <strong>
+                        Publier cette photo
+                    </strong>
+
+                    <small>
+                        La photo sera visible
+                        dans l’album public.
+                    </small>
+
+                </span>
+
+            </label>
+
+        </section>
+
+
+        {% if form.non_field_errors %}
+
+            <div class="management-form-errors">
+
+                {% for error in form.non_field_errors %}
+                    <p>{{ error }}</p>
+                {% endfor %}
+
+            </div>
+
+        {% endif %}
+
+
+        <!-- ==================================================
+             ACTIONS
+        ================================================== -->
+
+        <div class="management-form-actions">
+
+            <a
+                href="{% url 'management:gallery_album_detail' album.pk %}"
+                class="btn management-btn-secondary"
+            >
+                Annuler
+            </a>
+
+
+            <button
+                type="submit"
+                class="btn management-btn-primary"
+            >
+                <i class="fa-solid fa-floppy-disk"></i>
+
+                Enregistrer
+            </button>
+
+        </div>
+
+    </form>
+
+</section>
+
+{% endblock %}

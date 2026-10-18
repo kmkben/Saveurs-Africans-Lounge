@@ -1,0 +1,249 @@
+{% extends "management/manage_base.html" %}
+
+
+{% block title %}
+{{ album.title }} | Galerie | Gestion
+{% endblock %}
+
+
+{% block management_page_title %}
+{{ album.title }}
+{% endblock %}
+
+
+{% block management_content %}
+
+<section class="management-page">
+
+    <!-- ==================================================
+         PAGE HEADER
+    ================================================== -->
+
+    <div class="management-page-header management-page-header-actions">
+
+        <div>
+
+            <a
+                href="{% url 'management:gallery_albums_list' %}"
+                class="management-back-link"
+            >
+                <i class="fa-solid fa-arrow-left"></i>
+
+                Retour à la galerie
+            </a>
+
+
+            <span class="management-section-kicker">
+                {{ album.get_category_display }}
+            </span>
+
+            <h2>
+                {{ album.title }}
+            </h2>
+
+
+            <div class="management-header-badges">
+
+                {% if album.is_published %}
+
+                    <span class="management-badge management-badge-success">
+                        Publié
+                    </span>
+
+                {% else %}
+
+                    <span class="management-badge management-badge-neutral">
+                        Non publié
+                    </span>
+
+                {% endif %}
+
+
+                {% if album.is_featured %}
+
+                    <span class="management-badge management-badge-warning">
+                        <i class="fa-solid fa-star"></i>
+                        À la une
+                    </span>
+
+                {% endif %}
+
+            </div>
+
+        </div>
+
+
+        <div class="management-header-actions">
+
+            <a
+                href="{% url 'management:gallery_album_update' album.pk %}"
+                class="btn management-btn-secondary"
+            >
+                <i class="fa-solid fa-pen"></i>
+
+                Modifier l’album
+            </a>
+
+
+            <a
+                href="{% url 'management:gallery_image_create' album.pk %}"
+                class="btn management-btn-primary"
+            >
+                <i class="fa-solid fa-plus"></i>
+
+                Ajouter une photo
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <!-- ==================================================
+         DESCRIPTION
+    ================================================== -->
+
+    {% if album.description %}
+
+        <div class="management-panel management-gallery-description">
+
+            <p>
+                {{ album.description|linebreaksbr }}
+            </p>
+
+        </div>
+
+    {% endif %}
+
+
+    <!-- ==================================================
+         IMAGES
+    ================================================== -->
+
+    {% if images %}
+
+        <div class="management-photo-grid">
+
+            {% for image in images %}
+
+                <article class="management-photo-card">
+
+                    <div class="management-photo-image">
+
+                        <img
+                            src="{{ image.image.url }}"
+                            alt="{{ image.title|default:album.title }}"
+                        >
+
+
+                        {% if image.is_published %}
+
+                            <span class="management-photo-status published">
+                                Publiée
+                            </span>
+
+                        {% else %}
+
+                            <span class="management-photo-status">
+                                Non publiée
+                            </span>
+
+                        {% endif %}
+
+                    </div>
+
+
+                    <div class="management-photo-content">
+
+                        <div>
+
+                            <strong>
+                                {{ image.title|default:"Photo sans titre" }}
+                            </strong>
+
+                            {% if image.caption %}
+
+                                <small>
+                                    {{ image.caption|truncatechars:70 }}
+                                </small>
+
+                            {% endif %}
+
+                        </div>
+
+
+                        <div class="management-action-group">
+
+                            <a
+                                href="{% url 'management:gallery_image_update' image.pk %}"
+                                class="management-icon-button"
+                                title="Modifier"
+                            >
+                                <i class="fa-solid fa-pen"></i>
+                            </a>
+
+
+                            <form
+                                method="post"
+                                action="{% url 'management:gallery_image_delete' image.pk %}"
+                                onsubmit="return confirm('Supprimer cette photo ?');"
+                            >
+
+                                {% csrf_token %}
+
+                                <button
+                                    type="submit"
+                                    class="management-icon-button management-icon-button-danger"
+                                    title="Supprimer"
+                                >
+                                    <i class="fa-solid fa-trash"></i>
+                                </button>
+
+                            </form>
+
+                        </div>
+
+                    </div>
+
+                </article>
+
+            {% endfor %}
+
+        </div>
+
+    {% else %}
+
+        <div class="management-panel">
+
+            <div class="management-empty-state">
+
+                <i class="fa-regular fa-image"></i>
+
+                <h4>
+                    Cet album est vide
+                </h4>
+
+                <p>
+                    Ajoutez les premières photos
+                    de cet album.
+                </p>
+
+
+                <a
+                    href="{% url 'management:gallery_image_create' album.pk %}"
+                    class="btn management-btn-primary"
+                >
+                    <i class="fa-solid fa-plus"></i>
+
+                    Ajouter une photo
+                </a>
+
+            </div>
+
+        </div>
+
+    {% endif %}
+
+</section>
+
+{% endblock %}

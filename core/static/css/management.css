@@ -1,0 +1,3142 @@
+/* ==========================================================
+   MANAGEMENT AREA
+========================================================== */
+
+.management-area {
+    min-height: 100vh;
+    padding: 2rem 0;
+    background: var(--sal-light);
+    color: var(--sal-text);
+}
+
+.management-area .container-fluid {
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+}
+
+
+/* ==========================================================
+   MANAGEMENT LAYOUT
+========================================================== */
+
+.management-layout {
+    display: grid;
+    grid-template-columns: 280px minmax(0, 1fr);
+    gap: 1.5rem;
+    max-width: 1600px;
+    margin: 0 auto;
+    align-items: start;
+}
+
+
+/* ==========================================================
+   SIDEBAR
+========================================================== */
+
+.management-sidebar {
+    position: sticky;
+    top: 1.5rem;
+
+    display: flex;
+    flex-direction: column;
+
+    min-height: calc(100vh - 3rem);
+
+    overflow: hidden;
+
+    background: var(--sal-dark);
+    color: var(--sal-white);
+
+    border-radius: var(--sal-radius-md);
+    box-shadow: var(--sal-shadow-normal);
+}
+
+
+/* ==========================================================
+   SIDEBAR HEADER
+========================================================== */
+
+.management-sidebar-header {
+    padding: 1.4rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.management-brand {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+
+    color: var(--sal-white);
+    text-decoration: none;
+}
+
+.management-brand:hover {
+    color: var(--sal-white);
+}
+
+.management-brand-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 44px;
+    height: 44px;
+
+    flex-shrink: 0;
+
+    border-radius: 14px;
+
+    background: var(--sal-gold);
+    color: var(--sal-charcoal);
+
+    font-weight: 800;
+    letter-spacing: 0.03em;
+}
+
+.management-brand-text {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.management-brand-text strong {
+    font-size: 1rem;
+}
+
+.management-brand-text small {
+    margin-top: 0.12rem;
+
+    color: rgba(255, 255, 255, 0.58);
+
+    font-size: 0.73rem;
+    line-height: 1.3;
+}
+
+
+/* ==========================================================
+   SIDEBAR NAVIGATION
+========================================================== */
+
+.management-nav {
+    flex: 1;
+    padding: 1rem;
+}
+
+.management-nav-section {
+    margin-bottom: 1.4rem;
+}
+
+.management-nav-section:last-child {
+    margin-bottom: 0;
+}
+
+.management-nav-label {
+    display: block;
+
+    padding: 0 0.7rem;
+    margin-bottom: 0.45rem;
+
+    color: rgba(255, 255, 255, 0.4);
+
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+}
+
+.management-nav-link {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+
+    padding: 0.72rem 0.8rem;
+    margin-bottom: 0.15rem;
+
+    border-radius: 0.75rem;
+
+    color: rgba(255, 255, 255, 0.72);
+    text-decoration: none;
+
+    font-size: 0.9rem;
+    font-weight: 500;
+
+    transition: var(--sal-transition);
+}
+
+.management-nav-link i {
+    width: 20px;
+    text-align: center;
+
+    color: rgba(255, 255, 255, 0.58);
+}
+
+.management-nav-link:hover {
+    background: rgba(255, 255, 255, 0.06);
+    color: var(--sal-white);
+}
+
+.management-nav-link:hover i {
+    color: var(--sal-gold);
+}
+
+.management-nav-link.active {
+    background: rgba(200, 161, 90, 0.15);
+    color: var(--sal-gold);
+}
+
+.management-nav-link.active i {
+    color: var(--sal-gold);
+}
+
+
+/* ==========================================================
+   SIDEBAR FOOTER
+========================================================== */
+
+.management-sidebar-footer {
+    padding: 1rem;
+
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+
+/* ==========================================================
+   MAIN
+========================================================== */
+
+.management-main {
+    min-width: 0;
+}
+
+
+/* ==========================================================
+   TOPBAR
+========================================================== */
+
+.management-topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+
+    min-height: 86px;
+
+    margin-bottom: 1.5rem;
+    padding: 1rem 1.3rem;
+
+    background: var(--sal-white);
+
+    border: 1px solid var(--sal-border);
+    border-radius: var(--sal-radius-md);
+
+    box-shadow: var(--sal-shadow-sm);
+}
+
+.management-topbar-left {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.management-heading {
+    display: flex;
+    flex-direction: column;
+}
+
+.management-page-eyebrow {
+    margin-bottom: 0.2rem;
+
+    color: var(--sal-muted);
+
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.management-page-title {
+    margin: 0;
+
+    color: var(--sal-heading);
+
+    font-size: clamp(1.3rem, 2vw, 1.8rem);
+    font-weight: 750;
+}
+
+.management-sidebar-toggle {
+    display: none;
+
+    align-items: center;
+    justify-content: center;
+
+    width: 42px;
+    height: 42px;
+
+    border: 1px solid var(--sal-border);
+    border-radius: 0.75rem;
+
+    background: var(--sal-light);
+    color: var(--sal-heading);
+}
+
+
+/* ==========================================================
+   TOPBAR USER
+========================================================== */
+
+.management-topbar-user {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+}
+
+.management-user-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 42px;
+    height: 42px;
+
+    border-radius: 50%;
+
+    background: var(--sal-green-soft);
+    color: var(--sal-green);
+}
+
+.management-user-icon i {
+    font-size: 1.2rem;
+}
+
+.management-user-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.management-user-info strong {
+    color: var(--sal-heading);
+    font-size: 0.88rem;
+}
+
+.management-user-info span {
+    color: var(--sal-muted);
+    font-size: 0.74rem;
+}
+
+
+/* ==========================================================
+   DJANGO MESSAGES
+========================================================== */
+
+.management-messages {
+    margin-bottom: 1.5rem;
+}
+
+.management-alert {
+    margin-bottom: 0.7rem;
+    border-radius: 0.9rem;
+}
+
+
+/* ==========================================================
+   CONTENT
+========================================================== */
+
+.management-content {
+    min-width: 0;
+}
+
+
+/* ==========================================================
+   DASHBOARD INTRO
+========================================================== */
+
+.management-dashboard-intro {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+
+    margin-bottom: 1.5rem;
+}
+
+.management-dashboard-intro h2 {
+    margin: 0.2rem 0 0.35rem;
+
+    color: var(--sal-heading);
+
+    font-size: clamp(1.5rem, 2.4vw, 2.2rem);
+}
+
+.management-dashboard-intro p {
+    margin: 0;
+
+    color: var(--sal-muted);
+}
+
+.management-section-kicker {
+    color: var(--sal-green);
+
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.11em;
+    text-transform: uppercase;
+}
+
+.management-dashboard-date {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+
+    padding: 0.75rem 1rem;
+
+    background: var(--sal-white);
+
+    border: 1px solid var(--sal-border);
+    border-radius: 0.9rem;
+
+    color: var(--sal-muted);
+
+    white-space: nowrap;
+}
+
+
+/* ==========================================================
+   STATS
+========================================================== */
+
+.management-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1rem;
+
+    margin-bottom: 1.7rem;
+}
+
+.management-stat-card {
+    padding: 1.2rem;
+
+    background: var(--sal-white);
+
+    border: 1px solid var(--sal-border);
+    border-radius: var(--sal-radius-md);
+
+    box-shadow: var(--sal-shadow-sm);
+}
+
+.management-stat-card-top {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+
+    margin-bottom: 1rem;
+}
+
+.management-stat-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 38px;
+    height: 38px;
+
+    flex-shrink: 0;
+
+    border-radius: 0.75rem;
+
+    background: var(--sal-green-soft);
+    color: var(--sal-green);
+}
+
+.management-stat-label {
+    color: var(--sal-muted);
+
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.management-stat-value {
+    margin-bottom: 0.8rem;
+
+    color: var(--sal-heading);
+
+    font-size: clamp(1.6rem, 2vw, 2.2rem);
+    font-weight: 800;
+}
+
+.management-stat-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+
+    color: var(--sal-muted);
+
+    font-size: 0.75rem;
+}
+
+.management-stat-footer a {
+    color: var(--sal-green);
+    text-decoration: none;
+    font-weight: 650;
+}
+
+.management-stat-footer a:hover {
+    text-decoration: underline;
+}
+
+.management-stat-status.success {
+    color: var(--sal-green);
+    font-weight: 700;
+}
+
+
+/* ==========================================================
+   SECTION
+========================================================== */
+
+.management-section {
+    margin-bottom: 1.7rem;
+}
+
+.management-section-header {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+
+    margin-bottom: 0.8rem;
+}
+
+.management-section-header h3,
+.management-panel-header h3 {
+    margin: 0.18rem 0 0;
+
+    color: var(--sal-heading);
+
+    font-size: 1.1rem;
+}
+
+
+/* ==========================================================
+   QUICK ACTIONS
+========================================================== */
+
+.management-quick-actions {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0.9rem;
+}
+
+.management-quick-action {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+
+    padding: 1rem;
+
+    background: var(--sal-white);
+
+    border: 1px solid var(--sal-border);
+    border-radius: var(--sal-radius-md);
+
+    color: var(--sal-text);
+    text-decoration: none;
+
+    box-shadow: var(--sal-shadow-sm);
+
+    transition: var(--sal-transition);
+}
+
+.management-quick-action:hover {
+    transform: translateY(-2px);
+
+    border-color: rgba(35, 122, 82, 0.35);
+
+    color: var(--sal-text);
+
+    box-shadow: var(--sal-shadow-normal);
+}
+
+.management-quick-action-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 42px;
+    height: 42px;
+
+    flex-shrink: 0;
+
+    border-radius: 0.8rem;
+
+    background: var(--sal-green-soft);
+    color: var(--sal-green);
+}
+
+.management-quick-action > span:last-child {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.management-quick-action strong {
+    color: var(--sal-heading);
+    font-size: 0.86rem;
+}
+
+.management-quick-action small {
+    margin-top: 0.2rem;
+
+    color: var(--sal-muted);
+
+    font-size: 0.71rem;
+    line-height: 1.35;
+}
+
+
+/* ==========================================================
+   DASHBOARD GRID
+========================================================== */
+
+.management-dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+
+    margin-bottom: 1rem;
+}
+
+
+/* ==========================================================
+   PANEL
+========================================================== */
+
+.management-panel {
+    min-width: 0;
+
+    padding: 1.2rem;
+
+    background: var(--sal-white);
+
+    border: 1px solid var(--sal-border);
+    border-radius: var(--sal-radius-md);
+
+    box-shadow: var(--sal-shadow-sm);
+}
+
+.management-panel-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+
+    margin-bottom: 1rem;
+}
+
+.management-panel-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+
+    color: var(--sal-green);
+
+    font-size: 0.76rem;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.management-panel-link:hover {
+    color: var(--sal-green-dark);
+}
+
+
+/* ==========================================================
+   LIST
+========================================================== */
+
+.management-list {
+    display: flex;
+    flex-direction: column;
+}
+
+.management-list-item {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+
+    padding: 0.85rem 0;
+
+    border-bottom: 1px solid var(--sal-border);
+
+    color: var(--sal-text);
+    text-decoration: none;
+
+    transition: var(--sal-transition);
+}
+
+.management-list-item:first-child {
+    padding-top: 0.2rem;
+}
+
+.management-list-item:last-child {
+    padding-bottom: 0;
+    border-bottom: 0;
+}
+
+.management-list-item:hover {
+    color: var(--sal-text);
+}
+
+.management-list-item:hover .management-list-main strong {
+    color: var(--sal-green);
+}
+
+.management-list-main {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+
+    min-width: 0;
+}
+
+.management-list-main strong {
+    color: var(--sal-heading);
+
+    font-size: 0.86rem;
+
+    transition: var(--sal-transition);
+}
+
+.management-list-main span {
+    margin-top: 0.12rem;
+
+    color: var(--sal-text);
+
+    font-size: 0.78rem;
+}
+
+.management-list-main small {
+    margin-top: 0.15rem;
+
+    color: var(--sal-muted);
+
+    font-size: 0.7rem;
+}
+
+.management-list-side {
+    display: flex;
+    align-items: flex-end;
+    flex-direction: column;
+    gap: 0.4rem;
+
+    flex-shrink: 0;
+}
+
+.management-list-side strong {
+    color: var(--sal-heading);
+    font-size: 0.84rem;
+}
+
+
+/* ==========================================================
+   DATE BLOCK
+========================================================== */
+
+.management-list-date {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+    width: 48px;
+    height: 48px;
+
+    flex-shrink: 0;
+
+    border-radius: 0.8rem;
+
+    background: var(--sal-green-soft);
+    color: var(--sal-green);
+}
+
+.management-list-date strong {
+    line-height: 1;
+    font-size: 1rem;
+}
+
+.management-list-date span {
+    margin-top: 0.12rem;
+
+    font-size: 0.64rem;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+
+/* ==========================================================
+   BADGES
+========================================================== */
+
+.management-badge {
+    display: inline-flex;
+    align-items: center;
+
+    width: fit-content;
+
+    padding: 0.28rem 0.55rem;
+
+    border-radius: 999px;
+
+    background: var(--sal-green-soft);
+    color: var(--sal-green);
+
+    font-size: 0.68rem;
+    font-weight: 700;
+}
+
+.management-badge-status {
+    background: var(--sal-gold-soft);
+    color: var(--sal-charcoal);
+}
+
+
+/* ==========================================================
+   UNREAD DOT
+========================================================== */
+
+.management-unread-dot {
+    width: 9px;
+    height: 9px;
+
+    flex-shrink: 0;
+
+    border-radius: 50%;
+
+    background: var(--sal-red);
+}
+
+
+/* ==========================================================
+   EMPTY STATE
+========================================================== */
+
+.management-empty-state {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+    min-height: 210px;
+
+    padding: 1.5rem;
+
+    text-align: center;
+}
+
+.management-empty-state > i {
+    margin-bottom: 0.8rem;
+
+    color: var(--sal-green);
+
+    font-size: 1.7rem;
+}
+
+.management-empty-state h4 {
+    margin-bottom: 0.35rem;
+
+    color: var(--sal-heading);
+
+    font-size: 0.98rem;
+}
+
+.management-empty-state p {
+    max-width: 300px;
+    margin: 0;
+
+    color: var(--sal-muted);
+
+    font-size: 0.78rem;
+}
+
+.management-empty-state .btn {
+    margin-top: 1rem;
+}
+
+
+/* ==========================================================
+   DAILY SPECIAL
+========================================================== */
+
+.management-special-card {
+    display: grid;
+    grid-template-columns: 150px 1fr;
+    gap: 1rem;
+}
+
+.management-special-image {
+    overflow: hidden;
+
+    min-height: 150px;
+
+    border-radius: 1rem;
+}
+
+.management-special-image img {
+    display: block;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+}
+
+.management-special-content {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.management-special-content h4 {
+    margin: 0.65rem 0 0.35rem;
+
+    color: var(--sal-heading);
+
+    font-size: 1.15rem;
+}
+
+.management-special-content p {
+    margin-bottom: 0.6rem;
+
+    color: var(--sal-muted);
+
+    font-size: 0.8rem;
+}
+
+.management-special-price {
+    color: var(--sal-green);
+
+    font-size: 1.1rem;
+}
+
+
+/* ==========================================================
+   BUTTONS
+========================================================== */
+
+.management-btn-primary {
+    border-color: var(--sal-green);
+
+    background: var(--sal-green);
+    color: var(--sal-white);
+
+    border-radius: 0.75rem;
+}
+
+.management-btn-primary:hover {
+    border-color: var(--sal-green-dark);
+
+    background: var(--sal-green-dark);
+    color: var(--sal-white);
+}
+
+
+/* ==========================================================
+   MANAGEMENT FORMS
+========================================================== */
+
+.management-content .form-control,
+.management-content .form-select {
+    min-height: 44px;
+
+    border-color: var(--sal-border);
+    border-radius: 0.75rem;
+
+    background: var(--sal-white);
+    color: var(--sal-text);
+}
+
+.management-content textarea.form-control {
+    min-height: 120px;
+}
+
+.management-content .form-control:focus,
+.management-content .form-select:focus {
+    border-color: rgba(35, 122, 82, 0.5);
+
+    box-shadow:
+        0 0 0 0.2rem
+        rgba(35, 122, 82, 0.1);
+}
+
+.management-content .form-check-input:checked {
+    border-color: var(--sal-green);
+    background-color: var(--sal-green);
+}
+
+.management-checkbox-list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.6rem;
+
+    padding: 0.8rem;
+
+    border: 1px solid var(--sal-border);
+    border-radius: 0.75rem;
+}
+
+.management-checkbox-list > div label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    margin: 0;
+}
+
+
+/* ==========================================================
+   DARK MODE
+========================================================== */
+
+[data-bs-theme="dark"] .management-area {
+    background: var(--sal-light);
+    color: var(--sal-text-color);
+}
+
+
+/* ==========================================================
+   DARK MODE - MAIN SURFACES
+========================================================== */
+
+[data-bs-theme="dark"] .management-topbar,
+[data-bs-theme="dark"] .management-stat-card,
+[data-bs-theme="dark"] .management-quick-action,
+[data-bs-theme="dark"] .management-panel,
+[data-bs-theme="dark"] .management-dashboard-date {
+    background: var(--sal-charcoal-soft);
+    color: var(--sal-text-color);
+
+    border-color: var(--sal-border-color);
+
+    box-shadow: var(--sal-shadow-sm);
+}
+
+
+/* ==========================================================
+   DARK MODE - SIDEBAR
+========================================================== */
+
+[data-bs-theme="dark"] .management-sidebar {
+    background: #0c0f0d;
+
+    border: 1px solid var(--sal-border-color);
+
+    box-shadow: var(--sal-shadow);
+}
+
+
+/* ==========================================================
+   DARK MODE - HEADINGS
+========================================================== */
+
+[data-bs-theme="dark"] .management-page-title,
+[data-bs-theme="dark"] .management-dashboard-intro h2,
+[data-bs-theme="dark"] .management-section-header h3,
+[data-bs-theme="dark"] .management-panel-header h3,
+[data-bs-theme="dark"] .management-stat-value,
+[data-bs-theme="dark"] .management-quick-action strong,
+[data-bs-theme="dark"] .management-list-main strong,
+[data-bs-theme="dark"] .management-list-side strong,
+[data-bs-theme="dark"] .management-empty-state h4,
+[data-bs-theme="dark"] .management-special-content h4,
+[data-bs-theme="dark"] .management-user-info strong {
+    color: var(--sal-heading-color);
+}
+
+
+/* ==========================================================
+   DARK MODE - NORMAL / MUTED TEXT
+========================================================== */
+
+[data-bs-theme="dark"] .management-dashboard-intro p,
+[data-bs-theme="dark"] .management-stat-label,
+[data-bs-theme="dark"] .management-list-main small,
+[data-bs-theme="dark"] .management-quick-action small,
+[data-bs-theme="dark"] .management-empty-state p,
+[data-bs-theme="dark"] .management-special-content p,
+[data-bs-theme="dark"] .management-dashboard-date,
+[data-bs-theme="dark"] .management-user-info span {
+    color: var(--sal-muted-color);
+}
+
+[data-bs-theme="dark"] .management-list-main span,
+[data-bs-theme="dark"] .management-list-item {
+    color: var(--sal-text-color);
+}
+
+
+/* ==========================================================
+   DARK MODE - LIST SEPARATORS
+========================================================== */
+
+[data-bs-theme="dark"] .management-list-item {
+    border-color: var(--sal-border-color);
+}
+
+
+/* ==========================================================
+   DARK MODE - ICONS
+========================================================== */
+
+[data-bs-theme="dark"] .management-stat-icon,
+[data-bs-theme="dark"] .management-quick-action-icon,
+[data-bs-theme="dark"] .management-user-icon,
+[data-bs-theme="dark"] .management-list-date {
+    background: rgba(35, 122, 82, 0.22);
+    color: #82d5ad;
+}
+
+
+/* ==========================================================
+   DARK MODE - BADGES
+========================================================== */
+
+[data-bs-theme="dark"] .management-badge {
+    background: rgba(35, 122, 82, 0.22);
+    color: #8bd8ad;
+}
+
+[data-bs-theme="dark"] .management-badge-status {
+    background: rgba(200, 161, 90, 0.18);
+    color: #e2c681;
+}
+
+
+/* ==========================================================
+   DARK MODE - LINKS
+========================================================== */
+
+[data-bs-theme="dark"] .management-panel-link,
+[data-bs-theme="dark"] .management-stat-footer a {
+    color: #82d5ad;
+}
+
+[data-bs-theme="dark"] .management-panel-link:hover,
+[data-bs-theme="dark"] .management-stat-footer a:hover {
+    color: #a3e6c4;
+}
+
+
+/* ==========================================================
+   DARK MODE - FORMS
+========================================================== */
+
+[data-bs-theme="dark"] .management-content .form-control,
+[data-bs-theme="dark"] .management-content .form-select {
+    background: #1b211d;
+
+    color: var(--sal-text-color);
+
+    border-color: var(--sal-border-color);
+}
+
+[data-bs-theme="dark"] .management-content .form-control::placeholder {
+    color: var(--sal-muted-color);
+    opacity: 0.75;
+}
+
+[data-bs-theme="dark"] .management-content .form-control:focus,
+[data-bs-theme="dark"] .management-content .form-select:focus {
+    background: #1b211d;
+
+    color: var(--sal-text-color);
+
+    border-color: rgba(130, 213, 173, 0.55);
+
+    box-shadow:
+        0 0 0 0.2rem
+        rgba(35, 122, 82, 0.18);
+}
+
+
+/* ==========================================================
+   DARK MODE - CHECKBOX LIST
+========================================================== */
+
+[data-bs-theme="dark"] .management-checkbox-list {
+    background: rgba(255, 255, 255, 0.025);
+
+    border-color: var(--sal-border-color);
+}
+
+
+/* ==========================================================
+   RESPONSIVE - LARGE TABLET
+========================================================== */
+
+@media (max-width: 1200px) {
+
+    .management-layout {
+        grid-template-columns: 245px minmax(0, 1fr);
+    }
+
+    .management-stats-grid,
+    .management-quick-actions {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+}
+
+
+/* ==========================================================
+   RESPONSIVE - TABLET / MOBILE SIDEBAR
+========================================================== */
+
+@media (max-width: 991.98px) {
+
+    .management-area {
+        padding-top: 1rem;
+    }
+
+    .management-layout {
+        display: block;
+    }
+
+    .management-sidebar {
+        position: fixed;
+
+        top: 0;
+        left: 0;
+        bottom: 0;
+
+        z-index: 1055;
+
+        width: min(300px, 88vw);
+        min-height: 100vh;
+
+        border-radius: 0;
+
+        transform: translateX(-105%);
+
+        transition: transform 0.25s ease;
+    }
+
+    .management-sidebar.management-sidebar-open {
+        transform: translateX(0);
+    }
+
+    .management-sidebar-toggle {
+        display: inline-flex;
+    }
+
+    .management-topbar {
+        min-height: 74px;
+    }
+
+}
+
+
+/* ==========================================================
+   RESPONSIVE - SMALL TABLET
+========================================================== */
+
+@media (max-width: 767.98px) {
+
+    .management-area .container-fluid {
+        padding-left: 0.8rem;
+        padding-right: 0.8rem;
+    }
+
+    .management-dashboard-intro {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .management-stats-grid,
+    .management-quick-actions,
+    .management-dashboard-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .management-dashboard-date {
+        white-space: normal;
+    }
+
+    .management-user-info {
+        display: none;
+    }
+
+}
+
+
+/* ==========================================================
+   RESPONSIVE - MOBILE
+========================================================== */
+
+@media (max-width: 575.98px) {
+
+    .management-area {
+        padding-top: 0.7rem;
+    }
+
+    .management-topbar {
+        padding: 0.8rem 0.9rem;
+        border-radius: 1rem;
+    }
+
+    .management-page-eyebrow {
+        display: none;
+    }
+
+    .management-stat-footer {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .management-special-card {
+        grid-template-columns: 1fr;
+    }
+
+    .management-special-image {
+        height: 190px;
+    }
+
+    .management-checkbox-list {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+
+
+/* ==========================================================
+   MANAGEMENT PAGE
+========================================================== */
+
+.management-page {
+    min-width: 0;
+}
+
+.management-page-header {
+    margin-bottom: 1.4rem;
+}
+
+.management-page-header h2 {
+    margin: 0.2rem 0 0.35rem;
+
+    color: var(--sal-heading-color);
+
+    font-size: clamp(1.5rem, 2.4vw, 2rem);
+}
+
+.management-page-header p {
+    margin: 0;
+    color: var(--sal-muted-color);
+}
+
+.management-page-header-actions {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.management-back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+
+    margin-bottom: 0.8rem;
+
+    color: var(--sal-green);
+    text-decoration: none;
+
+    font-size: 0.78rem;
+    font-weight: 700;
+}
+
+.management-back-link:hover {
+    color: var(--sal-green-dark);
+}
+
+
+/* ==========================================================
+   FILTERS
+========================================================== */
+
+.management-filter-card {
+    margin-bottom: 1rem;
+    padding: 1rem;
+
+    background: var(--sal-white);
+
+    border: 1px solid var(--sal-border-color);
+    border-radius: var(--sal-radius);
+
+    box-shadow: var(--sal-shadow-sm);
+}
+
+.management-filter-form {
+    display: flex;
+    align-items: flex-end;
+    gap: 0.8rem;
+    flex-wrap: wrap;
+}
+
+.management-filter-field {
+    flex: 1 1 180px;
+}
+
+.management-filter-field label,
+.management-form-group label {
+    display: block;
+
+    margin-bottom: 0.4rem;
+
+    color: var(--sal-heading-color);
+
+    font-size: 0.76rem;
+    font-weight: 700;
+}
+
+.management-filter-actions {
+    display: flex;
+    gap: 0.5rem;
+}
+
+
+/* ==========================================================
+   SECONDARY BUTTON
+========================================================== */
+
+.management-btn-secondary {
+    border: 1px solid var(--sal-border-color);
+
+    background: transparent;
+    color: var(--sal-text-color);
+
+    border-radius: 0.75rem;
+}
+
+.management-btn-secondary:hover {
+    border-color: var(--sal-green);
+
+    background: var(--sal-green-soft);
+    color: var(--sal-green-dark);
+}
+
+
+/* ==========================================================
+   TABLE
+========================================================== */
+
+.management-table-card {
+    overflow: hidden;
+
+    background: var(--sal-white);
+
+    border: 1px solid var(--sal-border-color);
+    border-radius: var(--sal-radius);
+
+    box-shadow: var(--sal-shadow-sm);
+}
+
+.management-table-responsive {
+    overflow-x: auto;
+}
+
+.management-table {
+    width: 100%;
+    min-width: 900px;
+
+    border-collapse: collapse;
+}
+
+.management-table th {
+    padding: 0.85rem 1rem;
+
+    background: var(--sal-green-soft);
+    color: var(--sal-green-dark);
+
+    border-bottom: 1px solid var(--sal-border-color);
+
+    font-size: 0.7rem;
+    font-weight: 800;
+
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+
+    white-space: nowrap;
+}
+
+.management-table td {
+    padding: 0.9rem 1rem;
+
+    color: var(--sal-text-color);
+
+    border-bottom: 1px solid var(--sal-border-color);
+
+    font-size: 0.8rem;
+    vertical-align: middle;
+}
+
+.management-table tbody tr:last-child td {
+    border-bottom: 0;
+}
+
+.management-table tbody tr {
+    transition: var(--sal-transition);
+}
+
+.management-table tbody tr:hover {
+    background: rgba(35, 122, 82, 0.035);
+}
+
+.management-table-primary {
+    color: var(--sal-green);
+}
+
+.management-table-person,
+.management-table-date {
+    display: flex;
+    flex-direction: column;
+}
+
+.management-table-person strong,
+.management-table-date strong {
+    color: var(--sal-heading-color);
+}
+
+.management-table-person small,
+.management-table-date small {
+    margin-top: 0.15rem;
+
+    color: var(--sal-muted-color);
+}
+
+.management-table-actions-heading,
+.management-table-actions {
+    text-align: right;
+}
+
+
+/* ==========================================================
+   ICON BUTTON
+========================================================== */
+
+.management-icon-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 36px;
+    height: 36px;
+
+    border: 1px solid var(--sal-border-color);
+    border-radius: 0.65rem;
+
+    background: transparent;
+    color: var(--sal-green);
+
+    text-decoration: none;
+
+    transition: var(--sal-transition);
+}
+
+.management-icon-button:hover {
+    border-color: var(--sal-green);
+
+    background: var(--sal-green);
+    color: var(--sal-white);
+}
+
+
+/* ==========================================================
+   BADGE VARIANTS
+========================================================== */
+
+.management-badge {
+    gap: 0.35rem;
+}
+
+.management-badge-success {
+    background: var(--sal-green-soft);
+    color: var(--sal-green-dark);
+}
+
+.management-badge-warning {
+    background: var(--sal-gold-soft);
+    color: #745718;
+}
+
+.management-badge-danger {
+    background: rgba(169, 47, 66, 0.12);
+    color: var(--sal-red);
+}
+
+.management-badge-neutral {
+    background: var(--sal-light-gray);
+    color: var(--sal-gray);
+}
+
+
+/* ==========================================================
+   DETAIL PAGE
+========================================================== */
+
+.management-detail-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.7fr) minmax(280px, 0.8fr);
+    gap: 1rem;
+
+    align-items: start;
+}
+
+.management-detail-main,
+.management-detail-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+
+/* ==========================================================
+   HEADER BADGES
+========================================================== */
+
+.management-header-badges {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.5rem;
+
+    flex-wrap: wrap;
+}
+
+
+/* ==========================================================
+   ORDER ITEMS
+========================================================== */
+
+.management-order-items {
+    display: flex;
+    flex-direction: column;
+}
+
+.management-order-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+
+    padding: 0.9rem 0;
+
+    border-bottom: 1px solid var(--sal-border-color);
+}
+
+.management-order-item-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.management-order-item-info strong {
+    color: var(--sal-heading-color);
+}
+
+.management-order-item-info span {
+    margin-top: 0.15rem;
+
+    color: var(--sal-muted-color);
+    font-size: 0.78rem;
+}
+
+.management-order-item-info small {
+    margin-top: 0.35rem;
+
+    color: var(--sal-muted-color);
+}
+
+.management-order-item-total {
+    flex-shrink: 0;
+
+    color: var(--sal-heading-color);
+}
+
+
+/* ==========================================================
+   ORDER SUMMARY
+========================================================== */
+
+.management-order-summary {
+    max-width: 340px;
+
+    margin-top: 1rem;
+    margin-left: auto;
+}
+
+.management-order-summary > div {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+
+    padding: 0.35rem 0;
+
+    color: var(--sal-muted-color);
+}
+
+.management-order-summary > div strong {
+    color: var(--sal-heading-color);
+}
+
+.management-order-summary-total {
+    margin-top: 0.45rem;
+    padding-top: 0.8rem !important;
+
+    border-top: 1px solid var(--sal-border-color);
+
+    font-size: 1.05rem;
+}
+
+.management-order-summary-total span,
+.management-order-summary-total strong {
+    color: var(--sal-heading-color) !important;
+}
+
+
+/* ==========================================================
+   INFO LIST
+========================================================== */
+
+.management-info-list {
+    margin: 0;
+}
+
+.management-info-list > div {
+    padding: 0.65rem 0;
+
+    border-bottom: 1px solid var(--sal-border-color);
+}
+
+.management-info-list > div:first-child {
+    padding-top: 0;
+}
+
+.management-info-list > div:last-child {
+    padding-bottom: 0;
+    border-bottom: 0;
+}
+
+.management-info-list dt {
+    margin-bottom: 0.15rem;
+
+    color: var(--sal-muted-color);
+
+    font-size: 0.7rem;
+    font-weight: 600;
+}
+
+.management-info-list dd {
+    margin: 0;
+
+    color: var(--sal-heading-color);
+
+    font-size: 0.83rem;
+    font-weight: 600;
+}
+
+.management-info-list dd a {
+    color: var(--sal-green);
+    text-decoration: none;
+}
+
+.management-info-list dd a:hover {
+    text-decoration: underline;
+}
+
+.management-info-list-large {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0 2rem;
+}
+
+
+/* ==========================================================
+   NOTE
+========================================================== */
+
+.management-note-box {
+    padding: 1rem;
+
+    background: var(--sal-green-soft);
+
+    border-left: 3px solid var(--sal-green);
+    border-radius: 0.75rem;
+
+    color: var(--sal-text-color);
+
+    line-height: 1.6;
+}
+
+
+/* ==========================================================
+   ADDRESS / HIGHLIGHT
+========================================================== */
+
+.management-address {
+    margin: 0;
+
+    color: var(--sal-text-color);
+
+    font-size: 0.83rem;
+    font-style: normal;
+    line-height: 1.7;
+}
+
+.management-info-highlight {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+
+    margin-top: 0.8rem;
+    padding: 0.8rem;
+
+    background: var(--sal-green-soft);
+
+    border-radius: 0.75rem;
+}
+
+.management-info-highlight > div {
+    display: flex;
+    flex-direction: column;
+}
+
+.management-info-highlight i {
+    color: var(--sal-green);
+}
+
+.management-info-highlight strong {
+    color: var(--sal-heading-color);
+    font-size: 0.8rem;
+}
+
+.management-info-highlight span {
+    color: var(--sal-muted-color);
+    font-size: 0.72rem;
+}
+
+
+/* ==========================================================
+   FORM GROUP
+========================================================== */
+
+.management-form-group {
+    margin-bottom: 0.8rem;
+}
+
+
+/* ==========================================================
+   REFERENCES
+========================================================== */
+
+.management-reference {
+    overflow-wrap: anywhere;
+    word-break: break-word;
+
+    font-family: monospace;
+    font-size: 0.72rem !important;
+}
+
+
+/* ==========================================================
+   META
+========================================================== */
+
+.management-panel-compact {
+    padding: 0.9rem 1rem;
+}
+
+.management-meta {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+
+    color: var(--sal-muted-color);
+
+    font-size: 0.74rem;
+}
+
+.management-meta i {
+    color: var(--sal-green);
+}
+
+.management-meta strong {
+    color: var(--sal-heading-color);
+}
+
+
+/* ==========================================================
+   EMPTY INLINE
+========================================================== */
+
+.management-empty-inline {
+    padding: 1rem 0;
+
+    color: var(--sal-muted-color);
+    text-align: center;
+}
+
+
+/* ==========================================================
+   DARK MODE - OPERATIONAL PAGES
+========================================================== */
+
+[data-bs-theme="dark"] .management-filter-card,
+[data-bs-theme="dark"] .management-table-card {
+    background: var(--sal-charcoal-soft);
+
+    border-color: var(--sal-border-color);
+}
+
+[data-bs-theme="dark"] .management-table th {
+    background: rgba(35, 122, 82, 0.16);
+    color: #8bd8ad;
+
+    border-color: var(--sal-border-color);
+}
+
+[data-bs-theme="dark"] .management-table td {
+    color: var(--sal-text-color);
+    border-color: var(--sal-border-color);
+}
+
+[data-bs-theme="dark"] .management-table tbody tr:hover {
+    background: rgba(255, 255, 255, 0.025);
+}
+
+[data-bs-theme="dark"] .management-badge-success {
+    background: rgba(35, 122, 82, 0.22);
+    color: #8bd8ad;
+}
+
+[data-bs-theme="dark"] .management-badge-warning {
+    background: rgba(200, 161, 90, 0.18);
+    color: #e2c681;
+}
+
+[data-bs-theme="dark"] .management-badge-danger {
+    background: rgba(169, 47, 66, 0.2);
+    color: #e58b9a;
+}
+
+[data-bs-theme="dark"] .management-badge-neutral {
+    background: rgba(255, 255, 255, 0.08);
+    color: var(--sal-muted-color);
+}
+
+[data-bs-theme="dark"] .management-note-box,
+[data-bs-theme="dark"] .management-info-highlight {
+    background: rgba(35, 122, 82, 0.13);
+}
+
+[data-bs-theme="dark"] .management-btn-secondary {
+    color: var(--sal-text-color);
+}
+
+[data-bs-theme="dark"] .management-btn-secondary:hover {
+    background: rgba(35, 122, 82, 0.15);
+    color: #8bd8ad;
+}
+
+
+/* ==========================================================
+   RESPONSIVE
+========================================================== */
+
+@media (max-width: 991.98px) {
+
+    .management-detail-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .management-detail-sidebar {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+}
+
+
+@media (max-width: 767.98px) {
+
+    .management-page-header-actions {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .management-header-badges {
+        justify-content: flex-start;
+    }
+
+    .management-filter-form {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .management-filter-field {
+        flex-basis: auto;
+    }
+
+    .management-filter-actions {
+        flex-wrap: wrap;
+    }
+
+    .management-detail-sidebar {
+        display: flex;
+    }
+
+    .management-info-list-large {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+
+
+/* ==========================================================
+   PRODUCT / DISH
+========================================================== */
+
+.management-table-product {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+
+    min-width: 230px;
+}
+
+.management-table-product-image,
+.management-table-product-placeholder {
+    width: 54px;
+    height: 54px;
+
+    flex-shrink: 0;
+
+    border-radius: 0.75rem;
+}
+
+.management-table-product-image {
+    display: block;
+    object-fit: cover;
+}
+
+.management-table-product-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: var(--sal-green-soft);
+    color: var(--sal-green);
+}
+
+.management-table-product > div:last-child {
+    display: flex;
+    flex-direction: column;
+}
+
+.management-table-product strong {
+    color: var(--sal-heading-color);
+}
+
+.management-table-product small {
+    max-width: 280px;
+    margin-top: 0.15rem;
+
+    color: var(--sal-muted-color);
+
+    line-height: 1.35;
+}
+
+
+/* ==========================================================
+   BOOLEAN INDICATORS
+========================================================== */
+
+.management-boolean {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 30px;
+    height: 30px;
+
+    border-radius: 50%;
+
+    font-size: 0.72rem;
+}
+
+.management-boolean.yes {
+    background: var(--sal-green-soft);
+    color: var(--sal-green);
+}
+
+.management-boolean.no {
+    background: var(--sal-light-gray);
+    color: var(--sal-gray);
+}
+
+.management-boolean.featured {
+    background: var(--sal-gold-soft);
+    color: #8a681e;
+}
+
+
+/* ==========================================================
+   TABLE ACTIONS
+========================================================== */
+
+.management-action-group {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.35rem;
+}
+
+.management-action-group form {
+    margin: 0;
+}
+
+.management-action-group button {
+    cursor: pointer;
+}
+
+.management-icon-button-success:hover {
+    border-color: var(--sal-green);
+
+    background: var(--sal-green);
+    color: var(--sal-white);
+}
+
+.management-icon-button-warning {
+    color: #9a741f;
+}
+
+.management-icon-button-warning:hover {
+    border-color: var(--sal-gold);
+
+    background: var(--sal-gold);
+    color: var(--sal-charcoal);
+}
+
+.management-icon-button-danger {
+    color: var(--sal-red);
+}
+
+.management-icon-button-danger:hover {
+    border-color: var(--sal-red);
+
+    background: var(--sal-red);
+    color: var(--sal-white);
+}
+
+
+/* ==========================================================
+   COUNTS / MISC
+========================================================== */
+
+.management-count-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    min-width: 30px;
+    height: 30px;
+
+    padding: 0 0.5rem;
+
+    border-radius: 999px;
+
+    background: var(--sal-green-soft);
+    color: var(--sal-green-dark);
+
+    font-size: 0.75rem;
+    font-weight: 800;
+}
+
+.management-muted {
+    color: var(--sal-muted-color);
+}
+
+.management-allergen-icon {
+    font-size: 1.2rem;
+}
+
+
+/* ==========================================================
+   MANAGEMENT FORM
+========================================================== */
+
+.management-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    max-width: 1050px;
+}
+
+.management-form-page .management-form {
+    max-width: 850px;
+}
+
+
+/* ==========================================================
+   FORM CARD
+========================================================== */
+
+.management-form-card {
+    padding: 1.3rem;
+
+    background: var(--sal-white);
+
+    border: 1px solid var(--sal-border-color);
+    border-radius: var(--sal-radius);
+
+    box-shadow: var(--sal-shadow-sm);
+}
+
+.management-form-card-header {
+    margin-bottom: 1.2rem;
+    padding-bottom: 1rem;
+
+    border-bottom: 1px solid var(--sal-border-color);
+}
+
+.management-form-card-header h3 {
+    margin: 0.2rem 0 0;
+
+    color: var(--sal-heading-color);
+
+    font-size: 1.05rem;
+}
+
+.management-form-card-header p {
+    margin: 0.3rem 0 0;
+
+    color: var(--sal-muted-color);
+
+    font-size: 0.78rem;
+}
+
+
+/* ==========================================================
+   FORM GRID
+========================================================== */
+
+.management-form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+}
+
+.management-field {
+    min-width: 0;
+}
+
+.management-field-wide {
+    grid-column: span 1;
+}
+
+.management-field-full {
+    grid-column: 1 / -1;
+}
+
+.management-field > label:not(.management-switch-card) {
+    display: block;
+
+    margin-bottom: 0.4rem;
+
+    color: var(--sal-heading-color);
+
+    font-size: 0.76rem;
+    font-weight: 700;
+}
+
+
+/* ==========================================================
+   FIELD HELP / ERROR
+========================================================== */
+
+.management-field-help {
+    display: block;
+
+    margin-top: 0.35rem;
+
+    color: var(--sal-muted-color);
+
+    font-size: 0.7rem;
+    line-height: 1.4;
+}
+
+.management-field-error {
+    margin-top: 0.35rem;
+
+    color: var(--sal-red);
+
+    font-size: 0.72rem;
+    font-weight: 600;
+}
+
+.management-form-errors {
+    padding: 0.9rem 1rem;
+
+    border: 1px solid rgba(169, 47, 66, 0.25);
+    border-radius: 0.75rem;
+
+    background: rgba(169, 47, 66, 0.08);
+    color: var(--sal-red);
+}
+
+.management-form-errors p {
+    margin: 0;
+}
+
+
+/* ==========================================================
+   INPUT WITH SUFFIX
+========================================================== */
+
+.management-input-suffix {
+    position: relative;
+}
+
+.management-input-suffix .form-control {
+    padding-right: 3rem;
+}
+
+.management-input-suffix > span {
+    position: absolute;
+
+    top: 50%;
+    right: 1rem;
+
+    transform: translateY(-50%);
+
+    color: var(--sal-muted-color);
+
+    pointer-events: none;
+
+    font-weight: 700;
+}
+
+
+/* ==========================================================
+   CURRENT IMAGE
+========================================================== */
+
+.management-image-field-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 240px) minmax(0, 1fr);
+    gap: 1.2rem;
+
+    align-items: center;
+}
+
+.management-current-image {
+    overflow: hidden;
+
+    height: 160px;
+
+    border-radius: 1rem;
+
+    background: var(--sal-green-soft);
+}
+
+.management-current-image img {
+    display: block;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+}
+
+
+/* ==========================================================
+   SWITCH CARDS
+========================================================== */
+
+.management-switch-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.7rem;
+}
+
+.management-switch-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.7rem;
+
+    min-height: 76px;
+
+    padding: 0.8rem;
+
+    border: 1px solid var(--sal-border-color);
+    border-radius: 0.8rem;
+
+    cursor: pointer;
+
+    transition: var(--sal-transition);
+}
+
+.management-switch-card:hover {
+    border-color: rgba(35, 122, 82, 0.4);
+
+    background: rgba(35, 122, 82, 0.025);
+}
+
+.management-switch-card .form-check-input {
+    margin-top: 0.2rem;
+    flex-shrink: 0;
+}
+
+.management-switch-card > span {
+    display: flex;
+    flex-direction: column;
+}
+
+.management-switch-card strong {
+    color: var(--sal-heading-color);
+
+    font-size: 0.78rem;
+}
+
+.management-switch-card small {
+    margin-top: 0.15rem;
+
+    color: var(--sal-muted-color);
+
+    font-size: 0.68rem;
+    line-height: 1.4;
+}
+
+.management-order-field {
+    max-width: 240px;
+    margin-top: 1rem;
+}
+
+
+/* ==========================================================
+   FORM ACTIONS
+========================================================== */
+
+.management-form-actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.6rem;
+
+    padding-top: 0.3rem;
+}
+
+
+/* ==========================================================
+   DARK MODE - CRUD / FORMS
+========================================================== */
+
+[data-bs-theme="dark"] .management-form-card {
+    background: var(--sal-charcoal-soft);
+
+    border-color: var(--sal-border-color);
+}
+
+[data-bs-theme="dark"] .management-table-product-placeholder,
+[data-bs-theme="dark"] .management-boolean.yes,
+[data-bs-theme="dark"] .management-count-badge {
+    background: rgba(35, 122, 82, 0.2);
+    color: #8bd8ad;
+}
+
+[data-bs-theme="dark"] .management-boolean.no {
+    background: rgba(255, 255, 255, 0.07);
+    color: var(--sal-muted-color);
+}
+
+[data-bs-theme="dark"] .management-boolean.featured {
+    background: rgba(200, 161, 90, 0.18);
+    color: #e2c681;
+}
+
+[data-bs-theme="dark"] .management-switch-card {
+    border-color: var(--sal-border-color);
+}
+
+[data-bs-theme="dark"] .management-switch-card:hover {
+    background: rgba(35, 122, 82, 0.08);
+}
+
+[data-bs-theme="dark"] .management-current-image {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+
+/* ==========================================================
+   RESPONSIVE - FORMS
+========================================================== */
+
+@media (max-width: 767.98px) {
+
+    .management-form-grid,
+    .management-switch-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .management-field-full,
+    .management-field-wide {
+        grid-column: auto;
+    }
+
+    .management-image-field-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .management-current-image {
+        max-width: 320px;
+    }
+
+    .management-form-actions {
+        align-items: stretch;
+        flex-direction: column-reverse;
+    }
+
+    .management-form-actions .btn {
+        width: 100%;
+    }
+
+}
+
+/* ==========================================================
+   DAILY SPECIAL / DELIVERY
+========================================================== */
+
+.management-special-table-price {
+    color: var(--sal-green);
+}
+
+.management-today-label {
+    color: var(--sal-green) !important;
+    font-weight: 700;
+}
+
+
+/* ==========================================================
+   DARK MODE
+========================================================== */
+
+[data-bs-theme="dark"] .management-special-table-price,
+[data-bs-theme="dark"] .management-today-label {
+    color: #8bd8ad !important;
+}
+
+
+/* ==========================================================
+   HEADER ACTIONS
+========================================================== */
+
+.management-header-actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.6rem;
+
+    flex-wrap: wrap;
+}
+
+
+/* ==========================================================
+   GALLERY ALBUM GRID
+========================================================== */
+
+.management-gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
+}
+
+.management-gallery-card {
+    overflow: hidden;
+
+    background: var(--sal-white);
+
+    border: 1px solid var(--sal-border-color);
+    border-radius: var(--sal-radius);
+
+    box-shadow: var(--sal-shadow-sm);
+
+    transition: var(--sal-transition);
+}
+
+.management-gallery-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--sal-shadow);
+}
+
+
+/* ==========================================================
+   GALLERY COVER
+========================================================== */
+
+.management-gallery-cover {
+    position: relative;
+
+    display: block;
+
+    height: 190px;
+
+    overflow: hidden;
+
+    background: var(--sal-green-soft);
+}
+
+.management-gallery-cover img {
+    display: block;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    transition: transform 0.35s ease;
+}
+
+.management-gallery-card:hover .management-gallery-cover img {
+    transform: scale(1.035);
+}
+
+.management-gallery-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+    height: 100%;
+
+    color: var(--sal-green);
+
+    font-size: 2rem;
+}
+
+.management-gallery-count {
+    position: absolute;
+
+    right: 0.7rem;
+    bottom: 0.7rem;
+
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+
+    padding: 0.35rem 0.6rem;
+
+    border-radius: 999px;
+
+    background: rgba(23, 26, 24, 0.78);
+    color: #ffffff;
+
+    font-size: 0.7rem;
+    font-weight: 700;
+
+    backdrop-filter: blur(5px);
+}
+
+
+/* ==========================================================
+   GALLERY CARD CONTENT
+========================================================== */
+
+.management-gallery-card-body {
+    padding: 1rem;
+}
+
+.management-gallery-card-heading {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 0.8rem;
+}
+
+.management-gallery-card-heading h3 {
+    margin: 0.15rem 0 0;
+
+    color: var(--sal-heading-color);
+
+    font-size: 1rem;
+}
+
+.management-gallery-card-body > p {
+    min-height: 38px;
+
+    margin: 0.65rem 0 0;
+
+    color: var(--sal-muted-color);
+
+    font-size: 0.75rem;
+    line-height: 1.5;
+}
+
+.management-gallery-card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.7rem;
+
+    margin-top: 1rem;
+    padding-top: 0.8rem;
+
+    border-top: 1px solid var(--sal-border-color);
+}
+
+
+/* ==========================================================
+   ALBUM DETAIL
+========================================================== */
+
+.management-gallery-description {
+    margin-bottom: 1rem;
+}
+
+.management-gallery-description p {
+    margin: 0;
+
+    color: var(--sal-text-color);
+
+    font-size: 0.8rem;
+    line-height: 1.6;
+}
+
+
+/* ==========================================================
+   PHOTO GRID
+========================================================== */
+
+.management-photo-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
+}
+
+.management-photo-card {
+    overflow: hidden;
+
+    background: var(--sal-white);
+
+    border: 1px solid var(--sal-border-color);
+    border-radius: var(--sal-radius);
+
+    box-shadow: var(--sal-shadow-sm);
+}
+
+.management-photo-image {
+    position: relative;
+
+    height: 210px;
+
+    overflow: hidden;
+
+    background: var(--sal-green-soft);
+}
+
+.management-photo-image img {
+    display: block;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+}
+
+.management-photo-status {
+    position: absolute;
+
+    top: 0.65rem;
+    right: 0.65rem;
+
+    padding: 0.3rem 0.55rem;
+
+    border-radius: 999px;
+
+    background: rgba(23, 26, 24, 0.8);
+    color: #ffffff;
+
+    font-size: 0.62rem;
+    font-weight: 700;
+
+    backdrop-filter: blur(4px);
+}
+
+.management-photo-status.published {
+    background: rgba(20, 81, 58, 0.9);
+}
+
+.management-photo-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.7rem;
+
+    padding: 0.85rem;
+}
+
+.management-photo-content > div:first-child {
+    display: flex;
+    flex-direction: column;
+
+    min-width: 0;
+}
+
+.management-photo-content strong {
+    overflow: hidden;
+
+    color: var(--sal-heading-color);
+
+    font-size: 0.8rem;
+
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.management-photo-content small {
+    overflow: hidden;
+
+    max-width: 200px;
+    margin-top: 0.15rem;
+
+    color: var(--sal-muted-color);
+
+    font-size: 0.68rem;
+
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+
+/* ==========================================================
+   LARGE IMAGE PREVIEW
+========================================================== */
+
+.management-image-preview-large {
+    overflow: hidden;
+
+    max-width: 520px;
+    height: 280px;
+
+    margin-bottom: 1.2rem;
+
+    border-radius: 1rem;
+
+    background: var(--sal-green-soft);
+}
+
+.management-image-preview-large img {
+    display: block;
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+}
+
+
+/* ==========================================================
+   EVENT FORM
+========================================================== */
+
+.management-switch-grid-spaced {
+    margin-top: 1rem;
+}
+
+
+/* ==========================================================
+   DARK MODE - GALLERY
+========================================================== */
+
+[data-bs-theme="dark"] .management-gallery-card,
+[data-bs-theme="dark"] .management-photo-card {
+    background: var(--sal-charcoal-soft);
+
+    border-color: var(--sal-border-color);
+}
+
+[data-bs-theme="dark"] .management-gallery-cover,
+[data-bs-theme="dark"] .management-photo-image,
+[data-bs-theme="dark"] .management-image-preview-large {
+    background: rgba(255, 255, 255, 0.04);
+}
+
+[data-bs-theme="dark"] .management-gallery-placeholder {
+    color: #8bd8ad;
+}
+
+
+/* ==========================================================
+   RESPONSIVE
+========================================================== */
+
+@media (max-width: 1199.98px) {
+
+    .management-gallery-grid,
+    .management-photo-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+}
+
+
+@media (max-width: 767.98px) {
+
+    .management-gallery-grid,
+    .management-photo-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .management-header-actions {
+        width: 100%;
+        justify-content: flex-start;
+    }
+
+    .management-page-header-actions {
+        align-items: stretch;
+    }
+
+    .management-header-actions .btn {
+        flex: 1 1 auto;
+    }
+
+}
+
+
+
+/* ==========================================================
+   MESSAGES
+========================================================== */
+
+.management-unread-row {
+    background: rgba(35, 122, 82, 0.045);
+}
+
+.management-unread-row td:first-child {
+    border-left: 3px solid var(--sal-green);
+}
+
+.management-message-preview {
+    display: block;
+
+    max-width: 330px;
+
+    color: var(--sal-muted-color);
+
+    line-height: 1.45;
+}
+
+.management-table-subtext {
+    margin-top: 0.2rem;
+
+    color: var(--sal-muted-color);
+
+    font-size: 0.7rem;
+}
+
+.management-message-subject-detail {
+    margin-bottom: 1rem;
+    padding: 0.7rem 0.9rem;
+
+    background: var(--sal-green-soft);
+
+    border-radius: 0.75rem;
+
+    color: var(--sal-green-dark);
+
+    font-size: 0.78rem;
+    font-weight: 700;
+}
+
+.management-message-body {
+    color: var(--sal-text-color);
+
+    font-size: 0.88rem;
+    line-height: 1.8;
+}
+
+.management-contact-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+}
+
+.management-contact-actions form {
+    margin: 0;
+}
+
+.management-btn-danger {
+    border: 1px solid rgba(169, 47, 66, 0.25);
+
+    background: rgba(169, 47, 66, 0.08);
+    color: var(--sal-red);
+
+    border-radius: 0.75rem;
+}
+
+.management-btn-danger:hover {
+    border-color: var(--sal-red);
+
+    background: var(--sal-red);
+    color: var(--sal-white);
+}
+
+
+/* ==========================================================
+   DARK MODE - MESSAGES
+========================================================== */
+
+[data-bs-theme="dark"] .management-unread-row {
+    background: rgba(35, 122, 82, 0.08);
+}
+
+[data-bs-theme="dark"] .management-message-subject-detail {
+    background: rgba(35, 122, 82, 0.16);
+    color: #8bd8ad;
+}
+
+[data-bs-theme="dark"] .management-btn-danger {
+    background: rgba(169, 47, 66, 0.14);
+    color: #e58b9a;
+}
+
+
+/* ==========================================================
+   MANAGEMENT LOGIN
+========================================================== */
+
+.management-login-page {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    min-height: calc(100vh - 140px);
+
+    padding: 3rem 1rem;
+
+    background: var(--sal-light);
+}
+
+.management-login-card {
+    width: 100%;
+    max-width: 430px;
+
+    padding: 2rem;
+
+    background: var(--sal-white);
+
+    border: 1px solid var(--sal-border-color);
+    border-radius: var(--sal-radius-lg);
+
+    box-shadow: var(--sal-shadow);
+}
+
+.management-login-header {
+    margin-bottom: 1.5rem;
+
+    text-align: center;
+}
+
+.management-login-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 58px;
+    height: 58px;
+
+    margin: 0 auto 1rem;
+
+    border-radius: 50%;
+
+    background: var(--sal-green-soft);
+    color: var(--sal-green);
+
+    font-size: 1.25rem;
+}
+
+.management-login-header h1 {
+    margin: 0.3rem 0;
+
+    color: var(--sal-heading-color);
+
+    font-size: 1.6rem;
+}
+
+.management-login-header p {
+    margin: 0;
+
+    color: var(--sal-muted-color);
+
+    font-size: 0.82rem;
+}
+
+.management-login-card form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.management-login-footer {
+    margin-top: 1.4rem;
+
+    text-align: center;
+}
+
+.management-login-footer a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+
+    color: var(--sal-green);
+
+    text-decoration: none;
+
+    font-size: 0.75rem;
+    font-weight: 700;
+}
+
+
+/* ==========================================================
+   DARK MODE - LOGIN
+========================================================== */
+
+[data-bs-theme="dark"] .management-login-card {
+    background: var(--sal-charcoal-soft);
+
+    border-color: var(--sal-border-color);
+}
+
+[data-bs-theme="dark"] .management-login-icon {
+    background: rgba(35, 122, 82, 0.2);
+    color: #8bd8ad;
+}
+
+
+.management-sidebar-footer form {
+    margin: 0;
+}
+
+.management-logout-button {
+    width: 100%;
+
+    border: 0;
+
+    background: transparent;
+
+    font: inherit;
+
+    cursor: pointer;
+
+    text-align: left;
+}

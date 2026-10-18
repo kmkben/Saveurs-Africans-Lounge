@@ -1,0 +1,215 @@
+{% extends "management/manage_base.html" %}
+
+
+{% block title %}
+Catégories | Gestion
+{% endblock %}
+
+
+{% block management_page_title %}
+Catégories
+{% endblock %}
+
+
+{% block management_content %}
+
+<section class="management-page">
+
+    <div class="management-page-header management-page-header-actions">
+
+        <div>
+
+            <span class="management-section-kicker">
+                Restaurant
+            </span>
+
+            <h2>
+                Catégories
+            </h2>
+
+            <p>
+                Organisez les plats de votre carte
+                par catégories.
+            </p>
+
+        </div>
+
+
+        <a
+            href="{% url 'management:category_create' %}"
+            class="btn management-btn-primary"
+        >
+            <i class="fa-solid fa-plus"></i>
+
+            Ajouter une catégorie
+        </a>
+
+    </div>
+
+
+    <div class="management-table-card">
+
+        {% if categories %}
+
+            <div class="management-table-responsive">
+
+                <table class="management-table">
+
+                    <thead>
+
+                        <tr>
+                            <th>Catégorie</th>
+                            <th>Description</th>
+                            <th>Plats</th>
+                            <th>Ordre</th>
+                            <th>Statut</th>
+
+                            <th class="management-table-actions-heading">
+                                Actions
+                            </th>
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody>
+
+                        {% for category in categories %}
+
+                            <tr>
+
+                                <td>
+
+                                    <strong class="management-table-primary">
+                                        {{ category.name }}
+                                    </strong>
+
+                                </td>
+
+
+                                <td>
+
+                                    {% if category.description %}
+
+                                        {{ category.description|truncatechars:70 }}
+
+                                    {% else %}
+
+                                        <span class="management-muted">
+                                            —
+                                        </span>
+
+                                    {% endif %}
+
+                                </td>
+
+
+                                <td>
+
+                                    <span class="management-count-badge">
+                                        {{ category.dishes.count }}
+                                    </span>
+
+                                </td>
+
+
+                                <td>
+                                    {{ category.display_order }}
+                                </td>
+
+
+                                <td>
+
+                                    {% if category.is_active %}
+
+                                        <span class="management-badge management-badge-success">
+                                            Active
+                                        </span>
+
+                                    {% else %}
+
+                                        <span class="management-badge management-badge-neutral">
+                                            Inactive
+                                        </span>
+
+                                    {% endif %}
+
+                                </td>
+
+
+                                <td class="management-table-actions">
+
+                                    <div class="management-action-group">
+
+                                        <a
+                                            href="{% url 'management:category_update' category.pk %}"
+                                            class="management-icon-button"
+                                            title="Modifier"
+                                        >
+                                            <i class="fa-solid fa-pen"></i>
+                                        </a>
+
+
+                                        <form
+                                            method="post"
+                                            action="{% url 'management:category_delete' category.pk %}"
+                                            onsubmit="return confirm('Supprimer cette catégorie ?');"
+                                        >
+
+                                            {% csrf_token %}
+
+                                            <button
+                                                type="submit"
+                                                class="management-icon-button management-icon-button-danger"
+                                                title="Supprimer"
+                                            >
+                                                <i class="fa-solid fa-trash"></i>
+                                            </button>
+
+                                        </form>
+
+                                    </div>
+
+                                </td>
+
+                            </tr>
+
+                        {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        {% else %}
+
+            <div class="management-empty-state">
+
+                <i class="fa-solid fa-layer-group"></i>
+
+                <h4>
+                    Aucune catégorie
+                </h4>
+
+                <p>
+                    Ajoutez une catégorie
+                    pour organiser votre carte.
+                </p>
+
+                <a
+                    href="{% url 'management:category_create' %}"
+                    class="btn management-btn-primary"
+                >
+                    Ajouter une catégorie
+                </a>
+
+            </div>
+
+        {% endif %}
+
+    </div>
+
+</section>
+
+{% endblock %}

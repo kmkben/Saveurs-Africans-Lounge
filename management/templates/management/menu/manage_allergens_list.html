@@ -1,0 +1,235 @@
+{% extends "management/manage_base.html" %}
+
+
+{% block title %}
+Allergènes | Gestion
+{% endblock %}
+
+
+{% block management_page_title %}
+Allergènes
+{% endblock %}
+
+
+{% block management_content %}
+
+<section class="management-page">
+
+    <div class="management-page-header management-page-header-actions">
+
+        <div>
+
+            <span class="management-section-kicker">
+                Restaurant
+            </span>
+
+            <h2>
+                Allergènes
+            </h2>
+
+            <p>
+                Gérez les informations allergènes
+                associées aux plats.
+            </p>
+
+        </div>
+
+
+        <a
+            href="{% url 'management:allergen_create' %}"
+            class="btn management-btn-primary"
+        >
+            <i class="fa-solid fa-plus"></i>
+
+            Ajouter un allergène
+        </a>
+
+    </div>
+
+
+    <div class="management-table-card">
+
+        {% if allergens %}
+
+            <div class="management-table-responsive">
+
+                <table class="management-table">
+
+                    <thead>
+
+                        <tr>
+                            <th>Allergène</th>
+                            <th>Description</th>
+                            <th>Icône</th>
+                            <th>Plats</th>
+                            <th>Ordre</th>
+                            <th>Statut</th>
+
+                            <th class="management-table-actions-heading">
+                                Actions
+                            </th>
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody>
+
+                        {% for allergen in allergens %}
+
+                            <tr>
+
+                                <td>
+
+                                    <strong class="management-table-primary">
+                                        {{ allergen.name }}
+                                    </strong>
+
+                                </td>
+
+
+                                <td>
+
+                                    {% if allergen.description %}
+
+                                        {{ allergen.description|truncatechars:70 }}
+
+                                    {% else %}
+
+                                        <span class="management-muted">
+                                            —
+                                        </span>
+
+                                    {% endif %}
+
+                                </td>
+
+
+                                <td>
+
+                                    {% if allergen.icon %}
+
+                                        <span class="management-allergen-icon">
+                                            {{ allergen.icon }}
+                                        </span>
+
+                                    {% else %}
+
+                                        <span class="management-muted">
+                                            —
+                                        </span>
+
+                                    {% endif %}
+
+                                </td>
+
+
+                                <td>
+
+                                    <span class="management-count-badge">
+                                        {{ allergen.dish_count|default:0 }}
+                                    </span>
+
+                                </td>
+
+
+                                <td>
+                                    {{ allergen.display_order }}
+                                </td>
+
+
+                                <td>
+
+                                    {% if allergen.is_active %}
+
+                                        <span class="management-badge management-badge-success">
+                                            Actif
+                                        </span>
+
+                                    {% else %}
+
+                                        <span class="management-badge management-badge-neutral">
+                                            Inactif
+                                        </span>
+
+                                    {% endif %}
+
+                                </td>
+
+
+                                <td class="management-table-actions">
+
+                                    <div class="management-action-group">
+
+                                        <a
+                                            href="{% url 'management:allergen_update' allergen.pk %}"
+                                            class="management-icon-button"
+                                            title="Modifier"
+                                        >
+                                            <i class="fa-solid fa-pen"></i>
+                                        </a>
+
+
+                                        <form
+                                            method="post"
+                                            action="{% url 'management:allergen_delete' allergen.pk %}"
+                                            onsubmit="return confirm('Supprimer cet allergène ?');"
+                                        >
+
+                                            {% csrf_token %}
+
+                                            <button
+                                                type="submit"
+                                                class="management-icon-button management-icon-button-danger"
+                                                title="Supprimer"
+                                            >
+                                                <i class="fa-solid fa-trash"></i>
+                                            </button>
+
+                                        </form>
+
+                                    </div>
+
+                                </td>
+
+                            </tr>
+
+                        {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        {% else %}
+
+            <div class="management-empty-state">
+
+                <i class="fa-solid fa-triangle-exclamation"></i>
+
+                <h4>
+                    Aucun allergène
+                </h4>
+
+                <p>
+                    Ajoutez les allergènes utilisés
+                    dans les plats du restaurant.
+                </p>
+
+                <a
+                    href="{% url 'management:allergen_create' %}"
+                    class="btn management-btn-primary"
+                >
+                    Ajouter un allergène
+                </a>
+
+            </div>
+
+        {% endif %}
+
+    </div>
+
+</section>
+
+{% endblock %}

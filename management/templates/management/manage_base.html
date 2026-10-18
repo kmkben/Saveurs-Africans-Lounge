@@ -1,0 +1,612 @@
+{% extends "layouts/base.html" %}
+{% load static %}
+
+
+{% block title %}
+Gestion | Saveurs Africans Lounge
+{% endblock %}
+
+
+{% block extra_css %}
+    {{ block.super }}
+
+    <link
+        rel="stylesheet"
+        href="{% static 'css/management.css' %}"
+    >
+{% endblock %}
+
+
+{% block content %}
+
+<section class="management-area">
+
+    <div class="container-fluid">
+
+        <div class="management-layout">
+
+
+            <!-- ==================================================
+                 MANAGEMENT SIDEBAR
+            ================================================== -->
+
+            <aside
+                class="management-sidebar"
+                id="managementSidebar"
+            >
+
+                <!-- ==================================================
+                     MANAGEMENT BRAND
+                ================================================== -->
+
+                <div class="management-sidebar-header">
+
+                    <a
+                        href="{% url 'management:dashboard' %}"
+                        class="management-brand"
+                    >
+
+                        <span class="management-brand-icon">
+                            SAL
+                        </span>
+
+                        <span class="management-brand-text">
+
+                            <strong>
+                                Gestion
+                            </strong>
+
+                            <small>
+                                Saveurs Africans Lounge
+                            </small>
+
+                        </span>
+
+                    </a>
+
+                </div>
+
+
+                <!-- ==================================================
+                     SIDEBAR NAVIGATION
+                ================================================== -->
+
+                <nav class="management-nav">
+
+
+                    <!-- ==================================================
+                         DASHBOARD
+                    ================================================== -->
+
+                    <div class="management-nav-section">
+
+                        <a
+                            href="{% url 'management:dashboard' %}"
+                            class="management-nav-link
+                            {% if request.resolver_match.url_name == 'dashboard' %}
+                                active
+                            {% endif %}"
+                        >
+
+                            <i class="fa-solid fa-chart-line"></i>
+
+                            <span>
+                                Tableau de bord
+                            </span>
+
+                        </a>
+
+                    </div>
+
+
+                    <!-- ==================================================
+                         ACTIVITY
+                    ================================================== -->
+
+                    <div class="management-nav-section">
+
+                        <span class="management-nav-label">
+                            Activité
+                        </span>
+
+
+                        <!-- Orders -->
+
+                        <a
+                            href="{% url 'management:orders_list' %}"
+                            class="management-nav-link
+                            {% if 'order' in request.resolver_match.url_name %}
+                                active
+                            {% endif %}"
+                        >
+
+                            <i class="fa-solid fa-bag-shopping"></i>
+
+                            <span>
+                                Commandes
+                            </span>
+
+                        </a>
+
+
+                        <!-- Reservations -->
+
+                        <a
+                            href="{% url 'management:reservations_list' %}"
+                            class="management-nav-link
+                            {% if 'reservation' in request.resolver_match.url_name %}
+                                active
+                            {% endif %}"
+                        >
+
+                            <i class="fa-solid fa-calendar-check"></i>
+
+                            <span>
+                                Réservations
+                            </span>
+
+                        </a>
+
+
+                        <!-- Messages -->
+
+                        <a
+                            href="{% url 'management:messages_list' %}"
+                            class="management-nav-link
+                            {% if 'message' in request.resolver_match.url_name %}
+                                active
+                            {% endif %}"
+                        >
+
+                            <i class="fa-solid fa-envelope"></i>
+
+                            <span>
+                                Messages
+                            </span>
+
+                        </a>
+
+                    </div>
+
+
+                    <!-- ==================================================
+                         RESTAURANT
+                    ================================================== -->
+
+                    <div class="management-nav-section">
+
+                        <span class="management-nav-label">
+                            Restaurant
+                        </span>
+
+
+                        <!-- Dishes -->
+
+                        <a
+                            href="{% url 'management:dishes_list' %}"
+                            class="management-nav-link
+                            {% if 'dish' in request.resolver_match.url_name %}
+                                active
+                            {% endif %}"
+                        >
+
+                            <i class="fa-solid fa-utensils"></i>
+
+                            <span>
+                                Carte & plats
+                            </span>
+
+                        </a>
+
+
+                        <!-- Categories -->
+
+                        <a
+                            href="{% url 'management:categories_list' %}"
+                            class="management-nav-link
+                            {% if 'categor' in request.resolver_match.url_name %}
+                                active
+                            {% endif %}"
+                        >
+
+                            <i class="fa-solid fa-layer-group"></i>
+
+                            <span>
+                                Catégories
+                            </span>
+
+                        </a>
+
+
+                        <!-- Allergens -->
+
+                        <a
+                            href="{% url 'management:allergens_list' %}"
+                            class="management-nav-link
+                            {% if 'allergen' in request.resolver_match.url_name %}
+                                active
+                            {% endif %}"
+                        >
+
+                            <i class="fa-solid fa-triangle-exclamation"></i>
+
+                            <span>
+                                Allergènes
+                            </span>
+
+                        </a>
+
+
+                        <!-- Daily special -->
+
+                        <a
+                            href="{% url 'management:daily_specials_list' %}"
+                            class="management-nav-link
+                            {% if 'daily_special' in request.resolver_match.url_name %}
+                                active
+                            {% endif %}"
+                        >
+
+                            <i class="fa-solid fa-star"></i>
+
+                            <span>
+                                Plat du jour
+                            </span>
+
+                        </a>
+
+
+                        <!-- Delivery zones -->
+
+                        <a
+                            href="{% url 'management:delivery_zones_list' %}"
+                            class="management-nav-link
+                            {% if 'delivery_zone' in request.resolver_match.url_name %}
+                                active
+                            {% endif %}"
+                        >
+
+                            <i class="fa-solid fa-truck"></i>
+
+                            <span>
+                                Zones de livraison
+                            </span>
+
+                        </a>
+
+                    </div>
+
+
+                    <!-- ==================================================
+                         CONTENT
+                    ================================================== -->
+
+                    <div class="management-nav-section">
+
+                        <span class="management-nav-label">
+                            Contenu
+                        </span>
+
+
+                        <!-- Events -->
+
+                        <a
+                            href="{% url 'management:events_list' %}"
+                            class="management-nav-link
+                            {% if 'event' in request.resolver_match.url_name %}
+                                active
+                            {% endif %}"
+                        >
+
+                            <i class="fa-solid fa-calendar-days"></i>
+
+                            <span>
+                                Événements
+                            </span>
+
+                        </a>
+
+
+                        <!-- Gallery -->
+
+                        <a
+                            href="{% url 'management:gallery_albums_list' %}"
+                            class="management-nav-link
+                            {% if 'gallery' in request.resolver_match.url_name %}
+                                active
+                            {% endif %}"
+                        >
+
+                            <i class="fa-solid fa-images"></i>
+
+                            <span>
+                                Galerie
+                            </span>
+
+                        </a>
+
+                    </div>
+
+
+                    <!-- ==================================================
+                         CONFIGURATION
+                    ================================================== -->
+
+                    <div class="management-nav-section">
+
+                        <span class="management-nav-label">
+                            Configuration
+                        </span>
+
+
+                        <!-- Settings -->
+
+                        <a
+                            href="{% url 'management:site_settings' %}"
+                            class="management-nav-link
+                            {% if request.resolver_match.url_name == 'site_settings' %}
+                                active
+                            {% endif %}"
+                        >
+
+                            <i class="fa-solid fa-gear"></i>
+
+                            <span>
+                                Paramètres
+                            </span>
+
+                        </a>
+
+                    </div>
+
+                </nav>
+
+
+                <!-- ==================================================
+                     SIDEBAR FOOTER
+                ================================================== -->
+
+                <div class="management-sidebar-footer">
+
+                    <a
+                        href="{% url 'home' %}"
+                        target="_blank"
+                        rel="noopener"
+                        class="management-nav-link"
+                    >
+
+                        <i class="fa-solid fa-arrow-up-right-from-square"></i>
+
+                        <span>
+                            Voir le site
+                        </span>
+
+                    </a>
+
+
+
+                    <form
+                        method="post"
+                        action="{% url 'management:logout' %}"
+                    >
+
+                        {% csrf_token %}
+
+                        <button
+                            type="submit"
+                            class="management-sidebar-footer-link management-logout-button"
+                        >
+                            <i class="fa-solid fa-right-from-bracket"></i>
+
+                            Déconnexion
+                        </button>
+
+                    </form>
+
+
+                </div>
+                
+
+            </aside>
+
+
+            <!-- ==================================================
+                 MAIN CONTENT
+            ================================================== -->
+
+            <main class="management-main">
+
+
+                <!-- ==================================================
+                     MANAGEMENT TOPBAR
+                ================================================== -->
+
+                <header class="management-topbar">
+
+                    <div class="management-topbar-left">
+
+                        <button
+                            type="button"
+                            class="management-sidebar-toggle"
+                            id="managementSidebarToggle"
+                            aria-label="Afficher le menu de gestion"
+                            aria-expanded="false"
+                        >
+
+                            <i class="fa-solid fa-bars"></i>
+
+                        </button>
+
+
+                        <div class="management-heading">
+
+                            <span class="management-page-eyebrow">
+                                Espace de gestion
+                            </span>
+
+                            <h1 class="management-page-title">
+
+                                {% block management_page_title %}
+                                    Tableau de bord
+                                {% endblock %}
+
+                            </h1>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- ==================================================
+                         USER
+                    ================================================== -->
+
+                    <div class="management-topbar-user">
+
+
+                        <div class="management-user-info">
+
+                            <div class="management-user-icon">
+
+                                <i class="fa-solid fa-circle-user"></i>
+    
+                            </div>
+
+                            <div>
+
+                                <strong>
+                                    {{ request.user.get_full_name|default:request.user.username }}
+                                </strong>
+                        
+                                <span>
+                                    Gestionnaire
+                                </span>
+                        
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </header>
+
+
+                <!-- ==================================================
+                     DJANGO MESSAGES
+                ================================================== -->
+
+                {% if messages %}
+
+                    <div class="management-messages">
+
+                        {% for message in messages %}
+
+                            <div
+                                class="
+                                    alert
+                                    management-alert
+
+                                    {% if message.tags == 'success' %}
+                                        alert-success
+
+                                    {% elif message.tags == 'error' %}
+                                        alert-danger
+
+                                    {% elif message.tags == 'warning' %}
+                                        alert-warning
+
+                                    {% elif message.tags == 'info' %}
+                                        alert-info
+
+                                    {% else %}
+                                        alert-secondary
+                                    {% endif %}
+                                "
+                                role="alert"
+                            >
+
+                                {{ message }}
+
+                            </div>
+
+                        {% endfor %}
+
+                    </div>
+
+                {% endif %}
+
+
+                <!-- ==================================================
+                     PAGE CONTENT
+                ================================================== -->
+
+                <div class="management-content">
+
+                    {% block management_content %}
+                    {% endblock %}
+
+                </div>
+
+
+            </main>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}
+
+
+{% block extra_js %}
+    {{ block.super }}
+
+
+    <!-- ==================================================
+         MANAGEMENT SIDEBAR
+    ================================================== -->
+
+    <script>
+
+        const managementSidebar = document.querySelector(
+            "#managementSidebar"
+        );
+
+        const managementSidebarToggle = document.querySelector(
+            "#managementSidebarToggle"
+        );
+
+
+        if (
+            managementSidebar
+            && managementSidebarToggle
+        ) {
+
+            managementSidebarToggle.addEventListener(
+                "click",
+                function () {
+
+                    const isOpen = (
+                        managementSidebar.classList.toggle(
+                            "management-sidebar-open"
+                        )
+                    );
+
+                    managementSidebarToggle.setAttribute(
+                        "aria-expanded",
+                        isOpen ? "true" : "false"
+                    );
+
+                }
+            );
+
+        }
+
+    </script>
+
+
+    {% block management_extra_js %}
+    {% endblock %}
+
+{% endblock %}

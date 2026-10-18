@@ -1,0 +1,346 @@
+{% extends "management/manage_base.html" %}
+
+
+{% block title %}
+Carte & plats | Gestion
+{% endblock %}
+
+
+{% block management_page_title %}
+Carte & plats
+{% endblock %}
+
+
+{% block management_content %}
+
+<section class="management-page">
+
+    <!-- ==================================================
+         PAGE HEADER
+    ================================================== -->
+
+    <div class="management-page-header management-page-header-actions">
+
+        <div>
+
+            <span class="management-section-kicker">
+                Restaurant
+            </span>
+
+            <h2>
+                Carte & plats
+            </h2>
+
+            <p>
+                Gérez les plats, leur disponibilité
+                et leur affichage sur la carte.
+            </p>
+
+        </div>
+
+
+        <a
+            href="{% url 'management:dish_create' %}"
+            class="btn management-btn-primary"
+        >
+            <i class="fa-solid fa-plus"></i>
+
+            Ajouter un plat
+        </a>
+
+    </div>
+
+
+    <!-- ==================================================
+         DISHES
+    ================================================== -->
+
+    <div class="management-table-card">
+
+        {% if dishes %}
+
+            <div class="management-table-responsive">
+
+                <table class="management-table management-dishes-table">
+
+                    <thead>
+
+                        <tr>
+                            <th>Plat</th>
+                            <th>Catégorie</th>
+                            <th>Prix</th>
+                            <th>Restaurant</th>
+                            <th>Livraison</th>
+                            <th>À la une</th>
+
+                            <th class="management-table-actions-heading">
+                                Actions
+                            </th>
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody>
+
+                        {% for dish in dishes %}
+
+                            <tr>
+
+                                <!-- Dish -->
+
+                                <td>
+
+                                    <div class="management-table-product">
+
+                                        {% if dish.image %}
+
+                                            <img
+                                                src="{{ dish.image.url }}"
+                                                alt="{{ dish.name }}"
+                                                class="management-table-product-image"
+                                            >
+
+                                        {% else %}
+
+                                            <div class="management-table-product-placeholder">
+
+                                                <i class="fa-solid fa-utensils"></i>
+
+                                            </div>
+
+                                        {% endif %}
+
+
+                                        <div>
+
+                                            <strong>
+                                                {{ dish.name }}
+                                            </strong>
+
+                                            {% if dish.short_description %}
+
+                                                <small>
+                                                    {{ dish.short_description|truncatechars:55 }}
+                                                </small>
+
+                                            {% endif %}
+
+                                        </div>
+
+                                    </div>
+
+                                </td>
+
+
+                                <!-- Category -->
+
+                                <td>
+
+                                    <span class="management-badge">
+                                        {{ dish.category.name }}
+                                    </span>
+
+                                </td>
+
+
+                                <!-- Price -->
+
+                                <td>
+
+                                    <strong>
+                                        {{ dish.price|floatformat:2 }} €
+                                    </strong>
+
+                                </td>
+
+
+                                <!-- Availability -->
+
+                                <td>
+
+                                    {% if dish.is_available %}
+
+                                        <span class="management-badge management-badge-success">
+                                            Disponible
+                                        </span>
+
+                                    {% else %}
+
+                                        <span class="management-badge management-badge-danger">
+                                            Indisponible
+                                        </span>
+
+                                    {% endif %}
+
+                                </td>
+
+
+                                <!-- Delivery -->
+
+                                <td>
+
+                                    {% if dish.is_delivery_available %}
+
+                                        <span class="management-boolean yes">
+                                            <i class="fa-solid fa-check"></i>
+                                        </span>
+
+                                    {% else %}
+
+                                        <span class="management-boolean no">
+                                            <i class="fa-solid fa-minus"></i>
+                                        </span>
+
+                                    {% endif %}
+
+                                </td>
+
+
+                                <!-- Featured -->
+
+                                <td>
+
+                                    {% if dish.is_featured %}
+
+                                        <span class="management-boolean featured">
+                                            <i class="fa-solid fa-star"></i>
+                                        </span>
+
+                                    {% else %}
+
+                                        <span class="management-boolean no">
+                                            <i class="fa-solid fa-minus"></i>
+                                        </span>
+
+                                    {% endif %}
+
+                                </td>
+
+
+                                <!-- Actions -->
+
+                                <td class="management-table-actions">
+
+                                    <div class="management-action-group">
+
+
+                                        <!-- Availability -->
+
+                                        <form
+                                            method="post"
+                                            action="{% url 'management:dish_toggle_availability' dish.pk %}"
+                                        >
+
+                                            {% csrf_token %}
+
+                                            <button
+                                                type="submit"
+                                                class="
+                                                    management-icon-button
+                                                    {% if dish.is_available %}
+                                                        management-icon-button-warning
+                                                    {% else %}
+                                                        management-icon-button-success
+                                                    {% endif %}
+                                                "
+                                                title="
+                                                    {% if dish.is_available %}
+                                                        Rendre indisponible
+                                                    {% else %}
+                                                        Rendre disponible
+                                                    {% endif %}
+                                                "
+                                            >
+
+                                                {% if dish.is_available %}
+
+                                                    <i class="fa-solid fa-eye-slash"></i>
+
+                                                {% else %}
+
+                                                    <i class="fa-solid fa-eye"></i>
+
+                                                {% endif %}
+
+                                            </button>
+
+                                        </form>
+
+
+                                        <!-- Edit -->
+
+                                        <a
+                                            href="{% url 'management:dish_update' dish.pk %}"
+                                            class="management-icon-button"
+                                            title="Modifier"
+                                        >
+                                            <i class="fa-solid fa-pen"></i>
+                                        </a>
+
+
+                                        <!-- Delete -->
+
+                                        <form
+                                            method="post"
+                                            action="{% url 'management:dish_delete' dish.pk %}"
+                                            onsubmit="return confirm('Supprimer ce plat ?');"
+                                        >
+
+                                            {% csrf_token %}
+
+                                            <button
+                                                type="submit"
+                                                class="management-icon-button management-icon-button-danger"
+                                                title="Supprimer"
+                                            >
+                                                <i class="fa-solid fa-trash"></i>
+                                            </button>
+
+                                        </form>
+
+                                    </div>
+
+                                </td>
+
+                            </tr>
+
+                        {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        {% else %}
+
+            <div class="management-empty-state">
+
+                <i class="fa-solid fa-utensils"></i>
+
+                <h4>
+                    Aucun plat
+                </h4>
+
+                <p>
+                    Commencez par ajouter
+                    votre premier plat à la carte.
+                </p>
+
+                <a
+                    href="{% url 'management:dish_create' %}"
+                    class="btn management-btn-primary"
+                >
+                    Ajouter un plat
+                </a>
+
+            </div>
+
+        {% endif %}
+
+    </div>
+
+</section>
+
+{% endblock %}

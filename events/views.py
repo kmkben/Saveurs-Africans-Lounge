@@ -13,7 +13,6 @@ class EventListView(ListView):
     def get_queryset(self):
         return Event.objects.filter(
             is_published=True,
-            start_at__gte=timezone.now(),
         ).order_by("start_at")
 
 

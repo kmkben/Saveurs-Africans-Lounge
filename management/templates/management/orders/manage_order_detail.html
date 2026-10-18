@@ -1,0 +1,607 @@
+{% extends "management/manage_base.html" %}
+
+
+{% block title %}
+Commande #{{ order.pk }} | Gestion
+{% endblock %}
+
+
+{% block management_page_title %}
+Commande #{{ order.pk }}
+{% endblock %}
+
+
+{% block management_content %}
+
+<section class="management-page">
+
+
+    <!-- ==================================================
+         PAGE HEADER
+    ================================================== -->
+
+    <div class="management-page-header management-page-header-actions">
+
+        <div>
+
+            <a
+                href="{% url 'management:orders_list' %}"
+                class="management-back-link"
+            >
+                <i class="fa-solid fa-arrow-left"></i>
+
+                Retour aux commandes
+            </a>
+
+            <h2>
+                Commande #{{ order.pk }}
+            </h2>
+
+            <p>
+                Passée le
+                {{ order.created_at|date:"d/m/Y" }}
+                à
+                {{ order.created_at|date:"H:i" }}.
+            </p>
+
+        </div>
+
+
+        <div class="management-header-badges">
+
+            {% if order.payment_status == "PAID" %}
+
+                <span class="management-badge management-badge-success">
+                    <i class="fa-solid fa-circle-check"></i>
+                    Payée
+                </span>
+
+            {% elif order.payment_status == "FAILED" %}
+
+                <span class="management-badge management-badge-danger">
+                    Paiement échoué
+                </span>
+
+            {% elif order.payment_status == "REFUNDED" %}
+
+                <span class="management-badge management-badge-neutral">
+                    Remboursée
+                </span>
+
+            {% else %}
+
+                <span class="management-badge management-badge-warning">
+                    Paiement en attente
+                </span>
+
+            {% endif %}
+
+
+            <span class="management-badge management-badge-status">
+                {{ order.get_status_display }}
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <!-- ==================================================
+         CONTENT GRID
+    ================================================== -->
+
+    <div class="management-detail-grid">
+
+
+        <!-- ==================================================
+             LEFT COLUMN
+        ================================================== -->
+
+        <div class="management-detail-main">
+
+
+            <!-- ==================================================
+                 ORDER ITEMS
+            ================================================== -->
+
+            <section class="management-panel">
+
+                <div class="management-panel-header">
+
+                    <div>
+
+                        <span class="management-section-kicker">
+                            Contenu
+                        </span>
+
+                        <h3>
+                            Articles commandés
+                        </h3>
+
+                    </div>
+
+                </div>
+
+
+                <div class="management-order-items">
+
+                    {% for item in order.items.all %}
+
+                        <div class="management-order-item">
+
+                            <div class="management-order-item-info">
+
+                                <strong>
+                                    {{ item.dish_name }}
+                                </strong>
+
+                                <span>
+                                    {{ item.unit_price|floatformat:2 }} €
+                                    ×
+                                    {{ item.quantity }}
+                                </span>
+
+                                {% if item.note %}
+
+                                    <small>
+                                        Note : {{ item.note }}
+                                    </small>
+
+                                {% endif %}
+
+                            </div>
+
+
+                            <strong class="management-order-item-total">
+                                {{ item.total_price|floatformat:2 }} €
+                            </strong>
+
+                        </div>
+
+                    {% empty %}
+
+                        <div class="management-empty-inline">
+                            Aucun article.
+                        </div>
+
+                    {% endfor %}
+
+                </div>
+
+
+                <!-- ==================================================
+                     TOTALS
+                ================================================== -->
+
+                <div class="management-order-summary">
+
+                    <div>
+
+                        <span>
+                            Sous-total
+                        </span>
+
+                        <strong>
+                            {{ order.subtotal|floatformat:2 }} €
+                        </strong>
+
+                    </div>
+
+
+                    <div>
+
+                        <span>
+                            Livraison
+                        </span>
+
+                        <strong>
+                            {{ order.delivery_fee|floatformat:2 }} €
+                        </strong>
+
+                    </div>
+
+
+                    <div class="management-order-summary-total">
+
+                        <span>
+                            Total
+                        </span>
+
+                        <strong>
+                            {{ order.total|floatformat:2 }} €
+                        </strong>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- ==================================================
+                 CUSTOMER NOTE
+            ================================================== -->
+
+            {% if order.customer_note %}
+
+                <section class="management-panel">
+
+                    <div class="management-panel-header">
+
+                        <div>
+
+                            <span class="management-section-kicker">
+                                Client
+                            </span>
+
+                            <h3>
+                                Note de commande
+                            </h3>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="management-note-box">
+                        {{ order.customer_note|linebreaksbr }}
+                    </div>
+
+                </section>
+
+            {% endif %}
+
+        </div>
+
+
+        <!-- ==================================================
+             RIGHT COLUMN
+        ================================================== -->
+
+        <aside class="management-detail-sidebar">
+
+
+            <!-- ==================================================
+                 STATUS
+            ================================================== -->
+
+            <section class="management-panel">
+
+                <div class="management-panel-header">
+
+                    <div>
+
+                        <span class="management-section-kicker">
+                            Traitement
+                        </span>
+
+                        <h3>
+                            Statut
+                        </h3>
+
+                    </div>
+
+                </div>
+
+
+                <form
+                    method="post"
+                    action="{% url 'management:order_status_update' order.pk %}"
+                >
+
+                    {% csrf_token %}
+
+
+                    <div class="management-form-group">
+
+                        <label for="order-status">
+                            Statut de la commande
+                        </label>
+
+                        <select
+                            name="status"
+                            id="order-status"
+                            class="form-select"
+                        >
+
+                            {% for value, label in status_choices %}
+
+                                {% if order.order_type != "PICKUP" or value != "OUT_FOR_DELIVERY" %}
+
+                                    <option
+                                        value="{{ value }}"
+                                        {% if order.status == value %}
+                                            selected
+                                        {% endif %}
+                                    >
+                                        {{ label }}
+                                    </option>
+
+                                {% endif %}
+
+                            {% endfor %}
+
+                        </select>
+
+                    </div>
+
+
+                    <button
+                        type="submit"
+                        class="btn management-btn-primary w-100"
+                    >
+                        Mettre à jour le statut
+                    </button>
+
+                </form>
+
+            </section>
+
+
+            <!-- ==================================================
+                 CUSTOMER
+            ================================================== -->
+
+            <section class="management-panel">
+
+                <div class="management-panel-header">
+
+                    <div>
+
+                        <span class="management-section-kicker">
+                            Coordonnées
+                        </span>
+
+                        <h3>
+                            Client
+                        </h3>
+
+                    </div>
+
+                </div>
+
+
+                <dl class="management-info-list">
+
+                    <div>
+
+                        <dt>
+                            Nom
+                        </dt>
+
+                        <dd>
+                            {{ order.customer_name }}
+                        </dd>
+
+                    </div>
+
+
+                    <div>
+
+                        <dt>
+                            Téléphone
+                        </dt>
+
+                        <dd>
+                            <a href="tel:{{ order.phone }}">
+                                {{ order.phone }}
+                            </a>
+                        </dd>
+
+                    </div>
+
+
+                    {% if order.email %}
+
+                        <div>
+
+                            <dt>
+                                E-mail
+                            </dt>
+
+                            <dd>
+                                <a href="mailto:{{ order.email }}">
+                                    {{ order.email }}
+                                </a>
+                            </dd>
+
+                        </div>
+
+                    {% endif %}
+
+                </dl>
+
+            </section>
+
+
+            <!-- ==================================================
+                 FULFILMENT
+            ================================================== -->
+
+            <section class="management-panel">
+
+                <div class="management-panel-header">
+
+                    <div>
+
+                        <span class="management-section-kicker">
+                            Retrait / livraison
+                        </span>
+
+                        <h3>
+                            {{ order.get_order_type_display }}
+                        </h3>
+
+                    </div>
+
+                </div>
+
+
+                {% if order.order_type == "DELIVERY" %}
+
+                    <address class="management-address">
+
+                        {{ order.address }}
+
+                        {% if order.address_complement %}
+                            <br>
+                            {{ order.address_complement }}
+                        {% endif %}
+
+                        <br>
+
+                        {{ order.postal_code }}
+                        {{ order.city }}
+
+                    </address>
+
+
+                    {% if order.delivery_zone %}
+
+                        <div class="management-info-highlight">
+
+                            <span>
+                                Zone
+                            </span>
+
+                            <strong>
+                                {{ order.delivery_zone.name }}
+                            </strong>
+
+                        </div>
+
+                    {% endif %}
+
+                {% else %}
+
+                    <div class="management-info-highlight">
+
+                        <i class="fa-solid fa-store"></i>
+
+                        <div>
+
+                            <strong>
+                                Retrait au restaurant
+                            </strong>
+
+                            <span>
+                                Aucune livraison nécessaire.
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                {% endif %}
+
+            </section>
+
+
+            <!-- ==================================================
+                 PAYMENT
+            ================================================== -->
+
+            <section class="management-panel">
+
+                <div class="management-panel-header">
+
+                    <div>
+
+                        <span class="management-section-kicker">
+                            Paiement
+                        </span>
+
+                        <h3>
+                            Informations
+                        </h3>
+
+                    </div>
+
+                </div>
+
+
+                <dl class="management-info-list">
+
+                    <div>
+
+                        <dt>
+                            Moyen
+                        </dt>
+
+                        <dd>
+                            {{ order.get_payment_method_display }}
+                        </dd>
+
+                    </div>
+
+
+                    <div>
+
+                        <dt>
+                            Statut
+                        </dt>
+
+                        <dd>
+                            {{ order.get_payment_status_display }}
+                        </dd>
+
+                    </div>
+
+
+                    <div>
+
+                        <dt>
+                            Montant payé
+                        </dt>
+
+                        <dd>
+                            {{ order.amount_paid|floatformat:2 }} €
+                        </dd>
+
+                    </div>
+
+
+                    {% if order.paid_at %}
+
+                        <div>
+
+                            <dt>
+                                Payée le
+                            </dt>
+
+                            <dd>
+                                {{ order.paid_at|date:"d/m/Y H:i" }}
+                            </dd>
+
+                        </div>
+
+                    {% endif %}
+
+
+                    {% if order.payment_reference %}
+
+                        <div>
+
+                            <dt>
+                                Référence
+                            </dt>
+
+                            <dd class="management-reference">
+                                {{ order.payment_reference }}
+                            </dd>
+
+                        </div>
+
+                    {% endif %}
+
+                </dl>
+
+            </section>
+
+        </aside>
+
+    </div>
+
+</section>
+
+{% endblock %}

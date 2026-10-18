@@ -1,0 +1,304 @@
+{% extends "management/manage_base.html" %}
+
+
+{% block title %}
+{% if album %}Modifier {{ album.title }}{% else %}Créer un album{% endif %} | Gestion
+{% endblock %}
+
+
+{% block management_page_title %}
+{% if album %}Modifier l’album{% else %}Créer un album{% endif %}
+{% endblock %}
+
+
+{% block management_content %}
+
+<section class="management-page management-form-page">
+
+    <div class="management-page-header">
+
+        <a
+            href="{% url 'management:gallery_albums_list' %}"
+            class="management-back-link"
+        >
+            <i class="fa-solid fa-arrow-left"></i>
+
+            Retour à la galerie
+        </a>
+
+
+        <h2>
+
+            {% if album %}
+                {{ album.title }}
+            {% else %}
+                Nouvel album
+            {% endif %}
+
+        </h2>
+
+
+        <p>
+            Organisez les photos autour
+            d’un thème ou d’une catégorie.
+        </p>
+
+    </div>
+
+
+    <form
+        method="post"
+        enctype="multipart/form-data"
+        class="management-form"
+    >
+
+        {% csrf_token %}
+
+
+        <!-- ==================================================
+             INFORMATION
+        ================================================== -->
+
+        <section class="management-form-card">
+
+            <div class="management-form-card-header">
+
+                <span class="management-section-kicker">
+                    Album
+                </span>
+
+                <h3>
+                    Informations
+                </h3>
+
+            </div>
+
+
+            <div class="management-form-grid">
+
+                <div class="management-field management-field-full">
+
+                    <label for="{{ form.title.id_for_label }}">
+                        Titre
+                    </label>
+
+                    {{ form.title }}
+
+                    {% for error in form.title.errors %}
+                        <div class="management-field-error">
+                            {{ error }}
+                        </div>
+                    {% endfor %}
+
+                </div>
+
+
+                <div class="management-field">
+
+                    <label for="{{ form.category.id_for_label }}">
+                        Catégorie
+                    </label>
+
+                    {{ form.category }}
+
+                    {% for error in form.category.errors %}
+                        <div class="management-field-error">
+                            {{ error }}
+                        </div>
+                    {% endfor %}
+
+                </div>
+
+
+                <div class="management-field">
+
+                    <label for="{{ form.display_order.id_for_label }}">
+                        Ordre d’affichage
+                    </label>
+
+                    {{ form.display_order }}
+
+                </div>
+
+
+                <div class="management-field management-field-full">
+
+                    <label for="{{ form.description.id_for_label }}">
+                        Description
+                    </label>
+
+                    {{ form.description }}
+
+                    {% for error in form.description.errors %}
+                        <div class="management-field-error">
+                            {{ error }}
+                        </div>
+                    {% endfor %}
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ==================================================
+             COVER IMAGE
+        ================================================== -->
+
+        <section class="management-form-card">
+
+            <div class="management-form-card-header">
+
+                <span class="management-section-kicker">
+                    Visuel
+                </span>
+
+                <h3>
+                    Image de couverture
+                </h3>
+
+            </div>
+
+
+            <div class="management-image-field-layout">
+
+                {% if album and album.cover_image %}
+
+                    <div class="management-current-image">
+
+                        <img
+                            src="{{ album.cover_image.url }}"
+                            alt="{{ album.title }}"
+                        >
+
+                    </div>
+
+                {% endif %}
+
+
+                <div class="management-field">
+
+                    <label for="{{ form.cover_image.id_for_label }}">
+                        Image
+                    </label>
+
+                    {{ form.cover_image }}
+
+                    {% for error in form.cover_image.errors %}
+                        <div class="management-field-error">
+                            {{ error }}
+                        </div>
+                    {% endfor %}
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ==================================================
+             PUBLICATION
+        ================================================== -->
+
+        <section class="management-form-card">
+
+            <div class="management-form-card-header">
+
+                <span class="management-section-kicker">
+                    Publication
+                </span>
+
+                <h3>
+                    Visibilité
+                </h3>
+
+            </div>
+
+
+            <div class="management-switch-grid">
+
+                <label class="management-switch-card">
+
+                    {{ form.is_featured }}
+
+                    <span>
+
+                        <strong>
+                            Mettre à la une
+                        </strong>
+
+                        <small>
+                            Donner davantage de visibilité
+                            à cet album.
+                        </small>
+
+                    </span>
+
+                </label>
+
+
+                <label class="management-switch-card">
+
+                    {{ form.is_published }}
+
+                    <span>
+
+                        <strong>
+                            Publier l’album
+                        </strong>
+
+                        <small>
+                            Rendre l’album visible
+                            dans la galerie publique.
+                        </small>
+
+                    </span>
+
+                </label>
+
+            </div>
+
+        </section>
+
+
+        {% if form.non_field_errors %}
+
+            <div class="management-form-errors">
+
+                {% for error in form.non_field_errors %}
+                    <p>{{ error }}</p>
+                {% endfor %}
+
+            </div>
+
+        {% endif %}
+
+
+        <div class="management-form-actions">
+
+            <a
+                href="{% url 'management:gallery_albums_list' %}"
+                class="btn management-btn-secondary"
+            >
+                Annuler
+            </a>
+
+
+            <button
+                type="submit"
+                class="btn management-btn-primary"
+            >
+                <i class="fa-solid fa-floppy-disk"></i>
+
+                Enregistrer
+            </button>
+
+        </div>
+
+    </form>
+
+</section>
+
+{% endblock %}

@@ -1,0 +1,309 @@
+{% extends "management/manage_base.html" %}
+
+
+{% block title %}
+Zones de livraison | Gestion
+{% endblock %}
+
+
+{% block management_page_title %}
+Zones de livraison
+{% endblock %}
+
+
+{% block management_content %}
+
+<section class="management-page">
+
+    <!-- ==================================================
+         PAGE HEADER
+    ================================================== -->
+
+    <div class="management-page-header management-page-header-actions">
+
+        <div>
+
+            <span class="management-section-kicker">
+                Restaurant
+            </span>
+
+            <h2>
+                Zones de livraison
+            </h2>
+
+            <p>
+                Configurez les villes desservies,
+                les frais et les minimums de commande.
+            </p>
+
+        </div>
+
+
+        <a
+            href="{% url 'management:delivery_zone_create' %}"
+            class="btn management-btn-primary"
+        >
+            <i class="fa-solid fa-plus"></i>
+
+            Ajouter une zone
+        </a>
+
+    </div>
+
+
+    <!-- ==================================================
+         DELIVERY ZONES
+    ================================================== -->
+
+    <div class="management-table-card">
+
+        {% if delivery_zones %}
+
+            <div class="management-table-responsive">
+
+                <table class="management-table">
+
+                    <thead>
+
+                        <tr>
+                            <th>Zone</th>
+                            <th>Localisation</th>
+                            <th>Frais</th>
+                            <th>Minimum</th>
+                            <th>Livraison offerte</th>
+                            <th>Statut</th>
+
+                            <th class="management-table-actions-heading">
+                                Actions
+                            </th>
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody>
+
+                        {% for zone in delivery_zones %}
+
+                            <tr>
+
+                                <!-- Name -->
+
+                                <td>
+
+                                    <strong class="management-table-primary">
+                                        {{ zone.name }}
+                                    </strong>
+
+                                </td>
+
+
+                                <!-- Location -->
+
+                                <td>
+
+                                    <div class="management-table-person">
+
+                                        <strong>
+                                            {{ zone.city }}
+                                        </strong>
+
+                                        <small>
+                                            {{ zone.postal_code }}
+                                        </small>
+
+                                    </div>
+
+                                </td>
+
+
+                                <!-- Fee -->
+
+                                <td>
+
+                                    {% if zone.delivery_fee == 0 %}
+
+                                        <span class="management-badge management-badge-success">
+                                            Gratuite
+                                        </span>
+
+                                    {% else %}
+
+                                        <strong>
+                                            {{ zone.delivery_fee|floatformat:2 }} €
+                                        </strong>
+
+                                    {% endif %}
+
+                                </td>
+
+
+                                <!-- Minimum -->
+
+                                <td>
+                                    {{ zone.minimum_order|floatformat:2 }} €
+                                </td>
+
+
+                                <!-- Free threshold -->
+
+                                <td>
+
+                                    {% if zone.free_delivery_from %}
+
+                                        Dès
+                                        <strong>
+                                            {{ zone.free_delivery_from|floatformat:2 }} €
+                                        </strong>
+
+                                    {% else %}
+
+                                        <span class="management-muted">
+                                            —
+                                        </span>
+
+                                    {% endif %}
+
+                                </td>
+
+
+                                <!-- Status -->
+
+                                <td>
+
+                                    {% if zone.is_active %}
+
+                                        <span class="management-badge management-badge-success">
+                                            Active
+                                        </span>
+
+                                    {% else %}
+
+                                        <span class="management-badge management-badge-neutral">
+                                            Inactive
+                                        </span>
+
+                                    {% endif %}
+
+                                </td>
+
+
+                                <!-- Actions -->
+
+                                <td class="management-table-actions">
+
+                                    <div class="management-action-group">
+
+                                        <form
+                                            method="post"
+                                            action="{% url 'management:delivery_zone_toggle_active' zone.pk %}"
+                                        >
+
+                                            {% csrf_token %}
+
+                                            <button
+                                                type="submit"
+                                                class="
+                                                    management-icon-button
+                                                    {% if zone.is_active %}
+                                                        management-icon-button-warning
+                                                    {% else %}
+                                                        management-icon-button-success
+                                                    {% endif %}
+                                                "
+                                                title="
+                                                    {% if zone.is_active %}
+                                                        Désactiver
+                                                    {% else %}
+                                                        Activer
+                                                    {% endif %}
+                                                "
+                                            >
+
+                                                {% if zone.is_active %}
+
+                                                    <i class="fa-solid fa-toggle-on"></i>
+
+                                                {% else %}
+
+                                                    <i class="fa-solid fa-toggle-off"></i>
+
+                                                {% endif %}
+
+                                            </button>
+
+                                        </form>
+
+
+                                        <a
+                                            href="{% url 'management:delivery_zone_update' zone.pk %}"
+                                            class="management-icon-button"
+                                            title="Modifier"
+                                        >
+                                            <i class="fa-solid fa-pen"></i>
+                                        </a>
+
+
+                                        <form
+                                            method="post"
+                                            action="{% url 'management:delivery_zone_delete' zone.pk %}"
+                                            onsubmit="return confirm('Supprimer cette zone de livraison ?');"
+                                        >
+
+                                            {% csrf_token %}
+
+                                            <button
+                                                type="submit"
+                                                class="management-icon-button management-icon-button-danger"
+                                                title="Supprimer"
+                                            >
+                                                <i class="fa-solid fa-trash"></i>
+                                            </button>
+
+                                        </form>
+
+                                    </div>
+
+                                </td>
+
+                            </tr>
+
+                        {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        {% else %}
+
+            <div class="management-empty-state">
+
+                <i class="fa-solid fa-truck"></i>
+
+                <h4>
+                    Aucune zone de livraison
+                </h4>
+
+                <p>
+                    Ajoutez les villes dans lesquelles
+                    le restaurant peut livrer.
+                </p>
+
+                <a
+                    href="{% url 'management:delivery_zone_create' %}"
+                    class="btn management-btn-primary"
+                >
+                    Ajouter une zone
+                </a>
+
+            </div>
+
+        {% endif %}
+
+    </div>
+
+</section>
+
+{% endblock %}

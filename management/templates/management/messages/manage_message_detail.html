@@ -1,0 +1,301 @@
+{% extends "management/manage_base.html" %}
+
+
+{% block title %}
+Message de {{ contact_message.name }} | Gestion
+{% endblock %}
+
+
+{% block management_page_title %}
+Message
+{% endblock %}
+
+
+{% block management_content %}
+
+<section class="management-page">
+
+    <!-- ==================================================
+         HEADER
+    ================================================== -->
+
+    <div class="management-page-header management-page-header-actions">
+
+        <div>
+
+            <a
+                href="{% url 'management:messages_list' %}"
+                class="management-back-link"
+            >
+                <i class="fa-solid fa-arrow-left"></i>
+
+                Retour aux messages
+            </a>
+
+
+            <span class="management-section-kicker">
+                Contact
+            </span>
+
+            <h2>
+                {{ contact_message.name }}
+            </h2>
+
+            <p>
+                Message reçu le
+                {{ contact_message.created_at|date:"d/m/Y à H:i" }}.
+            </p>
+
+        </div>
+
+
+        <div class="management-header-actions">
+
+            <form
+                method="post"
+                action="{% url 'management:message_toggle_read' contact_message.pk %}"
+            >
+
+                {% csrf_token %}
+
+                <button
+                    type="submit"
+                    class="btn management-btn-secondary"
+                >
+
+                    {% if contact_message.is_read %}
+
+                        <i class="fa-solid fa-envelope"></i>
+                        Marquer comme non lu
+
+                    {% else %}
+
+                        <i class="fa-solid fa-envelope-open"></i>
+                        Marquer comme lu
+
+                    {% endif %}
+
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+
+    <!-- ==================================================
+         CONTENT
+    ================================================== -->
+
+    <div class="management-detail-grid">
+
+
+        <!-- Message -->
+
+        <div class="management-detail-main">
+
+            <section class="management-panel">
+
+                <div class="management-panel-header">
+
+                    <div>
+
+                        <span class="management-section-kicker">
+                            Message
+                        </span>
+
+                        <h3>
+                            {{ contact_message.get_subject_display }}
+                        </h3>
+
+                    </div>
+
+                </div>
+
+
+                {% if contact_message.subject_detail %}
+
+                    <div class="management-message-subject-detail">
+                        {{ contact_message.subject_detail }}
+                    </div>
+
+                {% endif %}
+
+
+                <div class="management-message-body">
+                    {{ contact_message.message|linebreaksbr }}
+                </div>
+
+            </section>
+
+        </div>
+
+
+        <!-- Sender -->
+
+        <aside class="management-detail-sidebar">
+
+            <section class="management-panel">
+
+                <div class="management-panel-header">
+
+                    <div>
+
+                        <span class="management-section-kicker">
+                            Expéditeur
+                        </span>
+
+                        <h3>
+                            Coordonnées
+                        </h3>
+
+                    </div>
+
+                </div>
+
+
+                <dl class="management-info-list">
+
+                    <div>
+
+                        <dt>
+                            Nom
+                        </dt>
+
+                        <dd>
+                            {{ contact_message.name }}
+                        </dd>
+
+                    </div>
+
+
+                    <div>
+
+                        <dt>
+                            E-mail
+                        </dt>
+
+                        <dd>
+
+                            <a href="mailto:{{ contact_message.email }}">
+                                {{ contact_message.email }}
+                            </a>
+
+                        </dd>
+
+                    </div>
+
+
+                    {% if contact_message.phone %}
+
+                        <div>
+
+                            <dt>
+                                Téléphone
+                            </dt>
+
+                            <dd>
+
+                                <a href="tel:{{ contact_message.phone }}">
+                                    {{ contact_message.phone }}
+                                </a>
+
+                            </dd>
+
+                        </div>
+
+                    {% endif %}
+
+
+                    <div>
+
+                        <dt>
+                            État
+                        </dt>
+
+                        <dd>
+
+                            {% if contact_message.is_read %}
+
+                                <span class="management-badge management-badge-neutral">
+                                    Lu
+                                </span>
+
+                            {% else %}
+
+                                <span class="management-badge management-badge-success">
+                                    Nouveau
+                                </span>
+
+                            {% endif %}
+
+                        </dd>
+
+                    </div>
+
+                </dl>
+
+            </section>
+
+
+            <!-- Quick actions -->
+
+            <section class="management-panel">
+
+                <div class="management-contact-actions">
+
+                    <a
+                        href="mailto:{{ contact_message.email }}"
+                        class="btn management-btn-primary w-100"
+                    >
+                        <i class="fa-solid fa-reply"></i>
+
+                        Répondre par e-mail
+                    </a>
+
+
+                    {% if contact_message.phone %}
+
+                        <a
+                            href="tel:{{ contact_message.phone }}"
+                            class="btn management-btn-secondary w-100"
+                        >
+                            <i class="fa-solid fa-phone"></i>
+
+                            Appeler
+                        </a>
+
+                    {% endif %}
+
+
+                    <form
+                        method="post"
+                        action="{% url 'management:message_delete' contact_message.pk %}"
+                        onsubmit="return confirm('Supprimer définitivement ce message ?');"
+                    >
+
+                        {% csrf_token %}
+
+                        <button
+                            type="submit"
+                            class="btn management-btn-danger w-100"
+                        >
+                            <i class="fa-solid fa-trash"></i>
+
+                            Supprimer
+                        </button>
+
+                    </form>
+
+                </div>
+
+            </section>
+
+        </aside>
+
+    </div>
+
+</section>
+
+{% endblock %}

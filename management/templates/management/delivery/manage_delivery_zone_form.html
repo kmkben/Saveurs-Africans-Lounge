@@ -1,0 +1,337 @@
+{% extends "management/manage_base.html" %}
+
+
+{% block title %}
+{% if zone %}Modifier {{ zone.name }}{% else %}Ajouter une zone{% endif %} | Gestion
+{% endblock %}
+
+
+{% block management_page_title %}
+{% if zone %}Modifier la zone{% else %}Ajouter une zone{% endif %}
+{% endblock %}
+
+
+{% block management_content %}
+
+<section class="management-page management-form-page">
+
+    <!-- ==================================================
+         PAGE HEADER
+    ================================================== -->
+
+    <div class="management-page-header">
+
+        <a
+            href="{% url 'management:delivery_zones_list' %}"
+            class="management-back-link"
+        >
+            <i class="fa-solid fa-arrow-left"></i>
+
+            Retour aux zones de livraison
+        </a>
+
+
+        <h2>
+
+            {% if zone %}
+                {{ zone.name }}
+            {% else %}
+                Nouvelle zone de livraison
+            {% endif %}
+
+        </h2>
+
+        <p>
+            Définissez la localisation,
+            les frais et les conditions de livraison.
+        </p>
+
+    </div>
+
+
+    <!-- ==================================================
+         FORM
+    ================================================== -->
+
+    <form
+        method="post"
+        class="management-form"
+    >
+
+        {% csrf_token %}
+
+
+        <!-- ==================================================
+             LOCATION
+        ================================================== -->
+
+        <section class="management-form-card">
+
+            <div class="management-form-card-header">
+
+                <span class="management-section-kicker">
+                    Localisation
+                </span>
+
+                <h3>
+                    Zone desservie
+                </h3>
+
+                <p>
+                    Identifiez clairement la ville
+                    ou la zone de livraison.
+                </p>
+
+            </div>
+
+
+            <div class="management-form-grid">
+
+                <div class="management-field management-field-full">
+
+                    <label for="{{ form.name.id_for_label }}">
+                        Nom de la zone
+                    </label>
+
+                    {{ form.name }}
+
+                    <small class="management-field-help">
+                        Exemple : Voiron centre, Coublevie,
+                        Saint-Jean-de-Moirans…
+                    </small>
+
+                    {% for error in form.name.errors %}
+                        <div class="management-field-error">
+                            {{ error }}
+                        </div>
+                    {% endfor %}
+
+                </div>
+
+
+                <div class="management-field">
+
+                    <label for="{{ form.postal_code.id_for_label }}">
+                        Code postal
+                    </label>
+
+                    {{ form.postal_code }}
+
+                    {% for error in form.postal_code.errors %}
+                        <div class="management-field-error">
+                            {{ error }}
+                        </div>
+                    {% endfor %}
+
+                </div>
+
+
+                <div class="management-field">
+
+                    <label for="{{ form.city.id_for_label }}">
+                        Ville
+                    </label>
+
+                    {{ form.city }}
+
+                    {% for error in form.city.errors %}
+                        <div class="management-field-error">
+                            {{ error }}
+                        </div>
+                    {% endfor %}
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ==================================================
+             PRICING
+        ================================================== -->
+
+        <section class="management-form-card">
+
+            <div class="management-form-card-header">
+
+                <span class="management-section-kicker">
+                    Tarification
+                </span>
+
+                <h3>
+                    Conditions de livraison
+                </h3>
+
+                <p>
+                    Configurez les frais et
+                    le minimum de commande.
+                </p>
+
+            </div>
+
+
+            <div class="management-form-grid">
+
+                <div class="management-field">
+
+                    <label for="{{ form.delivery_fee.id_for_label }}">
+                        Frais de livraison
+                    </label>
+
+                    <div class="management-input-suffix">
+
+                        {{ form.delivery_fee }}
+
+                        <span>€</span>
+
+                    </div>
+
+                    {% for error in form.delivery_fee.errors %}
+                        <div class="management-field-error">
+                            {{ error }}
+                        </div>
+                    {% endfor %}
+
+                </div>
+
+
+                <div class="management-field">
+
+                    <label for="{{ form.minimum_order.id_for_label }}">
+                        Minimum de commande
+                    </label>
+
+                    <div class="management-input-suffix">
+
+                        {{ form.minimum_order }}
+
+                        <span>€</span>
+
+                    </div>
+
+                    {% for error in form.minimum_order.errors %}
+                        <div class="management-field-error">
+                            {{ error }}
+                        </div>
+                    {% endfor %}
+
+                </div>
+
+
+                <div class="management-field">
+
+                    <label for="{{ form.free_delivery_from.id_for_label }}">
+                        Livraison offerte à partir de
+                    </label>
+
+                    <div class="management-input-suffix">
+
+                        {{ form.free_delivery_from }}
+
+                        <span>€</span>
+
+                    </div>
+
+                    <small class="management-field-help">
+                        Facultatif. Laissez vide si la livraison
+                        n’est jamais automatiquement offerte.
+                    </small>
+
+                    {% for error in form.free_delivery_from.errors %}
+                        <div class="management-field-error">
+                            {{ error }}
+                        </div>
+                    {% endfor %}
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ==================================================
+             ACTIVATION
+        ================================================== -->
+
+        <section class="management-form-card">
+
+            <div class="management-form-card-header">
+
+                <span class="management-section-kicker">
+                    Disponibilité
+                </span>
+
+                <h3>
+                    Activation
+                </h3>
+
+            </div>
+
+
+            <label class="management-switch-card">
+
+                {{ form.is_active }}
+
+                <span>
+
+                    <strong>
+                        Zone active
+                    </strong>
+
+                    <small>
+                        Les clients de cette zone peuvent
+                        sélectionner la livraison.
+                    </small>
+
+                </span>
+
+            </label>
+
+        </section>
+
+
+        {% if form.non_field_errors %}
+
+            <div class="management-form-errors">
+
+                {% for error in form.non_field_errors %}
+                    <p>{{ error }}</p>
+                {% endfor %}
+
+            </div>
+
+        {% endif %}
+
+
+        <!-- ==================================================
+             ACTIONS
+        ================================================== -->
+
+        <div class="management-form-actions">
+
+            <a
+                href="{% url 'management:delivery_zones_list' %}"
+                class="btn management-btn-secondary"
+            >
+                Annuler
+            </a>
+
+
+            <button
+                type="submit"
+                class="btn management-btn-primary"
+            >
+                <i class="fa-solid fa-floppy-disk"></i>
+
+                Enregistrer
+            </button>
+
+        </div>
+
+    </form>
+
+</section>
+
+{% endblock %}

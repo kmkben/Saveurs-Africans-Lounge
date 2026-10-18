@@ -1,0 +1,383 @@
+{% extends "management/manage_base.html" %}
+
+
+{% block title %}
+Événements | Gestion
+{% endblock %}
+
+
+{% block management_page_title %}
+Événements
+{% endblock %}
+
+
+{% block management_content %}
+
+<section class="management-page">
+
+    <!-- ==================================================
+         PAGE HEADER
+    ================================================== -->
+
+    <div class="management-page-header management-page-header-actions">
+
+        <div>
+
+            <span class="management-section-kicker">
+                Contenu
+            </span>
+
+            <h2>
+                Événements
+            </h2>
+
+            <p>
+                Créez, programmez et publiez
+                les événements du restaurant.
+            </p>
+
+        </div>
+
+
+        <a
+            href="{% url 'management:event_create' %}"
+            class="btn management-btn-primary"
+        >
+            <i class="fa-solid fa-plus"></i>
+
+            Ajouter un événement
+        </a>
+
+    </div>
+
+
+    <!-- ==================================================
+         EVENTS
+    ================================================== -->
+
+    <div class="management-table-card">
+
+        {% if events %}
+
+            <div class="management-table-responsive">
+
+                <table class="management-table">
+
+                    <thead>
+
+                        <tr>
+                            <th>Événement</th>
+                            <th>Date</th>
+                            <th>Lieu</th>
+                            <th>Prix</th>
+                            <th>Réservation</th>
+                            <th>Publication</th>
+
+                            <th class="management-table-actions-heading">
+                                Actions
+                            </th>
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody>
+
+                        {% for event in events %}
+
+                            <tr>
+
+                                <!-- ==================================================
+                                     EVENT
+                                ================================================== -->
+
+                                <td>
+
+                                    <div class="management-table-product">
+
+                                        {% if event.image %}
+
+                                            <img
+                                                src="{{ event.image.url }}"
+                                                alt="{{ event.title }}"
+                                                class="management-table-product-image"
+                                            >
+
+                                        {% else %}
+
+                                            <div class="management-table-product-placeholder">
+                                                <i class="fa-solid fa-calendar-days"></i>
+                                            </div>
+
+                                        {% endif %}
+
+
+                                        <div>
+
+                                            <strong>
+                                                {{ event.title }}
+                                            </strong>
+
+                                            {% if event.short_description %}
+
+                                                <small>
+                                                    {{ event.short_description|truncatechars:55 }}
+                                                </small>
+
+                                            {% endif %}
+
+                                        </div>
+
+                                    </div>
+
+                                </td>
+
+
+                                <!-- ==================================================
+                                     DATE
+                                ================================================== -->
+
+                                <td>
+
+                                    <div class="management-table-date">
+
+                                        <strong>
+                                            {{ event.start_at|date:"d/m/Y" }}
+                                        </strong>
+
+                                        <small>
+                                            {{ event.start_at|date:"H:i" }}
+
+                                            {% if event.end_at %}
+                                                → {{ event.end_at|date:"H:i" }}
+                                            {% endif %}
+                                        </small>
+
+                                    </div>
+
+                                </td>
+
+
+                                <!-- ==================================================
+                                     LOCATION
+                                ================================================== -->
+
+                                <td>
+
+                                    {% if event.location %}
+
+                                        {{ event.location }}
+
+                                    {% else %}
+
+                                        <span class="management-muted">
+                                            Restaurant
+                                        </span>
+
+                                    {% endif %}
+
+                                </td>
+
+
+                                <!-- ==================================================
+                                     PRICE
+                                ================================================== -->
+
+                                <td>
+
+                                    {% if event.price %}
+
+                                        <strong>
+                                            {{ event.price|floatformat:2 }} €
+                                        </strong>
+
+                                    {% else %}
+
+                                        <span class="management-badge management-badge-success">
+                                            Gratuit
+                                        </span>
+
+                                    {% endif %}
+
+                                </td>
+
+
+                                <!-- ==================================================
+                                     RESERVATION
+                                ================================================== -->
+
+                                <td>
+
+                                    {% if event.reservation_required %}
+
+                                        <span class="management-boolean yes">
+                                            <i class="fa-solid fa-check"></i>
+                                        </span>
+
+                                    {% else %}
+
+                                        <span class="management-boolean no">
+                                            <i class="fa-solid fa-minus"></i>
+                                        </span>
+
+                                    {% endif %}
+
+                                </td>
+
+
+                                <!-- ==================================================
+                                     PUBLICATION
+                                ================================================== -->
+
+                                <td>
+
+                                    {% if event.is_published %}
+
+                                        <span class="management-badge management-badge-success">
+                                            Publié
+                                        </span>
+
+                                    {% else %}
+
+                                        <span class="management-badge management-badge-neutral">
+                                            Non publié
+                                        </span>
+
+                                    {% endif %}
+
+
+                                    {% if event.is_featured %}
+
+                                        <span
+                                            class="management-boolean featured"
+                                            title="À la une"
+                                        >
+                                            <i class="fa-solid fa-star"></i>
+                                        </span>
+
+                                    {% endif %}
+
+                                </td>
+
+
+                                <!-- ==================================================
+                                     ACTIONS
+                                ================================================== -->
+
+                                <td class="management-table-actions">
+
+                                    <div class="management-action-group">
+
+                                        <form
+                                            method="post"
+                                            action="{% url 'management:event_toggle_published' event.pk %}"
+                                        >
+
+                                            {% csrf_token %}
+
+                                            <button
+                                                type="submit"
+                                                class="
+                                                    management-icon-button
+                                                    {% if event.is_published %}
+                                                        management-icon-button-warning
+                                                    {% else %}
+                                                        management-icon-button-success
+                                                    {% endif %}
+                                                "
+                                                title="
+                                                    {% if event.is_published %}
+                                                        Dépublier
+                                                    {% else %}
+                                                        Publier
+                                                    {% endif %}
+                                                "
+                                            >
+
+                                                {% if event.is_published %}
+
+                                                    <i class="fa-solid fa-eye-slash"></i>
+
+                                                {% else %}
+
+                                                    <i class="fa-solid fa-eye"></i>
+
+                                                {% endif %}
+
+                                            </button>
+
+                                        </form>
+
+
+                                        <a
+                                            href="{% url 'management:event_update' event.pk %}"
+                                            class="management-icon-button"
+                                            title="Modifier"
+                                        >
+                                            <i class="fa-solid fa-pen"></i>
+                                        </a>
+
+
+                                        <form
+                                            method="post"
+                                            action="{% url 'management:event_delete' event.pk %}"
+                                            onsubmit="return confirm('Supprimer cet événement ?');"
+                                        >
+
+                                            {% csrf_token %}
+
+                                            <button
+                                                type="submit"
+                                                class="management-icon-button management-icon-button-danger"
+                                                title="Supprimer"
+                                            >
+                                                <i class="fa-solid fa-trash"></i>
+                                            </button>
+
+                                        </form>
+
+                                    </div>
+
+                                </td>
+
+                            </tr>
+
+                        {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        {% else %}
+
+            <div class="management-empty-state">
+
+                <i class="fa-solid fa-calendar-days"></i>
+
+                <h4>
+                    Aucun événement
+                </h4>
+
+                <p>
+                    Créez votre premier événement
+                    pour le publier sur le site.
+                </p>
+
+                <a
+                    href="{% url 'management:event_create' %}"
+                    class="btn management-btn-primary"
+                >
+                    Ajouter un événement
+                </a>
+
+            </div>
+
+        {% endif %}
+
+    </div>
+
+</section>
+
+{% endblock %}

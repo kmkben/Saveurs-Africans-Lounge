@@ -1,0 +1,315 @@
+{% extends "management/manage_base.html" %}
+
+
+{% block title %}
+Plats du jour | Gestion
+{% endblock %}
+
+
+{% block management_page_title %}
+Plat du jour
+{% endblock %}
+
+
+{% block management_content %}
+
+<section class="management-page">
+
+    <!-- ==================================================
+         PAGE HEADER
+    ================================================== -->
+
+    <div class="management-page-header management-page-header-actions">
+
+        <div>
+
+            <span class="management-section-kicker">
+                Restaurant
+            </span>
+
+            <h2>
+                Plats du jour
+            </h2>
+
+            <p>
+                Programmez et gérez les offres
+                proposées quotidiennement.
+            </p>
+
+        </div>
+
+
+        <a
+            href="{% url 'management:daily_special_create' %}"
+            class="btn management-btn-primary"
+        >
+            <i class="fa-solid fa-plus"></i>
+
+            Ajouter un plat du jour
+        </a>
+
+    </div>
+
+
+    <!-- ==================================================
+         DAILY SPECIALS
+    ================================================== -->
+
+    <div class="management-table-card">
+
+        {% if daily_specials %}
+
+            <div class="management-table-responsive">
+
+                <table class="management-table">
+
+                    <thead>
+
+                        <tr>
+                            <th>Offre</th>
+                            <th>Date</th>
+                            <th>Prix normal</th>
+                            <th>Prix spécial</th>
+                            <th>Publication</th>
+
+                            <th class="management-table-actions-heading">
+                                Actions
+                            </th>
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody>
+
+                        {% for special in daily_specials %}
+
+                            <tr>
+
+                                <!-- Dish -->
+
+                                <td>
+
+                                    <div class="management-table-product">
+
+                                        {% if special.display_image %}
+
+                                            <img
+                                                src="{{ special.display_image.url }}"
+                                                alt="{{ special.dish.name }}"
+                                                class="management-table-product-image"
+                                            >
+
+                                        {% else %}
+
+                                            <div class="management-table-product-placeholder">
+
+                                                <i class="fa-solid fa-star"></i>
+
+                                            </div>
+
+                                        {% endif %}
+
+
+                                        <div>
+
+                                            <strong>
+                                                {{ special.dish.name }}
+                                            </strong>
+
+                                            {% if special.note %}
+
+                                                <small>
+                                                    {{ special.note|truncatechars:55 }}
+                                                </small>
+
+                                            {% endif %}
+
+                                        </div>
+
+                                    </div>
+
+                                </td>
+
+
+                                <!-- Date -->
+
+                                <td>
+
+                                    <div class="management-table-date">
+
+                                        <strong>
+                                            {{ special.date|date:"d/m/Y" }}
+                                        </strong>
+
+                                        {% if special.date == today %}
+
+                                            <small class="management-today-label">
+                                                Aujourd’hui
+                                            </small>
+
+                                        {% endif %}
+
+                                    </div>
+
+                                </td>
+
+
+                                <!-- Original price -->
+
+                                <td>
+                                    {{ special.dish.price|floatformat:2 }} €
+                                </td>
+
+
+                                <!-- Special price -->
+
+                                <td>
+
+                                    <strong class="management-special-table-price">
+                                        {{ special.price|floatformat:2 }} €
+                                    </strong>
+
+                                </td>
+
+
+                                <!-- Published -->
+
+                                <td>
+
+                                    {% if special.published %}
+
+                                        <span class="management-badge management-badge-success">
+                                            Publié
+                                        </span>
+
+                                    {% else %}
+
+                                        <span class="management-badge management-badge-neutral">
+                                            Non publié
+                                        </span>
+
+                                    {% endif %}
+
+                                </td>
+
+
+                                <!-- Actions -->
+
+                                <td class="management-table-actions">
+
+                                    <div class="management-action-group">
+
+                                        <form
+                                            method="post"
+                                            action="{% url 'management:daily_special_toggle_published' special.pk %}"
+                                        >
+
+                                            {% csrf_token %}
+
+                                            <button
+                                                type="submit"
+                                                class="
+                                                    management-icon-button
+                                                    {% if special.published %}
+                                                        management-icon-button-warning
+                                                    {% else %}
+                                                        management-icon-button-success
+                                                    {% endif %}
+                                                "
+                                                title="
+                                                    {% if special.published %}
+                                                        Dépublier
+                                                    {% else %}
+                                                        Publier
+                                                    {% endif %}
+                                                "
+                                            >
+
+                                                {% if special.published %}
+
+                                                    <i class="fa-solid fa-eye-slash"></i>
+
+                                                {% else %}
+
+                                                    <i class="fa-solid fa-eye"></i>
+
+                                                {% endif %}
+
+                                            </button>
+
+                                        </form>
+
+
+                                        <a
+                                            href="{% url 'management:daily_special_update' special.pk %}"
+                                            class="management-icon-button"
+                                            title="Modifier"
+                                        >
+                                            <i class="fa-solid fa-pen"></i>
+                                        </a>
+
+
+                                        <form
+                                            method="post"
+                                            action="{% url 'management:daily_special_delete' special.pk %}"
+                                            onsubmit="return confirm('Supprimer ce plat du jour ?');"
+                                        >
+
+                                            {% csrf_token %}
+
+                                            <button
+                                                type="submit"
+                                                class="management-icon-button management-icon-button-danger"
+                                                title="Supprimer"
+                                            >
+                                                <i class="fa-solid fa-trash"></i>
+                                            </button>
+
+                                        </form>
+
+                                    </div>
+
+                                </td>
+
+                            </tr>
+
+                        {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        {% else %}
+
+            <div class="management-empty-state">
+
+                <i class="fa-solid fa-star"></i>
+
+                <h4>
+                    Aucun plat du jour
+                </h4>
+
+                <p>
+                    Programmez votre première
+                    offre du jour.
+                </p>
+
+                <a
+                    href="{% url 'management:daily_special_create' %}"
+                    class="btn management-btn-primary"
+                >
+                    Ajouter un plat du jour
+                </a>
+
+            </div>
+
+        {% endif %}
+
+    </div>
+
+</section>
+
+{% endblock %}

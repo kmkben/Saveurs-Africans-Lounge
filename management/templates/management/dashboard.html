@@ -1,0 +1,989 @@
+{% extends "management/manage_base.html" %}
+
+
+{% block title %}
+Tableau de bord | Gestion
+{% endblock %}
+
+
+{% block management_page_title %}
+Tableau de bord
+{% endblock %}
+
+
+{% block management_content %}
+
+<div class="management-dashboard">
+
+
+    <!-- ==================================================
+         DASHBOARD HEADER
+    ================================================== -->
+
+    <section class="management-dashboard-intro">
+
+        <div>
+
+            <span class="management-section-kicker">
+                Vue d’ensemble
+            </span>
+
+            <h2>
+                Bonjour {{ request.user.first_name|default:request.user.username }}
+            </h2>
+
+            <p>
+                Voici un aperçu de l’activité du restaurant
+                pour aujourd’hui.
+            </p>
+
+        </div>
+
+
+        <div class="management-dashboard-date">
+
+            <i class="fa-regular fa-calendar"></i>
+
+            <span>
+                {{ today|date:"l d F Y" }}
+            </span>
+
+        </div>
+
+    </section>
+
+
+    <!-- ==================================================
+         MAIN STATISTICS
+    ================================================== -->
+
+    <section class="management-stats-grid">
+
+
+        <!-- Orders -->
+
+        <article class="management-stat-card">
+
+            <div class="management-stat-card-top">
+
+                <div class="management-stat-icon">
+
+                    <i class="fa-solid fa-bag-shopping"></i>
+
+                </div>
+
+                <span class="management-stat-label">
+                    Commandes aujourd’hui
+                </span>
+
+            </div>
+
+            <div class="management-stat-value">
+                {{ orders_count }}
+            </div>
+
+            <div class="management-stat-footer">
+
+                <span>
+                    {{ active_orders_count }}
+                    en cours
+                </span>
+
+                <a href="{% url 'management:orders_list' %}">
+                    Voir les commandes
+                </a>
+
+            </div>
+
+        </article>
+
+
+        <!-- Revenue -->
+
+        <article class="management-stat-card">
+
+            <div class="management-stat-card-top">
+
+                <div class="management-stat-icon">
+
+                    <i class="fa-solid fa-euro-sign"></i>
+
+                </div>
+
+                <span class="management-stat-label">
+                    Chiffre du jour
+                </span>
+
+            </div>
+
+            <div class="management-stat-value">
+                {{ today_revenue|floatformat:2 }} €
+            </div>
+
+            <div class="management-stat-footer">
+
+                <span>
+                    Paiements reçus
+                </span>
+
+                <span class="management-stat-status success">
+                    Payé
+                </span>
+
+            </div>
+
+        </article>
+
+
+        <!-- Reservations -->
+
+        <article class="management-stat-card">
+
+            <div class="management-stat-card-top">
+
+                <div class="management-stat-icon">
+
+                    <i class="fa-solid fa-calendar-check"></i>
+
+                </div>
+
+                <span class="management-stat-label">
+                    Réservations aujourd’hui
+                </span>
+
+            </div>
+
+            <div class="management-stat-value">
+                {{ reservations_count }}
+            </div>
+
+            <div class="management-stat-footer">
+
+                <span>
+                    {{ guests_count }}
+                    couverts prévus
+                </span>
+
+                <a href="{% url 'management:reservations_list' %}">
+                    Voir les réservations
+                </a>
+
+            </div>
+
+        </article>
+
+
+        <!-- Messages -->
+
+        <article class="management-stat-card">
+
+            <div class="management-stat-card-top">
+
+                <div class="management-stat-icon">
+
+                    <i class="fa-solid fa-envelope"></i>
+
+                </div>
+
+                <span class="management-stat-label">
+                    Messages non lus
+                </span>
+
+            </div>
+
+            <div class="management-stat-value">
+                {{ unread_messages_count }}
+            </div>
+
+            <div class="management-stat-footer">
+
+                <span>
+                    À consulter
+                </span>
+
+                <a href="{% url 'management:messages_list' %}?state=unread">
+                    Voir les messages
+                </a>
+
+            </div>
+
+        </article>
+
+    </section>
+
+
+    <!-- ==================================================
+         QUICK ACTIONS
+    ================================================== -->
+
+    <section class="management-section">
+
+        <div class="management-section-header">
+
+            <div>
+
+                <span class="management-section-kicker">
+                    Accès rapide
+                </span>
+
+                <h3>
+                    Actions fréquentes
+                </h3>
+
+            </div>
+
+        </div>
+
+
+        <div class="management-quick-actions">
+
+
+            <a
+                href="{% url 'management:dish_create' %}"
+                class="management-quick-action"
+            >
+
+                <span class="management-quick-action-icon">
+
+                    <i class="fa-solid fa-plus"></i>
+
+                </span>
+
+                <span>
+
+                    <strong>
+                        Ajouter un plat
+                    </strong>
+
+                    <small>
+                        Ajouter un nouveau plat à la carte
+                    </small>
+
+                </span>
+
+            </a>
+
+
+            <a
+                href="{% url 'management:daily_special_create' %}"
+                class="management-quick-action"
+            >
+
+                <span class="management-quick-action-icon">
+
+                    <i class="fa-solid fa-star"></i>
+
+                </span>
+
+                <span>
+
+                    <strong>
+                        Plat du jour
+                    </strong>
+
+                    <small>
+                        Programmer l’offre du jour
+                    </small>
+
+                </span>
+
+            </a>
+
+
+            <a
+                href="{% url 'management:event_create' %}"
+                class="management-quick-action"
+            >
+
+                <span class="management-quick-action-icon">
+
+                    <i class="fa-solid fa-calendar-plus"></i>
+
+                </span>
+
+                <span>
+
+                    <strong>
+                        Nouvel événement
+                    </strong>
+
+                    <small>
+                        Publier un événement
+                    </small>
+
+                </span>
+
+            </a>
+
+
+            <a
+                href="{% url 'management:gallery_album_create' %}"
+                class="management-quick-action"
+            >
+
+                <span class="management-quick-action-icon">
+
+                    <i class="fa-solid fa-images"></i>
+
+                </span>
+
+                <span>
+
+                    <strong>
+                        Nouvel album
+                    </strong>
+
+                    <small>
+                        Ajouter des photos à la galerie
+                    </small>
+
+                </span>
+
+            </a>
+
+        </div>
+
+    </section>
+
+
+    <!-- ==================================================
+         MAIN TWO-COLUMN CONTENT
+    ================================================== -->
+
+    <div class="management-dashboard-grid">
+
+
+        <!-- ==================================================
+             ORDERS
+        ================================================== -->
+
+        <section class="management-panel">
+
+            <div class="management-panel-header">
+
+                <div>
+
+                    <span class="management-section-kicker">
+                        Service
+                    </span>
+
+                    <h3>
+                        Commandes du jour
+                    </h3>
+
+                </div>
+
+
+                <a
+                    href="{% url 'management:orders_list' %}"
+                    class="management-panel-link"
+                >
+                    Tout voir
+
+                    <i class="fa-solid fa-arrow-right"></i>
+                </a>
+
+            </div>
+
+
+            {% if today_orders %}
+
+                <div class="management-list">
+
+                    {% for order in today_orders %}
+
+                        <a
+                            href="{% url 'management:order_detail' order.pk %}"
+                            class="management-list-item"
+                        >
+
+                            <div class="management-list-main">
+
+                                <strong>
+                                    Commande #{{ order.pk }}
+                                </strong>
+
+                                <span>
+                                    {{ order.customer_name }}
+                                </span>
+
+                                <small>
+
+                                    {{ order.created_at|date:"H:i" }}
+
+                                    ·
+
+                                    {{ order.get_order_type_display }}
+
+                                </small>
+
+                            </div>
+
+
+                            <div class="management-list-side">
+
+                                <strong>
+                                    {{ order.total|floatformat:2 }} €
+                                </strong>
+
+                                <span class="
+                                    management-badge
+                                    management-badge-status
+                                ">
+                                    {{ order.get_status_display }}
+                                </span>
+
+                            </div>
+
+                        </a>
+
+                    {% endfor %}
+
+                </div>
+
+            {% else %}
+
+                <div class="management-empty-state">
+
+                    <i class="fa-solid fa-bag-shopping"></i>
+
+                    <h4>
+                        Aucune commande aujourd’hui
+                    </h4>
+
+                    <p>
+                        Les nouvelles commandes payées
+                        apparaîtront ici.
+                    </p>
+
+                </div>
+
+            {% endif %}
+
+        </section>
+
+
+        <!-- ==================================================
+             TODAY RESERVATIONS
+        ================================================== -->
+
+        <section class="management-panel">
+
+            <div class="management-panel-header">
+
+                <div>
+
+                    <span class="management-section-kicker">
+                        Salle
+                    </span>
+
+                    <h3>
+                        Réservations du jour
+                    </h3>
+
+                </div>
+
+
+                <a
+                    href="{% url 'management:reservations_list' %}"
+                    class="management-panel-link"
+                >
+                    Tout voir
+
+                    <i class="fa-solid fa-arrow-right"></i>
+                </a>
+
+            </div>
+
+
+            {% if today_reservations %}
+
+                <div class="management-list">
+
+                    {% for reservation in today_reservations %}
+
+                        <a
+                            href="{% url 'management:reservation_detail' reservation.pk %}"
+                            class="management-list-item"
+                        >
+
+                            <div class="management-list-main">
+
+                                <strong>
+                                    {{ reservation.full_name }}
+                                </strong>
+
+                                <span>
+
+                                    {{ reservation.reservation_time|time:"H:i" }}
+
+                                    ·
+
+                                    {{ reservation.number_of_guests }}
+                                    personne{{ reservation.number_of_guests|pluralize }}
+
+                                </span>
+
+                                <small>
+                                    {{ reservation.get_reservation_type_display }}
+                                </small>
+
+                            </div>
+
+
+                            <div class="management-list-side">
+
+                                <span class="
+                                    management-badge
+                                    management-badge-status
+                                ">
+                                    {{ reservation.get_status_display }}
+                                </span>
+
+                            </div>
+
+                        </a>
+
+                    {% endfor %}
+
+                </div>
+
+            {% else %}
+
+                <div class="management-empty-state">
+
+                    <i class="fa-solid fa-calendar-check"></i>
+
+                    <h4>
+                        Aucune réservation aujourd’hui
+                    </h4>
+
+                    <p>
+                        Les réservations payées
+                        apparaîtront ici.
+                    </p>
+
+                </div>
+
+            {% endif %}
+
+        </section>
+
+    </div>
+
+
+    <!-- ==================================================
+         SECONDARY GRID
+    ================================================== -->
+
+    <div class="management-dashboard-grid">
+
+
+        <!-- ==================================================
+             UPCOMING RESERVATIONS
+        ================================================== -->
+
+        <section class="management-panel">
+
+            <div class="management-panel-header">
+
+                <div>
+
+                    <span class="management-section-kicker">
+                        À venir
+                    </span>
+
+                    <h3>
+                        Prochaines réservations
+                    </h3>
+
+                </div>
+
+            </div>
+
+
+            {% if upcoming_reservations %}
+
+                <div class="management-list">
+
+                    {% for reservation in upcoming_reservations %}
+
+                        <a
+                            href="{% url 'management:reservation_detail' reservation.pk %}"
+                            class="management-list-item"
+                        >
+
+                            <div class="management-list-date">
+
+                                <strong>
+                                    {{ reservation.reservation_date|date:"d" }}
+                                </strong>
+
+                                <span>
+                                    {{ reservation.reservation_date|date:"M" }}
+                                </span>
+
+                            </div>
+
+
+                            <div class="management-list-main">
+
+                                <strong>
+                                    {{ reservation.full_name }}
+                                </strong>
+
+                                <span>
+                                    {{ reservation.reservation_time|time:"H:i" }}
+                                </span>
+
+                                <small>
+
+                                    {{ reservation.number_of_guests }}
+                                    personne{{ reservation.number_of_guests|pluralize }}
+
+                                </small>
+
+                            </div>
+
+                        </a>
+
+                    {% endfor %}
+
+                </div>
+
+            {% else %}
+
+                <div class="management-empty-state">
+
+                    <i class="fa-regular fa-calendar"></i>
+
+                    <h4>
+                        Rien à venir
+                    </h4>
+
+                    <p>
+                        Les prochaines réservations
+                        apparaîtront ici.
+                    </p>
+
+                </div>
+
+            {% endif %}
+
+        </section>
+
+
+        <!-- ==================================================
+             CONTACT MESSAGES
+        ================================================== -->
+
+        <section class="management-panel">
+
+            <div class="management-panel-header">
+
+                <div>
+
+                    <span class="management-section-kicker">
+                        Contact
+                    </span>
+
+                    <h3>
+                        Messages récents
+                    </h3>
+
+                </div>
+
+
+                <a
+                    href="{% url 'management:messages_list' %}"
+                    class="management-panel-link"
+                >
+                    Tout voir
+
+                    <i class="fa-solid fa-arrow-right"></i>
+                </a>
+
+            </div>
+
+
+            {% if recent_messages %}
+
+                <div class="management-list">
+
+                    {% for contact_message in recent_messages %}
+
+                        <a
+                            href="{% url 'management:message_detail' contact_message.pk %}"
+                            class="management-list-item"
+                        >
+
+                            <div class="management-list-main">
+
+                                <strong>
+                                    {{ contact_message.name }}
+                                </strong>
+
+                                <span>
+                                    {{ contact_message.get_subject_display }}
+                                </span>
+
+                                <small>
+                                    {{ contact_message.created_at|timesince }}
+                                </small>
+
+                            </div>
+
+
+                            {% if not contact_message.is_read %}
+
+                                <span class="management-unread-dot"></span>
+
+                            {% endif %}
+
+                        </a>
+
+                    {% endfor %}
+
+                </div>
+
+            {% else %}
+
+                <div class="management-empty-state">
+
+                    <i class="fa-regular fa-envelope"></i>
+
+                    <h4>
+                        Aucun message non lu
+                    </h4>
+
+                    <p>
+                        Vous êtes à jour.
+                    </p>
+
+                </div>
+
+            {% endif %}
+
+        </section>
+
+    </div>
+
+
+    <!-- ==================================================
+         RESTAURANT CONTENT
+    ================================================== -->
+
+    <div class="management-dashboard-grid">
+
+
+        <!-- ==================================================
+             DAILY SPECIAL
+        ================================================== -->
+
+        <section class="management-panel">
+
+            <div class="management-panel-header">
+
+                <div>
+
+                    <span class="management-section-kicker">
+                        Aujourd’hui
+                    </span>
+
+                    <h3>
+                        Plat du jour
+                    </h3>
+
+                </div>
+
+
+                <a
+                    href="{% url 'management:daily_specials_list' %}"
+                    class="management-panel-link"
+                >
+                    Gérer
+
+                    <i class="fa-solid fa-arrow-right"></i>
+                </a>
+
+            </div>
+
+
+            {% if today_special %}
+
+                <div class="management-special-card">
+
+                    {% if today_special.display_image %}
+
+                        <div class="management-special-image">
+
+                            <img
+                                src="{{ today_special.display_image.url }}"
+                                alt="{{ today_special.dish.name }}"
+                            >
+
+                        </div>
+
+                    {% endif %}
+
+
+                    <div class="management-special-content">
+
+                        <span class="management-badge">
+                            Plat du jour
+                        </span>
+
+                        <h4>
+                            {{ today_special.dish.name }}
+                        </h4>
+
+                        {% if today_special.note %}
+
+                            <p>
+                                {{ today_special.note }}
+                            </p>
+
+                        {% endif %}
+
+                        <strong class="management-special-price">
+                            {{ today_special.price|floatformat:2 }} €
+                        </strong>
+
+                    </div>
+
+                </div>
+
+            {% else %}
+
+                <div class="management-empty-state">
+
+                    <i class="fa-solid fa-star"></i>
+
+                    <h4>
+                        Aucun plat du jour publié
+                    </h4>
+
+                    <p>
+                        Ajoutez l’offre proposée
+                        aujourd’hui.
+                    </p>
+
+                    <a
+                        href="{% url 'management:daily_special_create' %}"
+                        class="btn management-btn-primary"
+                    >
+                        Ajouter un plat du jour
+                    </a>
+
+                </div>
+
+            {% endif %}
+
+        </section>
+
+
+        <!-- ==================================================
+             UPCOMING EVENTS
+        ================================================== -->
+
+        <section class="management-panel">
+
+            <div class="management-panel-header">
+
+                <div>
+
+                    <span class="management-section-kicker">
+                        Programmation
+                    </span>
+
+                    <h3>
+                        Événements à venir
+                    </h3>
+
+                </div>
+
+
+                <a
+                    href="{% url 'management:events_list' %}"
+                    class="management-panel-link"
+                >
+                    Tout voir
+
+                    <i class="fa-solid fa-arrow-right"></i>
+                </a>
+
+            </div>
+
+
+            {% if upcoming_events %}
+
+                <div class="management-list">
+
+                    {% for event in upcoming_events %}
+
+                        <a
+                            href="{% url 'management:event_update' event.pk %}"
+                            class="management-list-item"
+                        >
+
+                            <div class="management-list-date">
+
+                                <strong>
+                                    {{ event.start_at|date:"d" }}
+                                </strong>
+
+                                <span>
+                                    {{ event.start_at|date:"M" }}
+                                </span>
+
+                            </div>
+
+
+                            <div class="management-list-main">
+
+                                <strong>
+                                    {{ event.title }}
+                                </strong>
+
+                                <span>
+                                    {{ event.start_at|date:"H:i" }}
+                                </span>
+
+                                <small>
+                                    {{ event.location }}
+                                </small>
+
+                            </div>
+
+                        </a>
+
+                    {% endfor %}
+
+                </div>
+
+            {% else %}
+
+                <div class="management-empty-state">
+
+                    <i class="fa-solid fa-calendar-days"></i>
+
+                    <h4>
+                        Aucun événement programmé
+                    </h4>
+
+                    <p>
+                        Ajoutez un événement pour
+                        le publier sur le site.
+                    </p>
+
+                </div>
+
+            {% endif %}
+
+        </section>
+
+    </div>
+
+</div>
+
+{% endblock %}

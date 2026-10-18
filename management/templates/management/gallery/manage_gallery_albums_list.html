@@ -1,0 +1,245 @@
+{% extends "management/manage_base.html" %}
+
+
+{% block title %}
+Galerie | Gestion
+{% endblock %}
+
+
+{% block management_page_title %}
+Galerie
+{% endblock %}
+
+
+{% block management_content %}
+
+<section class="management-page">
+
+    <!-- ==================================================
+         PAGE HEADER
+    ================================================== -->
+
+    <div class="management-page-header management-page-header-actions">
+
+        <div>
+
+            <span class="management-section-kicker">
+                Contenu
+            </span>
+
+            <h2>
+                Galerie
+            </h2>
+
+            <p>
+                Organisez les photos du restaurant
+                dans des albums.
+            </p>
+
+        </div>
+
+
+        <a
+            href="{% url 'management:gallery_album_create' %}"
+            class="btn management-btn-primary"
+        >
+            <i class="fa-solid fa-plus"></i>
+
+            Créer un album
+        </a>
+
+    </div>
+
+
+    <!-- ==================================================
+         ALBUMS
+    ================================================== -->
+
+    {% if albums %}
+
+        <div class="management-gallery-grid">
+
+            {% for album in albums %}
+
+                <article class="management-gallery-card">
+
+                    <!-- ==================================================
+                         COVER
+                    ================================================== -->
+
+                    <a
+                        href="{% url 'management:gallery_album_detail' album.pk %}"
+                        class="management-gallery-cover"
+                    >
+
+                        {% if album.cover_image %}
+
+                            <img
+                                src="{{ album.cover_image.url }}"
+                                alt="{{ album.title }}"
+                            >
+
+                        {% else %}
+
+                            <div class="management-gallery-placeholder">
+                                <i class="fa-regular fa-images"></i>
+                            </div>
+
+                        {% endif %}
+
+
+                        <span class="management-gallery-count">
+
+                            <i class="fa-solid fa-image"></i>
+
+                            {{ album.image_count|default:0 }}
+
+                        </span>
+
+                    </a>
+
+
+                    <!-- ==================================================
+                         CONTENT
+                    ================================================== -->
+
+                    <div class="management-gallery-card-body">
+
+                        <div class="management-gallery-card-heading">
+
+                            <div>
+
+                                <span class="management-section-kicker">
+                                    {{ album.get_category_display }}
+                                </span>
+
+                                <h3>
+                                    {{ album.title }}
+                                </h3>
+
+                            </div>
+
+
+                            {% if album.is_featured %}
+
+                                <span
+                                    class="management-boolean featured"
+                                    title="Album à la une"
+                                >
+                                    <i class="fa-solid fa-star"></i>
+                                </span>
+
+                            {% endif %}
+
+                        </div>
+
+
+                        {% if album.description %}
+
+                            <p>
+                                {{ album.description|truncatechars:100 }}
+                            </p>
+
+                        {% endif %}
+
+
+                        <div class="management-gallery-card-footer">
+
+                            {% if album.is_published %}
+
+                                <span class="management-badge management-badge-success">
+                                    Publié
+                                </span>
+
+                            {% else %}
+
+                                <span class="management-badge management-badge-neutral">
+                                    Non publié
+                                </span>
+
+                            {% endif %}
+
+
+                            <div class="management-action-group">
+
+                                <a
+                                    href="{% url 'management:gallery_album_detail' album.pk %}"
+                                    class="management-icon-button"
+                                    title="Ouvrir l’album"
+                                >
+                                    <i class="fa-solid fa-images"></i>
+                                </a>
+
+
+                                <a
+                                    href="{% url 'management:gallery_album_update' album.pk %}"
+                                    class="management-icon-button"
+                                    title="Modifier"
+                                >
+                                    <i class="fa-solid fa-pen"></i>
+                                </a>
+
+
+                                <form
+                                    method="post"
+                                    action="{% url 'management:gallery_album_delete' album.pk %}"
+                                    onsubmit="return confirm('Supprimer cet album et ses images ?');"
+                                >
+
+                                    {% csrf_token %}
+
+                                    <button
+                                        type="submit"
+                                        class="management-icon-button management-icon-button-danger"
+                                        title="Supprimer"
+                                    >
+                                        <i class="fa-solid fa-trash"></i>
+                                    </button>
+
+                                </form>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </article>
+
+            {% endfor %}
+
+        </div>
+
+    {% else %}
+
+        <div class="management-panel">
+
+            <div class="management-empty-state">
+
+                <i class="fa-regular fa-images"></i>
+
+                <h4>
+                    Aucun album
+                </h4>
+
+                <p>
+                    Créez un album pour commencer
+                    à organiser les photos du restaurant.
+                </p>
+
+                <a
+                    href="{% url 'management:gallery_album_create' %}"
+                    class="btn management-btn-primary"
+                >
+                    Créer un album
+                </a>
+
+            </div>
+
+        </div>
+
+    {% endif %}
+
+</section>
+
+{% endblock %}

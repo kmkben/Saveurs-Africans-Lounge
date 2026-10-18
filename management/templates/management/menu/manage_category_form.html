@@ -1,0 +1,182 @@
+{% extends "management/manage_base.html" %}
+
+
+{% block title %}
+{% if category %}Modifier {{ category.name }}{% else %}Ajouter une catégorie{% endif %} | Gestion
+{% endblock %}
+
+
+{% block management_page_title %}
+{% if category %}Modifier la catégorie{% else %}Ajouter une catégorie{% endif %}
+{% endblock %}
+
+
+{% block management_content %}
+
+<section class="management-page management-form-page">
+
+    <div class="management-page-header">
+
+        <a
+            href="{% url 'management:categories_list' %}"
+            class="management-back-link"
+        >
+            <i class="fa-solid fa-arrow-left"></i>
+
+            Retour aux catégories
+        </a>
+
+        <h2>
+
+            {% if category %}
+                {{ category.name }}
+            {% else %}
+                Nouvelle catégorie
+            {% endif %}
+
+        </h2>
+
+        <p>
+            Organisez clairement les différents
+            types de plats de la carte.
+        </p>
+
+    </div>
+
+
+    <form
+        method="post"
+        class="management-form"
+    >
+
+        {% csrf_token %}
+
+
+        <section class="management-form-card">
+
+            <div class="management-form-card-header">
+
+                <span class="management-section-kicker">
+                    Catégorie
+                </span>
+
+                <h3>
+                    Informations
+                </h3>
+
+            </div>
+
+
+            <div class="management-form-grid">
+
+                <div class="management-field management-field-full">
+
+                    <label for="{{ form.name.id_for_label }}">
+                        Nom
+                    </label>
+
+                    {{ form.name }}
+
+                    {% for error in form.name.errors %}
+                        <div class="management-field-error">
+                            {{ error }}
+                        </div>
+                    {% endfor %}
+
+                </div>
+
+
+                <div class="management-field management-field-full">
+
+                    <label for="{{ form.description.id_for_label }}">
+                        Description
+                    </label>
+
+                    {{ form.description }}
+
+                    {% for error in form.description.errors %}
+                        <div class="management-field-error">
+                            {{ error }}
+                        </div>
+                    {% endfor %}
+
+                </div>
+
+
+                <div class="management-field">
+
+                    <label for="{{ form.display_order.id_for_label }}">
+                        Ordre d’affichage
+                    </label>
+
+                    {{ form.display_order }}
+
+                </div>
+
+
+                <div class="management-field">
+
+                    <label class="management-switch-card">
+
+                        {{ form.is_active }}
+
+                        <span>
+
+                            <strong>
+                                Catégorie active
+                            </strong>
+
+                            <small>
+                                La catégorie peut être affichée sur la carte.
+                            </small>
+
+                        </span>
+
+                    </label>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        {% if form.non_field_errors %}
+
+            <div class="management-form-errors">
+
+                {% for error in form.non_field_errors %}
+                    <p>{{ error }}</p>
+                {% endfor %}
+
+            </div>
+
+        {% endif %}
+
+
+        <div class="management-form-actions">
+
+            <a
+                href="{% url 'management:categories_list' %}"
+                class="btn management-btn-secondary"
+            >
+                Annuler
+            </a>
+
+
+            <button
+                type="submit"
+                class="btn management-btn-primary"
+            >
+                <i class="fa-solid fa-floppy-disk"></i>
+
+                Enregistrer
+            </button>
+
+        </div>
+
+    </form>
+
+</section>
+
+{% endblock %}

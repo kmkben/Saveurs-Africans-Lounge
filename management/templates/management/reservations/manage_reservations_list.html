@@ -1,0 +1,361 @@
+{% extends "management/manage_base.html" %}
+
+
+{% block title %}
+Réservations | Gestion
+{% endblock %}
+
+
+{% block management_page_title %}
+Réservations
+{% endblock %}
+
+
+{% block management_content %}
+
+<section class="management-page">
+
+
+    <!-- ==================================================
+         PAGE HEADER
+    ================================================== -->
+
+    <div class="management-page-header">
+
+        <div>
+
+            <span class="management-section-kicker">
+                Activité
+            </span>
+
+            <h2>
+                Réservations
+            </h2>
+
+            <p>
+                Consultez et gérez les réservations
+                du restaurant et de la salle privée.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- ==================================================
+         FILTERS
+    ================================================== -->
+
+    <div class="management-filter-card">
+
+        <form
+            method="get"
+            class="management-filter-form"
+        >
+
+            <div class="management-filter-field">
+
+                <label for="status">
+                    Statut
+                </label>
+
+                <select
+                    name="status"
+                    id="status"
+                    class="form-select"
+                >
+
+                    <option value="">
+                        Tous les statuts
+                    </option>
+
+                    {% for value, label in status_choices %}
+
+                        <option
+                            value="{{ value }}"
+                            {% if selected_status == value %}
+                                selected
+                            {% endif %}
+                        >
+                            {{ label }}
+                        </option>
+
+                    {% endfor %}
+
+                </select>
+
+            </div>
+
+
+            <div class="management-filter-field">
+
+                <label for="type">
+                    Type
+                </label>
+
+                <select
+                    name="type"
+                    id="type"
+                    class="form-select"
+                >
+
+                    <option value="">
+                        Tous les types
+                    </option>
+
+                    {% for value, label in reservation_type_choices %}
+
+                        <option
+                            value="{{ value }}"
+                            {% if selected_type == value %}
+                                selected
+                            {% endif %}
+                        >
+                            {{ label }}
+                        </option>
+
+                    {% endfor %}
+
+                </select>
+
+            </div>
+
+
+            <div class="management-filter-field">
+
+                <label for="date">
+                    Date
+                </label>
+
+                <input
+                    type="date"
+                    name="date"
+                    id="date"
+                    class="form-control"
+                    value="{{ selected_date }}"
+                >
+
+            </div>
+
+
+            <div class="management-filter-actions">
+
+                <button
+                    type="submit"
+                    class="btn management-btn-primary"
+                >
+                    <i class="fa-solid fa-filter"></i>
+
+                    Filtrer
+                </button>
+
+
+                {% if selected_status or selected_type or selected_date %}
+
+                    <a
+                        href="{% url 'management:reservations_list' %}"
+                        class="btn management-btn-secondary"
+                    >
+                        Réinitialiser
+                    </a>
+
+                {% endif %}
+
+            </div>
+
+        </form>
+
+    </div>
+
+
+    <!-- ==================================================
+         RESERVATIONS TABLE
+    ================================================== -->
+
+    <div class="management-table-card">
+
+        {% if reservations %}
+
+            <div class="management-table-responsive">
+
+                <table class="management-table">
+
+                    <thead>
+
+                        <tr>
+
+                            <th>
+                                Client
+                            </th>
+
+                            <th>
+                                Date
+                            </th>
+
+                            <th>
+                                Heure
+                            </th>
+
+                            <th>
+                                Personnes
+                            </th>
+
+                            <th>
+                                Type
+                            </th>
+
+                            <th>
+                                Acompte
+                            </th>
+
+                            <th>
+                                Statut
+                            </th>
+
+                            <th class="management-table-actions-heading">
+                                Action
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody>
+
+                        {% for reservation in reservations %}
+
+                            <tr>
+
+                                <td>
+
+                                    <div class="management-table-person">
+
+                                        <strong>
+                                            {{ reservation.full_name }}
+                                        </strong>
+
+                                        <small>
+                                            {{ reservation.phone }}
+                                        </small>
+
+                                    </div>
+
+                                </td>
+
+
+                                <td>
+                                    {{ reservation.reservation_date|date:"d/m/Y" }}
+                                </td>
+
+
+                                <td>
+                                    {{ reservation.reservation_time|time:"H:i" }}
+                                </td>
+
+
+                                <td>
+
+                                    <strong>
+                                        {{ reservation.number_of_guests }}
+                                    </strong>
+
+                                </td>
+
+
+                                <td>
+
+                                    <span class="management-badge">
+                                        {{ reservation.get_reservation_type_display }}
+                                    </span>
+
+                                </td>
+
+
+                                <td>
+
+                                    {% if reservation.deposit_status == "PAID" %}
+
+                                        <span class="management-badge management-badge-success">
+                                            Payé
+                                        </span>
+
+                                    {% elif reservation.deposit_status == "FAILED" %}
+
+                                        <span class="management-badge management-badge-danger">
+                                            Échoué
+                                        </span>
+
+                                    {% elif reservation.deposit_status == "REFUNDED" %}
+
+                                        <span class="management-badge management-badge-neutral">
+                                            Remboursé
+                                        </span>
+
+                                    {% else %}
+
+                                        <span class="management-badge management-badge-warning">
+                                            En attente
+                                        </span>
+
+                                    {% endif %}
+
+                                </td>
+
+
+                                <td>
+
+                                    <span class="management-badge management-badge-status">
+                                        {{ reservation.get_status_display }}
+                                    </span>
+
+                                </td>
+
+
+                                <td class="management-table-actions">
+
+                                    <a
+                                        href="{% url 'management:reservation_detail' reservation.pk %}"
+                                        class="management-icon-button"
+                                        title="Voir la réservation"
+                                        aria-label="Voir la réservation"
+                                    >
+                                        <i class="fa-solid fa-eye"></i>
+                                    </a>
+
+                                </td>
+
+                            </tr>
+
+                        {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        {% else %}
+
+            <div class="management-empty-state">
+
+                <i class="fa-solid fa-calendar-check"></i>
+
+                <h4>
+                    Aucune réservation
+                </h4>
+
+                <p>
+                    Aucune réservation ne correspond
+                    aux critères sélectionnés.
+                </p>
+
+            </div>
+
+        {% endif %}
+
+    </div>
+
+</section>
+
+{% endblock %}

@@ -1,0 +1,148 @@
+{% extends "layouts/base.html" %}
+{% load static %}
+
+{% block title %}
+Connexion | Gestion
+{% endblock %}
+
+{% block extra_css %}
+
+    {{ block.super }}
+
+    <link
+        rel="stylesheet"
+        href="{% static 'css/management.css' %}"
+    >
+
+{% endblock %}
+
+
+{% block content %}
+
+<section class="management-login-page">
+
+    <div class="management-login-card">
+
+        <!-- ==================================================
+             HEADER
+        ================================================== -->
+
+        <div class="management-login-header">
+
+            <div class="management-login-icon">
+                <i class="fa-solid fa-lock"></i>
+            </div>
+
+            <span class="management-section-kicker">
+                Saveurs Africans Lounge
+            </span>
+
+            <h1>
+                Espace de gestion
+            </h1>
+
+            <p>
+                Connectez-vous pour gérer
+                le restaurant.
+            </p>
+
+        </div>
+
+
+        <!-- ==================================================
+             FORM
+        ================================================== -->
+
+        <form method="post">
+
+            {% csrf_token %}
+
+
+            <div class="management-field">
+
+                <label for="{{ form.username.id_for_label }}">
+                    Identifiant
+                </label>
+
+                {{ form.username }}
+
+                {% for error in form.username.errors %}
+
+                    <div class="management-field-error">
+                        {{ error }}
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+
+            <div class="management-field">
+
+                <label for="{{ form.password.id_for_label }}">
+                    Mot de passe
+                </label>
+
+                {{ form.password }}
+
+                {% for error in form.password.errors %}
+
+                    <div class="management-field-error">
+                        {{ error }}
+                    </div>
+
+                {% endfor %}
+
+            </div>
+
+
+            {% if form.non_field_errors %}
+
+                <div class="management-form-errors">
+
+                    {% for error in form.non_field_errors %}
+
+                        <p>
+                            {{ error }}
+                        </p>
+
+                    {% endfor %}
+
+                </div>
+
+            {% endif %}
+
+
+            <button
+                type="submit"
+                class="btn management-btn-primary w-100"
+            >
+                <i class="fa-solid fa-right-to-bracket"></i>
+
+                Se connecter
+            </button>
+
+        </form>
+
+
+        <!-- ==================================================
+             BACK
+        ================================================== -->
+
+        <div class="management-login-footer">
+
+            <a href="{% url 'home' %}">
+
+                <i class="fa-solid fa-arrow-left"></i>
+
+                Retour au site
+
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

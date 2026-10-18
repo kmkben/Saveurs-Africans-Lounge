@@ -1,0 +1,363 @@
+{% extends "management/manage_base.html" %}
+
+
+{% block title %}
+Paramètres | Gestion
+{% endblock %}
+
+
+{% block management_page_title %}
+Paramètres
+{% endblock %}
+
+
+{% block management_content %}
+
+<section class="management-page">
+
+    <!-- ==================================================
+         PAGE HEADER
+    ================================================== -->
+
+    <div class="management-page-header">
+
+        <span class="management-section-kicker">
+            Configuration
+        </span>
+
+        <h2>
+            Paramètres du restaurant
+        </h2>
+
+        <p>
+            Modifiez les principales informations
+            utilisées sur le site.
+        </p>
+
+    </div>
+
+
+    <form
+        method="post"
+        class="management-form"
+    >
+
+        {% csrf_token %}
+
+
+        <!-- ==================================================
+             RESTAURANT
+        ================================================== -->
+
+        <section class="management-form-card">
+
+            <div class="management-form-card-header">
+
+                <span class="management-section-kicker">
+                    Identité
+                </span>
+
+                <h3>
+                    Restaurant
+                </h3>
+
+            </div>
+
+
+            <div class="management-form-grid">
+
+                <div class="management-field management-field-full">
+
+                    <label for="{{ form.restaurant_name.id_for_label }}">
+                        Nom du restaurant
+                    </label>
+
+                    {{ form.restaurant_name }}
+
+                </div>
+
+
+                <div class="management-field management-field-full">
+
+                    <label for="{{ form.tagline.id_for_label }}">
+                        Slogan
+                    </label>
+
+                    {{ form.tagline }}
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ==================================================
+             CONTACT
+        ================================================== -->
+
+        <section class="management-form-card">
+
+            <div class="management-form-card-header">
+
+                <span class="management-section-kicker">
+                    Contact
+                </span>
+
+                <h3>
+                    Coordonnées
+                </h3>
+
+            </div>
+
+
+            <div class="management-form-grid">
+
+                <div class="management-field">
+
+                    <label for="{{ form.phone.id_for_label }}">
+                        Téléphone
+                    </label>
+
+                    {{ form.phone }}
+
+                </div>
+
+
+                <div class="management-field">
+
+                    <label for="{{ form.email.id_for_label }}">
+                        E-mail
+                    </label>
+
+                    {{ form.email }}
+
+                </div>
+
+
+                <div class="management-field management-field-full">
+
+                    <label for="{{ form.address.id_for_label }}">
+                        Adresse
+                    </label>
+
+                    {{ form.address }}
+
+                </div>
+
+
+                <div class="management-field">
+
+                    <label for="{{ form.postal_code.id_for_label }}">
+                        Code postal
+                    </label>
+
+                    {{ form.postal_code }}
+
+                </div>
+
+
+                <div class="management-field">
+
+                    <label for="{{ form.city.id_for_label }}">
+                        Ville
+                    </label>
+
+                    {{ form.city }}
+
+                </div>
+
+
+                <div class="management-field management-field-full">
+
+                    <label for="{{ form.google_maps_url.id_for_label }}">
+                        Lien Google Maps
+                    </label>
+
+                    {{ form.google_maps_url }}
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ==================================================
+             SOCIAL NETWORKS
+        ================================================== -->
+
+        <section class="management-form-card">
+
+            <div class="management-form-card-header">
+
+                <span class="management-section-kicker">
+                    Réseaux sociaux
+                </span>
+
+                <h3>
+                    Liens
+                </h3>
+
+            </div>
+
+
+            <div class="management-form-grid">
+
+                <div class="management-field management-field-full">
+
+                    <label for="{{ form.facebook_url.id_for_label }}">
+                        Facebook
+                    </label>
+
+                    {{ form.facebook_url }}
+
+                </div>
+
+
+                <div class="management-field management-field-full">
+
+                    <label for="{{ form.instagram_url.id_for_label }}">
+                        Instagram
+                    </label>
+
+                    {{ form.instagram_url }}
+
+                </div>
+
+
+                <div class="management-field management-field-full">
+
+                    <label for="{{ form.tiktok_url.id_for_label }}">
+                        TikTok
+                    </label>
+
+                    {{ form.tiktok_url }}
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ==================================================
+             OPENING HOURS
+        ================================================== -->
+
+        <section class="management-form-card">
+
+            <div class="management-form-card-header">
+
+                <span class="management-section-kicker">
+                    Horaires
+                </span>
+
+                <h3>
+                    Horaires d’ouverture
+                </h3>
+
+            </div>
+
+
+            <div class="management-field">
+
+                <label for="{{ form.opening_hours.id_for_label }}">
+                    Horaires
+                </label>
+
+                {{ form.opening_hours }}
+
+                <small class="management-field-help">
+                    Ces informations peuvent être affichées
+                    dans le pied de page ou la page contact.
+                </small>
+
+            </div>
+
+        </section>
+
+
+        <!-- ==================================================
+             RESERVATION
+        ================================================== -->
+
+        <section class="management-form-card">
+
+            <div class="management-form-card-header">
+
+                <span class="management-section-kicker">
+                    Réservations
+                </span>
+
+                <h3>
+                    Acompte
+                </h3>
+
+                <p>
+                    Ce montant sera utilisé pour les
+                    nouvelles réservations.
+                </p>
+
+            </div>
+
+
+            <div class="management-field management-order-field">
+
+                <label for="{{ form.reservation_deposit_amount.id_for_label }}">
+                    Montant de l’acompte
+                </label>
+
+                <div class="management-input-suffix">
+
+                    {{ form.reservation_deposit_amount }}
+
+                    <span>€</span>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ==================================================
+             FORM ERRORS
+        ================================================== -->
+
+        {% if form.errors %}
+
+            <div class="management-form-errors">
+
+                <p>
+                    Certains champs contiennent une erreur.
+                    Vérifiez les informations saisies.
+                </p>
+
+            </div>
+
+        {% endif %}
+
+
+        <!-- ==================================================
+             ACTIONS
+        ================================================== -->
+
+        <div class="management-form-actions">
+
+            <button
+                type="submit"
+                class="btn management-btn-primary"
+            >
+                <i class="fa-solid fa-floppy-disk"></i>
+
+                Enregistrer les paramètres
+            </button>
+
+        </div>
+
+    </form>
+
+</section>
+
+{% endblock %}

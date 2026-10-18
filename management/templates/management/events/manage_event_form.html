@@ -1,0 +1,451 @@
+{% extends "management/manage_base.html" %}
+
+
+{% block title %}
+{% if event %}Modifier {{ event.title }}{% else %}Ajouter un événement{% endif %} | Gestion
+{% endblock %}
+
+
+{% block management_page_title %}
+{% if event %}Modifier l’événement{% else %}Ajouter un événement{% endif %}
+{% endblock %}
+
+
+{% block management_content %}
+
+<section class="management-page">
+
+    <!-- ==================================================
+         PAGE HEADER
+    ================================================== -->
+
+    <div class="management-page-header">
+
+        <a
+            href="{% url 'management:events_list' %}"
+            class="management-back-link"
+        >
+            <i class="fa-solid fa-arrow-left"></i>
+
+            Retour aux événements
+        </a>
+
+
+        <h2>
+
+            {% if event %}
+                {{ event.title }}
+            {% else %}
+                Nouvel événement
+            {% endif %}
+
+        </h2>
+
+
+        <p>
+            Configurez les informations,
+            la programmation et la publication de l’événement.
+        </p>
+
+    </div>
+
+
+    <!-- ==================================================
+         FORM
+    ================================================== -->
+
+    <form
+        method="post"
+        enctype="multipart/form-data"
+        class="management-form"
+    >
+
+        {% csrf_token %}
+
+
+        <!-- ==================================================
+             PRESENTATION
+        ================================================== -->
+
+        <section class="management-form-card">
+
+            <div class="management-form-card-header">
+
+                <span class="management-section-kicker">
+                    Informations
+                </span>
+
+                <h3>
+                    Présentation
+                </h3>
+
+                <p>
+                    Ces informations seront visibles
+                    par les visiteurs du site.
+                </p>
+
+            </div>
+
+
+            <div class="management-form-grid">
+
+                <div class="management-field management-field-full">
+
+                    <label for="{{ form.title.id_for_label }}">
+                        Titre
+                    </label>
+
+                    {{ form.title }}
+
+                    {% for error in form.title.errors %}
+                        <div class="management-field-error">
+                            {{ error }}
+                        </div>
+                    {% endfor %}
+
+                </div>
+
+
+                <div class="management-field management-field-full">
+
+                    <label for="{{ form.short_description.id_for_label }}">
+                        Description courte
+                    </label>
+
+                    {{ form.short_description }}
+
+                    {% for error in form.short_description.errors %}
+                        <div class="management-field-error">
+                            {{ error }}
+                        </div>
+                    {% endfor %}
+
+                </div>
+
+
+                <div class="management-field management-field-full">
+
+                    <label for="{{ form.description.id_for_label }}">
+                        Description complète
+                    </label>
+
+                    {{ form.description }}
+
+                    {% for error in form.description.errors %}
+                        <div class="management-field-error">
+                            {{ error }}
+                        </div>
+                    {% endfor %}
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ==================================================
+             DATE / LOCATION
+        ================================================== -->
+
+        <section class="management-form-card">
+
+            <div class="management-form-card-header">
+
+                <span class="management-section-kicker">
+                    Programmation
+                </span>
+
+                <h3>
+                    Date & lieu
+                </h3>
+
+            </div>
+
+
+            <div class="management-form-grid">
+
+                <div class="management-field">
+
+                    <label for="{{ form.start_at.id_for_label }}">
+                        Début
+                    </label>
+
+                    {{ form.start_at }}
+
+                    {% for error in form.start_at.errors %}
+                        <div class="management-field-error">
+                            {{ error }}
+                        </div>
+                    {% endfor %}
+
+                </div>
+
+
+                <div class="management-field">
+
+                    <label for="{{ form.end_at.id_for_label }}">
+                        Fin
+                    </label>
+
+                    {{ form.end_at }}
+
+                    {% for error in form.end_at.errors %}
+                        <div class="management-field-error">
+                            {{ error }}
+                        </div>
+                    {% endfor %}
+
+                </div>
+
+
+                <div class="management-field management-field-full">
+
+                    <label for="{{ form.location.id_for_label }}">
+                        Lieu
+                    </label>
+
+                    {{ form.location }}
+
+                    <small class="management-field-help">
+                        Exemple : Saveurs Africans Lounge,
+                        salle privée, terrasse…
+                    </small>
+
+                    {% for error in form.location.errors %}
+                        <div class="management-field-error">
+                            {{ error }}
+                        </div>
+                    {% endfor %}
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ==================================================
+             IMAGE
+        ================================================== -->
+
+        <section class="management-form-card">
+
+            <div class="management-form-card-header">
+
+                <span class="management-section-kicker">
+                    Visuel
+                </span>
+
+                <h3>
+                    Image de l’événement
+                </h3>
+
+            </div>
+
+
+            <div class="management-image-field-layout">
+
+                {% if event and event.image %}
+
+                    <div class="management-current-image">
+
+                        <img
+                            src="{{ event.image.url }}"
+                            alt="{{ event.title }}"
+                        >
+
+                    </div>
+
+                {% endif %}
+
+
+                <div class="management-field">
+
+                    <label for="{{ form.image.id_for_label }}">
+                        Image
+                    </label>
+
+                    {{ form.image }}
+
+                    {% for error in form.image.errors %}
+                        <div class="management-field-error">
+                            {{ error }}
+                        </div>
+                    {% endfor %}
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ==================================================
+             CONDITIONS
+        ================================================== -->
+
+        <section class="management-form-card">
+
+            <div class="management-form-card-header">
+
+                <span class="management-section-kicker">
+                    Participation
+                </span>
+
+                <h3>
+                    Prix & réservation
+                </h3>
+
+            </div>
+
+
+            <div class="management-form-grid">
+
+                <div class="management-field">
+
+                    <label for="{{ form.price.id_for_label }}">
+                        Prix
+                    </label>
+
+                    <div class="management-input-suffix">
+
+                        {{ form.price }}
+
+                        <span>€</span>
+
+                    </div>
+
+                    <small class="management-field-help">
+                        Laissez vide ou indiquez 0
+                        pour un événement gratuit.
+                    </small>
+
+                    {% for error in form.price.errors %}
+                        <div class="management-field-error">
+                            {{ error }}
+                        </div>
+                    {% endfor %}
+
+                </div>
+
+            </div>
+
+
+            <div class="management-switch-grid management-switch-grid-spaced">
+
+                <label class="management-switch-card">
+
+                    {{ form.reservation_required }}
+
+                    <span>
+
+                        <strong>
+                            Réservation obligatoire
+                        </strong>
+
+                        <small>
+                            Indique aux visiteurs qu’une réservation
+                            est nécessaire pour participer.
+                        </small>
+
+                    </span>
+
+                </label>
+
+
+                <label class="management-switch-card">
+
+                    {{ form.is_featured }}
+
+                    <span>
+
+                        <strong>
+                            Mettre à la une
+                        </strong>
+
+                        <small>
+                            Donner davantage de visibilité
+                            à cet événement.
+                        </small>
+
+                    </span>
+
+                </label>
+
+
+                <label class="management-switch-card">
+
+                    {{ form.is_published }}
+
+                    <span>
+
+                        <strong>
+                            Publier l’événement
+                        </strong>
+
+                        <small>
+                            Rendre l’événement visible
+                            sur le site.
+                        </small>
+
+                    </span>
+
+                </label>
+
+            </div>
+
+        </section>
+
+
+        <!-- ==================================================
+             ERRORS
+        ================================================== -->
+
+        {% if form.non_field_errors %}
+
+            <div class="management-form-errors">
+
+                {% for error in form.non_field_errors %}
+                    <p>{{ error }}</p>
+                {% endfor %}
+
+            </div>
+
+        {% endif %}
+
+
+        <!-- ==================================================
+             ACTIONS
+        ================================================== -->
+
+        <div class="management-form-actions">
+
+            <a
+                href="{% url 'management:events_list' %}"
+                class="btn management-btn-secondary"
+            >
+                Annuler
+            </a>
+
+
+            <button
+                type="submit"
+                class="btn management-btn-primary"
+            >
+                <i class="fa-solid fa-floppy-disk"></i>
+
+                {% if event %}
+                    Enregistrer les modifications
+                {% else %}
+                    Ajouter l’événement
+                {% endif %}
+            </button>
+
+        </div>
+
+    </form>
+
+</section>
+
+{% endblock %}

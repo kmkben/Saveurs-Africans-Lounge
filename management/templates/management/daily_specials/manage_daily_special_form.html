@@ -1,0 +1,320 @@
+{% extends "management/manage_base.html" %}
+
+
+{% block title %}
+{% if special %}Modifier le plat du jour{% else %}Ajouter un plat du jour{% endif %} | Gestion
+{% endblock %}
+
+
+{% block management_page_title %}
+{% if special %}Modifier le plat du jour{% else %}Ajouter un plat du jour{% endif %}
+{% endblock %}
+
+
+{% block management_content %}
+
+<section class="management-page management-form-page">
+
+    <div class="management-page-header">
+
+        <a
+            href="{% url 'management:daily_specials_list' %}"
+            class="management-back-link"
+        >
+            <i class="fa-solid fa-arrow-left"></i>
+
+            Retour aux plats du jour
+        </a>
+
+
+        <h2>
+
+            {% if special %}
+                {{ special.dish.name }}
+            {% else %}
+                Nouveau plat du jour
+            {% endif %}
+
+        </h2>
+
+        <p>
+            Programmez une offre spéciale
+            pour une date précise.
+        </p>
+
+    </div>
+
+
+    <form
+        method="post"
+        enctype="multipart/form-data"
+        class="management-form"
+    >
+
+        {% csrf_token %}
+
+
+        <!-- ==================================================
+             OFFER
+        ================================================== -->
+
+        <section class="management-form-card">
+
+            <div class="management-form-card-header">
+
+                <span class="management-section-kicker">
+                    Offre
+                </span>
+
+                <h3>
+                    Plat & date
+                </h3>
+
+                <p>
+                    Sélectionnez le plat concerné
+                    et la date de publication.
+                </p>
+
+            </div>
+
+
+            <div class="management-form-grid">
+
+                <div class="management-field">
+
+                    <label for="{{ form.dish.id_for_label }}">
+                        Plat
+                    </label>
+
+                    {{ form.dish }}
+
+                    {% for error in form.dish.errors %}
+                        <div class="management-field-error">
+                            {{ error }}
+                        </div>
+                    {% endfor %}
+
+                </div>
+
+
+                <div class="management-field">
+
+                    <label for="{{ form.date.id_for_label }}">
+                        Date
+                    </label>
+
+                    {{ form.date }}
+
+                    {% for error in form.date.errors %}
+                        <div class="management-field-error">
+                            {{ error }}
+                        </div>
+                    {% endfor %}
+
+                </div>
+
+
+                <div class="management-field">
+
+                    <label for="{{ form.special_price.id_for_label }}">
+                        Prix spécial
+                    </label>
+
+                    <div class="management-input-suffix">
+
+                        {{ form.special_price }}
+
+                        <span>€</span>
+
+                    </div>
+
+                    <small class="management-field-help">
+                        Laissez vide pour conserver
+                        le prix normal du plat.
+                    </small>
+
+                    {% for error in form.special_price.errors %}
+                        <div class="management-field-error">
+                            {{ error }}
+                        </div>
+                    {% endfor %}
+
+                </div>
+
+
+                <div class="management-field management-field-full">
+
+                    <label for="{{ form.note.id_for_label }}">
+                        Note
+                    </label>
+
+                    {{ form.note }}
+
+                    <small class="management-field-help">
+                        Exemple : accompagné d’une boisson,
+                        dessert inclus, offre spéciale…
+                    </small>
+
+                    {% for error in form.note.errors %}
+                        <div class="management-field-error">
+                            {{ error }}
+                        </div>
+                    {% endfor %}
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ==================================================
+             VISUAL
+        ================================================== -->
+
+        <section class="management-form-card">
+
+            <div class="management-form-card-header">
+
+                <span class="management-section-kicker">
+                    Visuel
+                </span>
+
+                <h3>
+                    Image de l’offre
+                </h3>
+
+                <p>
+                    Une image spécifique peut représenter
+                    l’offre complète du jour.
+                </p>
+
+            </div>
+
+
+            <div class="management-image-field-layout">
+
+                {% if special and special.image %}
+
+                    <div class="management-current-image">
+
+                        <img
+                            src="{{ special.image.url }}"
+                            alt="{{ special.dish.name }}"
+                        >
+
+                    </div>
+
+                {% endif %}
+
+
+                <div class="management-field">
+
+                    <label for="{{ form.image.id_for_label }}">
+                        Image
+                    </label>
+
+                    {{ form.image }}
+
+                    <small class="management-field-help">
+                        Facultatif. Sans image spécifique,
+                        la photo du plat sera utilisée.
+                    </small>
+
+                    {% for error in form.image.errors %}
+                        <div class="management-field-error">
+                            {{ error }}
+                        </div>
+                    {% endfor %}
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ==================================================
+             PUBLICATION
+        ================================================== -->
+
+        <section class="management-form-card">
+
+            <div class="management-form-card-header">
+
+                <span class="management-section-kicker">
+                    Publication
+                </span>
+
+                <h3>
+                    Visibilité
+                </h3>
+
+            </div>
+
+
+            <label class="management-switch-card">
+
+                {{ form.published }}
+
+                <span>
+
+                    <strong>
+                        Publier cette offre
+                    </strong>
+
+                    <small>
+                        Le plat du jour sera visible
+                        sur le site à la date prévue.
+                    </small>
+
+                </span>
+
+            </label>
+
+        </section>
+
+
+        {% if form.non_field_errors %}
+
+            <div class="management-form-errors">
+
+                {% for error in form.non_field_errors %}
+                    <p>{{ error }}</p>
+                {% endfor %}
+
+            </div>
+
+        {% endif %}
+
+
+        <div class="management-form-actions">
+
+            <a
+                href="{% url 'management:daily_specials_list' %}"
+                class="btn management-btn-secondary"
+            >
+                Annuler
+            </a>
+
+
+            <button
+                type="submit"
+                class="btn management-btn-primary"
+            >
+                <i class="fa-solid fa-floppy-disk"></i>
+
+                {% if special %}
+                    Enregistrer les modifications
+                {% else %}
+                    Ajouter l’offre
+                {% endif %}
+            </button>
+
+        </div>
+
+    </form>
+
+</section>
+
+{% endblock %}

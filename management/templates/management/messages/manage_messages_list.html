@@ -1,0 +1,356 @@
+{% extends "management/manage_base.html" %}
+
+
+{% block title %}
+Messages | Gestion
+{% endblock %}
+
+
+{% block management_page_title %}
+Messages
+{% endblock %}
+
+
+{% block management_content %}
+
+<section class="management-page">
+
+    <!-- ==================================================
+         PAGE HEADER
+    ================================================== -->
+
+    <div class="management-page-header management-page-header-actions">
+
+        <div>
+
+            <span class="management-section-kicker">
+                Activité
+            </span>
+
+            <h2>
+                Messages
+            </h2>
+
+            <p>
+                Consultez les demandes envoyées
+                depuis le formulaire de contact.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- ==================================================
+         FILTERS
+    ================================================== -->
+
+    <div class="management-filter-card">
+
+        <form
+            method="get"
+            class="management-filter-form"
+        >
+
+            <div class="management-filter-field">
+
+                <label for="state">
+                    État
+                </label>
+
+                <select
+                    name="state"
+                    id="state"
+                    class="form-select"
+                >
+
+                    <option value="">
+                        Tous les messages
+                    </option>
+
+                    <option
+                        value="unread"
+                        {% if selected_state == "unread" %}
+                            selected
+                        {% endif %}
+                    >
+                        Non lus
+                    </option>
+
+                    <option
+                        value="read"
+                        {% if selected_state == "read" %}
+                            selected
+                        {% endif %}
+                    >
+                        Lus
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div class="management-filter-actions">
+
+                <button
+                    type="submit"
+                    class="btn management-btn-primary"
+                >
+                    <i class="fa-solid fa-filter"></i>
+
+                    Filtrer
+                </button>
+
+
+                {% if selected_state %}
+
+                    <a
+                        href="{% url 'management:messages_list' %}"
+                        class="btn management-btn-secondary"
+                    >
+                        Réinitialiser
+                    </a>
+
+                {% endif %}
+
+            </div>
+
+        </form>
+
+    </div>
+
+
+    <!-- ==================================================
+         MESSAGES
+    ================================================== -->
+
+    <div class="management-table-card">
+
+        {% if contact_messages %}
+
+            <div class="management-table-responsive">
+
+                <table class="management-table">
+
+                    <thead>
+
+                        <tr>
+                            <th>Expéditeur</th>
+                            <th>Sujet</th>
+                            <th>Message</th>
+                            <th>État</th>
+                            <th>Date</th>
+
+                            <th class="management-table-actions-heading">
+                                Actions
+                            </th>
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody>
+
+                        {% for contact_message in contact_messages %}
+
+                            <tr
+                                {% if not contact_message.is_read %}
+                                    class="management-unread-row"
+                                {% endif %}
+                            >
+
+                                <!-- Sender -->
+
+                                <td>
+
+                                    <div class="management-table-person">
+
+                                        <strong>
+                                            {{ contact_message.name }}
+                                        </strong>
+
+                                        <small>
+                                            {{ contact_message.email }}
+                                        </small>
+
+                                    </div>
+
+                                </td>
+
+
+                                <!-- Subject -->
+
+                                <td>
+
+                                    <strong>
+                                        {{ contact_message.get_subject_display }}
+                                    </strong>
+
+                                    {% if contact_message.subject_detail %}
+
+                                        <div class="management-table-subtext">
+                                            {{ contact_message.subject_detail }}
+                                        </div>
+
+                                    {% endif %}
+
+                                </td>
+
+
+                                <!-- Message -->
+
+                                <td>
+
+                                    <span class="management-message-preview">
+                                        {{ contact_message.message|truncatechars:85 }}
+                                    </span>
+
+                                </td>
+
+
+                                <!-- State -->
+
+                                <td>
+
+                                    {% if contact_message.is_read %}
+
+                                        <span class="management-badge management-badge-neutral">
+                                            Lu
+                                        </span>
+
+                                    {% else %}
+
+                                        <span class="management-badge management-badge-success">
+                                            Nouveau
+                                        </span>
+
+                                    {% endif %}
+
+                                </td>
+
+
+                                <!-- Date -->
+
+                                <td>
+
+                                    <div class="management-table-date">
+
+                                        <strong>
+                                            {{ contact_message.created_at|date:"d/m/Y" }}
+                                        </strong>
+
+                                        <small>
+                                            {{ contact_message.created_at|date:"H:i" }}
+                                        </small>
+
+                                    </div>
+
+                                </td>
+
+
+                                <!-- Actions -->
+
+                                <td class="management-table-actions">
+
+                                    <div class="management-action-group">
+
+                                        <a
+                                            href="{% url 'management:message_detail' contact_message.pk %}"
+                                            class="management-icon-button"
+                                            title="Lire le message"
+                                        >
+                                            <i class="fa-solid fa-eye"></i>
+                                        </a>
+
+
+                                        <form
+                                            method="post"
+                                            action="{% url 'management:message_toggle_read' contact_message.pk %}"
+                                        >
+
+                                            {% csrf_token %}
+
+                                            <button
+                                                type="submit"
+                                                class="management-icon-button"
+                                                title="
+                                                    {% if contact_message.is_read %}
+                                                        Marquer comme non lu
+                                                    {% else %}
+                                                        Marquer comme lu
+                                                    {% endif %}
+                                                "
+                                            >
+
+                                                {% if contact_message.is_read %}
+
+                                                    <i class="fa-solid fa-envelope"></i>
+
+                                                {% else %}
+
+                                                    <i class="fa-solid fa-envelope-open"></i>
+
+                                                {% endif %}
+
+                                            </button>
+
+                                        </form>
+
+
+                                        <form
+                                            method="post"
+                                            action="{% url 'management:message_delete' contact_message.pk %}"
+                                            onsubmit="return confirm('Supprimer définitivement ce message ?');"
+                                        >
+
+                                            {% csrf_token %}
+
+                                            <button
+                                                type="submit"
+                                                class="management-icon-button management-icon-button-danger"
+                                                title="Supprimer"
+                                            >
+                                                <i class="fa-solid fa-trash"></i>
+                                            </button>
+
+                                        </form>
+
+                                    </div>
+
+                                </td>
+
+                            </tr>
+
+                        {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        {% else %}
+
+            <div class="management-empty-state">
+
+                <i class="fa-regular fa-envelope"></i>
+
+                <h4>
+                    Aucun message
+                </h4>
+
+                <p>
+                    Aucun message ne correspond
+                    au filtre sélectionné.
+                </p>
+
+            </div>
+
+        {% endif %}
+
+    </div>
+
+</section>
+
+{% endblock %}

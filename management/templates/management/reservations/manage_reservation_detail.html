@@ -1,0 +1,566 @@
+{% extends "management/manage_base.html" %}
+
+
+{% block title %}
+Réservation #{{ reservation.pk }} | Gestion
+{% endblock %}
+
+
+{% block management_page_title %}
+Réservation #{{ reservation.pk }}
+{% endblock %}
+
+
+{% block management_content %}
+
+<section class="management-page">
+
+
+    <!-- ==================================================
+         PAGE HEADER
+    ================================================== -->
+
+    <div class="management-page-header management-page-header-actions">
+
+        <div>
+
+            <a
+                href="{% url 'management:reservations_list' %}"
+                class="management-back-link"
+            >
+                <i class="fa-solid fa-arrow-left"></i>
+
+                Retour aux réservations
+            </a>
+
+            <h2>
+                {{ reservation.full_name }}
+            </h2>
+
+            <p>
+                Réservation pour le
+                {{ reservation.reservation_date|date:"d/m/Y" }}
+                à
+                {{ reservation.reservation_time|time:"H:i" }}.
+            </p>
+
+        </div>
+
+
+        <div class="management-header-badges">
+
+            {% if reservation.deposit_status == "PAID" %}
+
+                <span class="management-badge management-badge-success">
+
+                    <i class="fa-solid fa-circle-check"></i>
+
+                    Acompte payé
+
+                </span>
+
+            {% elif reservation.deposit_status == "REFUNDED" %}
+
+                <span class="management-badge management-badge-neutral">
+                    Acompte remboursé
+                </span>
+
+            {% elif reservation.deposit_status == "FAILED" %}
+
+                <span class="management-badge management-badge-danger">
+                    Paiement échoué
+                </span>
+
+            {% else %}
+
+                <span class="management-badge management-badge-warning">
+                    Acompte en attente
+                </span>
+
+            {% endif %}
+
+
+            <span class="management-badge management-badge-status">
+                {{ reservation.get_status_display }}
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <!-- ==================================================
+         DETAIL GRID
+    ================================================== -->
+
+    <div class="management-detail-grid">
+
+
+        <!-- ==================================================
+             MAIN COLUMN
+        ================================================== -->
+
+        <div class="management-detail-main">
+
+
+            <!-- ==================================================
+                 RESERVATION
+            ================================================== -->
+
+            <section class="management-panel">
+
+                <div class="management-panel-header">
+
+                    <div>
+
+                        <span class="management-section-kicker">
+                            Réservation
+                        </span>
+
+                        <h3>
+                            Informations
+                        </h3>
+
+                    </div>
+
+                </div>
+
+
+                <dl class="management-info-list management-info-list-large">
+
+                    <div>
+
+                        <dt>
+                            Date
+                        </dt>
+
+                        <dd>
+                            {{ reservation.reservation_date|date:"d/m/Y" }}
+                        </dd>
+
+                    </div>
+
+
+                    <div>
+
+                        <dt>
+                            Heure
+                        </dt>
+
+                        <dd>
+                            {{ reservation.reservation_time|time:"H:i" }}
+                        </dd>
+
+                    </div>
+
+
+                    {% if reservation.end_time %}
+
+                        <div>
+
+                            <dt>
+                                Heure de fin
+                            </dt>
+
+                            <dd>
+                                {{ reservation.end_time|time:"H:i" }}
+                            </dd>
+
+                        </div>
+
+                    {% endif %}
+
+
+                    <div>
+
+                        <dt>
+                            Nombre de personnes
+                        </dt>
+
+                        <dd>
+                            {{ reservation.number_of_guests }}
+                        </dd>
+
+                    </div>
+
+
+                    <div>
+
+                        <dt>
+                            Type
+                        </dt>
+
+                        <dd>
+                            {{ reservation.get_reservation_type_display }}
+                        </dd>
+
+                    </div>
+
+
+                    {% if reservation.has_event %}
+
+                        <div>
+
+                            <dt>
+                                Événement
+                            </dt>
+
+                            <dd>
+                                {{ reservation.get_event_type_display }}
+                            </dd>
+
+                        </div>
+
+                    {% endif %}
+
+                </dl>
+
+            </section>
+
+
+            <!-- ==================================================
+                 EVENT DETAIL
+            ================================================== -->
+
+            {% if reservation.event_detail %}
+
+                <section class="management-panel">
+
+                    <div class="management-panel-header">
+
+                        <div>
+
+                            <span class="management-section-kicker">
+                                Événement
+                            </span>
+
+                            <h3>
+                                Détails
+                            </h3>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="management-note-box">
+                        {{ reservation.event_detail|linebreaksbr }}
+                    </div>
+
+                </section>
+
+            {% endif %}
+
+
+            <!-- ==================================================
+                 SPECIAL REQUEST
+            ================================================== -->
+
+            {% if reservation.special_request %}
+
+                <section class="management-panel">
+
+                    <div class="management-panel-header">
+
+                        <div>
+
+                            <span class="management-section-kicker">
+                                Demande client
+                            </span>
+
+                            <h3>
+                                Demande particulière
+                            </h3>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="management-note-box">
+                        {{ reservation.special_request|linebreaksbr }}
+                    </div>
+
+                </section>
+
+            {% endif %}
+
+        </div>
+
+
+        <!-- ==================================================
+             SIDEBAR
+        ================================================== -->
+
+        <aside class="management-detail-sidebar">
+
+
+            <!-- ==================================================
+                 STATUS
+            ================================================== -->
+
+            <section class="management-panel">
+
+                <div class="management-panel-header">
+
+                    <div>
+
+                        <span class="management-section-kicker">
+                            Traitement
+                        </span>
+
+                        <h3>
+                            Statut
+                        </h3>
+
+                    </div>
+
+                </div>
+
+
+                <form
+                    method="post"
+                    action="{% url 'management:reservation_status_update' reservation.pk %}"
+                >
+
+                    {% csrf_token %}
+
+
+                    <div class="management-form-group">
+
+                        <label for="reservation-status">
+                            Statut de la réservation
+                        </label>
+
+                        <select
+                            name="status"
+                            id="reservation-status"
+                            class="form-select"
+                        >
+
+                            {% for value, label in status_choices %}
+
+                                <option
+                                    value="{{ value }}"
+                                    {% if reservation.status == value %}
+                                        selected
+                                    {% endif %}
+                                >
+                                    {{ label }}
+                                </option>
+
+                            {% endfor %}
+
+                        </select>
+
+                    </div>
+
+
+                    <button
+                        type="submit"
+                        class="btn management-btn-primary w-100"
+                    >
+                        Mettre à jour le statut
+                    </button>
+
+                </form>
+
+            </section>
+
+
+            <!-- ==================================================
+                 CUSTOMER
+            ================================================== -->
+
+            <section class="management-panel">
+
+                <div class="management-panel-header">
+
+                    <div>
+
+                        <span class="management-section-kicker">
+                            Coordonnées
+                        </span>
+
+                        <h3>
+                            Client
+                        </h3>
+
+                    </div>
+
+                </div>
+
+
+                <dl class="management-info-list">
+
+                    <div>
+
+                        <dt>
+                            Nom
+                        </dt>
+
+                        <dd>
+                            {{ reservation.full_name }}
+                        </dd>
+
+                    </div>
+
+
+                    <div>
+
+                        <dt>
+                            Téléphone
+                        </dt>
+
+                        <dd>
+
+                            <a href="tel:{{ reservation.phone }}">
+                                {{ reservation.phone }}
+                            </a>
+
+                        </dd>
+
+                    </div>
+
+
+                    <div>
+
+                        <dt>
+                            E-mail
+                        </dt>
+
+                        <dd>
+
+                            <a href="mailto:{{ reservation.email }}">
+                                {{ reservation.email }}
+                            </a>
+
+                        </dd>
+
+                    </div>
+
+                </dl>
+
+            </section>
+
+
+            <!-- ==================================================
+                 DEPOSIT
+            ================================================== -->
+
+            <section class="management-panel">
+
+                <div class="management-panel-header">
+
+                    <div>
+
+                        <span class="management-section-kicker">
+                            Paiement
+                        </span>
+
+                        <h3>
+                            Acompte
+                        </h3>
+
+                    </div>
+
+                </div>
+
+
+                <dl class="management-info-list">
+
+                    <div>
+
+                        <dt>
+                            Montant
+                        </dt>
+
+                        <dd>
+                            {{ reservation.deposit_amount|floatformat:2 }} €
+                        </dd>
+
+                    </div>
+
+
+                    <div>
+
+                        <dt>
+                            Statut
+                        </dt>
+
+                        <dd>
+                            {{ reservation.get_deposit_status_display }}
+                        </dd>
+
+                    </div>
+
+
+                    {% if reservation.deposit_paid_at %}
+
+                        <div>
+
+                            <dt>
+                                Payé le
+                            </dt>
+
+                            <dd>
+                                {{ reservation.deposit_paid_at|date:"d/m/Y H:i" }}
+                            </dd>
+
+                        </div>
+
+                    {% endif %}
+
+
+                    {% if reservation.deposit_reference %}
+
+                        <div>
+
+                            <dt>
+                                Référence
+                            </dt>
+
+                            <dd class="management-reference">
+                                {{ reservation.deposit_reference }}
+                            </dd>
+
+                        </div>
+
+                    {% endif %}
+
+                </dl>
+
+            </section>
+
+
+            <!-- ==================================================
+                 CREATED
+            ================================================== -->
+
+            <section class="management-panel management-panel-compact">
+
+                <div class="management-meta">
+
+                    <i class="fa-regular fa-clock"></i>
+
+                    <span>
+
+                        Demande reçue le
+
+                        <strong>
+                            {{ reservation.created_at|date:"d/m/Y à H:i" }}
+                        </strong>
+
+                    </span>
+
+                </div>
+
+            </section>
+
+        </aside>
+
+    </div>
+
+</section>
+
+{% endblock %}

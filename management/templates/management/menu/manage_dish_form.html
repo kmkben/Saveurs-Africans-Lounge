@@ -1,0 +1,474 @@
+{% extends "management/manage_base.html" %}
+
+
+{% block title %}
+{% if dish %}Modifier {{ dish.name }}{% else %}Ajouter un plat{% endif %} | Gestion
+{% endblock %}
+
+
+{% block management_page_title %}
+{% if dish %}Modifier le plat{% else %}Ajouter un plat{% endif %}
+{% endblock %}
+
+
+{% block management_content %}
+
+<section class="management-page">
+
+    <!-- ==================================================
+         PAGE HEADER
+    ================================================== -->
+
+    <div class="management-page-header">
+
+        <a
+            href="{% url 'management:dishes_list' %}"
+            class="management-back-link"
+        >
+            <i class="fa-solid fa-arrow-left"></i>
+
+            Retour à la carte
+        </a>
+
+
+        <h2>
+
+            {% if dish %}
+                {{ dish.name }}
+            {% else %}
+                Nouveau plat
+            {% endif %}
+
+        </h2>
+
+
+        <p>
+
+            {% if dish %}
+
+                Modifiez les informations,
+                la disponibilité et la présentation du plat.
+
+            {% else %}
+
+                Ajoutez un nouveau plat
+                à la carte du restaurant.
+
+            {% endif %}
+
+        </p>
+
+    </div>
+
+
+    <!-- ==================================================
+         FORM
+    ================================================== -->
+
+    <form
+        method="post"
+        enctype="multipart/form-data"
+        class="management-form"
+    >
+
+        {% csrf_token %}
+
+
+        <!-- ==================================================
+             GENERAL INFORMATION
+        ================================================== -->
+
+        <section class="management-form-card">
+
+            <div class="management-form-card-header">
+
+                <span class="management-section-kicker">
+                    Informations
+                </span>
+
+                <h3>
+                    Présentation du plat
+                </h3>
+
+                <p>
+                    Informations principales affichées
+                    aux clients.
+                </p>
+
+            </div>
+
+
+            <div class="management-form-grid">
+
+                <div class="management-field management-field-wide">
+
+                    <label for="{{ form.name.id_for_label }}">
+                        Nom du plat
+                    </label>
+
+                    {{ form.name }}
+
+                    {% for error in form.name.errors %}
+                        <div class="management-field-error">
+                            {{ error }}
+                        </div>
+                    {% endfor %}
+
+                </div>
+
+
+                <div class="management-field">
+
+                    <label for="{{ form.category.id_for_label }}">
+                        Catégorie
+                    </label>
+
+                    {{ form.category }}
+
+                    {% for error in form.category.errors %}
+                        <div class="management-field-error">
+                            {{ error }}
+                        </div>
+                    {% endfor %}
+
+                </div>
+
+
+                <div class="management-field">
+
+                    <label for="{{ form.price.id_for_label }}">
+                        Prix
+                    </label>
+
+                    <div class="management-input-suffix">
+
+                        {{ form.price }}
+
+                        <span>
+                            €
+                        </span>
+
+                    </div>
+
+                    {% for error in form.price.errors %}
+                        <div class="management-field-error">
+                            {{ error }}
+                        </div>
+                    {% endfor %}
+
+                </div>
+
+
+                <div class="management-field management-field-full">
+
+                    <label for="{{ form.short_description.id_for_label }}">
+                        Description courte
+                    </label>
+
+                    {{ form.short_description }}
+
+                    {% for error in form.short_description.errors %}
+                        <div class="management-field-error">
+                            {{ error }}
+                        </div>
+                    {% endfor %}
+
+                </div>
+
+
+                <div class="management-field management-field-full">
+
+                    <label for="{{ form.description.id_for_label }}">
+                        Description complète
+                    </label>
+
+                    {{ form.description }}
+
+                    {% for error in form.description.errors %}
+                        <div class="management-field-error">
+                            {{ error }}
+                        </div>
+                    {% endfor %}
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ==================================================
+             IMAGE
+        ================================================== -->
+
+        <section class="management-form-card">
+
+            <div class="management-form-card-header">
+
+                <span class="management-section-kicker">
+                    Visuel
+                </span>
+
+                <h3>
+                    Photo du plat
+                </h3>
+
+            </div>
+
+
+            <div class="management-image-field-layout">
+
+                {% if dish and dish.image %}
+
+                    <div class="management-current-image">
+
+                        <img
+                            src="{{ dish.image.url }}"
+                            alt="{{ dish.name }}"
+                        >
+
+                    </div>
+
+                {% endif %}
+
+
+                <div class="management-field">
+
+                    <label for="{{ form.image.id_for_label }}">
+                        Image
+                    </label>
+
+                    {{ form.image }}
+
+                    {% if dish and dish.image %}
+
+                        <small class="management-field-help">
+                            Laissez ce champ inchangé pour conserver
+                            l’image actuelle.
+                        </small>
+
+                    {% endif %}
+
+                    {% for error in form.image.errors %}
+                        <div class="management-field-error">
+                            {{ error }}
+                        </div>
+                    {% endfor %}
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ==================================================
+             ALLERGENS
+        ================================================== -->
+
+        <section class="management-form-card">
+
+            <div class="management-form-card-header">
+
+                <span class="management-section-kicker">
+                    Informations alimentaires
+                </span>
+
+                <h3>
+                    Allergènes
+                </h3>
+
+                <p>
+                    Sélectionnez tous les allergènes
+                    présents dans ce plat.
+                </p>
+
+            </div>
+
+
+            <div class="management-field">
+
+                {{ form.allergens }}
+
+                {% for error in form.allergens.errors %}
+                    <div class="management-field-error">
+                        {{ error }}
+                    </div>
+                {% endfor %}
+
+            </div>
+
+        </section>
+
+
+        <!-- ==================================================
+             AVAILABILITY
+        ================================================== -->
+
+        <section class="management-form-card">
+
+            <div class="management-form-card-header">
+
+                <span class="management-section-kicker">
+                    Publication
+                </span>
+
+                <h3>
+                    Disponibilité & mise en avant
+                </h3>
+
+            </div>
+
+
+            <div class="management-switch-grid">
+
+                <label class="management-switch-card">
+
+                    {{ form.is_available }}
+
+                    <span>
+
+                        <strong>
+                            Disponible
+                        </strong>
+
+                        <small>
+                            Le plat peut être commandé.
+                        </small>
+
+                    </span>
+
+                </label>
+
+
+                <label class="management-switch-card">
+
+                    {{ form.is_delivery_available }}
+
+                    <span>
+
+                        <strong>
+                            Disponible en livraison
+                        </strong>
+
+                        <small>
+                            Autoriser ce plat pour les commandes livrées.
+                        </small>
+
+                    </span>
+
+                </label>
+
+
+                <label class="management-switch-card">
+
+                    {{ form.is_featured }}
+
+                    <span>
+
+                        <strong>
+                            Mettre à la une
+                        </strong>
+
+                        <small>
+                            Mettre davantage ce plat en avant.
+                        </small>
+
+                    </span>
+
+                </label>
+
+
+                <label class="management-switch-card">
+
+                    {{ form.is_today_special }}
+
+                    <span>
+
+                        <strong>
+                            Ancien plat du jour
+                        </strong>
+
+                        <small>
+                            Champ historique. Le module « Plat du jour »
+                            reste la méthode recommandée.
+                        </small>
+
+                    </span>
+
+                </label>
+
+            </div>
+
+
+            <div class="management-field management-order-field">
+
+                <label for="{{ form.display_order.id_for_label }}">
+                    Ordre d’affichage
+                </label>
+
+                {{ form.display_order }}
+
+                <small class="management-field-help">
+                    Les valeurs les plus petites
+                    apparaissent en premier.
+                </small>
+
+            </div>
+
+        </section>
+
+
+        <!-- ==================================================
+             FORM ERRORS
+        ================================================== -->
+
+        {% if form.non_field_errors %}
+
+            <div class="management-form-errors">
+
+                {% for error in form.non_field_errors %}
+                    <p>{{ error }}</p>
+                {% endfor %}
+
+            </div>
+
+        {% endif %}
+
+
+        <!-- ==================================================
+             ACTIONS
+        ================================================== -->
+
+        <div class="management-form-actions">
+
+            <a
+                href="{% url 'management:dishes_list' %}"
+                class="btn management-btn-secondary"
+            >
+                Annuler
+            </a>
+
+
+            <button
+                type="submit"
+                class="btn management-btn-primary"
+            >
+
+                <i class="fa-solid fa-floppy-disk"></i>
+
+                {% if dish %}
+                    Enregistrer les modifications
+                {% else %}
+                    Ajouter le plat
+                {% endif %}
+
+            </button>
+
+        </div>
+
+    </form>
+
+</section>
+
+{% endblock %}

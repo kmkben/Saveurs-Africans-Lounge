@@ -1,0 +1,372 @@
+{% extends "management/manage_base.html" %}
+
+
+{% block title %}
+Commandes | Gestion
+{% endblock %}
+
+
+{% block management_page_title %}
+Commandes
+{% endblock %}
+
+
+{% block management_content %}
+
+<section class="management-page">
+
+
+    <!-- ==================================================
+         PAGE HEADER
+    ================================================== -->
+
+    <div class="management-page-header">
+
+        <div>
+
+            <span class="management-section-kicker">
+                Activité
+            </span>
+
+            <h2>
+                Commandes
+            </h2>
+
+            <p>
+                Consultez et suivez les commandes
+                à emporter et en livraison.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <!-- ==================================================
+         FILTERS
+    ================================================== -->
+
+    <div class="management-filter-card">
+
+        <form
+            method="get"
+            class="management-filter-form"
+        >
+
+            <div class="management-filter-field">
+
+                <label for="status">
+                    Statut
+                </label>
+
+                <select
+                    name="status"
+                    id="status"
+                    class="form-select"
+                >
+
+                    <option value="">
+                        Tous les statuts
+                    </option>
+
+                    {% for value, label in status_choices %}
+
+                        <option
+                            value="{{ value }}"
+                            {% if selected_status == value %}
+                                selected
+                            {% endif %}
+                        >
+                            {{ label }}
+                        </option>
+
+                    {% endfor %}
+
+                </select>
+
+            </div>
+
+
+            <div class="management-filter-field">
+
+                <label for="type">
+                    Type de commande
+                </label>
+
+                <select
+                    name="type"
+                    id="type"
+                    class="form-select"
+                >
+
+                    <option value="">
+                        Tous les types
+                    </option>
+
+                    {% for value, label in order_type_choices %}
+
+                        <option
+                            value="{{ value }}"
+                            {% if selected_type == value %}
+                                selected
+                            {% endif %}
+                        >
+                            {{ label }}
+                        </option>
+
+                    {% endfor %}
+
+                </select>
+
+            </div>
+
+
+            <div class="management-filter-actions">
+
+                <button
+                    type="submit"
+                    class="btn management-btn-primary"
+                >
+                    <i class="fa-solid fa-filter"></i>
+
+                    Filtrer
+                </button>
+
+
+                {% if selected_status or selected_type %}
+
+                    <a
+                        href="{% url 'management:orders_list' %}"
+                        class="btn management-btn-secondary"
+                    >
+                        Réinitialiser
+                    </a>
+
+                {% endif %}
+
+            </div>
+
+        </form>
+
+    </div>
+
+
+    <!-- ==================================================
+         ORDERS
+    ================================================== -->
+
+    <div class="management-table-card">
+
+        {% if orders %}
+
+            <div class="management-table-responsive">
+
+                <table class="management-table">
+
+                    <thead>
+
+                        <tr>
+
+                            <th>
+                                Commande
+                            </th>
+
+                            <th>
+                                Client
+                            </th>
+
+                            <th>
+                                Type
+                            </th>
+
+                            <th>
+                                Total
+                            </th>
+
+                            <th>
+                                Paiement
+                            </th>
+
+                            <th>
+                                Statut
+                            </th>
+
+                            <th>
+                                Date
+                            </th>
+
+                            <th class="management-table-actions-heading">
+                                Action
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody>
+
+                        {% for order in orders %}
+
+                            <tr>
+
+                                <td>
+
+                                    <strong class="management-table-primary">
+                                        #{{ order.pk }}
+                                    </strong>
+
+                                </td>
+
+
+                                <td>
+
+                                    <div class="management-table-person">
+
+                                        <strong>
+                                            {{ order.customer_name }}
+                                        </strong>
+
+                                        <small>
+                                            {{ order.phone }}
+                                        </small>
+
+                                    </div>
+
+                                </td>
+
+
+                                <td>
+
+                                    <span class="management-badge">
+
+                                        {% if order.order_type == "DELIVERY" %}
+
+                                            <i class="fa-solid fa-truck"></i>
+
+                                        {% else %}
+
+                                            <i class="fa-solid fa-bag-shopping"></i>
+
+                                        {% endif %}
+
+                                        {{ order.get_order_type_display }}
+
+                                    </span>
+
+                                </td>
+
+
+                                <td>
+
+                                    <strong>
+                                        {{ order.total|floatformat:2 }} €
+                                    </strong>
+
+                                </td>
+
+
+                                <td>
+
+                                    {% if order.payment_status == "PAID" %}
+
+                                        <span class="management-badge management-badge-success">
+                                            Payée
+                                        </span>
+
+                                    {% elif order.payment_status == "FAILED" %}
+
+                                        <span class="management-badge management-badge-danger">
+                                            Échouée
+                                        </span>
+
+                                    {% elif order.payment_status == "REFUNDED" %}
+
+                                        <span class="management-badge management-badge-neutral">
+                                            Remboursée
+                                        </span>
+
+                                    {% else %}
+
+                                        <span class="management-badge management-badge-warning">
+                                            En attente
+                                        </span>
+
+                                    {% endif %}
+
+                                </td>
+
+
+                                <td>
+
+                                    <span class="management-badge management-badge-status">
+                                        {{ order.get_status_display }}
+                                    </span>
+
+                                </td>
+
+
+                                <td>
+
+                                    <div class="management-table-date">
+
+                                        <strong>
+                                            {{ order.created_at|date:"d/m/Y" }}
+                                        </strong>
+
+                                        <small>
+                                            {{ order.created_at|date:"H:i" }}
+                                        </small>
+
+                                    </div>
+
+                                </td>
+
+
+                                <td class="management-table-actions">
+
+                                    <a
+                                        href="{% url 'management:order_detail' order.pk %}"
+                                        class="management-icon-button"
+                                        title="Voir la commande"
+                                        aria-label="Voir la commande"
+                                    >
+                                        <i class="fa-solid fa-eye"></i>
+                                    </a>
+
+                                </td>
+
+                            </tr>
+
+                        {% endfor %}
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        {% else %}
+
+            <div class="management-empty-state">
+
+                <i class="fa-solid fa-bag-shopping"></i>
+
+                <h4>
+                    Aucune commande
+                </h4>
+
+                <p>
+                    Aucune commande ne correspond
+                    aux critères sélectionnés.
+                </p>
+
+            </div>
+
+        {% endif %}
+
+    </div>
+
+</section>
+
+{% endblock %}
