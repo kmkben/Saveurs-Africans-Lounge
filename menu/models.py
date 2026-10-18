@@ -199,6 +199,24 @@ class Dish(models.Model):
         verbose_name="Mis en avant",
         help_text="Le plat pourra apparaître dans les sélections du site.",
     )
+    
+    is_new = models.BooleanField(
+        default=False,
+        verbose_name="Nouveauté",
+        help_text="Mettre en avant ce produit dans les nouveautés.",
+    )
+
+    new_from = models.DateField(
+        blank=True,
+        null=True,
+        verbose_name="Nouveauté à partir du",
+    )
+
+    new_until = models.DateField(
+        blank=True,
+        null=True,
+        verbose_name="Nouveauté jusqu'au",
+    )
 
     is_today_special = models.BooleanField(
         default=False,

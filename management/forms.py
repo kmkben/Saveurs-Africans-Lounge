@@ -90,10 +90,7 @@ class ManagementFormMixin:
 # DISH
 # ============================================================
 
-class DishManagementForm(
-    ManagementFormMixin,
-    forms.ModelForm,
-):
+class DishManagementForm(ManagementFormMixin, forms.ModelForm):
 
     class Meta:
         model = Dish
@@ -111,6 +108,9 @@ class DishManagementForm(
             "is_featured",
             "is_today_special",
             "display_order",
+            "is_new",
+            "new_from",
+            "new_until",
         ]
 
         widgets = {
@@ -146,12 +146,23 @@ class DishManagementForm(
             ),
 
             "allergens": forms.CheckboxSelectMultiple(),
+            
+            "new_from": forms.DateInput(
+                attrs={"type": "date"},
+                format="%Y-%m-%d",
+            ),
+
+            "new_until": forms.DateInput(
+                attrs={"type": "date"},
+                format="%Y-%m-%d",
+            ),
 
             "display_order": forms.NumberInput(
                 attrs={
                     "min": "0",
                 }
             ),
+            
         }
 
     def __init__(self, *args, **kwargs):
@@ -177,6 +188,9 @@ class DishManagementForm(
                 "name",
             )
         )
+        
+        self.fields["new_from"].input_formats = ["%Y-%m-%d"]
+        self.fields["new_until"].input_formats = ["%Y-%m-%d"]
 
 
 # ============================================================
