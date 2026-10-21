@@ -7067,3 +7067,198 @@ p {
 [data-bs-theme="dark"] .confirmation-sms-notice > i {
     color: var(--sal-gold);
 }
+
+
+
+
+/* =========================================
+   HOME — NOUVEAUTÉS
+========================================= */
+
+.home-novelties {
+    position: relative;
+    padding: 100px 0;
+    background: var(--sal-light);
+}
+
+.home-novelties .container {
+    max-width: 1200px;
+    padding-left: 24px;
+    padding-right: 24px;
+}
+
+.home-novelties-heading {
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.home-novelties-heading p {
+    max-width: 560px;
+}
+
+/* Card */
+
+.home-novelty-card {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    border-radius: 20px;
+    background: var(--bs-body-bg);
+    border: 1px solid var(--sal-border-color);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.07);
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+.home-novelty-card:hover {
+    transform: translateY(-7px);
+    box-shadow: 0 18px 45px rgba(0, 0, 0, 0.14);
+}
+
+/* Image */
+
+.home-novelty-image-link {
+    position: relative;
+    display: block;
+    height: 270px;
+    overflow: hidden;
+    background: var(--sal-charcoal-soft);
+}
+
+.home-novelty-image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center;
+    transition: transform 0.5s ease;
+}
+
+.home-novelty-card:hover .home-novelty-image {
+    transform: scale(1.06);
+}
+
+.home-novelty-placeholder {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 4rem;
+    color: var(--sal-green);
+}
+
+/* Badge */
+
+.home-novelty-badge {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 8px 15px;
+    border-radius: 30px;
+    background: var(--sal-green);
+    color: #fff;
+    font-size: 0.78rem;
+    font-weight: 700;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.18);
+}
+
+/* Content */
+
+.home-novelty-content {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    padding: 25px;
+}
+
+.home-novelty-category {
+    color: var(--sal-green);
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+}
+
+.home-novelty-title {
+    color: var(--sal-heading-color);
+    font-size: 1.35rem;
+    font-weight: 800;
+    margin-bottom: 12px;
+}
+
+.home-novelty-description {
+    color: var(--sal-muted-color);
+    font-size: 0.94rem;
+    line-height: 1.7;
+    margin-bottom: 24px;
+}
+
+.home-novelty-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-top: auto;
+}
+
+.home-novelty-price {
+    color: var(--sal-heading-color);
+    font-size: 1.3rem;
+    font-weight: 800;
+}
+
+.home-novelty-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 11px 17px;
+    border-radius: 30px;
+    background: var(--sal-green);
+    color: #fff;
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 700;
+    transition: background 0.2s ease;
+}
+
+.home-novelty-button:hover {
+    background: var(--sal-charcoal-soft);
+    color: #fff;
+}
+
+/* Dark theme */
+
+[data-bs-theme="dark"] .home-novelties {
+    background: var(--bs-body-bg);
+}
+
+[data-bs-theme="dark"] .home-novelty-card {
+    background: var(--bs-secondary-bg);
+}
+
+/* Mobile */
+
+@media (max-width: 767.98px) {
+    .home-novelties {
+        padding: 65px 0;
+    }
+
+    .home-novelties .container {
+        padding-left: 18px;
+        padding-right: 18px;
+    }
+
+    .home-novelty-image-link {
+        height: 240px;
+    }
+
+    .home-novelty-content {
+        padding: 20px;
+    }
+}

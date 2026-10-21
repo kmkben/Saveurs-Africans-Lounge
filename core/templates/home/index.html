@@ -104,13 +104,16 @@
     </section>
 
 
+
+
+    
+    
+
+
     <!-- =========================
          Restaurant introduction
     ========================== -->
-    <section
-        id="restaurant"
-        class="sal-section"
-    >
+    <section id="restaurant" class="sal-section" >
         <div class="sal-shell">
             <div class="row align-items-center g-5">
 
@@ -210,6 +213,97 @@
             </div>
         </div>
     </section>
+
+
+    {% if novelties %}
+    <section id="nouveautes" class="sal-section home-novelties">
+        <div class="container">
+    
+            <div class="home-novelties-heading text-center mb-5"
+                 data-aos="fade-up">
+    
+                <span class="sal-kicker">
+                    <i class="bi bi-stars me-2"></i>
+                    À découvrir
+                </span>
+    
+                <h2 class="sal-title display-5 mt-3 mb-3">
+                    Nos nouveautés
+                </h2>
+    
+                <p class="sal-muted mx-auto">
+                    De nouvelles saveurs, des créations maison
+                    et des surprises à découvrir.
+                </p>
+            </div>
+    
+            <div class="row g-4 justify-content-center">
+                {% for dish in novelties %}
+    
+                <div class="col-12 col-sm-6 col-lg-4"
+                     data-aos="fade-up">
+    
+                    <article class="home-novelty-card h-100">
+    
+                        <a href="{{ dish.get_absolute_url }}"
+                           class="home-novelty-image-link">
+    
+                            {% if dish.image %}
+                            <img
+                                src="{{ dish.image.url }}"
+                                alt="{{ dish.name }}"
+                                class="home-novelty-image"
+                                loading="lazy"
+                            >
+                            {% else %}
+                            <div class="home-novelty-placeholder">
+                                <i class="bi bi-cup-straw"></i>
+                            </div>
+                            {% endif %}
+    
+                            <span class="home-novelty-badge">
+                                <i class="bi bi-stars"></i>
+                                Nouveau
+                            </span>
+                        </a>
+    
+                        <div class="home-novelty-content">
+    
+                            <span class="home-novelty-category">
+                                {{ dish.category.name }}
+                            </span>
+    
+                            <h3 class="home-novelty-title">
+                                {{ dish.name }}
+                            </h3>
+    
+                            <p class="home-novelty-description">
+                                {{ dish.short_description|default:dish.description|truncatechars:110 }}
+                            </p>
+    
+                            <div class="home-novelty-footer">
+                                <span class="home-novelty-price">
+                                    {{ dish.price|floatformat:2 }} €
+                                </span>
+    
+                                <a href="{{ dish.get_absolute_url }}"
+                                   class="home-novelty-button">
+                                    Découvrir
+                                    <i class="bi bi-arrow-up-right"></i>
+                                </a>
+                            </div>
+    
+                        </div>
+                    </article>
+    
+                </div>
+    
+                {% endfor %}
+            </div>
+    
+        </div>
+    </section>
+    {% endif %}
 
 
     <!-- =========================

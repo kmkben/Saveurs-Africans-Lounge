@@ -398,6 +398,37 @@
 
                 </label>
 
+                <label class="management-switch-card">
+                    {{ form.is_new }}
+                
+                    <span>
+                        <strong>Nouveauté</strong>
+                        <small>
+                            Mettre ce produit en avant dans les nouveautés.
+                        </small>
+                    </span>
+                </label>
+
+            </div>
+
+            <div class="management-form-grid mt-4">
+
+                <div class="management-field">
+                    <label for="{{ form.new_from.id_for_label }}">
+                        Début de publication
+                    </label>
+                    {{ form.new_from }}
+                    {{ form.new_from.errors }}
+                </div>
+            
+                <div class="management-field">
+                    <label for="{{ form.new_until.id_for_label }}">
+                        Fin de publication
+                    </label>
+                    {{ form.new_until }}
+                    {{ form.new_until.errors }}
+                </div>
+            
             </div>
 
 

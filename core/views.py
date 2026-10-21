@@ -1,7 +1,16 @@
+
 from django.shortcuts import render
 
-# Create your views here.
+from menu.selectors import get_active_novelties
 
 
 def home(request):
-    return render(request, "home/index.html")
+    novelties = get_active_novelties()[:6]
+
+    return render(
+        request,
+        "home/index.html",
+        {
+            "novelties": novelties,
+        },
+    )

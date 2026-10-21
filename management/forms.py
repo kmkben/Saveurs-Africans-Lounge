@@ -192,6 +192,22 @@ class DishManagementForm(ManagementFormMixin, forms.ModelForm):
         self.fields["new_from"].input_formats = ["%Y-%m-%d"]
         self.fields["new_until"].input_formats = ["%Y-%m-%d"]
 
+    
+    
+    def clean(self):
+        cleaned_data = super().clean()
+
+        start = cleaned_data.get("new_from")
+        end = cleaned_data.get("new_until")
+
+        if start and end and end < start:
+            self.add_error(
+                "new_until",
+                "La date de fin doit être postérieure à la date de début.",
+            )
+
+        return cleaned_data
+
 
 # ============================================================
 # MENU CATEGORY
