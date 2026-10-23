@@ -31,25 +31,20 @@ Découvrez {{ dish.name }} sur la carte de Saveurs Africans Lounge à Voiron.
                 <div class="dish-detail-image">
 
                     {% if dish.image %}
-                        <img
-                            src="{{ dish.image.url }}"
-                            alt="{{ dish.name }}"
-                        >
+                        <img src="{{ dish.image.url }}" alt="{{ dish.name }}" >
                     {% else %}
                         <div class="dish-detail-placeholder">
                             <i class="fa-solid fa-utensils"></i>
                         </div>
                     {% endif %}
 
+                    
                     {% if dish.is_today_special %}
-                        <span class="dish-detail-badge">
-                            Plat du jour
-                        </span>
+                        <span class="dish-detail-badge">Plat du jour</span>
                     {% elif dish.is_featured %}
-                        <span class="dish-detail-badge">
-                            Sélection de la maison
-                        </span>
+                        <span class="dish-detail-badge">Sélection de la maison</span>
                     {% endif %}
+
 
                 </div>
             </div>
@@ -67,6 +62,60 @@ Découvrez {{ dish.name }} sur la carte de Saveurs Africans Lounge à Voiron.
                     <div class="dish-detail-price">
                         {{ dish.price|floatformat:2 }} €
                     </div>
+
+                    {% if dish.is_active_novelty or dish.has_active_promotion %}
+                        <div class="menu-marketing-badges menu-marketing-detail-badges">
+                            {% if dish.is_active_novelty %}
+                                <span class="menu-marketing-badge menu-marketing-badge-new">
+                                    <i class="fa-solid fa-sparkles"></i> Nouveau
+                                </span>
+                            {% endif %}
+
+                            {% if dish.has_active_promotion %}
+                                <span class="menu-marketing-badge menu-marketing-badge-promo">
+                                    <i class="fa-solid fa-gift"></i> Offre spéciale
+                                </span>
+                            {% endif %}
+                        </div>
+                    {% endif %}
+
+                    {% if dish.active_promotions %}
+                        <div class="menu-marketing-detail-offers">
+                            {% for promotion in dish.active_promotions %}
+                                <article class="menu-marketing-detail-offer">
+                                    <div class="menu-marketing-detail-offer-icon">
+                                        <i class="fa-solid fa-gift"></i>
+                                    </div>
+
+                                    <div>
+                                        <h2>{{ promotion.title }}</h2>
+
+                                        {% if promotion.description %}
+                                            <p>{{ promotion.description|linebreaksbr }}</p>
+                                        {% endif %}
+
+                                        <p class="menu-marketing-detail-condition">
+                                            <i class="fa-regular fa-calendar"></i>
+                                            Offre valable jusqu'au {{ promotion.ends_on|date:"d/m/Y" }}.
+                                        </p>
+
+                                        {% if promotion.minimum_subtotal > 0 %}
+                                            <p class="menu-marketing-detail-condition">
+                                                <i class="fa-solid fa-basket-shopping"></i>
+                                                Commande minimum : {{ promotion.minimum_subtotal|floatformat:2 }} €.
+                                            </p>
+                                        {% endif %}
+
+                                        <p class="menu-marketing-detail-condition">
+                                            <i class="fa-solid fa-circle-info"></i>
+                                            Un cadeau au choix par commande éligible, sous réserve de disponibilité.
+                                        </p>
+                                    </div>
+                                </article>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+
 
                     {% if dish.short_description %}
                         <p class="dish-detail-intro">
@@ -102,7 +151,7 @@ Découvrez {{ dish.name }} sur la carte de Saveurs Africans Lounge à Voiron.
                                 <div>
                                     <strong>Livraison disponible</strong>
                                     <span>
-                                        Ce plat peut être commandé à domicile
+                                        Possibilité de commander à domicile
                                     </span>
                                 </div>
                             </div>
@@ -115,7 +164,7 @@ Découvrez {{ dish.name }} sur la carte de Saveurs Africans Lounge à Voiron.
                                 <div>
                                     <strong>Sur place uniquement</strong>
                                     <span>
-                                        Ce plat n’est pas proposé en livraison
+                                        Livraisonnon possible
                                     </span>
                                 </div>
                             </div>
@@ -163,11 +212,7 @@ Découvrez {{ dish.name }} sur la carte de Saveurs Africans Lounge à Voiron.
 
                         {% if dish.is_delivery_available %}
                     
-                            <form
-                                method="post"
-                                action="{% url 'orders:cart_add' dish.pk %}"
-                                class="dish-detail-cart-form"
-                            >
+                            <form method="post" action="{% url 'orders:cart_add' dish.pk %}" class="dish-detail-cart-form" >
                                 {% csrf_token %}
                     
                                 <div class="dish-detail-cart-quantity">
@@ -176,22 +221,11 @@ Découvrez {{ dish.name }} sur la carte de Saveurs Africans Lounge à Voiron.
                                         Quantité
                                     </label>
                     
-                                    <input
-                                        id="quantity"
-                                        type="number"
-                                        name="quantity"
-                                        value="1"
-                                        min="1"
-                                        max="20"
-                                        class="form-control"
-                                    >
+                                    <input id="quantity" type="number" name="quantity" value="1" min="1" max="20" class="form-control" >
                     
                                 </div>
                     
-                                <button
-                                    type="submit"
-                                    class="btn btn-primary-custom"
-                                >
+                                <button type="submit" class="btn btn-primary-custom">
                                     <i class="fa-solid fa-basket-shopping"></i>
                                     Ajouter au panier
                                 </button>

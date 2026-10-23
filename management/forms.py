@@ -1,11 +1,14 @@
 from django import forms
 
+from django.utils import timezone
+
 from core.models import SiteSettings
 from daily_specials.models import DailySpecial
 from events.models import Event
 from gallery.models import GalleryAlbum, GalleryImage
 from menu.models import Allergen, Dish, MenuCategory
 from orders.models import DeliveryZone
+from promotions.models import Promotion
 
 
 # ============================================================
@@ -875,3 +878,93 @@ class SiteSettingsManagementForm(
         )
 
         self.apply_bootstrap_classes()
+        
+        
+        
+
+
+class PromotionManagementForm(forms.ModelForm):
+    class Meta:
+        model = Promotion
+
+        fields = [
+            "title",
+            "description",
+            "image",
+            "starts_on",
+            "ends_on",
+            "minimum_subtotal",
+            "eligible_dishes",
+            "gift_dishes",
+            "is_active",
+        ]
+
+        widgets = {
+            "description": forms.Textarea(
+                attrs={"rows": 3}
+            ),
+            "starts_on": forms.DateInput(
+                format="%Y-%m-%d",
+                attrs={"type": "date"},
+            ),
+            "ends_on": forms.DateInput(
+                format="%Y-%m-%d",
+                attrs={"type": "date"},
+            ),
+            "eligible_dishes": forms.SelectMultiple(
+                attrs={"size": 8}
+            ),
+            "gift_dishes": forms.SelectMultiple(
+                attrs={"size": 8}
+            ),
+        }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        for name in ("starts_on", "ends_on"):
+            self.fields[name].input_formats = ["%Y-%m-%d"]
+
+        self.fields["eligible_dishes"].required = False
+
+        self.fields["eligible_dishes"].queryset = (
+            Dish.objects
+            .select_related("category")
+            .order_by("category__display_order", "name")
+        )
+
+        self.fields["gift_dishes"].queryset = (
+            Dish.objects
+            .select_related("category")
+            .order_by("category__display_order", "name")
+        )
+
+        for name, field in self.fields.items():
+            if name == "is_active":
+                field.widget.attrs["class"] = "form-check-input"
+            elif name == "image":
+                field.widget.attrs["class"] = "form-control"
+            else:
+                field.widget.attrs["class"] = "form-control"
+
+    def clean(self):
+        cleaned_data = super().clean()
+
+        start = cleaned_data.get("starts_on")
+        end = cleaned_data.get("ends_on")
+
+        if start and end and end < start:
+            self.add_error(
+                "ends_on",
+                "La date de fin doit être postérieure à la date de début.",
+            )
+
+        gifts = cleaned_data.get("gift_dishes")
+
+        if gifts is not None and not gifts.exists():
+            self.add_error(
+                "gift_dishes",
+                "Sélectionnez au moins un cadeau.",
+            )
+
+        return cleaned_data

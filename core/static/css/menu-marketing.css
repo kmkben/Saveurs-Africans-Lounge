@@ -1,0 +1,287 @@
+
+/* ==========================================
+   SAL — MENU MARKETING
+   Promotions and novelties
+========================================== */
+
+
+/* ==========================================
+   SAL — MENU CARD CONTRAST FIX
+========================================== */
+
+.menu-dish-card,
+.menu-special-card {
+    background-color: var(--bs-body-bg);
+    color: var(--bs-body-color);
+}
+
+.menu-dish-card .menu-dish-heading h3,
+.menu-special-card .menu-dish-heading h3,
+.menu-dish-card .menu-dish-heading h3 a,
+.menu-special-card .menu-dish-heading h3 a {
+    color: var(--sal-heading-color, var(--bs-heading-color)) !important;
+}
+
+.menu-dish-card .menu-dish-description,
+.menu-special-card .menu-special-content > p {
+    color: var(--sal-muted-color, var(--bs-secondary-color));
+}
+
+.menu-dish-card .menu-detail-link,
+.menu-special-card .menu-detail-link {
+    color: var(--sal-heading-color, var(--bs-heading-color));
+}
+
+.menu-dish-card .menu-dish-price,
+.menu-special-card .menu-dish-price {
+    color: var(--sal-green, #20784e);
+}
+
+/* Current offers */
+
+.menu-marketing-section {
+    padding: 48px 0 20px;
+}
+
+.menu-marketing-heading {
+    margin-bottom: 24px;
+}
+
+.menu-marketing-heading h2 {
+    margin: 10px 0 8px;
+    color: var(--sal-heading-color, var(--bs-heading-color));
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    font-weight: 800;
+}
+
+.menu-marketing-heading p {
+    margin: 0;
+    color: var(--sal-muted-color, var(--bs-secondary-color));
+}
+
+.menu-marketing-offers {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr));
+    gap: 18px;
+}
+
+.menu-marketing-offer {
+    display: grid;
+    grid-template-columns: 155px minmax(0, 1fr);
+    overflow: hidden;
+    border: 1px solid var(--sal-border-color, var(--bs-border-color));
+    border-radius: 18px;
+    background: var(--bs-body-bg);
+    box-shadow: var(--sal-shadow, 0 6px 24px rgba(0, 0, 0, .06));
+}
+
+.menu-marketing-offer-image {
+    min-height: 210px;
+    background: rgba(30, 120, 75, .08);
+}
+
+.menu-marketing-offer-image img,
+.menu-marketing-offer-placeholder {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.menu-marketing-offer-placeholder {
+    display: grid;
+    place-items: center;
+    min-height: 210px;
+    color: var(--sal-green, #20784e);
+    font-size: 2.5rem;
+}
+
+.menu-marketing-offer-content {
+    padding: 22px;
+    min-width: 0;
+}
+
+.menu-marketing-offer-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--sal-green, #20784e);
+    font-size: .75rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: .05em;
+}
+
+.menu-marketing-offer-content h3 {
+    margin: 10px 0;
+    color: var(--sal-heading-color, var(--bs-heading-color));
+    font-size: 1.15rem;
+    font-weight: 800;
+    line-height: 1.35;
+}
+
+.menu-marketing-offer-content > p {
+    color: var(--sal-muted-color, var(--bs-secondary-color));
+    font-size: .88rem;
+    line-height: 1.6;
+}
+
+.menu-marketing-offer-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 16px;
+    margin: 14px 0;
+    color: var(--bs-body-color);
+    font-size: .8rem;
+}
+
+.menu-marketing-offer-meta span {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+}
+
+.menu-marketing-offer-note {
+    font-size: .78rem !important;
+}
+
+.menu-marketing-offer-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    margin-top: 4px;
+    color: var(--sal-green, #20784e);
+    font-size: .85rem;
+    font-weight: 800;
+    text-decoration: none;
+}
+
+.menu-marketing-offer-link:hover {
+    text-decoration: underline;
+}
+
+/* Product badges */
+
+.menu-marketing-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+    padding: 13px 18px 0;
+}
+
+.menu-marketing-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 10px;
+    border-radius: 999px;
+    font-size: .72rem;
+    font-weight: 800;
+    line-height: 1.3;
+}
+
+.menu-marketing-badge-new {
+    background: rgba(210, 146, 22, .14);
+    color: #a46a00;
+    border: 1px solid rgba(210, 146, 22, .28);
+}
+
+.menu-marketing-badge-promo {
+    background: rgba(28, 130, 77, .12);
+    color: var(--sal-green, #20784e);
+    border: 1px solid rgba(28, 130, 77, .26);
+}
+
+[data-bs-theme="dark"] .menu-marketing-badge-new {
+    color: #ffd17c;
+}
+
+[data-bs-theme="dark"] .menu-marketing-badge-promo {
+    color: #8de0aa;
+}
+
+/* Detail page */
+
+.menu-marketing-detail-badges {
+    padding: 0;
+    margin: 12px 0 20px;
+}
+
+.menu-marketing-detail-offers {
+    display: grid;
+    gap: 12px;
+    margin: 18px 0 25px;
+}
+
+.menu-marketing-detail-offer {
+    display: flex;
+    gap: 14px;
+    padding: 18px;
+    border: 1px solid rgba(28, 130, 77, .25);
+    border-radius: 14px;
+    background: rgba(28, 130, 77, .06);
+}
+
+.menu-marketing-detail-offer-icon {
+    display: grid;
+    place-items: center;
+    flex: 0 0 38px;
+    width: 38px;
+    height: 38px;
+    border-radius: 10px;
+    background: rgba(28, 130, 77, .13);
+    color: var(--sal-green, #20784e);
+}
+
+.menu-marketing-detail-offer h2 {
+    margin: 0 0 8px;
+    color: var(--sal-heading-color, var(--bs-heading-color));
+    font-size: 1rem;
+    font-weight: 800;
+}
+
+.menu-marketing-detail-offer p {
+    margin: 0 0 9px;
+    color: var(--bs-body-color);
+    font-size: .86rem;
+    line-height: 1.55;
+}
+
+.menu-marketing-detail-condition {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-size: .78rem !important;
+    color: var(--sal-muted-color, var(--bs-secondary-color)) !important;
+}
+
+.menu-marketing-detail-condition i {
+    margin-top: 3px;
+    color: var(--sal-green, #20784e);
+}
+
+/* Responsive */
+
+@media (max-width: 575.98px) {
+    .menu-marketing-section {
+        padding-top: 30px;
+    }
+
+    .menu-marketing-offer {
+        grid-template-columns: 1fr;
+    }
+
+    .menu-marketing-offer-image,
+    .menu-marketing-offer-placeholder {
+        height: 160px;
+        min-height: 160px;
+    }
+
+    .menu-marketing-offer-content {
+        padding: 18px;
+    }
+
+    .menu-marketing-badges {
+        padding: 12px 14px 0;
+    }
+}

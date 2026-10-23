@@ -129,10 +129,18 @@ Commande #{{ order.pk }}
 
                         <div class="management-order-item">
 
+                            
                             <div class="management-order-item-info">
 
                                 <strong>
                                     {{ item.dish_name }}
+
+                                    {% if item.is_promotional_gift %}
+                                        <span class="management-badge management-badge-success ms-2">
+                                            <i class="fa-solid fa-gift"></i>
+                                            OFFERT
+                                        </span>
+                                    {% endif %}
                                 </strong>
 
                                 <span>
@@ -141,15 +149,21 @@ Commande #{{ order.pk }}
                                     {{ item.quantity }}
                                 </span>
 
-                                {% if item.note %}
+                                {% if item.is_promotional_gift and item.promotion_name %}
+                                    <small class="text-success">
+                                        <i class="fa-solid fa-tag me-1"></i>
+                                        {{ item.promotion_name }}
+                                    </small>
+                                {% endif %}
 
+                                {% if item.note %}
                                     <small>
                                         Note : {{ item.note }}
                                     </small>
-
                                 {% endif %}
 
                             </div>
+
 
 
                             <strong class="management-order-item-total">

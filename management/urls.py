@@ -12,97 +12,42 @@ urlpatterns = [
     # Authentication
     # ======================================================
 
-    path(
-        "connexion/",
-        views.management_login,
-        name="login",
-    ),
-
-    path(
-        "deconnexion/",
-        views.management_logout,
-        name="logout",
-    ),
+    path("connexion/", views.management_login, name="login"),
+    path("deconnexion/", views.management_logout, name="logout"),
 
 
     # ==================================================
     # DASHBOARD
     # ==================================================
 
-    path(
-        "",
-        views.dashboard,
-        name="dashboard",
-    ),
+    path("", views.dashboard, name="dashboard"),
 
 
     # ==================================================
     # ORDERS
     # ==================================================
 
-    path(
-        "commandes/",
-        views.orders_list,
-        name="orders_list",
-    ),
-
-    path(
-        "commandes/<int:order_id>/",
-        views.order_detail,
-        name="order_detail",
-    ),
-
-    path(
-        "commandes/<int:order_id>/statut/",
-        views.order_status_update,
-        name="order_status_update",
-    ),
+    path("commandes/", views.orders_list, name="orders_list"),
+    path("commandes/<int:order_id>/", views.order_detail, name="order_detail"),
+    path("commandes/<int:order_id>/statut/", views.order_status_update, name="order_status_update"),
 
 
     # ==================================================
     # RESERVATIONS
     # ==================================================
 
-    path(
-        "reservations/",
-        views.reservations_list,
-        name="reservations_list",
-    ),
-
-    path(
-        "reservations/<int:reservation_id>/",
-        views.reservation_detail,
-        name="reservation_detail",
-    ),
-
-    path(
-        "reservations/<int:reservation_id>/statut/",
-        views.reservation_status_update,
-        name="reservation_status_update",
-    ),
+    path("reservations/", views.reservations_list, name="reservations_list"),
+    path("reservations/<int:reservation_id>/", views.reservation_detail, name="reservation_detail"),
+    path("reservations/<int:reservation_id>/statut/", views.reservation_status_update, name="reservation_status_update"),
 
 
     # ==================================================
     # MENU - DISHES
     # ==================================================
 
-    path(
-        "carte/",
-        views.dishes_list,
-        name="dishes_list",
-    ),
-
-    path(
-        "carte/ajouter/",
-        views.dish_create,
-        name="dish_create",
-    ),
-
-    path(
-        "carte/<int:dish_id>/modifier/",
-        views.dish_update,
-        name="dish_update",
-    ),
+    path("carte/", views.dishes_list, name="dishes_list"),
+    path("carte/ajouter/", views.dish_create, name="dish_create"),
+    path("carte/<int:dish_id>/modifier/", views.dish_update, name="dish_update"),
 
     path(
         "carte/<int:dish_id>/supprimer/",
@@ -179,36 +124,24 @@ urlpatterns = [
     # DAILY SPECIALS
     # ==================================================
 
-    path(
-        "plats-du-jour/",
-        views.daily_specials_list,
-        name="daily_specials_list",
-    ),
+    path("plats-du-jour/",views.daily_specials_list, name="daily_specials_list"),
+    path("plats-du-jour/ajouter/", views.daily_special_create, name="daily_special_create"),
+    path("plats-du-jour/<int:special_id>/modifier/", views.daily_special_update, name="daily_special_update"),
+    path("plats-du-jour/<int:special_id>/supprimer/", views.daily_special_delete, name="daily_special_delete"),
+    path("plats-du-jour/<int:special_id>/publication/", views.daily_special_toggle_published, name="daily_special_toggle_published"),
+    
+    
+    
+    # ==================================================
+    # PROMOTIONS 
+    # ==================================================
 
-    path(
-        "plats-du-jour/ajouter/",
-        views.daily_special_create,
-        name="daily_special_create",
-    ),
+    path("promotions/", views.manage_promotions_list, name="promotions_list"),
+    path("promotions/create/", views.manage_promotion_create, name="promotion_create"),
+    path("promotions/<int:pk>/edit/", views.manage_promotion_update, name="promotion_update"),
+    path("promotions/<int:pk>/toggle/", views.manage_promotion_toggle, name="promotion_toggle"),
 
-    path(
-        "plats-du-jour/<int:special_id>/modifier/",
-        views.daily_special_update,
-        name="daily_special_update",
-    ),
-
-    path(
-        "plats-du-jour/<int:special_id>/supprimer/",
-        views.daily_special_delete,
-        name="daily_special_delete",
-    ),
-
-    path(
-        "plats-du-jour/<int:special_id>/publication/",
-        views.daily_special_toggle_published,
-        name="daily_special_toggle_published",
-    ),
-
+    
 
     # ==================================================
     # EVENTS

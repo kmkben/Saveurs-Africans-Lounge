@@ -5,6 +5,8 @@ from django.shortcuts import (
     redirect,
     render,
 )
+
+from decimal import Decimal
 from django.views.decorators.http import require_POST, require_GET
 from django.http import JsonResponse
 
@@ -13,6 +15,14 @@ from menu.models import Dish
 from .cart import Cart
 from .forms import CartAddDishForm, CheckoutForm
 from .models import OrderItem, DeliveryZone, Order
+
+
+from promotions.services import (
+    get_eligible_promotions,
+    get_selected_gift,
+    InvalidPromotionGift,
+)
+
 
 
 def cart_detail(request):
@@ -92,64 +102,139 @@ def cart_remove(request, dish_id):
     return redirect("orders:cart")
 
 
+
 @transaction.atomic
 def checkout(request):
     cart = Cart(request)
 
     if len(cart) == 0:
-        messages.info(
+        messages.info(request, "Votre panier est vide.")
+        return redirect("orders:cart")
+
+    # Refresh prices and validate all products before checkout.
+    cart_items = list(cart)
+
+    for item in cart_items:
+        dish = item["dish"]
+
+        if (
+            not dish.is_available
+            or not dish.category.is_active
+            or (
+                not dish.is_delivery_available
+                and request.method == "POST"
+                and request.POST.get("order_type") == Order.OrderType.DELIVERY
+            )
+        ):
+            messages.error(
+                request,
+                f"{dish.name} n'est plus disponible pour cette commande.",
+            )
+            return redirect("orders:cart")
+
+        # Session prices must not determine the actual charge.
+        cart.cart[str(dish.pk)]["price"] = str(dish.price)
+
+    if len(cart_items) != len(cart.cart):
+        messages.error(
             request,
-            "Votre panier est vide.",
+            "Certains produits du panier ne sont plus disponibles.",
         )
         return redirect("orders:cart")
 
+    cart.save()
+    cart_items = list(cart)
+
+    offers = get_eligible_promotions(cart)
+
+    # V1: one active campaign per order.
+    selected_offer = offers[0] if offers else None
+
     if request.method == "POST":
-        form = CheckoutForm(
-            request.POST,
-            cart=cart,
-        )
+        form = CheckoutForm(request.POST, cart=cart)
 
         if form.is_valid():
-            order = form.save(commit=False)
-            
-            order.payment_method = Order.PaymentMethod.ONLINE
-            order.payment_status = Order.PaymentStatus.PENDING
+            selected_promotion = None
+            selected_gift = None
 
-            if order.order_type == order.OrderType.PICKUP:
-                order.address = ""
-                order.address_complement = ""
-                order.postal_code = ""
-                order.city = ""
+            if selected_offer:
+                try:
+                    selected_promotion, selected_gift = get_selected_gift(
+                        cart=cart,
+                        promotion_id=request.POST.get("promotion_id"),
+                        gift_id=request.POST.get("gift_id"),
+                    )
 
-                order.delivery_zone = None
-                order.delivery_fee = 0
+                    if selected_promotion.pk != selected_offer["promotion"].pk:
+                        raise InvalidPromotionGift(
+                            "Cette promotion n'est plus disponible."
+                        )
 
-            else:
-                order.delivery_zone = form.delivery_zone
-                order.delivery_fee = form.delivery_fee
+                except InvalidPromotionGift as exc:
+                    form.add_error(None, str(exc))
 
-            order.save()
+            if not form.errors:
+                order = form.save(commit=False)
 
-            for item in cart:
-                OrderItem.objects.create(
-                    order=order,
-                    dish=item["dish"],
-                    dish_name=item["dish"].name,
-                    unit_price=item["price"],
-                    quantity=item["quantity"],
-                )
+                order.payment_method = Order.PaymentMethod.ONLINE
+                order.payment_status = Order.PaymentStatus.PENDING
 
-            request.session["pending_order_id"] = order.pk
+                if order.order_type == Order.OrderType.PICKUP:
+                    order.address = ""
+                    order.address_complement = ""
+                    order.postal_code = ""
+                    order.city = ""
+                    order.delivery_zone = None
+                    order.delivery_fee = Decimal("0.00")
+                else:
+                    order.delivery_zone = form.delivery_zone
+                    order.delivery_fee = form.delivery_fee
 
-            return redirect(
-                "orders:payment",
-                order_id=order.pk,
-            )
+                # Revalidate delivery availability using cleaned form data.
+                if (
+                    order.order_type == Order.OrderType.DELIVERY
+                    and any(
+                        not item["dish"].is_delivery_available
+                        for item in cart_items
+                    )
+                ):
+                    form.add_error(
+                        None,
+                        "Un produit du panier n'est pas livrable.",
+                    )
+                else:
+                    order.save()
+
+                    for item in cart_items:
+                        OrderItem.objects.create(
+                            order=order,
+                            dish=item["dish"],
+                            dish_name=item["dish"].name,
+                            unit_price=item["price"],
+                            quantity=item["quantity"],
+                        )
+
+                    if selected_gift:
+                        OrderItem.objects.create(
+                            order=order,
+                            dish=selected_gift,
+                            dish_name=selected_gift.name,
+                            unit_price=Decimal("0.00"),
+                            quantity=1,
+                            is_promotional_gift=True,
+                            promotion=selected_promotion,
+                            promotion_name=selected_promotion.title,
+                        )
+
+                    request.session["pending_order_id"] = order.pk
+
+                    return redirect(
+                        "orders:payment",
+                        order_id=order.pk,
+                    )
 
     else:
-        form = CheckoutForm(
-            cart=cart,
-        )
+        form = CheckoutForm(cart=cart)
 
     return render(
         request,
@@ -157,8 +242,10 @@ def checkout(request):
         {
             "cart": cart,
             "form": form,
+            "selected_offer": selected_offer,
         },
     )
+
 
 
 def order_success(request, order_id):

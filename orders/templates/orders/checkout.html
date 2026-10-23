@@ -27,11 +27,7 @@
 
                 <div class="checkout-card">
 
-                    <form
-                        method="post"
-                        id="checkout-form"
-                        novalidate
-                    >
+                    <form method="post" id="checkout-form" novalidate >
                         {% csrf_token %}
 
                         {% if form.non_field_errors %}
@@ -95,10 +91,7 @@
                                 </div>
 
                                 <div class="col-md-6">
-                                    <label
-                                        for="{{ form.phone.id_for_label }}"
-                                        class="form-label"
-                                    >
+                                    <label for="{{ form.phone.id_for_label }}" class="form-label" >
                                         {{ form.phone.label }}
                                     </label>
 
@@ -249,18 +242,58 @@
                                     Carte bancaire, Apple Pay,
                                     Google Pay et autres moyens
                                     compatibles seront proposés
-                                    à l’étape suivante.
+                                    à l'étape suivante.
                                 </span>
                             </div>
 
                         </div>
 
 
-                        <button
-                            type="submit"
-                            class="checkout-submit-btn"
-                            id="checkout-submit"
-                        >
+                        {% if selected_offer %}
+                        <div class="card border-success mb-4">
+                            <div class="card-body">
+
+                                <span class="badge bg-success mb-2">
+                                    <i class="bi bi-gift me-1"></i>
+                                    Cadeau offert
+                                </span>
+
+                                <h3 class="h5">
+                                    {{ selected_offer.promotion.title }}
+                                </h3>
+
+                                {% if selected_offer.promotion.description %}
+                                    <p class="sal-muted">
+                                        {{ selected_offer.promotion.description }}
+                                    </p>
+                                {% endif %}
+
+                                <input type="hidden" name="promotion_id" value="{{ selected_offer.promotion.pk }}" >
+
+                                <label for="gift_id" class="form-label fw-semibold">
+                                    Choisissez votre cadeau
+                                </label>
+
+                                <select id="gift_id" name="gift_id"  class="form-select" required >
+                                    <option value="">Choisir un cadeau</option>
+
+                                    {% for gift in selected_offer.gifts %}
+                                        <option value="{{ gift.pk }}" {% if request.POST.gift_id == gift.pk|stringformat:"s" %}selected{% endif %} >
+                                            {{ gift.name }} — Offert
+                                        </option>
+                                    {% endfor %}
+                                </select>
+
+                                <small class="sal-muted d-block mt-2">
+                                    Un cadeau offert par commande éligible.
+                                </small>
+
+                            </div>
+                        </div>
+                        {% endif %}
+
+
+                        <button type="submit" class="checkout-submit-btn" id="checkout-submit" >
                             Continuer vers le paiement
                             <i class="fa-solid fa-arrow-right"></i>
                         </button>

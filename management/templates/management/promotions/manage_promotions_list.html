@@ -1,0 +1,148 @@
+
+{% extends "management/manage_base.html" %}
+
+{% block title %}Promotions | Gestion{% endblock %}
+{% block management_page_title %}Promotions{% endblock %}
+
+{% block management_content %}
+<section class="management-page">
+
+    <div class="management-page-header management-page-header-actions">
+        <div>
+            <span class="management-section-kicker">
+                Restaurant
+            </span>
+
+            <h2>Promotions</h2>
+
+            <p>
+                Gérez les offres spéciales et les cadeaux
+                proposés à vos clients.
+            </p>
+        </div>
+
+        <a href="{% url 'management:promotion_create' %}"
+           class="btn management-btn-primary">
+            <i class="fa-solid fa-plus me-2"></i>
+            Nouvelle promotion
+        </a>
+    </div>
+
+    <div class="management-panel management-promotion-panel">
+
+        <div class="table-responsive">
+            <table class="management-promotion-table">
+
+                <thead>
+                    <tr>
+                        <th>Promotion</th>
+                        <th>Période</th>
+                        <th>Commande min.</th>
+                        <th>Publication</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% for promotion in promotions %}
+                    <tr>
+                        <td>
+                            <div class="management-promotion-info">
+
+                                {% if promotion.image %}
+                                <img
+                                    src="{{ promotion.image.url }}"
+                                    alt="{{ promotion.title }}"
+                                    class="management-promotion-thumbnail"
+                                >
+                                {% else %}
+                                <div class="management-promotion-placeholder">
+                                    <i class="fa-solid fa-gift"></i>
+                                </div>
+                                {% endif %}
+
+                                <div>
+                                    <strong>{{ promotion.title }}</strong>
+
+                                    {% if promotion.description %}
+                                    <small>
+                                        {{ promotion.description|truncatechars:65 }}
+                                    </small>
+                                    {% endif %}
+                                </div>
+
+                            </div>
+                        </td>
+
+                        <td>
+                            <span class="management-promotion-date">
+                                {{ promotion.starts_on|date:"d/m/Y" }}
+                                <br>
+                                {{ promotion.ends_on|date:"d/m/Y" }}
+                            </span>
+                        </td>
+
+                        <td>
+                            {{ promotion.minimum_subtotal|floatformat:2 }} €
+                        </td>
+
+                        <td>
+                            {% if promotion.is_active %}
+                            <span class="management-badge management-badge-success">
+                                Activée
+                            </span>
+                            {% else %}
+                            <span class="management-badge management-badge-neutral">
+                                Désactivée
+                            </span>
+                            {% endif %}
+                        </td>
+
+                        <td>
+                            <div class="management-promotion-actions">
+
+                                <a href="{% url 'management:promotion_update' promotion.pk %}"
+                                   class="management-promotion-action"
+                                   title="Modifier">
+                                    <i class="fa-solid fa-pen"></i>
+                                </a>
+
+                                <form method="post"
+                                      action="{% url 'management:promotion_toggle' promotion.pk %}">
+                                    {% csrf_token %}
+
+                                    <button
+                                        type="submit"
+                                        class="management-promotion-action"
+                                        title="{% if promotion.is_active %}Désactiver{% else %}Activer{% endif %}"
+                                    >
+                                        {% if promotion.is_active %}
+                                        <i class="fa-solid fa-eye-slash"></i>
+                                        {% else %}
+                                        <i class="fa-solid fa-eye"></i>
+                                        {% endif %}
+                                    </button>
+                                </form>
+
+                            </div>
+                        </td>
+                    </tr>
+
+                    {% empty %}
+                    <tr>
+                        <td colspan="5">
+                            <div class="management-empty-inline">
+                                <i class="fa-solid fa-gift"></i>
+                                Aucune promotion créée.
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+
+            </table>
+        </div>
+
+    </div>
+</section>
+{% endblock %}

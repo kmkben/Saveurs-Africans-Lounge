@@ -315,6 +315,28 @@ class OrderItem(models.Model):
         verbose_name="Instruction",
         help_text="Exemple : sans piment, sauce à part...",
     )
+    
+        
+    is_promotional_gift = models.BooleanField(
+        default=False,
+        verbose_name="Cadeau promotionnel",
+    )
+
+    promotion = models.ForeignKey(
+        "promotions.Promotion",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name="order_items",
+        verbose_name="Promotion",
+    )
+
+    promotion_name = models.CharField(
+        max_length=180,
+        blank=True,
+        verbose_name="Nom de la promotion",
+    )
+
 
     class Meta:
         verbose_name = "Article de commande"

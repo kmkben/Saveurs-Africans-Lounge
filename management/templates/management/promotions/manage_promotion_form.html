@@ -1,0 +1,295 @@
+
+{% extends "management/manage_base.html" %}
+
+{% block title %}{{ page_title }} | Gestion{% endblock %}
+{% block management_page_title %}{{ page_title }}{% endblock %}
+
+{% block management_content %}
+
+<section class="management-page management-promotion-page">
+
+    <div class="management-page-header management-page-header-actions">
+        <div>
+            <span class="management-section-kicker">
+                Restaurant / Promotions
+            </span>
+
+            <h2>{{ page_title }}</h2>
+
+            <p>
+                Configurez votre campagne, sa période de validité
+                et les cadeaux proposés aux clients.
+            </p>
+        </div>
+
+        <a href="{% url 'management:promotions_list' %}"
+           class="management-promotion-back">
+            <i class="fa-solid fa-arrow-left"></i>
+            Retour
+        </a>
+    </div>
+
+    <form method="post"
+          enctype="multipart/form-data"
+          class="management-promotion-form">
+
+        {% csrf_token %}
+
+        {% if form.non_field_errors %}
+        <div class="alert alert-danger">
+            {{ form.non_field_errors }}
+        </div>
+        {% endif %}
+
+        <div class="management-promotion-layout">
+
+            <div class="management-promotion-main">
+
+                <!-- PRESENTATION -->
+
+                <div class="management-promotion-form-card">
+
+                    <div class="management-promotion-card-heading">
+                        <span class="management-promotion-heading-icon">
+                            <i class="fa-solid fa-bullhorn"></i>
+                        </span>
+
+                        <div>
+                            <h3>Présentation de l'offre</h3>
+                            <p>
+                                Informations visibles par les clients.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="management-promotion-fields">
+
+                        <div class="management-promotion-field">
+                            <label for="{{ form.title.id_for_label }}">
+                                Titre de la promotion
+                                <span class="text-danger">*</span>
+                            </label>
+
+                            {{ form.title }}
+                            {{ form.title.errors }}
+                        </div>
+
+                        <div class="management-promotion-field">
+                            <label for="{{ form.description.id_for_label }}">
+                                Description
+                            </label>
+
+                            {{ form.description }}
+                            {{ form.description.errors }}
+                        </div>
+
+                        <div class="management-promotion-field">
+                            <label for="{{ form.image.id_for_label }}">
+                                Image de la promotion
+                            </label>
+
+                            {{ form.image }}
+                            {{ form.image.errors }}
+
+                            {% if promotion.image %}
+                            <div class="management-promotion-image-preview">
+                                <img
+                                    src="{{ promotion.image.url }}"
+                                    alt="{{ promotion.title }}"
+                                >
+                            </div>
+                            {% endif %}
+
+                            <small>
+                                Image utilisée pour annoncer l'offre
+                                sur le site.
+                            </small>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- PRODUCTS -->
+
+                <div class="management-promotion-form-card">
+
+                    <div class="management-promotion-card-heading">
+                        <span class="management-promotion-heading-icon">
+                            <i class="fa-solid fa-utensils"></i>
+                        </span>
+
+                        <div>
+                            <h3>Produits et cadeaux</h3>
+                            <p>
+                                Définissez les plats concernés
+                                et les produits offerts.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="management-promotion-products">
+
+                        <div class="management-promotion-field">
+
+                            <label for="{{ form.eligible_dishes.id_for_label }}">
+                                Plats éligibles
+                            </label>
+
+                            <div class="management-promotion-select">
+                                {{ form.eligible_dishes }}
+                            </div>
+
+                            {{ form.eligible_dishes.errors }}
+
+                            <small>
+                                Aucun plat sélectionné :
+                                l'offre concerne tous les plats disponibles.
+                            </small>
+                        </div>
+
+                        <div class="management-promotion-field">
+
+                            <label for="{{ form.gift_dishes.id_for_label }}">
+                                Cadeaux proposés
+                                <span class="text-danger">*</span>
+                            </label>
+
+                            <div class="management-promotion-select">
+                                {{ form.gift_dishes }}
+                            </div>
+
+                            {{ form.gift_dishes.errors }}
+
+                            <small>
+                                Sélectionnez les boissons ou entrées
+                                que le client pourra choisir gratuitement.
+                            </small>
+                        </div>
+
+                    </div>
+
+                    <div class="management-promotion-tip">
+                        <i class="fa-solid fa-circle-info"></i>
+
+                        <span>
+                            Maintenez <strong>Ctrl</strong> (ou Cmd sur Mac)
+                            pour sélectionner plusieurs produits.
+                        </span>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- SIDEBAR -->
+
+            <aside class="management-promotion-sidebar">
+
+                <!-- DATES -->
+
+                <div class="management-promotion-form-card">
+
+                    <div class="management-promotion-card-heading">
+                        <span class="management-promotion-heading-icon">
+                            <i class="fa-regular fa-calendar"></i>
+                        </span>
+
+                        <div>
+                            <h3>Validité</h3>
+                            <p>Période de l'offre</p>
+                        </div>
+                    </div>
+
+                    <div class="management-promotion-fields">
+
+                        <div class="management-promotion-field">
+                            <label for="{{ form.starts_on.id_for_label }}">
+                                Date de début
+                            </label>
+
+                            {{ form.starts_on }}
+                            {{ form.starts_on.errors }}
+                        </div>
+
+                        <div class="management-promotion-field">
+                            <label for="{{ form.ends_on.id_for_label }}">
+                                Date de fin
+                            </label>
+
+                            {{ form.ends_on }}
+                            {{ form.ends_on.errors }}
+                        </div>
+
+                        <div class="management-promotion-field">
+                            <label for="{{ form.minimum_subtotal.id_for_label }}">
+                                Commande minimum (€)
+                            </label>
+
+                            {{ form.minimum_subtotal }}
+                            {{ form.minimum_subtotal.errors }}
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- PUBLICATION -->
+
+                <div class="management-promotion-form-card">
+
+                    <div class="management-promotion-card-heading">
+                        <span class="management-promotion-heading-icon">
+                            <i class="fa-solid fa-eye"></i>
+                        </span>
+
+                        <div>
+                            <h3>Publication</h3>
+                            <p>Visibilité de la campagne</p>
+                        </div>
+                    </div>
+
+                    <label class="management-promotion-switch">
+                        {{ form.is_active }}
+
+                        <span>
+                            <strong>Promotion active</strong>
+                            <small>
+                                Visible et applicable pendant
+                                sa période de validité.
+                            </small>
+                        </span>
+                    </label>
+
+                </div>
+
+            </aside>
+
+        </div>
+
+        <!-- ACTIONS -->
+
+        <div class="management-promotion-form-actions">
+
+            <a href="{% url 'management:promotions_list' %}"
+               class="management-promotion-cancel">
+                Annuler
+            </a>
+
+            <button type="submit"
+                    class="management-btn-primary">
+                <i class="fa-solid fa-floppy-disk"></i>
+
+                {% if is_edit %}
+                    Enregistrer les modifications
+                {% else %}
+                    Créer la promotion
+                {% endif %}
+            </button>
+
+        </div>
+
+    </form>
+
+</section>
+
+{% endblock %}

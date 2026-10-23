@@ -1,471 +1,734 @@
 {% extends "layouts/base.html" %}
+
 {% load static %}
 
+
+
 {% block title %}
+
     Saveurs Africans Lounge | Restaurant africain à Voiron
+
 {% endblock title %}
 
+
+
 {% block meta_description %}
+
     Découvrez Saveurs Africans Lounge à Voiron : cuisine africaine,
+
     espace lounge, privatisation, événements, réservation et commande
+
     pour livraison ou retrait.
+
 {% endblock meta_description %}
+
+
 
 {% block content %}
 
+<link rel="stylesheet" href="{% static 'css/home-marketing.css' %}">
+
+
+
     <!-- =========================
+
          Hero
+
     ========================== -->
+
     <section class="home-hero">
+
         <div class="home-hero-overlay"></div>
 
+
+
         <div class="sal-shell position-relative">
+
             <div class="row align-items-center min-vh-100 py-5">
+
                 <div class="col-lg-8 col-xl-7">
 
+
+
                     <div
+
                         class="home-hero-content"
+
                         data-aos="fade-up"
+
                     >
+
                         <span class="sal-kicker">
+
                             Restaurant africain · Lounge · Événements
+
                         </span>
 
+
+
                         <h1 class="sal-hero-title text-white mt-3 mb-4">
+
                             Les saveurs de l’Afrique dans une ambiance
+
                             chaleureuse et élégante.
+
                         </h1>
 
+
+
                         <p class="sal-hero-subtitle text-white-50 mb-4">
+
                             Découvrez une cuisine africaine généreuse,
+
                             profitez de notre espace lounge et partagez
+
                             des moments inoubliables à Voiron.
+
                         </p>
 
+
+
                         <div class="d-flex flex-wrap gap-3">
-                            <a
-                                href="{% url "reservations:create" %}"
-                                class="btn btn-outline-secondary btn-lg rounded-pill px-4"
-                            >
-                                <i class="bi bi-calendar-check me-2"></i>
-                                Réserver une table
-                            </a>
 
                             <a
-                                href="#"
-                                class="btn btn-outline-light btn-lg rounded-pill px-4"
+
+                                href="{% url "reservations:create" %}"
+
+                                class="btn btn-outline-secondary btn-lg rounded-pill px-4"
+
                             >
-                                <i class="bi bi-bag-check me-2"></i>
-                                Commander en ligne
+
+                                <i class="bi bi-calendar-check me-2"></i>
+
+                                Réserver une table
+
                             </a>
+
+
+
+                            <a
+
+                                href="{% url 'menu:list' %}"
+
+                                class="btn btn-outline-light btn-lg rounded-pill px-4"
+
+                            >
+
+                                <i class="bi bi-bag-check me-2"></i>
+
+                                Commander en ligne
+
+                            </a>
+
                         </div>
+
+
 
                         <div class="home-hero-info mt-5">
+
                             <div class="d-flex flex-wrap gap-4">
 
+
+
                                 <div class="d-flex align-items-center gap-2">
+
                                     <span class="home-hero-icon">
+
                                         <i class="bi bi-geo-alt-fill"></i>
+
                                     </span>
+
+
 
                                     <span class="text-white">
+
                                         10 Impasse Ruby, Voiron
+
                                     </span>
+
                                 </div>
+
+
 
                                 <div class="d-flex align-items-center gap-2">
+
                                     <span class="home-hero-icon">
+
                                         <i class="bi bi-telephone-fill"></i>
+
                                     </span>
 
+
+
                                     <a
+
                                         href="tel:+33616847569"
+
                                         class="text-white text-decoration-none"
+
                                     >
+
                                         06 16 84 75 69
+
                                     </a>
+
                                 </div>
 
+
+
                             </div>
+
                         </div>
+
                     </div>
 
+
+
                 </div>
+
             </div>
+
         </div>
 
+
+
         <a
+
             href="#restaurant"
+
             class="home-hero-scroll"
+
             aria-label="Découvrir le restaurant"
+
         >
+
             <i class="bi bi-chevron-down"></i>
+
         </a>
+
     </section>
 
 
 
 
-    
-    
+
+
+
+
+
+
+
 
 
     <!-- =========================
+
          Restaurant introduction
+
     ========================== -->
+
     <section id="restaurant" class="sal-section" >
+
         <div class="sal-shell">
+
             <div class="row align-items-center g-5">
 
+
+
                 <div
+
                     class="col-lg-6"
+
                     data-aos="fade-right"
+
                 >
+
                     <div class="home-about-images">
-                        <img
-                            src="{% static 'images/restaurant/restaurant-01.jpeg' %}"
-                            alt="Salle du restaurant Saveurs Africans Lounge"
-                            class="home-about-main-image"
-                        >
 
                         <img
-                            src="{% static 'images/restaurant/restaurant-05.jpeg' %}"
-                            alt="Espace lounge du restaurant"
-                            class="home-about-secondary-image"
+
+                            src="{% static 'images/restaurant/restaurant-01.jpeg' %}"
+
+                            alt="Salle du restaurant Saveurs Africans Lounge"
+
+                            class="home-about-main-image"
+
                         >
+
+
+
+                        <img
+
+                            src="{% static 'images/restaurant/restaurant-05.jpeg' %}"
+
+                            alt="Espace lounge du restaurant"
+
+                            class="home-about-secondary-image"
+
+                        >
+
                     </div>
+
                 </div>
 
+
+
                 <div
+
                     class="col-lg-6"
+
                     data-aos="fade-left"
+
                 >
+
                     <span class="sal-kicker">
+
                         Bienvenue chez nous
+
                     </span>
 
+
+
                     <h2 class="sal-title display-5 mt-3 mb-4">
+
                         Bien plus qu’un restaurant
+
                     </h2>
 
+
+
                     <p class="lead">
+
                         Saveurs Africans Lounge vous accueille dans un
+
                         cadre moderne et convivial pour découvrir une
+
                         cuisine africaine authentique et généreuse.
+
                     </p>
 
+
+
                     <p class="sal-muted">
+
                         Repas en famille, déjeuner entre collègues,
+
                         dîner en couple, anniversaire ou soirée privée :
+
                         notre équipe vous reçoit dans une atmosphère
+
                         chaleureuse pensée pour toutes les occasions.
+
                     </p>
+
+
 
                     <div class="row g-3 mt-4">
 
+
+
                         <div class="col-sm-6">
+
                             <div class="home-about-feature">
+
                                 <i class="bi bi-heart-fill"></i>
 
+
+
                                 <div>
+
                                     <h3 class="h6 fw-black mb-1">
+
                                         Cuisine généreuse
+
                                     </h3>
 
+
+
                                     <p class="small sal-muted mb-0">
+
                                         Des recettes savoureuses préparées
+
                                         avec soin.
+
                                     </p>
+
                                 </div>
+
                             </div>
+
                         </div>
+
+
 
                         <div class="col-sm-6">
+
                             <div class="home-about-feature">
+
                                 <i class="bi bi-stars"></i>
+
+
 
                                 <div>
+
                                     <h3 class="h6 fw-black mb-1">
+
                                         Ambiance unique
+
                                     </h3>
 
+
+
                                     <p class="small sal-muted mb-0">
+
                                         Restaurant, lounge et espace
+
                                         événementiel.
+
                                     </p>
+
                                 </div>
+
                             </div>
+
                         </div>
 
+
+
                     </div>
+
+
 
                     <div class="mt-4">
+
                         <a
+
                             href="#gallery"
+
                             class="btn btn-outline-sal rounded-pill px-4"
+
                         >
+
                             Découvrir notre espace
+
                             <i class="bi bi-arrow-right ms-2"></i>
+
                         </a>
+
                     </div>
+
                 </div>
 
+
+
             </div>
+
         </div>
+
     </section>
 
 
-    {% if novelties %}
-    <section id="nouveautes" class="sal-section home-novelties">
-        <div class="container">
-    
-            <div class="home-novelties-heading text-center mb-5"
-                 data-aos="fade-up">
-    
-                <span class="sal-kicker">
-                    <i class="bi bi-stars me-2"></i>
-                    À découvrir
-                </span>
-    
-                <h2 class="sal-title display-5 mt-3 mb-3">
-                    Nos nouveautés
-                </h2>
-    
-                <p class="sal-muted mx-auto">
-                    De nouvelles saveurs, des créations maison
-                    et des surprises à découvrir.
-                </p>
-            </div>
-    
-            <div class="row g-4 justify-content-center">
-                {% for dish in novelties %}
-    
-                <div class="col-12 col-sm-6 col-lg-4"
-                     data-aos="fade-up">
-    
-                    <article class="home-novelty-card h-100">
-    
-                        <a href="{{ dish.get_absolute_url }}"
-                           class="home-novelty-image-link">
-    
-                            {% if dish.image %}
-                            <img
-                                src="{{ dish.image.url }}"
-                                alt="{{ dish.name }}"
-                                class="home-novelty-image"
-                                loading="lazy"
-                            >
-                            {% else %}
-                            <div class="home-novelty-placeholder">
-                                <i class="bi bi-cup-straw"></i>
-                            </div>
-                            {% endif %}
-    
-                            <span class="home-novelty-badge">
-                                <i class="bi bi-stars"></i>
-                                Nouveau
-                            </span>
-                        </a>
-    
-                        <div class="home-novelty-content">
-    
-                            <span class="home-novelty-category">
-                                {{ dish.category.name }}
-                            </span>
-    
-                            <h3 class="home-novelty-title">
-                                {{ dish.name }}
-                            </h3>
-    
-                            <p class="home-novelty-description">
-                                {{ dish.short_description|default:dish.description|truncatechars:110 }}
-                            </p>
-    
-                            <div class="home-novelty-footer">
-                                <span class="home-novelty-price">
-                                    {{ dish.price|floatformat:2 }} €
-                                </span>
-    
-                                <a href="{{ dish.get_absolute_url }}"
-                                   class="home-novelty-button">
-                                    Découvrir
-                                    <i class="bi bi-arrow-up-right"></i>
-                                </a>
-                            </div>
-    
-                        </div>
-                    </article>
-    
-                </div>
-    
-                {% endfor %}
-            </div>
-    
-        </div>
-    </section>
-    {% endif %}
+
+
+
+ 
+
+
+
 
 
     <!-- =========================
+
          Services
+
     ========================== -->
+
     <section class="sal-section sal-soft-bg">
+
         <div class="sal-shell">
 
+
+
             <div
+
                 class="text-center mx-auto mb-5 home-section-heading"
+
                 data-aos="fade-up"
+
             >
+
                 <span class="sal-kicker">
+
                     Une expérience complète
+
                 </span>
 
+
+
                 <h2 class="sal-title display-5 mt-3">
+
                     Profitez du restaurant comme vous le souhaitez
+
                 </h2>
 
+
+
                 <p class="sal-muted mb-0">
+
                     Sur place, à emporter, en livraison ou pour célébrer
+
                     un moment particulier.
+
                 </p>
+
             </div>
+
+
 
             <div class="row g-4">
 
+
+
                 <div
+
                     class="col-md-6 col-xl-3"
+
                     data-aos="fade-up"
+
                 >
+
                     <article class="sal-card sal-card-hover home-service-card h-100">
+
                         <span class="home-service-icon">
+
                             <i class="bi bi-calendar2-check"></i>
+
                         </span>
 
+
+
                         <h3 class="h5 fw-black">
+
                             Réservation
+
                         </h3>
 
+
+
                         <p class="sal-muted">
+
                             Réservez facilement votre table pour un
+
                             déjeuner, un dîner ou une occasion spéciale.
+
                         </p>
 
+
+
                         <a
+
                             href="{% url "reservations:create" %}"
+
                             class="home-card-link"
+
                         >
+
                             Réserver
+
                             <i class="bi bi-arrow-right"></i>
+
                         </a>
+
                     </article>
+
                 </div>
 
+
+
                 <div
+
                     class="col-md-6 col-xl-3"
+
                     data-aos="fade-up"
+
                     data-aos-delay="100"
+
                 >
+
                     <article class="sal-card sal-card-hover home-service-card h-100">
+
                         <span class="home-service-icon">
+
                             <i class="bi bi-bag-heart"></i>
+
                         </span>
 
+
+
                         <h3 class="h5 fw-black">
+
                             Commande en ligne
+
                         </h3>
 
+
+
                         <p class="sal-muted">
+
                             Choisissez vos plats et commandez pour
+
                             livraison ou retrait au restaurant.
+
                         </p>
 
+
+
                         <a
-                            href="#"
+
+                            href="{% url 'menu:list' %}"
+
                             class="home-card-link"
+
                         >
+
                             Commander
+
                             <i class="bi bi-arrow-right"></i>
+
                         </a>
+
                     </article>
+
                 </div>
 
+
+
                 <div
+
                     class="col-md-6 col-xl-3"
+
                     data-aos="fade-up"
+
                     data-aos-delay="200"
+
                 >
+
                     <article class="sal-card sal-card-hover home-service-card h-100">
+
                         <span class="home-service-icon">
+
                             <i class="bi bi-music-note-beamed"></i>
+
                         </span>
 
+
+
                         <h3 class="h5 fw-black">
+
                             Événements
+
                         </h3>
 
+
+
                         <p class="sal-muted">
+
                             Soirées, animations, repas thématiques et
+
                             rendez-vous festifs tout au long de l’année.
+
                         </p>
 
-                        <a
-                            href="#"
-                            class="home-card-link"
-                        >
+
+
+                        <a href="#" class="home-card-link">
+
                             Voir les événements
+
                             <i class="bi bi-arrow-right"></i>
+
                         </a>
+
                     </article>
+
                 </div>
+
+
 
                 <div
+
                     class="col-md-6 col-xl-3"
+
                     data-aos="fade-up"
+
                     data-aos-delay="300"
+
                 >
+
                     <article class="sal-card sal-card-hover home-service-card h-100">
+
                         <span class="home-service-icon">
+
                             <i class="bi bi-people"></i>
+
                         </span>
 
+
+
                         <h3 class="h5 fw-black">
+
                             Privatisation
+
                         </h3>
 
+
+
                         <p class="sal-muted">
+
                             Organisez votre anniversaire, dîner privé ou
+
                             événement professionnel dans notre espace.
+
                         </p>
 
-                        <a
-                            href="#privatisation"
-                            class="home-card-link"
-                        >
+
+
+                        <a href="#privatisation" class="home-card-link" >
+
                             Découvrir
+
                             <i class="bi bi-arrow-right"></i>
+
                         </a>
+
                     </article>
+
                 </div>
+
+
 
             </div>
+
         </div>
+
     </section>
 
 
-    <!-- =========================
-         Private lounge
-    ========================== -->
-    <section
-        id="privatisation"
-        class="sal-section home-private-section"
-    >
-        <div class="sal-shell">
-            <div class="row align-items-center g-5">
 
-                <div
-                    class="col-lg-6 order-2 order-lg-1"
-                    data-aos="fade-right"
-                >
+
+
+    <!-- =========================
+
+         Private lounge
+
+    ========================== -->
+
+    <section id="privatisation" class="sal-section home-private-section" >
+
+        <div class="sal-shell">
+
+            <div class="row align-items-center g-5">
+                <div class="col-lg-6 order-2 order-lg-1" data-aos="fade-right">
+
                     <span class="sal-kicker">
                         Votre moment, votre espace
                     </span>
@@ -485,7 +748,7 @@
                         notre équipe pour préparer une formule personnalisée.
                     </p>
 
-                    <ul class="home-check-list">
+                   <ul class="home-check-list">
                         <li>
                             <i class="bi bi-check-circle-fill"></i>
                             Réservation pour les groupes
@@ -502,55 +765,45 @@
                         </li>
                     </ul>
 
-                    <a
-                        href="tel:+33616847569"
-                        class="btn btn-sal-primary rounded-pill px-4"
-                    >
+                    <a href="tel:+33616847569" class="btn btn-sal-primary rounded-pill px-4">
                         <i class="bi bi-telephone me-2"></i>
                         Demander des informations
                     </a>
+
                 </div>
 
-                <div
-                    class="col-lg-6 order-1 order-lg-2"
-                    data-aos="fade-left"
-                >
+                <div class="col-lg-6 order-1 order-lg-2" data-aos="fade-left">
+
                     <div class="home-private-image-wrapper">
-                        <img
-                            src="{% static 'images/restaurant/restaurant-04.jpeg' %}"
-                            alt="Espace lounge privé Saveurs Africans Lounge"
-                            class="home-private-image"
-                        >
+                        <img src="{% static 'images/restaurant/restaurant-04.jpeg' %}" alt="Espace lounge privé Saveurs Africans Lounge" class="home-private-image">
 
                         <div class="home-private-badge">
                             <i class="bi bi-stars"></i>
-
                             <span>
                                 Anniversaires<br>
                                 & événements
                             </span>
                         </div>
                     </div>
+
                 </div>
 
             </div>
         </div>
+
     </section>
 
-
     <!-- =========================
-         Gallery
-    ========================== -->
-    <section
-        id="gallery"
-        class="sal-section sal-soft-bg"
-    >
-        <div class="sal-shell">
 
-            <div
-                class="d-flex flex-column flex-lg-row justify-content-between align-items-lg-end gap-3 mb-5"
-                data-aos="fade-up"
-            >
+         Gallery
+
+    ========================== -->
+
+    <section id="gallery" class="sal-section sal-soft-bg">
+
+        <div class="sal-shell">
+            <div class="d-flex flex-column flex-lg-row justify-content-between align-items-lg-end gap-3 mb-5" data-aos="fade-up">
+
                 <div>
                     <span class="sal-kicker">
                         Notre univers
@@ -564,114 +817,83 @@
                 <p class="sal-muted mb-0 home-gallery-description">
                     Une décoration élégante, une ambiance chaleureuse et
                     plusieurs espaces pour vous accueillir.
-                </p>
+               </p>
+
             </div>
 
             <div class="home-gallery-grid">
+                <a href="{% static 'images/restaurant/restaurant-01.jpeg' %}" class="home-gallery-item home-gallery-large" target="_blank" data-aos="zoom-in">
 
-                <a
-                    href="{% static 'images/restaurant/restaurant-01.jpeg' %}"
-                    class="home-gallery-item home-gallery-large"
-                    target="_blank"
-                    data-aos="zoom-in"
-                >
-                    <img
-                        src="{% static 'images/restaurant/restaurant-01.jpeg' %}"
-                        alt="Salle principale du restaurant"
-                    >
+                    <img src="{% static 'images/restaurant/restaurant-01.jpeg' %}" alt="Salle principale du restaurant">
 
                     <span class="home-gallery-overlay">
                         <i class="bi bi-arrows-fullscreen"></i>
                     </span>
+
                 </a>
 
-                <a
-                    href="{% static 'images/restaurant/restaurant-02.jpeg' %}"
-                    class="home-gallery-item"
-                    target="_blank"
-                    data-aos="zoom-in"
-                    data-aos-delay="100"
-                >
-                    <img
-                        src="{% static 'images/restaurant/restaurant-02.jpeg' %}"
-                        alt="Tables du restaurant"
-                    >
+                <a href="{% static 'images/restaurant/restaurant-02.jpeg' %}" class="home-gallery-item" target="_blank" data-aos="zoom-in" data-aos-delay="100">
+
+                    <img src="{% static 'images/restaurant/restaurant-02.jpeg' %}" alt="Tables du restaurant">
 
                     <span class="home-gallery-overlay">
                         <i class="bi bi-arrows-fullscreen"></i>
                     </span>
+
                 </a>
 
-                <a
-                    href="{% static 'images/restaurant/restaurant-03.jpeg' %}"
-                    class="home-gallery-item"
-                    target="_blank"
-                    data-aos="zoom-in"
-                    data-aos-delay="150"
-                >
-                    <img
-                        src="{% static 'images/restaurant/restaurant-03.jpeg' %}"
-                        alt="Coin lounge du restaurant"
-                    >
+                <a href="{% static 'images/restaurant/restaurant-03.jpeg' %}" class="home-gallery-item" target="_blank" data-aos="zoom-in" data-aos-delay="150">
+
+                    <img src="{% static 'images/restaurant/restaurant-03.jpeg' %}" alt="Coin lounge du restaurant">
 
                     <span class="home-gallery-overlay">
                         <i class="bi bi-arrows-fullscreen"></i>
                     </span>
+
                 </a>
 
-                <a
-                    href="{% static 'images/restaurant/restaurant-05.jpeg' %}"
-                    class="home-gallery-item"
-                    target="_blank"
-                    data-aos="zoom-in"
-                    data-aos-delay="200"
-                >
-                    <img
-                        src="{% static 'images/restaurant/restaurant-05.jpeg' %}"
-                        alt="Salon et décoration intérieure"
-                    >
+                <a href="{% static 'images/restaurant/restaurant-05.jpeg' %}" class="home-gallery-item" target="_blank" data-aos="zoom-in" data-aos-delay="200">
+
+                    <img src="{% static 'images/restaurant/restaurant-05.jpeg' %}" alt="Salon et décoration intérieure">
 
                     <span class="home-gallery-overlay">
                         <i class="bi bi-arrows-fullscreen"></i>
                     </span>
+
                 </a>
 
-                <a
-                    href="{% static 'images/restaurant/restaurant-06.jpeg' %}"
-                    class="home-gallery-item home-gallery-wide"
-                    target="_blank"
-                    data-aos="zoom-in"
-                    data-aos-delay="250"
-                >
-                    <img
-                        src="{% static 'images/restaurant/restaurant-06.jpeg' %}"
-                        alt="Vue générale de Saveurs Africans Lounge"
-                    >
+                <a href="{% static 'images/restaurant/restaurant-06.jpeg' %}" class="home-gallery-item home-gallery-wide" target="_blank" data-aos="zoom-in" data-aos-delay="250">
+
+                    <img src="{% static 'images/restaurant/restaurant-06.jpeg' %}" alt="Vue générale de Saveurs Africans Lounge">
 
                     <span class="home-gallery-overlay">
                         <i class="bi bi-arrows-fullscreen"></i>
                     </span>
+
                 </a>
 
             </div>
+
         </div>
+
     </section>
 
 
-    <!-- =========================
-         Opening hours and contact
-    ========================== -->
-    <section
-        id="contact"
-        class="sal-section"
-    >
-        <div class="sal-shell">
-            <div class="row g-5">
 
-                <div
-                    class="col-lg-6"
-                    data-aos="fade-right"
-                >
+
+
+    <!-- =========================
+
+         Opening hours and contact
+
+    ========================== -->
+
+    <section id="contact" class="sal-section">
+
+        <div class="sal-shell">
+
+            <div class="row g-5">
+                <div class="col-lg-6" data-aos="fade-right">
                     <span class="sal-kicker">
                         Quand venir ?
                     </span>
@@ -681,7 +903,6 @@
                     </h2>
 
                     <div class="home-hours">
-
                         <div class="home-hours-row">
                             <span>Lundi</span>
                             <strong>Fermé</strong>
@@ -718,12 +939,11 @@
                         </div>
 
                     </div>
+
                 </div>
 
-                <div
-                    class="col-lg-6"
-                    data-aos="fade-left"
-                >
+                <div class="col-lg-6" data-aos="fade-left">
+
                     <div class="sal-card home-contact-card h-100">
 
                         <span class="home-contact-icon">
@@ -745,10 +965,7 @@
 
                         <div class="d-grid gap-3 mt-4">
 
-                            <a
-                                href="tel:+33616847569"
-                                class="home-contact-link"
-                            >
+                            <a href="tel:+33616847569" class="home-contact-link">
                                 <i class="bi bi-telephone-fill"></i>
 
                                 <span>
@@ -757,58 +974,52 @@
                                 </span>
                             </a>
 
-                            <a
-                                href="https://www.google.com/maps/search/?api=1&query=10+Impasse+Ruby+38500+Voiron"
-                                class="home-contact-link"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                            >
+                            <a href="https://www.google.com/maps/search/?api=1&query=10+Impasse+Ruby+38500+Voiron" class="home-contact-link" target="_blank" rel="noopener noreferrer">
+
                                 <i class="bi bi-signpost-2-fill"></i>
 
                                 <span>
                                     <small>Itinéraire</small>
                                     Ouvrir dans Google Maps
                                 </span>
+
                             </a>
 
                         </div>
 
                         <div class="d-flex flex-wrap gap-2 mt-4">
-                            <a
-                                href="{% url "reservations:create" %}"
-                                class="btn btn-sal-secondary rounded-pill px-4"
-                            >
+
+                            <a href="{% url "reservations:create" %}" class="btn btn-sal-secondary rounded-pill px-4">
                                 Réserver une table
                             </a>
 
-                            <a
-                                href="tel:+33616847569"
-                                class="btn btn-outline-sal rounded-pill px-4"
-                            >
+                            <a href="tel:+33616847569" class="btn btn-outline-sal rounded-pill px-4">
                                 Appeler
                             </a>
+
                         </div>
 
                     </div>
+
                 </div>
 
             </div>
+
         </div>
+
     </section>
 
-
     <!-- =========================
+
          Final reservation CTA
+
     ========================== -->
-    <section
-        id="reservation"
-        class="sal-section pt-0"
-    >
+
+    <section id="reservation" class="sal-section pt-0">
+
         <div class="sal-shell">
-            <div
-                class="home-reservation-cta text-center"
-                data-aos="zoom-in"
-            >
+            <div class="home-reservation-cta text-center" data-aos="zoom-in">
+
                 <span class="sal-kicker">
                     Une table vous attend
                 </span>
@@ -823,27 +1034,150 @@
                 </p>
 
                 <div class="d-flex flex-wrap justify-content-center gap-3">
-                    <a
-                        href="tel:+33616847569"
-                        class="btn btn-sal-secondary btn-lg rounded-pill px-4"
-                    >
+
+                    <a href="tel:+33616847569" class="btn btn-sal-secondary btn-lg rounded-pill px-4">
                         <i class="bi bi-telephone-fill me-2"></i>
                         06 16 84 75 69
                     </a>
 
-                    <a
-                        href="#"
-                        class="btn btn-outline-light btn-lg rounded-pill px-4"
-                    >
+                    <a href="{% url 'reservations:create' %}" class="btn btn-outline-light btn-lg rounded-pill px-4">
                         Formulaire de réservation
                     </a>
+
                 </div>
+
             </div>
+
         </div>
+
     </section>
+
+    <!-- Marketing showcase: visible on scroll, collapsible, accessible -->
+    {% if promotions or novelties %}
+    <aside class="sal-marketing" id="salMarketing" aria-label="Offres et nouveautés du restaurant">
+        <button type="button" class="sal-marketing-launcher" id="salMarketingLauncher"
+                aria-controls="salMarketingPanel" aria-expanded="false">
+            <i class="bi bi-gift-fill" aria-hidden="true"></i>
+            <span>Offres & nouveautés</span>
+            <span class="sal-marketing-launcher-dot" aria-hidden="true"></span>
+        </button>
+
+        <div class="sal-marketing-panel" id="salMarketingPanel">
+            <div class="sal-marketing-top">
+                <div>
+                    <span class="sal-marketing-eyebrow">À NE PAS MANQUER</span>
+                    <h2>Les découvertes du moment</h2>
+                </div>
+                <button type="button" class="sal-marketing-close" id="salMarketingClose"
+                        aria-label="Réduire les annonces" title="Réduire">
+                    <i class="bi bi-x-lg" aria-hidden="true"></i>
+                </button>
+            </div>
+
+            {% if promotions and novelties %}
+            <div class="sal-marketing-tabs" role="tablist" aria-label="Type d'annonce">
+                <button type="button" class="sal-marketing-tab is-active" id="salPromoTab"
+                        role="tab" aria-selected="true" aria-controls="salPromoContent"
+                        data-marketing-tab="promotions">
+                    <i class="bi bi-gift" aria-hidden="true"></i> Promotions
+                </button>
+                <button type="button" class="sal-marketing-tab" id="salNoveltyTab"
+                        role="tab" aria-selected="false" aria-controls="salNoveltyContent"
+                        tabindex="-1" data-marketing-tab="novelties">
+                    <i class="bi bi-stars" aria-hidden="true"></i> Nouveautés
+                </button>
+            </div>
+            {% endif %}
+
+            {% if promotions %}
+            <div class="sal-marketing-content" id="salPromoContent" role="tabpanel"
+                 {% if promotions and novelties %}aria-labelledby="salPromoTab"{% endif %}>
+                <div class="sal-marketing-slider" data-marketing-slider>
+                    {% for promotion in promotions %}
+                    <article class="sal-marketing-slide{% if forloop.first %} is-current{% endif %}"
+                             {% if not forloop.first %}hidden{% endif %}>
+                        <div class="sal-marketing-photo">
+                            {% if promotion.image %}
+                            <img src="{{ promotion.image.url }}" alt="{{ promotion.title }}" loading="lazy">
+                            {% else %}
+                            <div class="sal-marketing-photo-placeholder"><i class="bi bi-gift-fill" aria-hidden="true"></i></div>
+                            {% endif %}
+                            <span class="sal-marketing-ribbon"><i class="bi bi-gift-fill" aria-hidden="true"></i> Offre spéciale</span>
+                        </div>
+                        <div class="sal-marketing-copy">
+                            <h3>{{ promotion.title }}</h3>
+                            {% if promotion.description %}<p>{{ promotion.description|truncatechars:125 }}</p>{% endif %}
+                            {% if promotion.minimum_subtotal %}
+                            <span class="sal-marketing-detail">Dès {{ promotion.minimum_subtotal|floatformat:2 }} € de commande</span>
+                            {% endif %}
+                            <span class="sal-marketing-detail"><i class="bi bi-calendar3" aria-hidden="true"></i> Jusqu'au {{ promotion.ends_on|date:"d/m/Y" }}</span>
+                            <a class="sal-marketing-link" href="{% url 'menu:list' %}">
+                                Voir la carte <i class="bi bi-arrow-up-right" aria-hidden="true"></i>
+                            </a>
+                        </div>
+                    </article>
+                    {% endfor %}
+                </div>
+                {% if promotions|length > 1 %}
+                <div class="sal-marketing-navigation">
+                    <button type="button" data-marketing-prev aria-label="Promotion précédente"><i class="bi bi-chevron-left"></i></button>
+                    <span data-marketing-count aria-live="polite">1 / {{ promotions|length }}</span>
+                    <button type="button" data-marketing-next aria-label="Promotion suivante"><i class="bi bi-chevron-right"></i></button>
+                </div>
+                {% endif %}
+            </div>
+            {% endif %}
+
+            {% if novelties %}
+            <div class="sal-marketing-content" id="salNoveltyContent" role="tabpanel"
+                 {% if promotions and novelties %}aria-labelledby="salNoveltyTab" hidden{% endif %}>
+                <div class="sal-marketing-slider" data-marketing-slider>
+                    {% for dish in novelties %}
+                    <article class="sal-marketing-slide{% if forloop.first %} is-current{% endif %}"
+                             {% if not forloop.first %}hidden{% endif %}>
+                        <div class="sal-marketing-photo">
+                            {% if dish.image %}
+                            <img src="{{ dish.image.url }}" alt="{{ dish.name }}" loading="lazy">
+                            {% else %}
+                            <div class="sal-marketing-photo-placeholder"><i class="bi bi-cup-straw" aria-hidden="true"></i></div>
+                            {% endif %}
+                            <span class="sal-marketing-ribbon sal-marketing-ribbon-new"><i class="bi bi-stars" aria-hidden="true"></i> Nouveau</span>
+                        </div>
+                        <div class="sal-marketing-copy">
+                            <span class="sal-marketing-category">{{ dish.category.name }}</span>
+                            <h3>{{ dish.name }}</h3>
+                            {% if dish.short_description or dish.description %}
+                            <p>{{ dish.short_description|default:dish.description|truncatechars:110 }}</p>
+                            {% endif %}
+                            <strong class="sal-marketing-price">{{ dish.price|floatformat:2 }} €</strong>
+                            <a class="sal-marketing-link" href="{{ dish.get_absolute_url }}">
+                                Découvrir<i class="bi bi-arrow-up-right" aria-hidden="true"></i>
+                            </a>
+                        </div>
+                    </article>
+                    {% endfor %}
+                </div>
+                {% if novelties|length > 1 %}
+                <div class="sal-marketing-navigation">
+                    <button type="button" data-marketing-prev aria-label="Nouveauté précédente"><i class="bi bi-chevron-left"></i></button>
+                    <span data-marketing-count aria-live="polite">1 / {{ novelties|length }}</span>
+                    <button type="button" data-marketing-next aria-label="Nouveauté suivante"><i class="bi bi-chevron-right"></i></button>
+                </div>
+                {% endif %}
+            </div>
+            {% endif %}
+        </div>
+    </aside>
+    {% endif %}
+
+<script src="{% static 'js/home-marketing.js' %}" defer></script>
 
 {% endblock content %}
 
 
+
+
+
 {% block cta %}
+
 {% endblock cta %}

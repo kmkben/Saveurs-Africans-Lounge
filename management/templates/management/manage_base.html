@@ -239,28 +239,26 @@ Gestion | Saveurs Africans Lounge
 
                         <!-- Daily special -->
 
-                        <a
-                            href="{% url 'management:daily_specials_list' %}"
-                            class="management-nav-link
-                            {% if 'daily_special' in request.resolver_match.url_name %}
-                                active
-                            {% endif %}"
-                        >
-
+                        <a href="{% url 'management:daily_specials_list' %}" 
+                            class="management-nav-link {% if 'daily_special' in request.resolver_match.url_name %}active{% endif %}">
                             <i class="fa-solid fa-star"></i>
-
                             <span>
                                 Plat du jour
                             </span>
-
                         </a>
+
+
+                        <a href="{% url 'management:promotions_list' %}" 
+                            class="management-nav-link {% if request.resolver_match.url_name == 'promotions_list' or request.resolver_match.url_name == 'promotion_create' or request.resolver_match.url_name == 'promotion_update' %}active{% endif %}">
+                            <i class="fa-solid fa-gift"></i>
+                            <span>Promotions</span>
+                        </a>
+
 
 
                         <!-- Delivery zones -->
 
-                        <a
-                            href="{% url 'management:delivery_zones_list' %}"
-                            class="management-nav-link
+                        <a href="{% url 'management:delivery_zones_list' %}" class="management-nav-link
                             {% if 'delivery_zone' in request.resolver_match.url_name %}
                                 active
                             {% endif %}"

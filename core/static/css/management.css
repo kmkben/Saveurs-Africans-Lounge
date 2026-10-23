@@ -3140,3 +3140,374 @@
 
     text-align: left;
 }
+
+
+
+/* =========================================
+   MANAGEMENT — PROMOTIONS
+========================================= */
+
+.management-promotion-panel {
+    padding: 0;
+    overflow: hidden;
+}
+
+.management-promotion-table {
+    width: 100%;
+    border-collapse: collapse;
+    color: var(--sal-text-color);
+}
+
+.management-promotion-table th {
+    padding: 16px 18px;
+    text-align: left;
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    background: rgba(32, 120, 78, 0.07);
+    color: var(--sal-green);
+    border-bottom: 1px solid var(--sal-border-color);
+}
+
+.management-promotion-table td {
+    padding: 15px 18px;
+    vertical-align: middle;
+    border-bottom: 1px solid var(--sal-border-color);
+    font-size: 0.85rem;
+}
+
+.management-promotion-table tbody tr:last-child td {
+    border-bottom: 0;
+}
+
+.management-promotion-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 230px;
+}
+
+.management-promotion-info strong {
+    display: block;
+    font-size: 0.86rem;
+    color: var(--sal-heading-color);
+}
+
+.management-promotion-info small {
+    display: block;
+    margin-top: 5px;
+    color: var(--sal-muted-color);
+}
+
+.management-promotion-thumbnail,
+.management-promotion-placeholder {
+    width: 54px;
+    height: 54px;
+    flex-shrink: 0;
+    border-radius: 12px;
+}
+
+.management-promotion-thumbnail {
+    object-fit: cover;
+}
+
+.management-promotion-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--sal-green);
+    background: rgba(32, 120, 78, 0.10);
+    font-size: 1.2rem;
+}
+
+.management-promotion-date {
+    line-height: 1.8;
+    color: var(--sal-muted-color);
+}
+
+.management-promotion-actions {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.management-promotion-action {
+    width: 34px;
+    height: 34px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--sal-border-color);
+    border-radius: 9px;
+    background: transparent;
+    color: var(--sal-green);
+    text-decoration: none;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.management-promotion-action:hover {
+    background: var(--sal-green);
+    color: white;
+    border-color: var(--sal-green);
+}
+
+.management-promotion-actions form {
+    margin: 0;
+}
+
+@media (max-width: 767.98px) {
+    .management-promotion-table {
+        min-width: 780px;
+    }
+}
+
+
+
+/* ==========================================
+   MANAGEMENT — PROMOTION FORM
+========================================== */
+
+.management-promotion-page {
+    padding-bottom: 40px;
+}
+
+.management-promotion-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    padding: 10px 16px;
+    border: 1px solid var(--sal-border-color);
+    border-radius: 10px;
+    color: var(--sal-text-color);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.management-promotion-back:hover {
+    color: var(--sal-green);
+}
+
+.management-promotion-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1.7fr) minmax(270px, 1fr);
+    gap: 22px;
+    align-items: start;
+}
+
+.management-promotion-main,
+.management-promotion-sidebar {
+    display: grid;
+    gap: 22px;
+    min-width: 0;
+}
+
+.management-promotion-form-card {
+    background: var(--bs-body-bg);
+    border: 1px solid var(--sal-border-color);
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: var(--sal-shadow);
+    min-width: 0;
+}
+
+.management-promotion-card-heading {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    padding-bottom: 18px;
+    margin-bottom: 22px;
+    border-bottom: 1px solid var(--sal-border-color);
+}
+
+.management-promotion-heading-icon {
+    width: 42px;
+    height: 42px;
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    border-radius: 12px;
+    background: rgba(32, 120, 78, 0.12);
+    color: var(--sal-green);
+}
+
+.management-promotion-card-heading h3 {
+    margin: 0 0 4px;
+    font-size: 1.03rem;
+    font-weight: 800;
+    color: var(--sal-heading-color);
+}
+
+.management-promotion-card-heading p {
+    margin: 0;
+    font-size: 0.82rem;
+    color: var(--sal-muted-color);
+}
+
+.management-promotion-fields {
+    display: grid;
+    gap: 20px;
+}
+
+.management-promotion-field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-width: 0;
+}
+
+.management-promotion-field > label {
+    color: var(--sal-heading-color);
+    font-weight: 700;
+    font-size: 0.86rem;
+}
+
+.management-promotion-field .form-control,
+.management-promotion-field select,
+.management-promotion-field textarea {
+    width: 100%;
+    background: var(--bs-body-bg);
+    color: var(--sal-text-color);
+    border: 1px solid var(--sal-border-color);
+    border-radius: 10px;
+    padding: 11px 13px;
+    font-size: 0.9rem;
+}
+
+.management-promotion-field .form-control:focus,
+.management-promotion-field select:focus,
+.management-promotion-field textarea:focus {
+    border-color: var(--sal-green);
+    box-shadow: 0 0 0 3px rgba(32, 120, 78, 0.12);
+    outline: none;
+}
+
+.management-promotion-field small {
+    color: var(--sal-muted-color);
+    font-size: 0.77rem;
+    line-height: 1.5;
+}
+
+.management-promotion-products {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 22px;
+}
+
+.management-promotion-select select {
+    min-height: 205px;
+    padding: 8px;
+}
+
+.management-promotion-select option {
+    padding: 8px;
+}
+
+.management-promotion-tip {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+    padding: 13px 15px;
+    border-radius: 10px;
+    background: rgba(32, 120, 78, 0.08);
+    color: var(--sal-text-color);
+    font-size: 0.8rem;
+}
+
+.management-promotion-tip i {
+    color: var(--sal-green);
+}
+
+.management-promotion-image-preview {
+    margin-top: 10px;
+}
+
+.management-promotion-image-preview img {
+    width: 170px;
+    height: 110px;
+    border-radius: 12px;
+    object-fit: cover;
+}
+
+.management-promotion-switch {
+    display: flex;
+    align-items: flex-start;
+    gap: 13px;
+    padding: 16px;
+    border: 1px solid var(--sal-border-color);
+    border-radius: 12px;
+    cursor: pointer;
+}
+
+.management-promotion-switch input {
+    width: 19px;
+    height: 19px;
+    margin-top: 2px;
+    accent-color: var(--sal-green);
+    flex-shrink: 0;
+}
+
+.management-promotion-switch strong {
+    display: block;
+    color: var(--sal-heading-color);
+    font-size: 0.88rem;
+}
+
+.management-promotion-switch small {
+    display: block;
+    margin-top: 5px;
+    color: var(--sal-muted-color);
+    font-size: 0.78rem;
+    line-height: 1.5;
+}
+
+.management-promotion-form-actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 14px;
+    margin-top: 26px;
+}
+
+.management-promotion-cancel {
+    color: var(--sal-muted-color);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.management-promotion-cancel:hover {
+    color: var(--sal-green);
+}
+
+.management-promotion-form-actions .management-btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    border: 0;
+    padding: 12px 20px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+/* Responsive */
+
+@media (max-width: 991.98px) {
+    .management-promotion-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .management-promotion-products {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .management-promotion-form-card {
+        padding: 18px;
+    }
+
+    .management-promotion-form-actions {
+        flex-wrap: wrap;
+    }
+}

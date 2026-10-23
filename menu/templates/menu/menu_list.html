@@ -1,3 +1,4 @@
+
 {% extends "layouts/base.html" %}
 {% load static %}
 
@@ -10,13 +11,12 @@ plats faits maison, boissons, desserts et plats du jour à Voiron.
 
 {% block content %}
 
+<!-- HERO -->
 <section class="menu-hero">
     <div class="container">
         <div class="menu-hero-content" data-aos="fade-up">
             <span class="section-eyebrow">Saveurs authentiques</span>
-
             <h1>Notre carte</h1>
-
             <p>
                 Découvrez une cuisine africaine généreuse, préparée avec soin,
                 à partir de produits sélectionnés et de recettes pleines de caractère.
@@ -25,57 +25,115 @@ plats faits maison, boissons, desserts et plats du jour à Voiron.
     </div>
 </section>
 
+<!-- CURRENT OFFERS -->
+{% if active_promotions %}
+<section class="menu-marketing-section" aria-labelledby="menu-offers-title">
+    <div class="container">
+        <div class="menu-marketing-heading">
+            <span class="section-eyebrow"><i class="fa-solid fa-gift"></i> Nos offres</span>
+            <h2 id="menu-offers-title">Offres du moment</h2>
+            <p>Profitez de nos attentions gourmandes pendant une durée limitée.</p>
+        </div>
 
+        <div class="menu-marketing-offers">
+            {% for promotion in active_promotions %}
+                <article class="menu-marketing-offer">
+                    <div class="menu-marketing-offer-image">
+                        {% if promotion.image %}
+                            <img src="{{ promotion.image.url }}" alt="{{ promotion.title }}" loading="lazy">
+                        {% else %}
+                            <span class="menu-marketing-offer-placeholder">
+                                <i class="fa-solid fa-gift"></i>
+                            </span>
+                        {% endif %}
+                    </div>
+
+                    <div class="menu-marketing-offer-content">
+                        <span class="menu-marketing-offer-label">
+                            <i class="fa-solid fa-bolt"></i> Offre limitée
+                        </span>
+
+                        <h3>{{ promotion.title }}</h3>
+
+                        {% if promotion.description %}
+                            <p>{{ promotion.description|truncatechars:190 }}</p>
+                        {% endif %}
+
+                        <div class="menu-marketing-offer-meta">
+                            <span>
+                                <i class="fa-regular fa-calendar"></i>
+                                Jusqu'au {{ promotion.ends_on|date:"d/m/Y" }}
+                            </span>
+
+                            {% if promotion.minimum_subtotal > 0 %}
+                                <span>
+                                    <i class="fa-solid fa-basket-shopping"></i>
+                                    Dès {{ promotion.minimum_subtotal|floatformat:2 }} € de commande
+                                </span>
+                            {% endif %}
+                        </div>
+
+                        <p class="menu-marketing-offer-note">
+                            Un cadeau au choix par commande éligible, selon les conditions de l'offre.
+                        </p>
+
+                        <a href="#menu-categories" class="menu-marketing-offer-link">
+                            Explorer la carte <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </article>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- TODAY'S SPECIALS -->
 {% if today_specials %}
 <section class="menu-specials section-padding">
     <div class="container">
-
         <div class="section-heading text-center" data-aos="fade-up">
             <span class="section-eyebrow">À découvrir aujourd’hui</span>
             <h2>Les plats du jour</h2>
-            <p>
-                Une sélection proposée aujourd’hui par notre cuisine.
-            </p>
+            <p>Une sélection proposée aujourd’hui par notre cuisine.</p>
         </div>
 
         <div class="row g-4 justify-content-center">
             {% for dish in today_specials %}
-                <div class="col-md-6 col-xl-4" data-aos="fade-up"
-                     data-aos-delay="{{ forloop.counter0 }}00">
-
+                <div class="col-md-6 col-xl-4" data-aos="fade-up">
                     <article class="menu-special-card">
-
-                        <a href="{{ dish.get_absolute_url }}"
-                           class="menu-special-image">
-
+                        <a href="{{ dish.get_absolute_url }}" class="menu-special-image">
                             {% if dish.image %}
-                                <img
-                                    src="{{ dish.image.url }}"
-                                    alt="{{ dish.name }}"
-                                    loading="lazy"
-                                >
+                                <img src="{{ dish.image.url }}" alt="{{ dish.name }}" loading="lazy">
                             {% else %}
                                 <div class="menu-image-placeholder">
                                     <i class="fa-solid fa-utensils"></i>
                                 </div>
                             {% endif %}
 
-                            <span class="menu-special-badge">
-                                Plat du jour
-                            </span>
+                            <span class="menu-special-badge">Plat du jour</span>
                         </a>
+
+                        {% if dish.is_active_novelty or dish.has_active_promotion %}
+                            <div class="menu-marketing-badges">
+                                {% if dish.is_active_novelty %}
+                                    <span class="menu-marketing-badge menu-marketing-badge-new">
+                                        <i class="fa-solid fa-sparkles"></i> Nouveau
+                                    </span>
+                                {% endif %}
+
+                                {% if dish.has_active_promotion %}
+                                    <span class="menu-marketing-badge menu-marketing-badge-promo">
+                                        <i class="fa-solid fa-gift"></i> Offre spéciale
+                                    </span>
+                                {% endif %}
+                            </div>
+                        {% endif %}
 
                         <div class="menu-special-content">
                             <div class="menu-dish-heading">
-                                <h3>
-                                    <a href="{{ dish.get_absolute_url }}">
-                                        {{ dish.name }}
-                                    </a>
-                                </h3>
-
-                                <span class="menu-dish-price">
-                                    {{ dish.price|floatformat:2 }} €
-                                </span>
+                                <h3><a href="{{ dish.get_absolute_url }}">{{ dish.name }}</a></h3>
+                                <span class="menu-dish-price">{{ dish.price|floatformat:2 }} €</span>
                             </div>
 
                             {% if dish.short_description %}
@@ -84,110 +142,62 @@ plats faits maison, boissons, desserts et plats du jour à Voiron.
 
                             {% if dish.allergens.all %}
                                 <div class="menu-allergens">
-                                    <span class="menu-allergens-label">
-                                        Allergènes :
-                                    </span>
-
+                                    <span class="menu-allergens-label">Allergènes :</span>
                                     {% for allergen in dish.allergens.all %}
-                                        <span class="menu-allergen">
-                                            {{ allergen.name }}
-                                        </span>
+                                        <span class="menu-allergen">{{ allergen.name }}</span>
                                     {% endfor %}
                                 </div>
                             {% endif %}
 
                             <div class="menu-dish-actions">
-
-                                <a href="{{ dish.get_absolute_url }}"
-                                   class="menu-detail-link">
-                                    Voir le plat
-                                    <i class="fa-solid fa-arrow-right"></i>
+                                <a href="{{ dish.get_absolute_url }}" class="menu-detail-link">
+                                    Découvrir <i class="fa-solid fa-arrow-right"></i>
                                 </a>
-                            
+
                                 {% if dish.is_delivery_available %}
-                            
-                                    <form
-                                        method="post"
-                                        action="{% url 'orders:cart_add' dish.pk %}"
-                                        class="menu-cart-form"
-                                    >
+                                    <form method="post" action="{% url 'orders:cart_add' dish.pk %}" class="menu-cart-form">
                                         {% csrf_token %}
-                            
-                                        <input
-                                            type="hidden"
-                                            name="quantity"
-                                            value="1"
-                                        >
-                            
-                                        <button
-                                            type="submit"
-                                            class="menu-cart-btn"
-                                            title="Ajouter au panier"
-                                        >
-                                            <i class="fa-solid fa-basket-shopping"></i>
-                                            Ajouter
+                                        <input type="hidden" name="quantity" value="1">
+                                        <button type="submit" class="menu-cart-btn" title="Ajouter au panier">
+                                            <i class="fa-solid fa-basket-shopping"></i> Ajouter
                                         </button>
-                            
                                     </form>
-                            
                                 {% endif %}
-                            
                             </div>
                         </div>
-
                     </article>
                 </div>
             {% endfor %}
         </div>
-
     </div>
 </section>
 {% endif %}
 
-
-<section class="menu-main section-padding">
+<!-- FULL MENU -->
+<section id="menu-categories" class="menu-main section-padding">
     <div class="container">
-
         <div class="section-heading text-center" data-aos="fade-up">
             <span class="section-eyebrow">Entrées, plats et douceurs</span>
             <h2>Toutes nos spécialités</h2>
-            <p>
-                Parcourez notre carte selon vos envies.
-            </p>
+            <p>Parcourez notre carte selon vos envies.</p>
         </div>
 
         {% if categories %}
-
-            <nav class="menu-category-navigation"
-                 aria-label="Navigation entre les catégories"
-                 data-aos="fade-up">
-
+            <nav class="menu-category-navigation" aria-label="Navigation entre les catégories" data-aos="fade-up">
                 {% for category in categories %}
                     {% if category.available_dishes %}
-                        <a href="#category-{{ category.slug }}">
-                            {{ category.name }}
-                        </a>
+                        <a href="#category-{{ category.slug }}">{{ category.name }}</a>
                     {% endif %}
                 {% endfor %}
-
             </nav>
 
             <div class="menu-categories">
                 {% for category in categories %}
-
                     {% if category.available_dishes %}
-                        <section
-                            id="category-{{ category.slug }}"
-                            class="menu-category"
-                            data-aos="fade-up"
-                        >
-
+                        <section id="category-{{ category.slug }}" class="menu-category" data-aos="fade-up">
                             <header class="menu-category-header">
                                 <div>
-                                    <span class="menu-category-number">
-                                        {{ forloop.counter|stringformat:"02d" }}
-                                    </span>
-
+                                    <span class="menu-category-number">{{ forloop.counter|stringformat:"02d" }}</span>
                                     <h2>{{ category.name }}</h2>
 
                                     {% if category.description %}
@@ -196,26 +206,17 @@ plats faits maison, boissons, desserts et plats du jour à Voiron.
                                 </div>
 
                                 <span class="menu-category-count">
-                                    {{ category.available_dishes|length }}
-                                    plat{{ category.available_dishes|length|pluralize }}
+                                    {{ category.available_dishes|length }} produit{{ category.available_dishes|length|pluralize }}
                                 </span>
                             </header>
 
                             <div class="row g-4">
                                 {% for dish in category.available_dishes %}
                                     <div class="col-md-6 col-xl-4">
-
                                         <article class="menu-dish-card">
-
-                                            <a href="{{ dish.get_absolute_url }}"
-                                               class="menu-dish-image">
-
+                                            <a href="{{ dish.get_absolute_url }}" class="menu-dish-image">
                                                 {% if dish.image %}
-                                                    <img
-                                                        src="{{ dish.image.url }}"
-                                                        alt="{{ dish.name }}"
-                                                        loading="lazy"
-                                                    >
+                                                    <img src="{{ dish.image.url }}" alt="{{ dish.name }}" loading="lazy">
                                                 {% else %}
                                                     <div class="menu-image-placeholder">
                                                         <i class="fa-solid fa-utensils"></i>
@@ -223,45 +224,45 @@ plats faits maison, boissons, desserts et plats du jour à Voiron.
                                                 {% endif %}
 
                                                 {% if dish.is_featured %}
-                                                    <span class="menu-featured-badge">
-                                                        Sélection
-                                                    </span>
+                                                    <span class="menu-featured-badge">Sélection</span>
                                                 {% endif %}
                                             </a>
 
+                                            {% if dish.is_active_novelty or dish.has_active_promotion %}
+                                                <div class="menu-marketing-badges">
+                                                    {% if dish.is_active_novelty %}
+                                                        <span class="menu-marketing-badge menu-marketing-badge-new">
+                                                            <i class="fa-solid fa-sparkles"></i> Nouveau
+                                                        </span>
+                                                    {% endif %}
+
+                                                    {% if dish.has_active_promotion %}
+                                                        <span class="menu-marketing-badge menu-marketing-badge-promo">
+                                                            <i class="fa-solid fa-gift"></i> Offre spéciale
+                                                        </span>
+                                                    {% endif %}
+                                                </div>
+                                            {% endif %}
+
                                             <div class="menu-dish-content">
-
-                                                <div class="menu-dish-heading text-dark">
-                                                    <h3>
-                                                        <a href="{{ dish.get_absolute_url }}" class="text-dark">
-                                                            {{ dish.name }}
-                                                        </a>
-                                                    </h3>
-
-                                                    <span class="menu-dish-price">
-                                                        {{ dish.price|floatformat:2 }} €
-                                                    </span>
+                                                <div class="menu-dish-heading">
+                                                    <h3><a href="{{ dish.get_absolute_url }}">{{ dish.name }}</a></h3>
+                                                    <span class="menu-dish-price">{{ dish.price|floatformat:2 }} €</span>
                                                 </div>
 
                                                 {% if dish.short_description %}
-                                                    <p class="menu-dish-description">
-                                                        {{ dish.short_description }}
-                                                    </p>
+                                                    <p class="menu-dish-description">{{ dish.short_description }}</p>
                                                 {% endif %}
 
                                                 {% if dish.allergens.all %}
                                                     <div class="menu-allergens">
-                                                        <span class="menu-allergens-label">
-                                                            Allergènes :
-                                                        </span>
+                                                        <span class="menu-allergens-label">Allergènes :</span>
 
                                                         {% for allergen in dish.allergens.all %}
-                                                            <span class="menu-allergen"
-                                                                  title="{{ allergen.description }}">
+                                                            <span class="menu-allergen" title="{{ allergen.description }}">
                                                                 {% if allergen.icon %}
                                                                     <i class="{{ allergen.icon }}"></i>
                                                                 {% endif %}
-
                                                                 {{ allergen.name }}
                                                             </span>
                                                         {% endfor %}
@@ -269,122 +270,79 @@ plats faits maison, boissons, desserts et plats du jour à Voiron.
                                                 {% endif %}
 
                                                 <div class="menu-dish-actions">
-
-                                                    <a href="{{ dish.get_absolute_url }}"
-                                                       class="menu-detail-link">
-                                                        Voir le plat
-                                                        <i class="fa-solid fa-arrow-right"></i>
+                                                    <a href="{{ dish.get_absolute_url }}" class="menu-detail-link">
+                                                        Découvrir <i class="fa-solid fa-arrow-right"></i>
                                                     </a>
-                                                
-                                                    {% if dish.is_delivery_available %}
-                                                
-                                                        <form
-                                                            method="post"
-                                                            action="{% url 'orders:cart_add' dish.pk %}"
-                                                            class="menu-cart-form"
-                                                        >
-                                                            {% csrf_token %}
-                                                
-                                                            <input
-                                                                type="hidden"
-                                                                name="quantity"
-                                                                value="1"
-                                                            >
-                                                
-                                                            <button
-                                                                type="submit"
-                                                                class="menu-cart-btn"
-                                                                title="Ajouter au panier"
-                                                            >
-                                                                <i class="fa-solid fa-basket-shopping"></i>
-                                                                Ajouter
-                                                            </button>
-                                                
-                                                        </form>
-                                                
-                                                    {% endif %}
-                                                
-                                                </div>
 
+                                                    {% if dish.is_delivery_available %}
+                                                        <form method="post" action="{% url 'orders:cart_add' dish.pk %}" class="menu-cart-form">
+                                                            {% csrf_token %}
+                                                            <input type="hidden" name="quantity" value="1">
+                                                            <button type="submit" class="menu-cart-btn" title="Ajouter au panier">
+                                                                <i class="fa-solid fa-basket-shopping"></i> Ajouter
+                                                            </button>
+                                                        </form>
+                                                    {% endif %}
+                                                </div>
                                             </div>
                                         </article>
-
                                     </div>
                                 {% endfor %}
                             </div>
-
                         </section>
                     {% endif %}
-
                 {% endfor %}
             </div>
-
         {% else %}
-
             <div class="menu-empty-state">
                 <i class="fa-solid fa-bowl-food"></i>
                 <h2>La carte arrive bientôt</h2>
-                <p>
-                    Notre équipe prépare actuellement la sélection des plats.
-                </p>
+                <p>Notre équipe prépare actuellement sa sélection.</p>
             </div>
-
         {% endif %}
-
     </div>
 </section>
 
-
+<!-- ALLERGEN INFORMATION -->
 <section class="menu-allergen-notice">
     <div class="container">
         <div class="menu-allergen-notice-inner">
-
             <div class="menu-allergen-notice-icon">
                 <i class="fa-solid fa-circle-exclamation"></i>
             </div>
 
             <div>
                 <h2>Une allergie ou une intolérance alimentaire&nbsp;?</h2>
-
                 <p>
-                    Les informations indiquées sur notre carte sont fournies à
-                    titre informatif. Prévenez notre équipe lors de votre commande
-                    afin que nous puissions vous renseigner et prendre les
-                    précautions nécessaires.
+                    Les informations indiquées sur notre carte sont fournies à titre informatif.
+                    Prévenez notre équipe lors de votre commande afin que nous puissions vous
+                    renseigner et prendre les précautions nécessaires.
                 </p>
             </div>
-
         </div>
     </div>
 </section>
 
-
+<!-- RESERVATION CTA -->
 <section class="menu-cta section-padding">
     <div class="container">
         <div class="menu-cta-inner" data-aos="zoom-in">
-
             <span class="section-eyebrow">Une envie particulière ?</span>
-
             <h2>Réservez votre table</h2>
-
             <p>
                 Venez profiter d’un moment chaleureux dans l’ambiance élégante
                 de Saveurs Africans Lounge.
             </p>
 
             <div class="menu-cta-actions">
-                <a href="#"
-                   class="btn btn-primary-custom">
+                <a href="{% url 'reservations:create' %}" class="btn btn-primary-custom">
                     Réserver une table
                 </a>
 
-                <a href="tel:+33616847569"
-                   class="btn btn-outline-custom">
-                    <i class="fa-solid fa-phone"></i>
-                    06 16 84 75 69
+                <a href="tel:+33616847569" class="btn btn-outline-custom">
+                    <i class="fa-solid fa-phone"></i> 06 16 84 75 69
                 </a>
             </div>
-
         </div>
     </div>
 </section>

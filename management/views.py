@@ -4,6 +4,8 @@ from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import user_passes_test
 from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.admin.views.decorators import staff_member_required
+from django.shortcuts import get_object_or_404, redirect, render
 from django.db import models
 from django.db.models import ProtectedError, Sum
 from django.shortcuts import get_object_or_404, redirect, render
@@ -31,6 +33,9 @@ from .forms import (
     MenuCategoryManagementForm,
     SiteSettingsManagementForm,
 )
+
+from promotions.models import Promotion
+from .forms import PromotionManagementForm
 
 
 # ============================================================
@@ -2150,3 +2155,80 @@ def site_settings(request):
             "site_settings": settings_object,
         },
     )
+    
+    
+
+@staff_member_required(login_url="/gestion/login/")
+def manage_promotions_list(request):
+    promotions = Promotion.objects.all()
+
+    return render(
+        request,
+        "management/promotions/manage_promotions_list.html",
+        {"promotions": promotions},
+    )
+
+
+@staff_member_required(login_url="/gestion/login/")
+def manage_promotion_create(request):
+    form = PromotionManagementForm(
+        request.POST or None,
+        request.FILES or None,
+    )
+
+    if request.method == "POST" and form.is_valid():
+        form.save()
+        messages.success(request, "Promotion créée avec succès.")
+        return redirect("management:promotions_list")
+
+    return render(
+        request,
+        "management/promotions/manage_promotion_form.html",
+        {
+            "form": form,
+            "page_title": "Nouvelle promotion",
+            "is_edit": False,
+        },
+    )
+
+
+@staff_member_required(login_url="/gestion/login/")
+def manage_promotion_update(request, pk):
+    promotion = get_object_or_404(Promotion, pk=pk)
+
+    form = PromotionManagementForm(
+        request.POST or None,
+        request.FILES or None,
+        instance=promotion,
+    )
+
+    if request.method == "POST" and form.is_valid():
+        form.save()
+        messages.success(request, "Promotion modifiée avec succès.")
+        return redirect("management:promotions_list")
+
+    return render(
+        request,
+        "management/promotions/manage_promotion_form.html",
+        {
+            "form": form,
+            "promotion": promotion,
+            "page_title": "Modifier la promotion",
+            "is_edit": True,
+        },
+    )
+
+
+@staff_member_required(login_url="/gestion/login/")
+@require_POST
+def manage_promotion_toggle(request, pk):
+    promotion = get_object_or_404(Promotion, pk=pk)
+
+    promotion.is_active = not promotion.is_active
+    promotion.save(update_fields=["is_active", "updated_at"])
+
+    messages.success(
+        request,
+        "Statut de la promotion mis à jour.",
+    )
+    return redirect("management:promotions_list")
