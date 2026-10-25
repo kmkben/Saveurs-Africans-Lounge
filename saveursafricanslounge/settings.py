@@ -32,10 +32,17 @@ DEVELOPER_URL = "https://kmk-iotech.com"
 # HOSTS AND SECURITY
 # ============================================================
 
-ALLOWED_HOSTS = env.list(
-    "ALLOWED_HOSTS",
-    default=["localhost", "127.0.0.1"],
-)
+# ALLOWED_HOSTS = env.list(
+#     "ALLOWED_HOSTS",
+#     default=["localhost", "127.0.0.1"],
+# )
+
+ALLOWED_HOSTS=[
+    'saveursafricanslounge.com',
+    'www.saveursafricanslounge.com',
+    'https://saveurs-africans-lounge-production.up.railway.app/'
+    
+]
 
 CSRF_TRUSTED_ORIGINS = env.list(
     "CSRF_TRUSTED_ORIGINS",
