@@ -38,8 +38,10 @@ DEVELOPER_URL = "https://kmk-iotech.com"
 # )
 
 ALLOWED_HOSTS=[
+    '127.0.0.1',
     'saveursafricanslounge.com',
     'www.saveursafricanslounge.com',
+    'saveurs-africans-lounge-production.up.railway.app',
     'https://saveurs-africans-lounge-production.up.railway.app/'
     
 ]
