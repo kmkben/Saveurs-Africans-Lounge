@@ -235,25 +235,14 @@ if IS_PRODUCTION and not USE_S3:
     )
 
 if USE_S3:
-    AWS_ACCESS_KEY_ID = env("AWS_ACCESS_KEY_ID", default="")
-    AWS_SECRET_ACCESS_KEY = env("AWS_SECRET_ACCESS_KEY", default="")
-    AWS_STORAGE_BUCKET_NAME = env("AWS_STORAGE_BUCKET_NAME", default="")
-    AWS_S3_REGION_NAME = env("AWS_S3_REGION_NAME", default="eu-west-3")
+    AWS_ACCESS_KEY_ID = env("AWS_ACCESS_KEY_ID").strip()
+    AWS_SECRET_ACCESS_KEY = env("AWS_SECRET_ACCESS_KEY").strip()
+    AWS_STORAGE_BUCKET_NAME = env("AWS_STORAGE_BUCKET_NAME").strip()
+    AWS_S3_REGION_NAME = env("AWS_S3_REGION_NAME", default="eu-west-3").strip()
 
-    if not all([
-        AWS_ACCESS_KEY_ID,
-        AWS_SECRET_ACCESS_KEY,
-        AWS_STORAGE_BUCKET_NAME,
-        AWS_S3_REGION_NAME,
-    ]):
-        raise ImproperlyConfigured(
-            "Missing Amazon S3 configuration."
-        )
-
+    AWS_S3_SIGNATURE_VERSION = "s3v4"
     AWS_DEFAULT_ACL = None
     AWS_S3_FILE_OVERWRITE = False
-    AWS_S3_SIGNATURE_VERSION = "s3v4"
-    AWS_QUERYSTRING_AUTH = False
 
     STORAGES["default"] = {
         "BACKEND": "storages.backends.s3.S3Storage",
@@ -265,17 +254,18 @@ if USE_S3:
             "location": "media",
             "default_acl": None,
             "file_overwrite": False,
-            "querystring_auth": False,
+            "querystring_auth": True,
+            "querystring_expire": 3600,
             "object_parameters": {
-                "CacheControl": "max-age=86400",
+                "CacheControl": "private, max-age=3600",
             },
         },
     }
 
-    MEDIA_URL = (
-        f"https://{AWS_STORAGE_BUCKET_NAME}.s3."
-        f"{AWS_S3_REGION_NAME}.amazonaws.com/media/"
-    )
+    # MEDIA_URL = (
+    #     f"https://{AWS_STORAGE_BUCKET_NAME}.s3."
+    #     f"{AWS_S3_REGION_NAME}.amazonaws.com/media/"
+    # )
 
 
 # ============================================================
