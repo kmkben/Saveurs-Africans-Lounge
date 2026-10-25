@@ -1,4 +1,6 @@
 asgiref==3.12.1
+boto3==1.43.118
+botocore==1.43.118
 certifi==2026.7.22
 charset-normalizer==3.5.1
 crispy-bootstrap5==2026.3
@@ -11,13 +13,16 @@ django-storages==1.14.6
 fontawesomefree==6.6.0
 humanize==4.16.0
 idna==3.19
+jmespath==1.1.0
 packaging==26.2
 phonenumbers==9.0.36
 pillow==12.3.0
 psycopg==3.3.4
 psycopg-binary==3.3.4
+psycopg2-binary==2.9.13
 python-dateutil==2.9.0.post0
 requests==2.34.2
+s3transfer==0.19.3
 six==1.17.0
 sqlparse==0.5.5
 stripe==15.5.1

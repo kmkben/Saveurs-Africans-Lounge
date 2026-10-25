@@ -31,17 +31,6 @@ body {
     margin-top: 5rem;
 }
 
-.asdt-cta-inner {
-    position: relative;
-    overflow: hidden;
-    border-radius: var(--asdt-radius-lg);
-    padding: clamp(3rem, 6vw, 5rem) 1.5rem;
-    background:
-        linear-gradient(135deg, rgba(3, 40, 66, 0.94), rgba(6, 59, 99, 0.92)),
-        url("../images/images/team-banner.jpg") center/cover no-repeat;
-    color: #fff;
-    box-shadow: var(--asdt-shadow-lg);
-}
 
 .asdt-cta .asdt-title,
 .asdt-cta .asdt-muted {

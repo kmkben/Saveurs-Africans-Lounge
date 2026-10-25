@@ -3184,7 +3184,7 @@ p {
             rgba(14, 19, 16, 0.82),
             rgba(14, 19, 16, 0.94)
         ),
-        url("../images/restaurant/gallery-hero.jpg") center/cover no-repeat;
+        url("../images/restaurant/gallery-hero.jpeg") center/cover no-repeat;
 }
 
 .gallery-hero::after {
