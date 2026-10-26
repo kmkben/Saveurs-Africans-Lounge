@@ -1,5 +1,4 @@
 
-import os
 from pathlib import Path
 
 import dj_database_url
@@ -17,12 +16,15 @@ env = environ.Env()
 environ.Env.read_env(BASE_DIR / ".env")
 
 DEBUG = env.bool("DEBUG", default=False)
-SECRET_KEY = env("SECRET_KEY")
-
 IS_PRODUCTION = not DEBUG
 
+SECRET_KEY = env("SECRET_KEY")
+
 SITE_NAME = "Saveurs Africans Lounge"
-SITE_URL = env("SITE_URL", default="http://127.0.0.1:8000")
+SITE_URL = env(
+    "SITE_URL",
+    default="http://127.0.0.1:8000",
+).rstrip("/")
 
 DEVELOPER_NAME = "KMK-IoTech"
 DEVELOPER_URL = "https://kmk-iotech.com"
@@ -32,19 +34,10 @@ DEVELOPER_URL = "https://kmk-iotech.com"
 # HOSTS AND SECURITY
 # ============================================================
 
-# ALLOWED_HOSTS = env.list(
-#     "ALLOWED_HOSTS",
-#     default=["localhost", "127.0.0.1"],
-# )
-
-ALLOWED_HOSTS=[
-    '127.0.0.1',
-    'saveursafricanslounge.com',
-    'www.saveursafricanslounge.com',
-    'saveurs-africans-lounge-production.up.railway.app',
-    'https://saveurs-africans-lounge-production.up.railway.app/'
-    
-]
+ALLOWED_HOSTS = env.list(
+    "ALLOWED_HOSTS",
+    default=["127.0.0.1", "localhost"],
+)
 
 CSRF_TRUSTED_ORIGINS = env.list(
     "CSRF_TRUSTED_ORIGINS",
@@ -52,23 +45,24 @@ CSRF_TRUSTED_ORIGINS = env.list(
 )
 
 if IS_PRODUCTION:
-    if not ALLOWED_HOSTS:
-        raise ImproperlyConfigured("ALLOWED_HOSTS must be configured.")
-
-    if "*" in ALLOWED_HOSTS:
+    if not ALLOWED_HOSTS or "*" in ALLOWED_HOSTS:
         raise ImproperlyConfigured(
-            "Wildcard ALLOWED_HOSTS is not allowed in production."
+            "Configure explicit ALLOWED_HOSTS in production."
         )
 
-    SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
-    SECURE_SSL_REDIRECT = True
+    SECURE_PROXY_SSL_HEADER = (
+        "HTTP_X_FORWARDED_PROTO",
+        "https",
+    )
 
+    SECURE_SSL_REDIRECT = True
     SESSION_COOKIE_SECURE = True
     CSRF_COOKIE_SECURE = True
 
     SECURE_HSTS_SECONDS = 3600
     SECURE_HSTS_INCLUDE_SUBDOMAINS = False
     SECURE_HSTS_PRELOAD = False
+
 else:
     SECURE_SSL_REDIRECT = False
     SESSION_COOKIE_SECURE = False
@@ -79,7 +73,6 @@ X_FRAME_OPTIONS = "DENY"
 
 SESSION_COOKIE_HTTPONLY = True
 SESSION_COOKIE_SAMESITE = "Lax"
-
 CSRF_COOKIE_SAMESITE = "Lax"
 
 
@@ -122,6 +115,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",
+
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -140,7 +134,9 @@ ROOT_URLCONF = "saveursafricanslounge.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [BASE_DIR / "core" / "templates"],
+        "DIRS": [
+            BASE_DIR / "core" / "templates",
+        ],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -163,12 +159,11 @@ WSGI_APPLICATION = "saveursafricanslounge.wsgi.application"
 # DATABASE
 # ============================================================
 
-DATABASE_URL = env("DATABASE_URL", default="")
+DATABASE_URL = env("DATABASE_URL", default="").strip()
 
 if IS_PRODUCTION and not DATABASE_URL:
     raise ImproperlyConfigured(
-        "DATABASE_URL is required in production. "
-        "Configure the Railway PostgreSQL service."
+        "DATABASE_URL is required in production."
     )
 
 DATABASES = {
@@ -176,6 +171,7 @@ DATABASES = {
         default=DATABASE_URL or f"sqlite:///{BASE_DIR / 'db.sqlite3'}",
         conn_max_age=600,
         conn_health_checks=True,
+        ssl_require=False,
     )
 }
 
@@ -212,20 +208,33 @@ USE_TZ = True
 
 
 # ============================================================
-# STATIC FILES
+# STATIC FILES — WHITENOISE
 # ============================================================
 
 STATIC_URL = "/static/"
 STATIC_ROOT = BASE_DIR / "staticfiles"
-# STATICFILES_DIRS = [BASE_DIR / "core" / "static"]
 
-STATICFILES_DIRS = [
-    BASE_DIR / "static",
-] if (BASE_DIR / "static").is_dir() else []
+# Installed Django apps automatically expose their static/
+# directories. Therefore core/static does not need to be
+# declared here.
+#
+# Only include a separate project-level static directory
+# when it actually exists.
+
+STATICFILES_DIRS = (
+    [BASE_DIR / "static"]
+    if (BASE_DIR / "static").is_dir()
+    else []
+)
+
+# Keep the manifest backend: it provides cache-busting URLs
+# and detects broken static references.
+#
+# collectstatic MUST complete before Gunicorn starts.
 
 
 # ============================================================
-# MEDIA STORAGE — LOCAL / AMAZON S3
+# MEDIA STORAGE — LOCAL / PRIVATE AMAZON S3
 # ============================================================
 
 USE_S3 = env.bool("USE_S3", default=False)
@@ -251,7 +260,10 @@ if USE_S3:
     AWS_ACCESS_KEY_ID = env("AWS_ACCESS_KEY_ID").strip()
     AWS_SECRET_ACCESS_KEY = env("AWS_SECRET_ACCESS_KEY").strip()
     AWS_STORAGE_BUCKET_NAME = env("AWS_STORAGE_BUCKET_NAME").strip()
-    AWS_S3_REGION_NAME = env("AWS_S3_REGION_NAME", default="eu-west-3").strip()
+    AWS_S3_REGION_NAME = env(
+        "AWS_S3_REGION_NAME",
+        default="eu-west-3",
+    ).strip()
 
     AWS_S3_SIGNATURE_VERSION = "s3v4"
     AWS_DEFAULT_ACL = None
@@ -275,11 +287,6 @@ if USE_S3:
         },
     }
 
-    # MEDIA_URL = (
-    #     f"https://{AWS_STORAGE_BUCKET_NAME}.s3."
-    #     f"{AWS_S3_REGION_NAME}.amazonaws.com/media/"
-    # )
-
 
 # ============================================================
 # EMAIL — DJANGO SMTP
@@ -290,9 +297,12 @@ EMAIL_BACKEND = env(
     default="django.core.mail.backends.console.EmailBackend",
 )
 
-EMAIL_HOST = env("EMAIL_HOST", default="smtp-relay.brevo.com")
-EMAIL_PORT = env.int("EMAIL_PORT", default=587)
+EMAIL_HOST = env(
+    "EMAIL_HOST",
+    default="smtp-relay.brevo.com",
+)
 
+EMAIL_PORT = env.int("EMAIL_PORT", default=587)
 EMAIL_USE_TLS = env.bool("EMAIL_USE_TLS", default=True)
 EMAIL_USE_SSL = False
 
@@ -372,22 +382,23 @@ STRIPE_LIVE_MODE = env.bool(
 if STRIPE_LIVE_MODE:
     if not STRIPE_PUBLIC_KEY.startswith("pk_live_"):
         raise ImproperlyConfigured(
-            "STRIPE_LIVE_MODE=True requires a live publishable key."
+            "Live Stripe mode requires a live publishable key."
         )
 
     if not STRIPE_SECRET_KEY.startswith("sk_live_"):
         raise ImproperlyConfigured(
-            "STRIPE_LIVE_MODE=True requires a live secret key."
+            "Live Stripe mode requires a live secret key."
         )
+
 else:
     if STRIPE_PUBLIC_KEY and not STRIPE_PUBLIC_KEY.startswith("pk_test_"):
         raise ImproperlyConfigured(
-            "STRIPE_LIVE_MODE=False requires a test publishable key."
+            "Test Stripe mode requires a test publishable key."
         )
 
     if STRIPE_SECRET_KEY and not STRIPE_SECRET_KEY.startswith("sk_test_"):
         raise ImproperlyConfigured(
-            "STRIPE_LIVE_MODE=False requires a test secret key."
+            "Test Stripe mode requires a test secret key."
         )
 
 
