@@ -217,7 +217,11 @@ USE_TZ = True
 
 STATIC_URL = "/static/"
 STATIC_ROOT = BASE_DIR / "staticfiles"
-STATICFILES_DIRS = [BASE_DIR / "core" / "static"]
+# STATICFILES_DIRS = [BASE_DIR / "core" / "static"]
+
+STATICFILES_DIRS = [
+    BASE_DIR / "static",
+] if (BASE_DIR / "static").is_dir() else []
 
 
 # ============================================================
