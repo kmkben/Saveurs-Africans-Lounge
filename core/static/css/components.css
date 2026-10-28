@@ -577,26 +577,40 @@ section[class*="hero"] .asdt-kicker,
 
 
 
-/* =========================================
-   SAL NAVBAR
-========================================= */
+/* =====================================================
+   SAVEURS AFRICANS LOUNGE — PREMIUM NAVBAR
+===================================================== */
 
 .sal-navbar {
-    background: #151b18;
-    border-bottom: 1px solid rgba(200, 161, 90, .16);
-    box-shadow: 0 8px 30px rgba(0, 0, 0, .12);
+    --sal-nav-bg: #171a18;
+    --sal-nav-gold: #c8a15a;
+    --sal-nav-cream: #f8f4ec;
+
+    background: var(--sal-nav-bg);
+    border-bottom: 1px solid rgba(200, 161, 90, .2);
+    box-shadow: 0 6px 28px rgba(0, 0, 0, .15);
+
     padding-top: .65rem;
     padding-bottom: .65rem;
     z-index: 1030;
 }
 
-.sal-navbar .navbar-brand {
+/* =====================================================
+   BRAND
+===================================================== */
+
+.sal-navbar-brand {
     min-width: 0;
+    flex-shrink: 1;
     margin-right: .75rem;
+    text-decoration: none;
 }
 
 .sal-navbar .sal-logo {
+    width: 54px;
+    height: 54px;
     object-fit: contain;
+    border-radius: 8px;
     flex-shrink: 0;
 }
 
@@ -607,42 +621,188 @@ section[class*="hero"] .asdt-kicker,
 }
 
 .sal-navbar-brand-name {
-    color: #f8f4ec;
+    color: var(--sal-nav-cream);
+    font-size: .92rem;
     font-weight: 800;
-    font-size: .9rem;
     line-height: 1.25;
 }
 
 .sal-navbar-brand-tagline {
-    color: #c8a15a;
-    font-size: .62rem;
-    letter-spacing: .035em;
+    color: var(--sal-nav-gold);
+    font-size: .64rem;
+    letter-spacing: .025em;
     margin-top: .25rem;
 }
 
-.sal-navbar .nav-link {
-    color: rgba(248, 244, 236, .78);
-    font-size: .83rem;
+/* =====================================================
+   NAVIGATION LINKS
+===================================================== */
+
+.sal-navbar-links {
+    gap: .1rem;
+}
+
+.sal-navbar .navbar-nav .nav-link {
+    color: rgba(248, 244, 236, .8);
+    font-size: .84rem;
     font-weight: 550;
-    padding: .65rem .7rem;
+    padding: .65rem .6rem;
+    white-space: nowrap;
     transition: color .2s ease;
 }
 
-.sal-navbar .nav-link:hover,
-.sal-navbar .nav-link:focus-visible {
-    color: #c8a15a;
+.sal-navbar .navbar-nav .nav-link:hover,
+.sal-navbar .navbar-nav .nav-link:focus-visible,
+.sal-navbar .navbar-nav .nav-link.active {
+    color: var(--sal-nav-gold);
 }
 
-/* Explicit hamburger: not dependent on Bootstrap's SVG icon */
-.sal-navbar .sal-navbar-toggler {
+/* =====================================================
+   ACTION BUTTONS
+===================================================== */
+
+.sal-navbar-actions {
     display: flex;
     align-items: center;
+    gap: .6rem;
+    margin-left: 1rem;
+}
+
+.sal-navbar-actions .btn {
+    display: inline-flex;
+    align-items: center;
     justify-content: center;
-    flex-shrink: 0;
+    min-height: 40px;
+    padding: .5rem .95rem;
+    font-size: .82rem;
+    font-weight: 650;
+    white-space: nowrap;
+}
+
+/* Reserve — outlined */
+.sal-navbar .sal-nav-reserve {
+    color: var(--sal-nav-cream);
+    background: transparent;
+    border: 1px solid rgba(248, 244, 236, .7);
+    transition: background .2s, color .2s, border-color .2s;
+}
+
+.sal-navbar .sal-nav-reserve:hover {
+    color: var(--sal-nav-bg);
+    background: var(--sal-nav-cream);
+    border-color: var(--sal-nav-cream);
+}
+
+/* Commander — gold */
+.sal-navbar .sal-nav-order {
+    color: var(--sal-nav-bg);
+    background: var(--sal-nav-gold);
+    border: 1px solid var(--sal-nav-gold);
+    transition: background .2s, transform .2s;
+}
+
+.sal-navbar .sal-nav-order:hover {
+    color: var(--sal-nav-bg);
+    background: #e2bf7d;
+    border-color: #e2bf7d;
+    transform: translateY(-1px);
+}
+
+/* =====================================================
+   DESKTOP CART
+===================================================== */
+
+.sal-nav-cart {
+    display: inline-flex;
+    align-items: center;
+    gap: .4rem;
+    padding: .5rem .35rem;
+    color: var(--sal-nav-cream);
+    font-size: .82rem;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: color .2s ease;
+}
+
+.sal-nav-cart:hover {
+    color: var(--sal-nav-gold);
+}
+
+.sal-nav-cart i {
+    font-size: 1.15rem;
+}
+
+.sal-nav-cart-count {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 20px;
+    height: 20px;
+    padding: 0 5px;
+    border-radius: 999px;
+    background: var(--sal-nav-gold);
+    color: var(--sal-nav-bg);
+    font-size: .7rem;
+    font-weight: 800;
+}
+
+/* =====================================================
+   MOBILE QUICK CART
+===================================================== */
+
+.sal-navbar-mobile-cart {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    color: var(--sal-nav-cream);
+    text-decoration: none;
+    border-radius: 12px;
+    transition: color .2s, background .2s;
+}
+
+.sal-navbar-mobile-cart i {
+    font-size: 1.35rem;
+}
+
+.sal-navbar-mobile-cart:hover {
+    color: var(--sal-nav-gold);
+    background: rgba(255, 255, 255, .06);
+}
+
+.sal-navbar-cart-badge {
+    position: absolute;
+    top: 1px;
+    right: 0;
+    min-width: 18px;
+    height: 18px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 4px;
+    border-radius: 50%;
+    background: var(--sal-nav-gold);
+    color: var(--sal-nav-bg);
+    font-size: .65rem;
+    font-weight: 800;
+}
+
+/* =====================================================
+   MOBILE HAMBURGER
+===================================================== */
+
+.sal-navbar .sal-navbar-toggler {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
     width: 44px;
     height: 44px;
     padding: 0;
-    color: #f8f4ec;
+    flex-shrink: 0;
+
+    color: var(--sal-nav-cream);
     background: rgba(248, 244, 236, .07);
     border: 1px solid rgba(248, 244, 236, .3);
     border-radius: 12px;
@@ -650,122 +810,152 @@ section[class*="hero"] .asdt-kicker,
 }
 
 .sal-navbar .sal-navbar-toggler i {
-    display: block;
     font-size: 1.65rem;
     line-height: 1;
-    color: #f8f4ec;
+    color: var(--sal-nav-cream);
 }
 
 .sal-navbar .sal-navbar-toggler:hover,
 .sal-navbar .sal-navbar-toggler:focus-visible {
     background: rgba(200, 161, 90, .16);
-    border-color: #c8a15a;
-    outline: 2px solid transparent;
+    border-color: var(--sal-nav-gold);
 }
 
-.sal-navbar-actions {
-    display: flex;
-    align-items: center;
-    gap: .65rem;
-    margin-left: 1rem;
+.sal-navbar .sal-navbar-toggler:focus-visible {
+    outline: 2px solid var(--sal-nav-gold);
+    outline-offset: 3px;
 }
 
-.sal-nav-reserve {
-    border: 1px solid rgba(248, 244, 236, .7);
-    color: #f8f4ec;
-    padding: .55rem 1rem;
-    font-size: .82rem;
-}
+/* =====================================================
+   DESKTOP — XL AND ABOVE
+===================================================== */
 
-.sal-nav-reserve:hover {
-    background: #f8f4ec;
-    color: #151b18;
-}
-
-.sal-nav-cart {
-    display: inline-flex;
-    align-items: center;
-    gap: .5rem;
-    color: #f8f4ec;
-    text-decoration: none;
-    font-size: .83rem;
-    white-space: nowrap;
-    padding: .5rem;
-}
-
-.sal-nav-cart:hover {
-    color: #c8a15a;
-}
-
-/* Desktop */
 @media (min-width: 1200px) {
     .sal-navbar .sal-navbar-toggler {
         display: none;
     }
+
+    .sal-navbar-collapse {
+        min-width: 0;
+    }
 }
 
-/* Tablet and mobile */
+/* =====================================================
+   TABLET & MOBILE
+===================================================== */
+
 @media (max-width: 1199.98px) {
+
     .sal-navbar-collapse {
         margin-top: .8rem;
-        padding-top: .9rem;
-        padding-bottom: .75rem;
+        padding-top: .85rem;
+        padding-bottom: .8rem;
         border-top: 1px solid rgba(248, 244, 236, .12);
+
         max-height: calc(100dvh - 100px);
         overflow-y: auto;
     }
 
-    .sal-navbar .navbar-nav {
+    .sal-navbar-links {
         gap: .15rem;
     }
 
-    .sal-navbar .nav-link {
-        padding: .8rem .5rem;
+    .sal-navbar .navbar-nav .nav-link {
         font-size: .95rem;
+        padding: .85rem .5rem;
     }
 
     .sal-navbar-actions {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: .75rem;
         margin: 1rem 0 0;
         padding-top: 1rem;
         border-top: 1px solid rgba(248, 244, 236, .12);
-        display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: .7rem;
     }
 
     .sal-navbar-actions .btn {
-        min-height: 44px;
-        display: inline-flex;
-        justify-content: center;
-        align-items: center;
-    }
-
-    .sal-nav-cart {
-        grid-column: 1 / -1;
-        justify-content: center;
-        min-height: 44px;
+        min-height: 46px;
+        font-size: .9rem;
     }
 }
 
-/* Small iPhones */
+/* =====================================================
+   SMALL IPHONES
+===================================================== */
+
+@media (max-width: 390px) {
+
+    .sal-navbar .sal-logo {
+        width: 43px;
+        height: 43px;
+    }
+
+    .sal-navbar-brand-name {
+        font-size: .76rem;
+    }
+
+    .sal-navbar-brand-tagline {
+        font-size: .55rem;
+    }
+
+    .sal-navbar-brand {
+        gap: .4rem !important;
+        margin-right: .25rem;
+    }
+
+    .sal-navbar-mobile-actions {
+        gap: .2rem !important;
+    }
+
+    .sal-navbar-mobile-cart,
+    .sal-navbar .sal-navbar-toggler {
+        width: 40px;
+        height: 40px;
+    }
+}
+
+/* =====================================================
+   VERY NARROW SCREENS
+===================================================== */
+
+@media (max-width: 350px) {
+    .sal-navbar-brand-tagline {
+        display: none;
+    }
+
+    .sal-navbar-brand-name {
+        font-size: .7rem;
+    }
+}
+
+
+/* Mobile navbar refinements */
+@media (max-width: 1199.98px) {
+
+    .sal-navbar-collapse {
+        background: transparent;
+        border-radius: 0;
+        box-shadow: none;
+        padding-top: .5rem;
+        padding-bottom: .65rem;
+    }
+
+    .sal-navbar .navbar-nav .nav-link {
+        padding: .65rem .5rem;
+    }
+
+    .sal-navbar-brand-name {
+        font-size: .9rem;
+    }
+}
+
 @media (max-width: 390px) {
     .sal-navbar-brand-name {
         font-size: .78rem;
     }
-
-    .sal-navbar-brand-tagline {
-        font-size: .56rem;
-    }
-
-    .sal-navbar .sal-logo {
-        width: 44px;
-        height: 44px;
-    }
-
-    .sal-navbar .navbar-brand {
-        gap: .35rem !important;
-    }
 }
+
 
 
 /* Social networks */

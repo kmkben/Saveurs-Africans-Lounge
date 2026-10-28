@@ -39,142 +39,65 @@
     <section class="home-hero">
 
         <div class="home-hero-overlay"></div>
+            <div class="sal-shell position-relative">
+                <div class="row align-items-center min-vh-100 py-5">
 
+                    <div class="col-lg-8 col-xl-7">
 
+                        <div class="home-hero-content ps-3" data-aos="fade-up" >
 
-        <div class="sal-shell position-relative">
+                            <span class="sal-kicker">
+                                Restaurant africain · Lounge · Événements
+                            </span>
 
-            <div class="row align-items-center min-vh-100 py-5">
+                            <h1 class="sal-hero-title text-white mt-3 mb-4">
+                                Les saveurs de l'Afrique dans une ambiance
+                                chaleureuse et élégante.
+                            </h1>
 
-                <div class="col-lg-8 col-xl-7">
+                            <p class="sal-hero-subtitle text-white-50 mb-4">
+                                Découvrez une cuisine africaine généreuse,
+                                profitez de notre espace lounge et partagez
+                                des moments inoubliables à Voiron.
+                            </p>
 
+                            <div class="d-flex flex-wrap gap-3">
 
+                                <a href="{% url "reservations:create" %}" class="btn btn-outline-secondary btn-lg rounded-pill px-4" >
+                                    <i class="bi bi-calendar-check me-2"></i>
+                                    Réserver une table
+                                </a>
 
-                    <div
+                                <a href="{% url 'menu:list' %}" class="btn btn-outline-light btn-lg rounded-pill px-4">
+                                    <i class="bi bi-bag-check me-2"></i>
+                                    Commander en ligne
+                                </a>
 
-                        class="home-hero-content"
+                            </div>
 
-                        data-aos="fade-up"
+                            <div class="home-hero-info mt-5">
+                                <div class="d-flex flex-wrap gap-4">
+                                    <div class="d-flex align-items-center gap-2">
 
-                    >
+                                        <span class="home-hero-icon">
+                                            <i class="bi bi-geo-alt-fill"></i>
+                                        </span>
+                                        <span class="text-white">
+                                            10 Impasse Ruby, Voiron
+                                        </span>
+                                    </div>
 
-                        <span class="sal-kicker">
+                                    <div class="d-flex align-items-center gap-2">
+                                        <span class="home-hero-icon">
+                                            <i class="bi bi-telephone-fill"></i>
+                                        </span>
 
-                            Restaurant africain · Lounge · Événements
+                                        <a href="tel:+33616847569" class="text-white text-decoration-none" >
+                                            06 16 84 75 69
+                                        </a>
 
-                        </span>
-
-
-
-                        <h1 class="sal-hero-title text-white mt-3 mb-4">
-
-                            Les saveurs de l’Afrique dans une ambiance
-
-                            chaleureuse et élégante.
-
-                        </h1>
-
-
-
-                        <p class="sal-hero-subtitle text-white-50 mb-4">
-
-                            Découvrez une cuisine africaine généreuse,
-
-                            profitez de notre espace lounge et partagez
-
-                            des moments inoubliables à Voiron.
-
-                        </p>
-
-
-
-                        <div class="d-flex flex-wrap gap-3">
-
-                            <a
-
-                                href="{% url "reservations:create" %}"
-
-                                class="btn btn-outline-secondary btn-lg rounded-pill px-4"
-
-                            >
-
-                                <i class="bi bi-calendar-check me-2"></i>
-
-                                Réserver une table
-
-                            </a>
-
-
-
-                            <a
-
-                                href="{% url 'menu:list' %}"
-
-                                class="btn btn-outline-light btn-lg rounded-pill px-4"
-
-                            >
-
-                                <i class="bi bi-bag-check me-2"></i>
-
-                                Commander en ligne
-
-                            </a>
-
-                        </div>
-
-
-
-                        <div class="home-hero-info mt-5">
-
-                            <div class="d-flex flex-wrap gap-4">
-
-
-
-                                <div class="d-flex align-items-center gap-2">
-
-                                    <span class="home-hero-icon">
-
-                                        <i class="bi bi-geo-alt-fill"></i>
-
-                                    </span>
-
-
-
-                                    <span class="text-white">
-
-                                        10 Impasse Ruby, Voiron
-
-                                    </span>
-
+                                    </div>
                                 </div>
-
-
-
-                                <div class="d-flex align-items-center gap-2">
-
-                                    <span class="home-hero-icon">
-
-                                        <i class="bi bi-telephone-fill"></i>
-
-                                    </span>
-
-
-
-                                    <a
-
-                                        href="tel:+33616847569"
-
-                                        class="text-white text-decoration-none"
-
-                                    >
-
-                                        06 16 84 75 69
-
-                                    </a>
-
-                                </div>
-
-
 
                             </div>
 
@@ -182,43 +105,15 @@
 
                     </div>
 
-
-
                 </div>
 
             </div>
 
-        </div>
-
-
-
-        <a
-
-            href="#restaurant"
-
-            class="home-hero-scroll"
-
-            aria-label="Découvrir le restaurant"
-
-        >
-
-            <i class="bi bi-chevron-down"></i>
-
-        </a>
+            <a href="#restaurant" class="home-hero-scroll" aria-label="Découvrir le restaurant" >
+                <i class="bi bi-chevron-down"></i>
+            </a>
 
     </section>
-
-
-
-
-
-
-
-
-
-
-
-
 
     <!-- =========================
 

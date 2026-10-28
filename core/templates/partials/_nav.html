@@ -6,11 +6,14 @@
 
     <div class="container-fluid px-3 px-lg-4">
 
-        <!-- Brand -->
-        <a class="navbar-brand sal-navbar-brand d-flex align-items-center gap-2"
-           href="{% url 'home' %}"
-           aria-label="Accueil Saveurs Africans Lounge">
-
+        <!-- =====================================
+             BRAND
+        ====================================== -->
+        <a
+            class="navbar-brand sal-navbar-brand d-flex align-items-center gap-2"
+            href="{% url 'home' %}"
+            aria-label="Accueil Saveurs Africans Lounge"
+        >
             <img
                 src="{% static 'images/branding/logo-saveurs-africans-lounge.png' %}"
                 alt=""
@@ -24,7 +27,7 @@
                     {% if site_settings and site_settings.restaurant_name %}
                         {{ site_settings.restaurant_name }}
                     {% else %}
-                        {{ default_site_name }}
+                        {{ default_site_name|default:"Saveurs Africans Lounge" }}
                     {% endif %}
                 </span>
 
@@ -34,24 +37,47 @@
             </span>
         </a>
 
-        <!-- Mobile toggle -->
-        <button
-            class="navbar-toggler sal-navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#mainNavbar"
-            aria-controls="mainNavbar"
-            aria-expanded="false"
-            aria-label="Afficher le menu"
-        >
-            <i class="bi bi-list" aria-hidden="true"></i>
-        </button>
+        <!-- =====================================
+             MOBILE QUICK ACTIONS
+        ====================================== -->
+        <div class="sal-navbar-mobile-actions d-flex d-xl-none align-items-center gap-2 ms-auto">
 
-        <!-- Collapsible content -->
+            <!-- Quick cart access -->
+            <a
+                href="{% url 'orders:cart' %}"
+                class="sal-navbar-mobile-cart"
+                aria-label="Voir le panier"
+            >
+                <i class="bi bi-bag" aria-hidden="true"></i>
+
+                {% if cart|length %}
+                    <span class="sal-navbar-cart-badge">
+                        {{ cart|length }}
+                    </span>
+                {% endif %}
+            </a>
+
+            <!-- Hamburger -->
+            <button
+                class="navbar-toggler sal-navbar-toggler"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#mainNavbar"
+                aria-controls="mainNavbar"
+                aria-expanded="false"
+                aria-label="Afficher le menu"
+            >
+                <i class="bi bi-list" aria-hidden="true"></i>
+            </button>
+        </div>
+
+        <!-- =====================================
+             COLLAPSIBLE NAVIGATION
+        ====================================== -->
         <div class="collapse navbar-collapse sal-navbar-collapse"
              id="mainNavbar">
 
-            <ul class="navbar-nav ms-xl-auto align-items-xl-center gap-xl-1">
+            <ul class="navbar-nav ms-xl-auto align-items-xl-center sal-navbar-links">
 
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'home' %}">
@@ -88,34 +114,51 @@
                         Contact
                     </a>
                 </li>
+
             </ul>
 
+            <!-- =====================================
+                 DESKTOP / MOBILE ACTIONS
+            ====================================== -->
             <div class="sal-navbar-actions">
-                <a href="{% url 'reservations:create' %}"
-                   class="btn sal-nav-reserve rounded-pill">
+
+                <!-- Reservation -->
+                <a
+                    href="{% url 'reservations:create' %}"
+                    class="btn sal-nav-reserve rounded-pill"
+                >
                     <i class="bi bi-calendar-check d-xl-none me-2"></i>
                     Réserver
                 </a>
 
-                <!-- Temporary destination until order-list URL is confirmed -->
-                <a href="{% url 'menu:list' %}"
-                   class="btn btn-sal-secondary rounded-pill">
+                <!-- Ordering -->
+                <a
+                    href="{% url 'menu:list' %}"
+                    class="btn sal-nav-order rounded-pill"
+                >
                     <i class="bi bi-bag-plus me-1"></i>
                     Commander
                 </a>
 
-                <a href="{% url 'orders:cart' %}"
-                   class="sal-nav-cart"
-                   aria-label="Voir le panier">
-                    <i class="fa-solid fa-basket-shopping"></i>
-                    <span>Panier</span>
+                <!-- Desktop cart -->
+                <a
+                    href="{% url 'orders:cart' %}"
+                    class="sal-nav-cart d-none d-xl-inline-flex"
+                    aria-label="Voir le panier"
+                >
+                    <i class="bi bi-basket2"></i>
+
+                    <span class="sal-nav-cart-label">
+                        Panier
+                    </span>
 
                     {% if cart|length %}
-                        <span class="cart-nav-count">
+                        <span class="sal-nav-cart-count">
                             {{ cart|length }}
                         </span>
                     {% endif %}
                 </a>
+
             </div>
 
         </div>
