@@ -1,40 +1,42 @@
+
 {% load static %}
 
-<nav class="navbar navbar-expand-xl fixed-top sal-navbar">
+<nav class="navbar navbar-expand-xl fixed-top sal-navbar"
+     aria-label="Navigation principale">
+
     <div class="container-fluid px-3 px-lg-4">
 
         <!-- Brand -->
-        <a
-            class="navbar-brand d-flex align-items-center gap-2"
-            href="{% url 'home' %}"
-            aria-label="Accueil Saveurs Africans Lounge"
-        >
+        <a class="navbar-brand sal-navbar-brand d-flex align-items-center gap-2"
+           href="{% url 'home' %}"
+           aria-label="Accueil Saveurs Africans Lounge">
+
             <img
                 src="{% static 'images/branding/logo-saveurs-africans-lounge.png' %}"
-                alt="Logo Saveurs Africans Lounge"
+                alt=""
                 class="sal-logo"
-                width="58"
-                height="58"
+                width="54"
+                height="54"
             >
 
             <span class="sal-navbar-brand-text">
                 <span class="sal-navbar-brand-name">
-                    {% if site_settings|upper %}
+                    {% if site_settings and site_settings.restaurant_name %}
                         {{ site_settings.restaurant_name }}
                     {% else %}
                         {{ default_site_name }}
                     {% endif %}
                 </span>
-        
+
                 <span class="sal-navbar-brand-tagline">
                     Restaurant africain · Voiron
                 </span>
             </span>
         </a>
 
-        <!-- Mobile toggler -->
+        <!-- Mobile toggle -->
         <button
-            class="navbar-toggler"
+            class="navbar-toggler sal-navbar-toggler"
             type="button"
             data-bs-toggle="collapse"
             data-bs-target="#mainNavbar"
@@ -42,95 +44,80 @@
             aria-expanded="false"
             aria-label="Afficher le menu"
         >
-            <span class="navbar-toggler-icon"></span>
+            <i class="bi bi-list" aria-hidden="true"></i>
         </button>
 
-        <!-- Navigation -->
-        <div class="collapse navbar-collapse" id="mainNavbar">
+        <!-- Collapsible content -->
+        <div class="collapse navbar-collapse sal-navbar-collapse"
+             id="mainNavbar">
+
             <ul class="navbar-nav ms-xl-auto align-items-xl-center gap-xl-1">
 
                 <li class="nav-item">
-                    <a
-                        class="nav-link"
-                        href="{% url 'home' %}"
-                    >
+                    <a class="nav-link" href="{% url 'home' %}">
                         Accueil
                     </a>
                 </li>
 
                 <li class="nav-item">
-                    <a
-                        class="nav-link"
-                        href="{% url 'menu:list' %}"
-                    >
+                    <a class="nav-link" href="{% url 'menu:list' %}">
                         La carte
                     </a>
                 </li>
 
                 <li class="nav-item">
-                    <a
-                        class="nav-link"
-                        href="{% url 'daily_specials:home' %}"
-                    >
+                    <a class="nav-link" href="{% url 'daily_specials:home' %}">
                         Plats du jour
                     </a>
                 </li>
 
                 <li class="nav-item">
-                    <a
-                        class="nav-link"
-                        href="{% url 'events:list' %}"
-                    >
+                    <a class="nav-link" href="{% url 'events:list' %}">
                         Événements
                     </a>
                 </li>
 
                 <li class="nav-item">
-                    <a
-                        class="nav-link"
-                        href="{% url 'gallery:albums' %}"
-                    >
+                    <a class="nav-link" href="{% url 'gallery:albums' %}">
                         Galerie
                     </a>
                 </li>
 
                 <li class="nav-item">
-                    <a
-                        class="nav-link"
-                        href="{% url 'contact:contact' %}"
-                    >
+                    <a class="nav-link" href="{% url 'contact:contact' %}">
                         Contact
                     </a>
                 </li>
-
             </ul>
 
-            <!-- Main actions -->
             <div class="sal-navbar-actions">
-                <a href="{% url "reservations:create" %}" class="btn btn-outline-light rounded-pill">
+                <a href="{% url 'reservations:create' %}"
+                   class="btn sal-nav-reserve rounded-pill">
+                    <i class="bi bi-calendar-check d-xl-none me-2"></i>
                     Réserver
                 </a>
-            
-                <a href="#" class="btn btn-sal-secondary rounded-pill">
+
+                <!-- Temporary destination until order-list URL is confirmed -->
+                <a href="{% url 'menu:list' %}"
+                   class="btn btn-sal-secondary rounded-pill">
+                    <i class="bi bi-bag-plus me-1"></i>
                     Commander
+                </a>
+
+                <a href="{% url 'orders:cart' %}"
+                   class="sal-nav-cart"
+                   aria-label="Voir le panier">
+                    <i class="fa-solid fa-basket-shopping"></i>
+                    <span>Panier</span>
+
+                    {% if cart|length %}
+                        <span class="cart-nav-count">
+                            {{ cart|length }}
+                        </span>
+                    {% endif %}
                 </a>
             </div>
 
-            <a
-                href="{% url 'orders:cart' %}"
-                class="nav-link cart-nav-link"
-            >
-                <i class="fa-solid fa-basket-shopping"></i>
-
-                <span>Panier</span>
-
-                {% if cart|length %}
-                    <span class="cart-nav-count">
-                        {{ cart|length }}
-                    </span>
-                {% endif %}
-            </a>
         </div>
-
     </div>
 </nav>

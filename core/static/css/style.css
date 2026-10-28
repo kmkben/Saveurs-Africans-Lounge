@@ -75,6 +75,8 @@ p {
 .sal-section {
     padding-top: clamp(4.5rem, 8vw, 7.5rem);
     padding-bottom: clamp(4.5rem, 8vw, 7.5rem);
+    padding-left: 1rem;
+    padding-right: 1rem;
 }
 
 .sal-title {

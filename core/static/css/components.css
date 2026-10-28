@@ -418,3 +418,524 @@ section[class*="hero"] .asdt-kicker,
         padding-block: 0.75rem;
     }
 }
+
+
+
+/* =========================================
+   SAL FOOTER
+========================================= */
+
+.sal-footer {
+    background: #151b18;
+    color: #f8f4ec;
+    border-top: 1px solid rgba(200, 161, 90, .22);
+}
+
+.sal-footer-main {
+    padding-top: 4rem;
+    padding-bottom: 3.5rem;
+}
+
+.sal-footer-brand {
+    text-decoration: none;
+    color: inherit;
+}
+
+.sal-footer-brand:hover {
+    color: inherit;
+}
+
+.sal-footer-logo {
+    object-fit: contain;
+    flex-shrink: 0;
+    border-radius: 12px;
+}
+
+.sal-footer-brand-name {
+    font-size: 1.08rem;
+    font-weight: 750;
+    line-height: 1.3;
+}
+
+.sal-footer-muted {
+    color: rgba(248, 244, 236, .58);
+    font-size: .75rem;
+    margin-top: .35rem;
+}
+
+.sal-footer-description {
+    max-width: 340px;
+    color: rgba(248, 244, 236, .68);
+    line-height: 1.85;
+    font-size: .92rem;
+    margin: 1.5rem 0;
+}
+
+.sal-footer-heading {
+    color: #c8a15a;
+    font-size: .9rem;
+    font-weight: 750;
+    letter-spacing: .045em;
+    margin: .4rem 0 1.5rem;
+}
+
+.sal-footer-links,
+.sal-footer-contact {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sal-footer-links {
+    display: grid;
+    gap: .85rem;
+}
+
+.sal-footer-links a,
+.sal-footer-contact a {
+    color: rgba(248, 244, 236, .72);
+    text-decoration: none;
+    transition: color .2s ease;
+}
+
+.sal-footer-links a:hover,
+.sal-footer-contact a:hover {
+    color: #c8a15a;
+}
+
+.sal-footer-contact {
+    display: grid;
+    gap: 1.15rem;
+}
+
+.sal-footer-contact li {
+    display: flex;
+    align-items: flex-start;
+    gap: .85rem;
+    font-size: .88rem;
+    line-height: 1.75;
+    color: rgba(248, 244, 236, .72);
+}
+
+.sal-footer-contact li > i {
+    color: #c8a15a;
+    font-size: 1.05rem;
+    flex-shrink: 0;
+    margin-top: .12rem;
+}
+
+.sal-footer .sal-social-btn {
+    width: 40px;
+    height: 40px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(248, 244, 236, .18);
+    border-radius: 50%;
+    color: #f8f4ec;
+    text-decoration: none;
+    transition: background .2s, border-color .2s, color .2s;
+}
+
+.sal-footer .sal-social-btn:hover {
+    background: #c8a15a;
+    color: #151b18;
+    border-color: #c8a15a;
+}
+
+.sal-footer-cta {
+    margin-top: 1.7rem;
+    padding: .75rem 1.35rem;
+}
+
+.sal-footer-bottom {
+    padding: 1.4rem 0;
+    border-top: 1px solid rgba(248, 244, 236, .12);
+    color: rgba(248, 244, 236, .52);
+    font-size: .78rem;
+}
+
+.sal-footer-credit {
+    color: #c8a15a;
+    font-weight: 700;
+}
+
+@media (max-width: 767.98px) {
+    .sal-footer-main {
+        padding-top: 3rem;
+        padding-bottom: 2.5rem;
+    }
+
+    .sal-footer-heading {
+        margin-bottom: 1.1rem;
+    }
+
+    .sal-footer-bottom {
+        text-align: center;
+    }
+}
+
+
+
+/* =========================================
+   SAL NAVBAR
+========================================= */
+
+.sal-navbar {
+    background: #151b18;
+    border-bottom: 1px solid rgba(200, 161, 90, .16);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, .12);
+    padding-top: .65rem;
+    padding-bottom: .65rem;
+    z-index: 1030;
+}
+
+.sal-navbar .navbar-brand {
+    min-width: 0;
+    margin-right: .75rem;
+}
+
+.sal-navbar .sal-logo {
+    object-fit: contain;
+    flex-shrink: 0;
+}
+
+.sal-navbar-brand-text {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.sal-navbar-brand-name {
+    color: #f8f4ec;
+    font-weight: 800;
+    font-size: .9rem;
+    line-height: 1.25;
+}
+
+.sal-navbar-brand-tagline {
+    color: #c8a15a;
+    font-size: .62rem;
+    letter-spacing: .035em;
+    margin-top: .25rem;
+}
+
+.sal-navbar .nav-link {
+    color: rgba(248, 244, 236, .78);
+    font-size: .83rem;
+    font-weight: 550;
+    padding: .65rem .7rem;
+    transition: color .2s ease;
+}
+
+.sal-navbar .nav-link:hover,
+.sal-navbar .nav-link:focus-visible {
+    color: #c8a15a;
+}
+
+/* Explicit hamburger: not dependent on Bootstrap's SVG icon */
+.sal-navbar .sal-navbar-toggler {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    color: #f8f4ec;
+    background: rgba(248, 244, 236, .07);
+    border: 1px solid rgba(248, 244, 236, .3);
+    border-radius: 12px;
+    box-shadow: none;
+}
+
+.sal-navbar .sal-navbar-toggler i {
+    display: block;
+    font-size: 1.65rem;
+    line-height: 1;
+    color: #f8f4ec;
+}
+
+.sal-navbar .sal-navbar-toggler:hover,
+.sal-navbar .sal-navbar-toggler:focus-visible {
+    background: rgba(200, 161, 90, .16);
+    border-color: #c8a15a;
+    outline: 2px solid transparent;
+}
+
+.sal-navbar-actions {
+    display: flex;
+    align-items: center;
+    gap: .65rem;
+    margin-left: 1rem;
+}
+
+.sal-nav-reserve {
+    border: 1px solid rgba(248, 244, 236, .7);
+    color: #f8f4ec;
+    padding: .55rem 1rem;
+    font-size: .82rem;
+}
+
+.sal-nav-reserve:hover {
+    background: #f8f4ec;
+    color: #151b18;
+}
+
+.sal-nav-cart {
+    display: inline-flex;
+    align-items: center;
+    gap: .5rem;
+    color: #f8f4ec;
+    text-decoration: none;
+    font-size: .83rem;
+    white-space: nowrap;
+    padding: .5rem;
+}
+
+.sal-nav-cart:hover {
+    color: #c8a15a;
+}
+
+/* Desktop */
+@media (min-width: 1200px) {
+    .sal-navbar .sal-navbar-toggler {
+        display: none;
+    }
+}
+
+/* Tablet and mobile */
+@media (max-width: 1199.98px) {
+    .sal-navbar-collapse {
+        margin-top: .8rem;
+        padding-top: .9rem;
+        padding-bottom: .75rem;
+        border-top: 1px solid rgba(248, 244, 236, .12);
+        max-height: calc(100dvh - 100px);
+        overflow-y: auto;
+    }
+
+    .sal-navbar .navbar-nav {
+        gap: .15rem;
+    }
+
+    .sal-navbar .nav-link {
+        padding: .8rem .5rem;
+        font-size: .95rem;
+    }
+
+    .sal-navbar-actions {
+        margin: 1rem 0 0;
+        padding-top: 1rem;
+        border-top: 1px solid rgba(248, 244, 236, .12);
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: .7rem;
+    }
+
+    .sal-navbar-actions .btn {
+        min-height: 44px;
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .sal-nav-cart {
+        grid-column: 1 / -1;
+        justify-content: center;
+        min-height: 44px;
+    }
+}
+
+/* Small iPhones */
+@media (max-width: 390px) {
+    .sal-navbar-brand-name {
+        font-size: .78rem;
+    }
+
+    .sal-navbar-brand-tagline {
+        font-size: .56rem;
+    }
+
+    .sal-navbar .sal-logo {
+        width: 44px;
+        height: 44px;
+    }
+
+    .sal-navbar .navbar-brand {
+        gap: .35rem !important;
+    }
+}
+
+
+/* Social networks */
+.sal-footer .sal-social-btn {
+    width: 44px;
+    height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+
+    border: 1px solid rgba(200, 161, 90, .35);
+    border-radius: 50%;
+
+    background: rgba(255, 255, 255, .04);
+    color: #f8f4ec;
+
+    font-size: 1.1rem;
+    text-decoration: none;
+
+    transition:
+        transform .25s ease,
+        background .25s ease,
+        color .25s ease,
+        border-color .25s ease;
+}
+
+.sal-footer .sal-social-btn:hover {
+    transform: translateY(-4px);
+    background: #c8a15a;
+    color: #151b18;
+    border-color: #c8a15a;
+}
+
+.sal-footer .sal-social-btn:focus-visible {
+    outline: 2px solid #c8a15a;
+    outline-offset: 4px;
+}
+
+
+
+/* =========================================
+   SAL SOCIAL NETWORKS — BRAND COLORS
+========================================= */
+
+.sal-footer .sal-social-btn {
+    width: 46px;
+    height: 46px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+    background: rgba(255, 255, 255, .06);
+    border: 1px solid rgba(255, 255, 255, .15);
+
+    font-size: 1.25rem;
+    text-decoration: none;
+
+    transition:
+        transform .25s ease,
+        background .25s ease,
+        border-color .25s ease,
+        box-shadow .25s ease;
+}
+
+/* Instagram — recognizable magenta */
+.sal-footer .sal-social-instagram i {
+    background: linear-gradient(
+        45deg,
+        #FEDA75 0%,
+        #FA7E1E 25%,
+        #D62976 50%,
+        #962FBF 75%,
+        #4F5BD5 100%
+    );
+
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* Facebook — official blue */
+.sal-footer .sal-social-facebook {
+    color: #1877F2;
+}
+
+/* WhatsApp — official green */
+.sal-footer .sal-social-whatsapp {
+    color: #25D366;
+}
+
+/* Telephone — SAL gold */
+.sal-footer .sal-social-phone {
+    color: #C8A15A;
+}
+
+/* Hover effect */
+.sal-footer .sal-social-btn:hover {
+    transform: translateY(-4px);
+    background: rgba(255, 255, 255, .12);
+    border-color: currentColor;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, .2);
+}
+
+/* Preserve brand colors on hover */
+.sal-footer .sal-social-instagram:hover {
+    color: #E4405F;
+}
+
+.sal-footer .sal-social-facebook:hover {
+    color: #1877F2;
+}
+
+.sal-footer .sal-social-whatsapp:hover {
+    color: #25D366;
+}
+
+.sal-footer .sal-social-phone:hover {
+    color: #C8A15A;
+}
+
+.sal-footer .sal-social-btn:focus-visible {
+    outline: 2px solid #C8A15A;
+    outline-offset: 4px;
+}
+
+
+/* Contact envelope — SAL gold */
+.sal-footer .sal-social-email {
+    color: #C8A15A;
+}
+
+.sal-footer .sal-social-email:hover {
+    color: #E5C58B;
+    border-color: #C8A15A;
+}
+
+.sal-footer-credit {
+    color: #C8A15A;
+    font-weight: 700;
+    text-decoration: none;
+    transition: color .2s ease;
+}
+
+.sal-footer-credit:hover {
+    color: #E5C58B;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+}
+
+.sal-footer-credit:focus-visible {
+    outline: 2px solid #C8A15A;
+    outline-offset: 4px;
+}
+
+
+/* Navbar logo */
+.sal-navbar .sal-logo {
+    width: 54px;
+    height: 54px;
+    object-fit: contain;
+    border-radius: 8px;
+}
+
+/* Footer logo */
+.sal-footer .sal-footer-logo {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+    border-radius: 10px;
+}
