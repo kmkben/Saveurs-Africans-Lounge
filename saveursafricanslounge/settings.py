@@ -370,6 +370,11 @@ BREVO_SMS_SENDER = env(
 # STRIPE — PAYMENTS
 # ============================================================
 
+
+# ============================================================
+# STRIPE — PAYMENTS
+# ============================================================
+
 STRIPE_PUBLIC_KEY = env("STRIPE_PUBLIC_KEY", default="")
 STRIPE_SECRET_KEY = env("STRIPE_SECRET_KEY", default="")
 STRIPE_WEBHOOK_SECRET = env("STRIPE_WEBHOOK_SECRET", default="")
@@ -385,7 +390,7 @@ if STRIPE_LIVE_MODE:
             "Live Stripe mode requires a live publishable key."
         )
 
-    if not STRIPE_SECRET_KEY.startswith("sk_live_"):
+    if not STRIPE_SECRET_KEY.startswith(("sk_live_", "rk_live_")):
         raise ImproperlyConfigured(
             "Live Stripe mode requires a live secret key."
         )
@@ -396,7 +401,9 @@ else:
             "Test Stripe mode requires a test publishable key."
         )
 
-    if STRIPE_SECRET_KEY and not STRIPE_SECRET_KEY.startswith("sk_test_"):
+    if STRIPE_SECRET_KEY and not STRIPE_SECRET_KEY.startswith(
+        ("sk_test_", "rk_test_")
+    ):
         raise ImproperlyConfigured(
             "Test Stripe mode requires a test secret key."
         )
