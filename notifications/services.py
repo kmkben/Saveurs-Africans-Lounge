@@ -1,3 +1,4 @@
+
 import logging
 
 import requests
@@ -11,6 +12,51 @@ logger = logging.getLogger(__name__)
 
 BREVO_EMAIL_URL = "https://api.brevo.com/v3/smtp/email"
 BREVO_SMS_URL = "https://api.brevo.com/v3/transactionalSMS/send"
+
+
+# ==================================================
+# FORMATTING HELPERS
+# ==================================================
+
+def _customer_greeting(full_name):
+    """
+    Build a personalized greeting using the customer's
+    first name, with a neutral fallback.
+    """
+
+    names = (full_name or "").strip().split()
+
+    if names:
+        return f"Bonjour {names[0]},"
+
+    return "Bonjour,"
+
+
+def _format_amount(amount):
+    """
+    Format a monetary amount using French conventions.
+
+    Examples:
+        15.00 -> 15 €
+        15.50 -> 15,50 €
+    """
+
+    formatted = f"{amount:.2f}"
+
+    if formatted.endswith(".00"):
+        formatted = formatted[:-3]
+
+    return f"{formatted.replace('.', ',')} €"
+
+
+def _format_guest_count(number_of_guests):
+    """
+    Format the number of guests with correct pluralization.
+    """
+
+    label = "personne" if number_of_guests == 1 else "personnes"
+
+    return f"{number_of_guests} {label}"
 
 
 # ==================================================
@@ -123,6 +169,7 @@ def send_sms(
         "recipient": str(phone),
         "content": content,
         "type": "transactional",
+        "unicodeEnabled": True,
     }
 
     response = requests.post(
@@ -227,15 +274,22 @@ def send_order_paid_notifications(order):
         not order.sms_notifications_sent
         and settings.BREVO_SMS_ENABLED
     ):
+        greeting = _customer_greeting(
+            order.customer_name
+        )
+
+        total = _format_amount(order.total)
+
         # Customer
         if order.phone:
             send_sms(
                 phone=order.phone,
                 content=(
-                    f"Saveurs Africans Lounge : "
-                    f"commande #{order.pk} confirmee. "
-                    f"Paiement de {order.total:.2f} EUR recu. "
-                    f"Merci pour votre commande."
+                    f"{greeting} votre commande "
+                    f"n°{order.pk} de {total} chez "
+                    f"Saveurs Africans Lounge est confirmée "
+                    f"et réglée. Nous vous remercions "
+                    f"pour votre confiance."
                 ),
             )
 
@@ -244,11 +298,11 @@ def send_order_paid_notifications(order):
             send_sms(
                 phone=settings.OWNER_NOTIFICATION_PHONE,
                 content=(
-                    f"Nouvelle commande #{order.pk} payee - "
-                    f"{order.get_order_type_display()} - "
-                    f"{order.total:.2f} EUR. "
+                    f"Nouvelle commande n°{order.pk} réglée. "
                     f"Client : {order.customer_name}. "
-                    f"A preparer."
+                    f"Montant : {total}. "
+                    f"Mode : {order.get_order_type_display()}. "
+                    f"Commande à préparer."
                 ),
             )
 
@@ -353,18 +407,37 @@ def send_reservation_paid_notifications(reservation):
         not reservation.sms_notifications_sent
         and settings.BREVO_SMS_ENABLED
     ):
+        greeting = _customer_greeting(
+            reservation.full_name
+        )
+
+        deposit = _format_amount(
+            reservation.deposit_amount
+        )
+
+        guests = _format_guest_count(
+            reservation.number_of_guests
+        )
+
+        reservation_date = (
+            reservation.reservation_date.strftime("%d/%m/%Y")
+        )
+
+        reservation_time = (
+            reservation.reservation_time.strftime("%Hh%M")
+        )
+
         # Customer
         if reservation.phone:
             send_sms(
                 phone=reservation.phone,
                 content=(
-                    f"Saveurs Africans Lounge : "
-                    f"reservation confirmee pour "
-                    f"{reservation.number_of_guests} personne(s), "
-                    f"le {reservation.reservation_date:%d/%m/%Y} "
-                    f"a {reservation.reservation_time:%H:%M}. "
-                    f"Acompte de "
-                    f"{reservation.deposit_amount:.2f} EUR recu."
+                    f"{greeting} nous vous confirmons votre "
+                    f"réservation du {reservation_date} "
+                    f"à {reservation_time} pour {guests}. "
+                    f"Votre acompte de {deposit} a bien été reçu. "
+                    f"Au plaisir de vous accueillir chez "
+                    f"Saveurs Africans Lounge !"
                 ),
             )
 
@@ -373,12 +446,16 @@ def send_reservation_paid_notifications(reservation):
             send_sms(
                 phone=settings.OWNER_NOTIFICATION_PHONE,
                 content=(
-                    f"Nouvelle reservation #{reservation.pk} payee - "
-                    f"{reservation.get_reservation_type_display()} - "
-                    f"{reservation.number_of_guests} pers. - "
-                    f"{reservation.reservation_date:%d/%m/%Y} "
-                    f"a {reservation.reservation_time:%H:%M}. "
-                    f"Client : {reservation.full_name}."
+                    f"Nouvelle réservation n°{reservation.pk} "
+                    f"confirmée. "
+                    f"Client : {reservation.full_name}. "
+                    f"Type : "
+                    f"{reservation.get_reservation_type_display()}. "
+                    f"Date : {reservation_date} "
+                    f"à {reservation_time}. "
+                    f"Nombre de personnes : "
+                    f"{reservation.number_of_guests}. "
+                    f"Acompte réglé : {deposit}."
                 ),
             )
 
