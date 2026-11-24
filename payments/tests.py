@@ -490,3 +490,101 @@ class PaymentSuccessRedirectTests(PaymentTestMixin, TestCase):
         self.assertEqual(response.status_code, 302)
         self.assertFalse(reservation.deposit_is_paid)
         retrieve_session.assert_not_called()
+
+
+@override_settings(STRIPE_WEBHOOK_SECRET="whsec_test_secret")
+class StripeSDKCompatibilityTests(PaymentTestMixin, TestCase):
+    def sdk_session(self, **kwargs):
+        payload = self.make_session(**kwargs)
+        payload["object"] = "checkout.session"
+        return stripe.checkout.Session.construct_from(payload, "sk_test_fake")
+
+    @patch("payments.services.get_stripe_client")
+    @patch("payments.views._notify_reservation")
+    def test_real_sdk_reservation_success(self, notify, client):
+        reservation = self.make_reservation()
+        sdk = self.sdk_session(session_id=reservation.deposit_reference,
+                               payment_type="reservation", object_id=reservation.pk,
+                               amount=reservation.deposit_amount)
+        client.return_value.v1.checkout.sessions.retrieve.return_value = sdk
+        browser = self.client.session
+        browser["last_reservation_id"] = reservation.pk
+        browser.save()
+        with self.captureOnCommitCallbacks(execute=True):
+            response = self.client.get(reverse("payments:reservation_success", args=[reservation.pk]),
+                                       {"session_id": reservation.deposit_reference})
+        reservation.refresh_from_db()
+        self.assertTrue(reservation.deposit_is_paid)
+        self.assertEqual(response.url, reverse("reservations:success"))
+        notify.assert_called_once_with(reservation.pk)
+
+    @patch("payments.services.get_stripe_client")
+    @patch("payments.views._notify_order")
+    def test_real_sdk_order_success(self, notify, client):
+        order = self.make_order()
+        client.return_value.v1.checkout.sessions.retrieve.return_value = self.sdk_session(
+            session_id=order.payment_reference, payment_type="order", object_id=order.pk, amount=order.total)
+        browser = self.client.session
+        browser["pending_order_id"] = order.pk
+        browser.save()
+        with self.captureOnCommitCallbacks(execute=True):
+            response = self.client.get(reverse("payments:order_success", args=[order.pk]),
+                                       {"session_id": order.payment_reference})
+        order.refresh_from_db()
+        self.assertTrue(order.is_paid)
+        self.assertEqual(response.url, reverse("orders:success", args=[order.pk]))
+        notify.assert_called_once_with(order.pk)
+
+    @patch("payments.views.stripe.Webhook.construct_event")
+    @patch("payments.views._notify_reservation")
+    def test_real_sdk_webhook(self, notify, construct_event):
+        reservation = self.make_reservation()
+        payload = self.make_session(session_id=reservation.deposit_reference,
+                                    payment_type="reservation", object_id=reservation.pk,
+                                    amount=reservation.deposit_amount)
+        payload["object"] = "checkout.session"
+        construct_event.return_value = stripe.Event.construct_from({
+            "id": "evt_test_example", "object": "event", "type": "checkout.session.completed",
+            "data": {"object": payload},
+        }, "sk_test_fake")
+        with self.captureOnCommitCallbacks(execute=True):
+            response = self.client.post(reverse("payments:stripe_webhook"), data=b"{}",
+                                        content_type="application/json", HTTP_STRIPE_SIGNATURE="test_signature")
+        reservation.refresh_from_db()
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue(reservation.deposit_is_paid)
+        notify.assert_called_once_with(reservation.pk)
+
+    @patch("payments.services.get_stripe_client")
+    def test_real_sdk_open_session_reused(self, client):
+        order = self.make_order()
+        payload = self.make_session(session_id=order.payment_reference, payment_type="order",
+                                    object_id=order.pk, amount=order.total, status="open", payment_status="unpaid")
+        payload.update(object="checkout.session", url="https://checkout.stripe.com/test")
+        client.return_value.v1.checkout.sessions.retrieve.return_value = stripe.checkout.Session.construct_from(payload, "sk_test_fake")
+        browser = self.client.session
+        browser["pending_order_id"] = order.pk
+        browser.save()
+        response = self.client.post(reverse("payments:order", args=[order.pk]))
+        self.assertEqual(response.status_code, 303)
+        self.assertEqual(response.url, payload["url"])
+        client.return_value.v1.checkout.sessions.create.assert_not_called()
+
+    @patch("payments.services.get_stripe_client")
+    def test_real_sdk_new_session_created(self, client):
+        reservation = self.make_reservation()
+        reservation.deposit_reference = ""
+        reservation.save(update_fields=["deposit_reference"])
+        payload = self.make_session(session_id="cs_test_new", payment_type="reservation",
+                                    object_id=reservation.pk, amount=reservation.deposit_amount,
+                                    status="open", payment_status="unpaid")
+        payload.update(object="checkout.session", url="https://checkout.stripe.com/test")
+        client.return_value.v1.checkout.sessions.create.return_value = stripe.checkout.Session.construct_from(payload, "sk_test_fake")
+        browser = self.client.session
+        browser["last_reservation_id"] = reservation.pk
+        browser.save()
+        response = self.client.post(reverse("payments:reservation", args=[reservation.pk]))
+        reservation.refresh_from_db()
+        self.assertEqual(response.status_code, 303)
+        self.assertEqual(response.url, payload["url"])
+        self.assertEqual(reservation.deposit_reference, "cs_test_new")
