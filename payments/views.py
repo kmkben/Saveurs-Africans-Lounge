@@ -398,26 +398,33 @@ def order_success(request, pk):
 
     session_id = request.GET.get("session_id")
 
-    if session_id and session_id == order.payment_reference:
+    if (
+        session_id
+        and session_id == order.payment_reference
+        and not order.is_paid
+    ):
         try:
-            session = retrieve_checkout_session(
-                session_id
-            )
+            session = retrieve_checkout_session(session_id)
 
-            if not _session_matches(
-                session,
-                payment_type="order",
-                object_id=order.pk,
-                amount=order.total,
-            ):
-                logger.warning(
-                    "Invalid order success session #%s.",
-                    order.pk,
+            if (
+                _session_matches(
+                    session,
+                    payment_type="order",
+                    object_id=order.pk,
+                    amount=order.total,
                 )
+                and _session_is_paid(session)
+            ):
+                if not _mark_order_paid(session):
+                    logger.error(
+                        "Order #%s payment reconciliation failed.",
+                        order.pk,
+                    )
 
-        except (stripe.StripeError, ValueError):
+        except (stripe.StripeError, ValueError, TypeError):
             logger.exception(
-                "Order Checkout retrieval failed."
+                "Order #%s Checkout confirmation failed.",
+                order.pk,
             )
 
     order.refresh_from_db()
@@ -425,10 +432,8 @@ def order_success(request, pk):
     if not order.is_paid:
         messages.info(
             request,
-            (
-                "Votre paiement est en cours de "
-                "confirmation. Veuillez patienter."
-            ),
+            "Votre paiement est en cours de confirmation. "
+            "Veuillez patienter.",
         )
         return redirect(
             "orders:payment",
@@ -545,25 +550,30 @@ def reservation_success(request, pk):
     if (
         session_id
         and session_id == reservation.deposit_reference
+        and not reservation.deposit_is_paid
     ):
         try:
-            session = retrieve_checkout_session(
-                session_id
-            )
+            session = retrieve_checkout_session(session_id)
 
-            if not _session_matches(
-                session,
-                payment_type="reservation",
-                object_id=reservation.pk,
-                amount=reservation.deposit_amount,
-            ):
-                logger.warning(
-                    "Invalid reservation success session."
+            if (
+                _session_matches(
+                    session,
+                    payment_type="reservation",
+                    object_id=reservation.pk,
+                    amount=reservation.deposit_amount,
                 )
+                and _session_is_paid(session)
+            ):
+                if not _mark_reservation_paid(session):
+                    logger.error(
+                        "Reservation #%s payment reconciliation failed.",
+                        reservation.pk,
+                    )
 
-        except (stripe.StripeError, ValueError):
+        except (stripe.StripeError, ValueError, TypeError):
             logger.exception(
-                "Reservation Checkout retrieval failed."
+                "Reservation #%s Checkout confirmation failed.",
+                reservation.pk,
             )
 
     reservation.refresh_from_db()
@@ -571,10 +581,8 @@ def reservation_success(request, pk):
     if not reservation.deposit_is_paid:
         messages.info(
             request,
-            (
-                "Votre acompte est en cours de "
-                "confirmation. Veuillez patienter."
-            ),
+            "Votre acompte est en cours de confirmation. "
+            "Veuillez patienter.",
         )
         return redirect(
             "reservations:deposit",
